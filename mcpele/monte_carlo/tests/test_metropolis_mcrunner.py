@@ -2,7 +2,7 @@ from __future__ import division
 import numpy as np
 from pele.utils.rotations import vector_random_uniform_hypersphere
 from pele.potentials import Harmonic
-from pele.monte_carlo import Metropolis_MCrunner
+from mcpele.monte_carlo import Metropolis_MCrunner
 import unittest
 import logging
 

@@ -4,7 +4,7 @@ import numpy as np
 import random
 import os
 from mpi4py import MPI
-from pele.parallel_tempering import _MPI_Parallel_Tempering
+from mcpele.parallel_tempering import _MPI_Parallel_Tempering
 import time
 
 """

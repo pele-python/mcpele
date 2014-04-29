@@ -2,9 +2,9 @@ from __future__ import division
 import numpy as np
 import argparse
 from pele.utils.rotations import vector_random_uniform_hypersphere
-from pele.monte_carlo import Metropolis_MCrunner
-from pele.parallel_tempering import MPI_PT_RLhandshake
 from pele.potentials import Harmonic
+from mcpele.monte_carlo import Metropolis_MCrunner
+from mcpele.parallel_tempering import MPI_PT_RLhandshake
         
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="do nested sampling on a Lennard Jones cluster")
