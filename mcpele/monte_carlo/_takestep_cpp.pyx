@@ -7,8 +7,8 @@ from _pele_mc cimport cppTakeStep,_Cdef_TakeStep
 # RandomCoordsDisplacement
 #===============================================================================
 
-cdef extern from "pele/takestep.h" namespace "pele":
-    cdef cppclass cppRandomCoordsDisplacement "pele::RandomCoordsDisplacement":
+cdef extern from "mcpele/takestep.h" namespace "mcpele":
+    cdef cppclass cppRandomCoordsDisplacement "mcpele::RandomCoordsDisplacement":
         cppRandomCoordsDisplacement(size_t, size_t) except +
 
 cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):

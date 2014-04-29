@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <list>
 #include <memory>
-#include "array.h"
-#include "base_potential.h"
+#include "pele/array.h"
+#include "pele/base_potential.h"
 
 using std::list;
 using std::runtime_error;
@@ -14,7 +14,7 @@ using std::shared_ptr;
 using pele::Array;
 using std::sqrt;
 
-namespace pele{
+namespace mcpele{
 
 class MC;
 

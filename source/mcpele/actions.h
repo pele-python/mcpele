@@ -4,16 +4,16 @@
 #include <math.h>
 #include <algorithm>
 #include <list>
-#include "array.h"
+#include "pele/array.h"
+#include "pele/distance.h"
 #include "mc.h"
 #include "histogram.h"
-#include "distance.h"
 
 using std::runtime_error;
 using pele::Array;
 using std::sqrt;
 
-namespace pele{
+namespace mcpele{
 
 /*Adjust Step
  * 	factor is a multiplicative factor by which the stepsize is adjusted
@@ -75,7 +75,7 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 
 class RecordEnergyHistogram : public Action {
 protected:
-	pele::Histogram * _hist;
+	mcpele::Histogram * _hist;
 	double _bin;
 	size_t _eqsteps, _count;
 public:
@@ -108,7 +108,7 @@ public:
 };
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
-			_hist(new pele::Histogram(min, max, bin)),_bin(bin),
+			_hist(new mcpele::Histogram(min, max, bin)),_bin(bin),
 			_eqsteps(eqsteps),_count(0){}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) {

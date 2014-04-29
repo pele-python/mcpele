@@ -2,8 +2,7 @@
 #cython: wraparound=False
 ##aaacython: noncheck=True
 
-from pele.potentials import _pele
-from pele.potentials cimport _pele
+cimport pele.potentials._pele as _pele
 from libcpp cimport bool as cbool
 
 #===============================================================================
@@ -15,59 +14,59 @@ cdef extern from "<memory>" namespace "std":
         # Note: operator->, operator= are not supported
 
 #===============================================================================
-# pele::TakeStep
+# mcpele::TakeStep
 #===============================================================================
 
-cdef extern from "pele/mc.h" namespace "pele":
-    cdef cppclass cppTakeStep "pele::TakeStep"
+cdef extern from "mcpele/mc.h" namespace "mcpele":
+    cdef cppclass cppTakeStep "mcpele::TakeStep"
 
 cdef class _Cdef_TakeStep(object):
-    """This class is the python interface for the c++ pele::TakeStep base class implementation
+    """This class is the python interface for the c++ mcpele::TakeStep base class implementation
     """
     cdef cppTakeStep *thisptr
     
 #===============================================================================
-# pele::AcceptTest
+# mcpele::AcceptTest
 #===============================================================================
 
-cdef extern from "pele/mc.h" namespace "pele":
-    cdef cppclass cppAcceptTest "pele::AcceptTest"
+cdef extern from "mcpele/mc.h" namespace "mcpele":
+    cdef cppclass cppAcceptTest "mcpele::AcceptTest"
         
 cdef class _Cdef_AcceptTest(object):
-    """This class is the python interface for the c++ pele::AcceptTest base class implementation
+    """This class is the python interface for the c++ mcpele::AcceptTest base class implementation
     """
     cdef cppAcceptTest *thisptr
         
 #===============================================================================
-# pele::ConfTest
+# mcpele::ConfTest
 #===============================================================================
 
-cdef extern from "pele/mc.h" namespace "pele":
-    cdef cppclass cppConfTest "pele::ConfTest"
+cdef extern from "mcpele/mc.h" namespace "mcpele":
+    cdef cppclass cppConfTest "mcpele::ConfTest"
 
 cdef class _Cdef_ConfTest(object):
-    """This class is the python interface for the c++ pele::ConfTest base class implementation
+    """This class is the python interface for the c++ mcpele::ConfTest base class implementation
     """
     cdef cppConfTest *thisptr
 
 #===============================================================================
-# pele::Action
+# mcpele::Action
 #===============================================================================
 
-cdef extern from "pele/mc.h" namespace "pele":
-    cdef cppclass cppAction "pele::Action"
+cdef extern from "mcpele/mc.h" namespace "mcpele":
+    cdef cppclass cppAction "mcpele::Action"
         
 cdef class _Cdef_Action(object):
-    """This class is the python interface for the c++ pele::Action base class implementation
+    """This class is the python interface for the c++ mcpele::Action base class implementation
     """
     cdef cppAction *thisptr
 
 #===============================================================================
-# pele::MC
+# mcpele::MC
 #===============================================================================
 
-cdef extern from "pele/mc.h" namespace "pele":
-    cdef cppclass cppMC "pele::MC":
+cdef extern from "mcpele/mc.h" namespace "mcpele":
+    cdef cppclass cppMC "mcpele::MC":
         cppMC(_pele.cBasePotential *, _pele.Array[double]&, double, double) except +
         void one_iteration() except +
         void run(size_t) except +
@@ -87,6 +86,6 @@ cdef extern from "pele/mc.h" namespace "pele":
         double get_stepsize() except +
 
 cdef class _Cdef_BaseMC(object):
-    """This class is the python interface for the c++ pele::MC base class implementation
+    """This class is the python interface for the c++ mcpele::MC base class implementation
     """
     cdef cppMC* thisptr 

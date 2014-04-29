@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
-#include "array.h"
+#include "pele/array.h"
 #include "mc.h"
 
 
@@ -13,7 +13,7 @@ using std::runtime_error;
 using pele::Array;
 using std::sqrt;
 
-namespace pele{
+namespace mcpele{
 
 /*Random coords displacement, generates a random displacement for a N dimensional system
  * sampling from a N-dimensional sphere

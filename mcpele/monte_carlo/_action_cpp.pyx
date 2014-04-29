@@ -1,8 +1,7 @@
 # distutils: language = c++
 import numpy as np
 cimport numpy as np
-from pele.potentials import _pele
-from pele.potentials cimport _pele
+cimport pele.potentials._pele as _pele
 cimport cython
 import sys
 from libcpp cimport bool as cbool
@@ -12,8 +11,8 @@ from _pele_mc cimport cppAction,_Cdef_Action
 # Adjust step size
 #===============================================================================
 
-cdef extern from "pele/actions.h" namespace "pele": 
-    cdef cppclass cppAdjustStep "pele::AdjustStep":
+cdef extern from "mcpele/actions.h" namespace "mcpele": 
+    cdef cppclass cppAdjustStep "mcpele::AdjustStep":
         cppAdjustStep(double, double, size_t, size_t) except +
         
 cdef class _Cdef_AdjustStep(_Cdef_Action):
@@ -30,8 +29,8 @@ class AdjustStep(_Cdef_AdjustStep):
 # Record Energy Histogram
 #===============================================================================        
 
-cdef extern from "pele/actions.h" namespace "pele":
-    cdef cppclass cppRecordEnergyHistogram "pele::RecordEnergyHistogram":
+cdef extern from "mcpele/actions.h" namespace "mcpele":
+    cdef cppclass cppRecordEnergyHistogram "mcpele::RecordEnergyHistogram":
         cppRecordEnergyHistogram(double, double, double, size_t) except +
         _pele.Array[double] get_histogram() except +
         void print_terminal(size_t) except +

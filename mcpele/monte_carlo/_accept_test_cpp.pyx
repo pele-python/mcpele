@@ -8,8 +8,8 @@ from _pele_mc cimport cppAcceptTest,_Cdef_AcceptTest
 # Metropolis acceptance criterion
 #===============================================================================
 
-cdef extern from "pele/accept_test.h" namespace "pele":
-    cdef cppclass cppMetropolisTest "pele::MetropolisTest":
+cdef extern from "mcpele/accept_test.h" namespace "mcpele":
+    cdef cppclass cppMetropolisTest "mcpele::MetropolisTest":
         cppMetropolisTest(size_t) except +
 
 cdef class _Cdef_Metropolis(_Cdef_AcceptTest):

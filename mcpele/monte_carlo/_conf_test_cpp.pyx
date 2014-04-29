@@ -4,13 +4,12 @@ import sys
 from libcpp cimport bool as cbool
 import numpy as np
 cimport numpy as np
-from pele.potentials import _pele
-from pele.potentials cimport _pele
-from pele.optimize cimport _pele_opt 
+cimport pele.potentials._pele as _pele
+cimport pele.optimize._pele_opt as _pele_opt 
 from _pele_mc cimport cppConfTest,_Cdef_ConfTest
 
-cdef extern from "pele/conf_test.h" namespace "pele":
-    cdef cppclass cppCheckSphericalContainer "pele::CheckSphericalContainer":
+cdef extern from "mcpele/conf_test.h" namespace "mcpele":
+    cdef cppclass cppCheckSphericalContainer "mcpele::CheckSphericalContainer":
         cppCheckSphericalContainer(double) except+
 
 #===============================================================================

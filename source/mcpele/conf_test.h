@@ -6,15 +6,15 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
-#include "array.h"
+#include "pele/array.h"
+#include "pele/optimizer.h"
+#include "pele/distance.h"
 #include "mc.h"
-#include "optimizer.h"
-#include "distance.h"
 
 using std::runtime_error;
 using pele::Array;
 
-namespace pele{
+namespace mcpele{
 
 class CheckSphericalContainer:public ConfTest{
 protected:

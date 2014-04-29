@@ -1,8 +1,7 @@
 # distutils: language = c++
 import numpy as np
 cimport numpy as np
-from pele.potentials import _pele
-from pele.potentials cimport _pele
+cimport pele.potentials._pele as _pele
 cimport cython
 import sys
 from libcpp cimport bool as cbool

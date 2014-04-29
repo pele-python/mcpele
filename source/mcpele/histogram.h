@@ -4,7 +4,7 @@
 #include <math.h>
 #include <algorithm>
 #include <list>
-#include "array.h"
+#include "pele/array.h"
 #include <iostream>
 #include <limits>
 
@@ -12,7 +12,7 @@ using std::vector;
 using std::runtime_error;
 using std::sqrt;
 
-namespace pele{
+namespace mcpele{
 
 /*Dynamic histogram class that expand if energies outside of the initial bounds are found.
  * Being generous on the initial bounds saves a lot of time in reallocation of memory, at

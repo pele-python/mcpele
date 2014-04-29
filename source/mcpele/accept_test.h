@@ -5,14 +5,14 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
-#include "array.h"
+#include "pele/array.h"
 #include "mc.h"
 
 
 using std::runtime_error;
 using pele::Array;
 
-namespace pele{
+namespace mcpele{
 
 /*Metropolis acceptance criterion
  * */
