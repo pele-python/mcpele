@@ -1,5 +1,5 @@
-#ifndef _PELE_MC_H
-#define _PELE_MC_H
+#ifndef _MCPELE_MC_H
+#define _MCPELE_MC_H
 
 #include <math.h>
 #include <algorithm>

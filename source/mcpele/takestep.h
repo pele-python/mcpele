@@ -1,5 +1,5 @@
-#ifndef _PELE_TAKESTEP_H__
-#define _PELE_TAKESTEP_H__
+#ifndef _MCPELE_TAKESTEP_H__
+#define _MCPELE_TAKESTEP_H__
 
 #include <math.h>
 #include <algorithm>

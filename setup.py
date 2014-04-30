@@ -16,7 +16,7 @@ numpy_include = os.path.join(numpy_lib, 'core/include')
 pypath = os.environ['PYTHONPATH'].split(os.pathsep)
 found = False
 for path in pypath:
-    if 'pele' in path:
+    if '/pele' in path:
         pelepath = path
         found = True
         break

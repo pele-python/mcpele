@@ -1,5 +1,5 @@
-#ifndef _PELE_CONF_TEST_H__
-#define _PELE_CONF_TEST_H__
+#ifndef _MCPELE_CONF_TEST_H__
+#define _MCPELE_CONF_TEST_H__
 
 #include <iostream>
 #include <math.h>

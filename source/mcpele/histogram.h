@@ -1,5 +1,5 @@
-#ifndef _PELE_HISTOGRAM_H
-#define _PELE_HISTOGRAM_H
+#ifndef _MCPELE_HISTOGRAM_H
+#define _MCPELE_HISTOGRAM_H
 
 #include <math.h>
 #include <algorithm>

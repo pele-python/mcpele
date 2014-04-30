@@ -1,5 +1,5 @@
-#ifndef _PELE_ACCEPT_TEST_H__
-#define _PELE_ACCEPT_TEST_H__
+#ifndef _MCPELE_ACCEPT_TEST_H__
+#define _MCPELE_ACCEPT_TEST_H__
 
 #include <math.h>
 #include <algorithm>
