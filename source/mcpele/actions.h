@@ -70,7 +70,8 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 		}
 }
 
-/*Record energy histogram
+/*
+ * Record energy histogram
 */
 
 class RecordEnergyHistogram : public Action {
@@ -115,6 +116,44 @@ void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool ac
 	_count = mc->get_iterations_count();
 	if (_count > _eqsteps)
 		_hist->add_entry(energy);
+}
+
+/*
+ * Record energy time series, measuring every __record_every-th step.
+ */
+
+class RecordEnergyTimeseries : public Action{
+    private:
+        void _record_energy_value(const double energy);
+        const size_t _record_every;
+        size_t _counter;
+        std::vector<double> _time_series;
+    public:
+        RecordEnergyTimeseries(const size_t record_every);
+        virtual ~RecordEnergyTimeseries(){}
+        virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
+        pele::Array<double> get_time_series();
+};
+
+RecordEnergyTimeseries::RecordEnergyTimeseries(const size_t record_every)
+    :_record_every(record_every),_counter(0)
+    {
+        if (record_every==0) throw std::runtime_error("RecordEnergyTimeseries: __record_every expected to be at least 1");
+    }
+
+void RecordEnergyTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc){
+    ++_counter;
+    if (_counter % _record_every == 0)
+        _record_energy_value(energy);
+}
+
+void RecordEnergyTimeseries::_record_energy_value(const double energy){
+    _time_series.push_back(energy);
+}
+
+pele::Array<double> RecordEnergyTimeseries::get_time_series(){
+    _time_series.shrink_to_fit();
+    return pele::Array<double>(_time_series);
 }
 
 }
