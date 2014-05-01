@@ -10,11 +10,13 @@ import abc
 from pele.optimize import Result
 
 cdef class _Cdef_MC(_Cdef_BaseMC):
-
+    cdef _pele.BasePotential pot # this is stored so that the memory is not freed
+    
     def __cinit__(self, _pele.BasePotential potential, coords, temperature, stepsize, niter, *args, **kwargs):
         cdef np.ndarray[double, ndim=1] coordsc = np.array(coords, dtype=float)        
-        self.thisptr = <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> coordsc.data, coordsc.size),
-                                                                   temperature, stepsize)
+        self.pot = potential
+        self.thisptr = <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> coordsc.data, coordsc.size), 
+                                         temperature, stepsize)
         self.niter = niter
         
     def add_action(self, _Cdef_Action action):

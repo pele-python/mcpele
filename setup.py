@@ -82,7 +82,7 @@ depends = [os.path.join("source/mcpele", f) for f in os.listdir("source/mcpele/"
 # uncomment the next line to add extra optimization options
 
 include_pele_source = '-I'+ pelepath + '/source'
-extra_compile_args = [include_pele_source,'-std=c++0x',"-Wall", '-Wextra','-pedantic','-O3', "-march=native", "-mtune=native"]
+extra_compile_args = [include_pele_source,'-std=c++0x',"-Wall", '-Wextra','-pedantic','-O3']
 
 # note: to compile with debug on and to override extra_compile_args use, e.g.
 # OPT="-g -O2 -march=native" python setup.py ...
