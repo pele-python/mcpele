@@ -108,7 +108,7 @@ public:
 	double get_energy(){return _energy;}
 	double get_trial_energy(){return _trial_energy;}
 	Array<double> get_coords(){return _coords;}
-	double get_accepted_fraction(){return ((double) _accept_count)/(_accept_count+_E_reject_count+_conf_reject_count);};
+	double get_accepted_fraction(){return ((double) _accept_count)/_nitercount;};
 	double get_conf_rejection_fraction(){return ((double)_conf_reject_count)/_nitercount;};
 	size_t get_iterations_count(){return _nitercount;};
 	size_t get_neval(){return _neval;};
@@ -130,6 +130,8 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
 void MC::one_iteration()
 {
 	_success = true;
+	++_niter;
+	++_nitercount;
 
 	for(size_t i=0; i<_coords.size();++i){
 		_trial_coords[i] = _coords[i];
@@ -172,9 +174,6 @@ void MC::one_iteration()
 				action->action(_coords, _energy, _success, this);
 			}
 	}
-
-	++_niter;
-	++_nitercount;
 }
 
 void MC::run(size_t max_iter)

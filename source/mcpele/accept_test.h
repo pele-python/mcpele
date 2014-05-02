@@ -21,7 +21,6 @@ namespace mcpele{
 class MetropolisTest:public AcceptTest{
 protected:
 	size_t _seed;
-	double _infty;
 	std::mt19937_64 _generator;
 	std::uniform_real_distribution<double> _distribution;
 
@@ -33,8 +32,7 @@ public:
 };
 
 MetropolisTest::MetropolisTest(size_t rseed):
-		_seed(rseed), _infty(std::numeric_limits<double>::max()),
-		_generator(_seed), _distribution(0.0,1.0)
+		_seed(rseed), _generator(_seed), _distribution(0.0,1.0)
 		{
         #ifdef DEBUG
 			std::cout<<"seed Metropolis:"<<_seed<<std::endl;
@@ -46,9 +44,6 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy, Arra
 {
 	double rand, w, wcomp;
 	bool success = true;
-
-	if (trial_energy == _infty)
-	    return false;
 
 	wcomp = (trial_energy - old_energy) / temperature;
 	w = exp(-wcomp);

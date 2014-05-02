@@ -18,8 +18,10 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
 cdef class _Cdef_AdjustStep(_Cdef_Action):
     """This class is the python interface for the c++ pele::AdjustStep action class implementation
     """
+    cdef cppAdjustStep* newptr
     def __cinit__(self, target, factor, niter, navg):
         self.thisptr = <cppAction*>new cppAdjustStep(target, factor, niter, navg)
+        self.newptr = <cppAdjustStep*> self.thisptr
         
 class AdjustStep(_Cdef_AdjustStep):
     """This class is the python interface for the c++ AdjustStep implementation.
@@ -36,6 +38,7 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
         void print_terminal(size_t) except +
         double get_max() except +
         double get_min() except +
+        double get_mean() except +
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
         cppRecordEnergyTimeseries(const size_t) except +
         _pele.Array[double] get_time_series() except +
@@ -43,14 +46,15 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
 cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
     """This class is the python interface for the c++ pele::RecordEnergyHistogram acceptance test class implementation
     """
+    cdef cppRecordEnergyHistogram* newptr
     def __cinit__(self, min, max, bin, eqsteps):
         self.thisptr = <cppAction*>new cppRecordEnergyHistogram(min, max, bin, eqsteps)
+        self.newptr = <cppRecordEnergyHistogram*> self.thisptr
     
     @cython.boundscheck(False)
     def get_histogram(self):
         """return a histogram array"""
-        cdef cppRecordEnergyHistogram* newptr = <cppRecordEnergyHistogram*> self.thisptr
-        cdef _pele.Array[double] histi = newptr.get_histogram()
+        cdef _pele.Array[double] histi = self.newptr.get_histogram()
         cdef double *histdata = histi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
         cdef size_t i
@@ -60,15 +64,17 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
         return hist
         
     def print_terminal(self, ntot):
-        cdef cppRecordEnergyHistogram* newptr2 = <cppRecordEnergyHistogram*> self.thisptr
-        newptr2.print_terminal(ntot)
+        self.newptr.print_terminal(ntot)
     
     def get_bounds_val(self):
-        cdef cppRecordEnergyHistogram* newptr3 = <cppRecordEnergyHistogram*> self.thisptr
-        Emin = newptr3.get_min()
-        Emax = newptr3.get_max()
+        Emin = self.newptr.get_min()
+        Emax = self.newptr.get_max()
         return Emin, Emax
-        
+    
+    def get_mean(self):
+        mean = self.newptr.get_mean()
+        return mean
+    
 class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
     """This class is the python interface for the c++ RecordEnergyHistogram implementation.
     """
@@ -80,14 +86,15 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
 cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
     """This class is the python interface for the c++ bv::RecordEnergyTimeseries action class implementation
     """
+    cdef cppRecordEnergyTimeseries* newptr
     def __cinit__(self, record_every):
         self.thisptr = <cppAction*>new cppRecordEnergyTimeseries(record_every)
-    
+        self.newptr = <cppRecordEnergyTimeseries*> self.thisptr
+        
     @cython.boundscheck(False)
     def get_time_series(self):
         """return a energy time series array"""
-        cdef cppRecordEnergyTimeseries* newptr = <cppRecordEnergyTimeseries*> self.thisptr
-        cdef _pele.Array[double] seriesi = newptr.get_time_series()
+        cdef _pele.Array[double] seriesi = self.newptr.get_time_series()
         cdef double *seriesdata = seriesi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] series = np.zeros(seriesi.size())
         cdef size_t i

@@ -15,9 +15,10 @@ cdef extern from "mcpele/accept_test.h" namespace "mcpele":
 cdef class _Cdef_Metropolis(_Cdef_AcceptTest):
     """This class is the python interface for the c++ pele::MetropolisTest acceptance test class implementation
     """
+    cdef cppMetropolisTest* newptr
     def __cinit__(self, rseed):
         self.thisptr = <cppAcceptTest*>new cppMetropolisTest(rseed)
-        
+        self.newptr = <cppMetropolisTest*> self.thisptr
         
 class MetropolisTest(_Cdef_Metropolis):
     """This class is the python interface for the c++ Metropolis implementation.

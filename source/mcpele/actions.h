@@ -43,7 +43,7 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 
 	_count = mc->get_iterations_count();
 
-	if (_count < _niter)
+	if (_count <= _niter)
 		{
 			if (accepted == true)
 				++_naccepted;
@@ -77,7 +77,7 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 class RecordEnergyHistogram : public Action {
 protected:
 	mcpele::Histogram * _hist;
-	double _bin;
+	double _bin, _mean;
 	size_t _eqsteps, _count;
 public:
 	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
@@ -106,16 +106,20 @@ public:
 			min_ = _hist->min();
 			return min_;
 		};
+
+	virtual double get_mean(){return _mean;};
 };
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
-			_hist(new mcpele::Histogram(min, max, bin)),_bin(bin),
+			_hist(new mcpele::Histogram(min, max, bin)),_bin(bin),_mean(0.),
 			_eqsteps(eqsteps),_count(0){}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
 	_count = mc->get_iterations_count();
-	if (_count > _eqsteps)
+	if (_count > _eqsteps){
 		_hist->add_entry(energy);
+	    _mean = (_mean*(_count-1)+energy)/_count;
+	}
 }
 
 /*

@@ -14,9 +14,11 @@ cdef extern from "mcpele/takestep.h" namespace "mcpele":
 cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
     """
+    cdef cppRandomCoordsDisplacement* newptr
     def __cinit__(self, ndim, rseed):
         self.thisptr = <cppTakeStep*>new cppRandomCoordsDisplacement(ndim, rseed)
-
+        self.newptr = <cppRandomCoordsDisplacement*> self.thisptr
+        
 class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
     """This class is the python interface for the c++ RandomCoordsDisplacement implementation.
     """

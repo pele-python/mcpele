@@ -34,6 +34,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     """
     This class performs parallel tempering by a right-left handshake: alternates swaps with right and left 
     neighbours with geometrically distributed temperatures.
+    *pfreq: printing frequency
     """
     def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, base_directory=None, verbose=False):
         super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, base_directory=base_directory, verbose=verbose)

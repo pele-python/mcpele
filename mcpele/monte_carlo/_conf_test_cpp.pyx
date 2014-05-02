@@ -19,8 +19,10 @@ cdef extern from "mcpele/conf_test.h" namespace "mcpele":
 cdef class _Cdef_CheckSphericalContainer(_Cdef_ConfTest):
     """This class is the python interface for the c++ pele::CheckSphericalContainer configuration test class implementation
     """
+    cdef cppCheckSphericalContainer* newptr
     def __cinit__(self, radius):
         self.thisptr = <cppConfTest*>new cppCheckSphericalContainer(radius)
+        self.newptr = <cppCheckSphericalContainer*> self.thisptr
         
 class CheckSphericalContainer(_Cdef_CheckSphericalContainer):
     """This class is the python interface for the c++ CheckSphericalContainer implementation.

@@ -10,12 +10,12 @@ import abc
 from pele.optimize import Result
 
 cdef class _Cdef_MC(_Cdef_BaseMC):
-    cdef _pele.BasePotential pot # this is stored so that the memory is not freed
+    cdef _pele.BasePotential potential # this is stored so that the memory is not freed
     
-    def __cinit__(self, _pele.BasePotential potential, coords, temperature, stepsize, niter, *args, **kwargs):
+    def __cinit__(self, _pele.BasePotential pot, coords, temperature, stepsize, niter, *args, **kwargs):
         cdef np.ndarray[double, ndim=1] coordsc = np.array(coords, dtype=float)        
-        self.pot = potential
-        self.thisptr = <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> coordsc.data, coordsc.size), 
+        self.potential = pot
+        self.thisptr = <cppMC*>new cppMC(pot.thisptr, _pele.Array[double](<double*> coordsc.data, coordsc.size), 
                                          temperature, stepsize)
         self.niter = niter
         
@@ -97,6 +97,7 @@ class _BaseMCRunner(_Cdef_MC):
     def __init__(self, potential, coords, temperature, stepsize, niter):
         super(_BaseMCRunner,self).__init__(potential, coords, temperature, stepsize, niter)
         
+        self.potential = potential
         self.ndim = len(coords)
         self.start_coords = coords
         self.temperature = temperature
