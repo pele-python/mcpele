@@ -41,7 +41,6 @@ install:
   - cd pele
   - python setup.py build --fcompiler=gfortran
   - python setup.py install
-  - export PYTHONPATH=$(pwd):$PYTHONPATH
   - cd ..
   - python setup.py build --fcompiler=gfortran
   - python setup.py install

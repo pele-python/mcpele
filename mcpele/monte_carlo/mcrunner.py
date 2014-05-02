@@ -73,6 +73,8 @@ class Metropolis_MCrunner(_BaseMCRunner):
         Energies, step = np.linspace(Emin,Emax,num=len(hist),endpoint=False,retstep=True)
         assert(abs(step - self.binsize) < self.binsize/100)
         np.savetxt(fname, np.column_stack((Energies,hist)), delimiter='\t')
+        mean = self.histogram.get_mean()
+        return mean
     
     def get_histogram(self):
         """returns a energy list and a histogram list"""

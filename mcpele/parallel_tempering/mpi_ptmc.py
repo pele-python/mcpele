@@ -56,6 +56,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         self._master_print_temperatures()
         self._all_print_parameters()
         self.status_stream = open('{0}/{1}'.format(directory,'status'),'w')
+        self.histogram_mean_stream = open('{0}/{1}'.format(directory,'hist_mean'),'w')
+        self.histogram_mean_stream.write('{:<12}\t{:<12}\n'.format('iteration','<E>'))
         if self.rank == 0:
             self.permutations_stream = open(r'{0}/rem_permutations'.format(base_directory),'w')
     
@@ -95,7 +97,9 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             directory = "{0}/{1}".format(base_directory,self.rank)
             iteration = self.mcrunner.get_iterations_count()
             fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
-            self.mcrunner.dump_histogram(fname)
+            mean = self.mcrunner.dump_histogram(fname)
+            self.histogram_mean_stream.write('{:<12}\t{:>12.5f}\n'.format(iteration,mean))
+            
     
     def _all_print_status(self):
         status = self.mcrunner.get_status()
