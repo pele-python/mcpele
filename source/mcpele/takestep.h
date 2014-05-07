@@ -22,11 +22,9 @@ namespace mcpele{
 
 class RandomCoordsDisplacement:public TakeStep{
 protected:
-	size_t _seed;
+	size_t _seed, _N;
 	std::mt19937_64 _generator;
 	std::uniform_real_distribution<double> _distribution;
-	size_t _N;
-	double _rootN;
 public:
 	RandomCoordsDisplacement(size_t N, size_t rseed);
 	virtual ~RandomCoordsDisplacement() {}
@@ -35,7 +33,7 @@ public:
 };
 
 RandomCoordsDisplacement::RandomCoordsDisplacement(size_t N, size_t rseed):
-		_seed(rseed),_generator(_seed), _distribution(0.0,1.0), _N(N)
+		_seed(rseed), _N(N), _generator(_seed), _distribution(0.0,1.0)
 		{
         #ifdef DEBUG
 			std::cout<<"seed TakeStep:"<<_seed<<std::endl;
@@ -43,13 +41,47 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(size_t N, size_t rseed):
 		}
 
 void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
-	double norm2=0;
 	double rand;
 	//assert(coords.size() == _N);
 	for(size_t i=0; i<_N;++i){
 		rand = _distribution(_generator);
 		coords[i] += (0.5-rand)*stepsize;
 	}
+}
+
+/*
+ * Uniform Gaussian step
+ * this step samples first from the standard normal N(0,1) and outputs a random variate sampled from N(0,stepsize)
+ */
+
+class GaussianCoordsDisplacement:public TakeStep{
+protected:
+    size_t _seed, _N;
+    double _mean, _stdev;
+    std::mt19937_64 _generator;
+    std::normal_distribution<double> _distribution;
+public:
+    GaussianCoordsDisplacement(size_t N, size_t rseed);
+    virtual ~GaussianCoordsDisplacement() {}
+    virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
+    virtual size_t get_seed(){return _seed;}
+};
+
+GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t N, size_t rseed):
+        _seed(rseed), _N(N), _mean(0.0), _stdev(1.0),
+        _generator(_seed), _distribution(_mean,_stdev)
+        {
+        #ifdef DEBUG
+            std::cout<<"seed TakeStep:"<<_seed<<std::endl;
+        #endif
+        }
+
+void GaussianCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
+    //assert(coords.size() == _N);
+    for(size_t i=0; i<_N;++i){
+        double randz = _distribution(_generator); //this is sample from N(0,1)
+        coords[i] += randz*stepsize; //here the stepsize plays the same role as the stdev. This is sampled from N(0,stepsize)
+    }
 }
 
 }

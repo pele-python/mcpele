@@ -81,12 +81,12 @@ protected:
 	list< shared_ptr<AcceptTest> > _accept_tests;
 	list< shared_ptr<ConfTest> > _conf_tests;
 	shared_ptr<TakeStep> _takestep;
-	size_t _niter, _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
+	size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
 	bool _success;
 	/*nitercount is the cumulative count, it does not get reset at the end of run*/
 public:
-	/*need to keep these public to make them accessible to tests and actions*/
-	size_t _neval;
+	/*need to keep these public to make them accessible to tests and actions, be careful though!*/
+	size_t _niter, _neval;
 	double _stepsize, _temperature, _energy, _trial_energy;
 
 	MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize);
@@ -108,17 +108,19 @@ public:
 	double get_energy(){return _energy;}
 	double get_trial_energy(){return _trial_energy;}
 	Array<double> get_coords(){return _coords;}
+	Array<double> get_trial_coords(){return _trial_coords;}
 	double get_accepted_fraction(){return ((double) _accept_count)/_nitercount;};
 	double get_conf_rejection_fraction(){return ((double)_conf_reject_count)/_nitercount;};
 	size_t get_iterations_count(){return _nitercount;};
 	size_t get_neval(){return _neval;};
 	double get_stepsize(){return _stepsize;};
+	shared_ptr<pele::BasePotential> get_potential_ptr(){return _potential;}
 };
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize):
 		_coords(coords.copy()),_trial_coords(_coords.copy()), _potential(potential),
-			_niter(0), _nitercount(0), _accept_count(0), _E_reject_count(0),
-			_conf_reject_count(0), _success(true), _neval(0), _stepsize(stepsize), _temperature(temperature)
+			_nitercount(0), _accept_count(0), _E_reject_count(0), _conf_reject_count(0),
+			_success(true), _niter(0), _neval(0), _stepsize(stepsize), _temperature(temperature)
 
 		{
 			_energy = _potential->get_energy(_coords);
@@ -168,12 +170,11 @@ void MC::one_iteration()
 			_energy = _trial_energy;
 			++_accept_count;
 		}
-
-		/*currently if conf test is rejected we don't record the state*/
-		for (auto& action : _actions){
-				action->action(_coords, _energy, _success, this);
-			}
 	}
+
+    for (auto& action : _actions){
+        action->action(_coords, _energy, _success, this);
+        }
 }
 
 void MC::run(size_t max_iter)
