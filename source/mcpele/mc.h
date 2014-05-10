@@ -75,11 +75,11 @@ public:
 
 class MC {
 protected:
-	Array<double> _coords, _trial_coords;
-	shared_ptr<pele::BasePotential> _potential;
+    shared_ptr<pele::BasePotential> _potential;
+    Array<double> _coords, _trial_coords;
 	list< shared_ptr<Action> > _actions;
 	list< shared_ptr<AcceptTest> > _accept_tests;
-	list< shared_ptr<ConfTest> > _conf_tests;
+	list< shared_ptr<ConfTest> > _conf_tests, _late_conf_tests;
 	shared_ptr<TakeStep> _takestep;
 	size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
 	bool _success;
@@ -100,6 +100,7 @@ public:
 	void add_action(shared_ptr<Action> action){_actions.push_back(action);}
 	void add_accept_test( shared_ptr<AcceptTest> accept_test){_accept_tests.push_back(accept_test);}
 	void add_conf_test( shared_ptr<ConfTest> conf_test){_conf_tests.push_back(conf_test);}
+	void add_late_conf_test( shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
 	void set_takestep( shared_ptr<TakeStep> takestep){_takestep = takestep;}
 	void set_coordinates(Array<double>& coords, double energy){
 		_coords = coords.copy();
@@ -111,6 +112,7 @@ public:
 	Array<double> get_trial_coords(){return _trial_coords;}
 	double get_accepted_fraction(){return ((double) _accept_count)/_nitercount;};
 	double get_conf_rejection_fraction(){return ((double)_conf_reject_count)/_nitercount;};
+	double get_E_rejection_fraction(){return ((double)_E_reject_count)/_nitercount;};
 	size_t get_iterations_count(){return _nitercount;};
 	size_t get_neval(){return _neval;};
 	double get_stepsize(){return _stepsize;};
@@ -118,7 +120,7 @@ public:
 };
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize):
-		_coords(coords.copy()),_trial_coords(_coords.copy()), _potential(potential),
+            _potential(potential), _coords(coords.copy()),_trial_coords(_coords.copy()),
 			_nitercount(0), _accept_count(0), _E_reject_count(0), _conf_reject_count(0),
 			_success(true), _niter(0), _neval(0), _stepsize(stepsize), _temperature(temperature)
 
@@ -135,9 +137,7 @@ void MC::one_iteration()
 	++_niter;
 	++_nitercount;
 
-	for(size_t i=0; i<_coords.size();++i){
-		_trial_coords[i] = _coords[i];
-	}
+	_trial_coords.assign(_coords);
 
 	_takestep->takestep(_trial_coords, _stepsize, this);
 
@@ -163,12 +163,18 @@ void MC::one_iteration()
 		}
 
 		if (_success == true){
-			for(size_t i=0;i<_coords.size();++i)
-			{
-			  _coords[i] = _trial_coords[i];
-			}
-			_energy = _trial_energy;
-			++_accept_count;
+		    for (auto& test : _late_conf_tests ){
+                _success = test->test(_trial_coords, this);
+                if (_success == false)
+                    ++_conf_reject_count;
+                    break;
+		    }
+
+		    if (_success == true){
+                _coords.assign(_trial_coords);
+                _energy = _trial_energy;
+                ++_accept_count;
+		    }
 		}
 	}
 

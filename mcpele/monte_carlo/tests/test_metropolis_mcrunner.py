@@ -10,10 +10,11 @@ import logging
 class TestMetropolis(unittest.TestCase):
     
     def test_heat_capacity(self):
-        self.ndim = 3
+        nparticles=5
+        self.ndim = nparticles*3
         self.k=1
         self.origin = np.zeros(self.ndim)
-        self.potential = Harmonic(self.origin,self.k)
+        self.potential = Harmonic(self.origin,self.k,com=True)
         self.Emax = 2 #this choice is fundamentally arbitrary, it's only used to generate the initial configuration
         self.start_coords = vector_random_uniform_hypersphere(self.ndim) * np.sqrt(2*self.Emax) #coordinates sampled from Pow(ndim)
                
@@ -24,7 +25,7 @@ class TestMetropolis(unittest.TestCase):
             stepsize=0.5
             niter=1e6
             mcrunner = Metropolis_MCrunner(self.potential, self.start_coords, temperature, stepsize, niter, hEmax = 100, adjustf = 0.9, 
-                                           adjustf_niter = 1000, radius=100000)
+                                           adjustf_niter = 1000, radius=10000000)
             #MCMC 
             mcrunner.run()
             
@@ -34,10 +35,10 @@ class TestMetropolis(unittest.TestCase):
             average = np.average(binenergy,weights=hist)
                 
             average2 = np.average(np.square(binenergy),weights=hist)
-                
-            cv =  (average2 - average**2)/(T**2) + self.ndim/2
             
-            self.assertLess(cv-self.ndim,0.1,'failed for temperature {}, cv = {}'.format(T,cv))
+            cv =  (average2 - average**2)/(T**2) #+ self.ndim/2
+            
+            self.assertLess(abs(cv-(self.ndim-3)/2.0),1e-1,'failed for temperature {}, cv = {}'.format(T,cv))
 
 if __name__ == "__main__":
     logging.basicConfig(filename='Metropolis_mcrunner.log',level=logging.DEBUG)

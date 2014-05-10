@@ -28,6 +28,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     def add_conf_test(self, _Cdef_ConfTest test):
         self.thisptr.add_conf_test(shared_ptr[cppConfTest](test.thisptr))
     
+    def add_late_conf_test(self, _Cdef_ConfTest test):
+        self.thisptr.add_late_conf_test(shared_ptr[cppConfTest](test.thisptr))
+    
     def set_takestep(self, _Cdef_TakeStep takestep):
         self.thisptr.set_takestep(shared_ptr[cppTakeStep](takestep.thisptr))
         
@@ -64,6 +67,10 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     
     def get_conf_rejection_fraction(self):
         f = self.thisptr.get_conf_rejection_fraction()
+        return f
+    
+    def get_E_rejection_fraction(self):
+        f = self.thisptr.get_E_rejection_fraction()
         return f
     
     def get_neval(self):
@@ -131,6 +138,7 @@ class _BaseMCRunner(_Cdef_MC):
         status.iteration = self.get_iterations_count()
         status.acc_frac = self.get_accepted_fraction()
         status.conf_reject_frac = self.get_conf_rejection_fraction()
+        status.E_reject_frac = self.get_E_rejection_fraction()
         status.step_size = self.get_stepsize()
         status.energy = self.get_energy()
         status.neval = self.get_neval()

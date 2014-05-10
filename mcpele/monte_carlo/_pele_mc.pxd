@@ -75,6 +75,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         void add_action(shared_ptr[cppAction]) except +
         void add_accept_test( shared_ptr[cppAcceptTest]) except +
         void add_conf_test( shared_ptr[cppConfTest]) except +
+        void add_late_conf_test( shared_ptr[cppConfTest]) except +
         void set_takestep( shared_ptr[cppTakeStep]) except +
         void set_coordinates(_pele.Array[double]&, double) except +
         double get_energy() except +
@@ -82,6 +83,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         double get_accepted_fraction() except +
         size_t get_iterations_count() except +
         double get_conf_rejection_fraction() except +
+        double get_E_rejection_fraction() except +
         size_t get_neval() except +
         double get_stepsize() except +
 
