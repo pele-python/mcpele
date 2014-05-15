@@ -39,6 +39,7 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
         double get_max() except +
         double get_min() except +
         double get_mean() except +
+        double get_variance() except +
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
         cppRecordEnergyTimeseries(const size_t) except +
         _pele.Array[double] get_time_series() except +
@@ -71,10 +72,11 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
         Emax = self.newptr.get_max()
         return Emin, Emax
     
-    def get_mean(self):
+    def get_mean_variance(self):
         mean = self.newptr.get_mean()
-        return mean
-    
+        variance = self.newptr.get_variance()
+        return mean, variance
+        
 class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
     """This class is the python interface for the c++ RecordEnergyHistogram implementation.
     """

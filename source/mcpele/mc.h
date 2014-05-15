@@ -141,11 +141,14 @@ void MC::one_iteration()
 
 	_takestep->takestep(_trial_coords, _stepsize, this);
 
+	//std::cout<<"_conf_test size "<<_conf_tests.size()<<std::endl; //debug
+
 	for (auto& test : _conf_tests ){
-		_success = test->test(_trial_coords, this);
-		if (_success == false)
+	    _success = test->test(_trial_coords, this);
+		if (_success == false){
 			++_conf_reject_count;
 			break;
+		}
 	}
 
 	if (_success == true)
@@ -155,8 +158,7 @@ void MC::one_iteration()
 		
 		for (auto& test : _accept_tests ){
 			_success = test->test(_trial_coords, _trial_energy, _coords, _energy, _temperature, this);
-			if (_success == false)
-			{
+			if (_success == false){
 				++_E_reject_count;
 				break;
 			}
@@ -165,9 +167,10 @@ void MC::one_iteration()
 		if (_success == true){
 		    for (auto& test : _late_conf_tests ){
                 _success = test->test(_trial_coords, this);
-                if (_success == false)
+                if (_success == false){
                     ++_conf_reject_count;
                     break;
+                }
 		    }
 
 		    if (_success == true){
