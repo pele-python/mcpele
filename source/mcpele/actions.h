@@ -85,30 +85,30 @@ public:
 
 	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
 
-	virtual Array<double> get_histogram(){
+	Array<double> get_histogram(){
 		std::vector<double> vecdata =_hist.get_vecdata();
 		Array<double> histogram(vecdata);
 		Array<double> histogram2(histogram.copy());
 		return histogram2;
 	}
 
-	virtual void print_terminal(size_t ntot){
+	void print_terminal(size_t ntot){
 				_hist.print_terminal(ntot);};
 
-	virtual double get_max(){
+	double get_max(){
 		double max_;
 		max_ = _hist.max();
 		return max_;
 	};
 
-	virtual double get_min(){
+	double get_min(){
 			double min_;
 			min_ = _hist.min();
 			return min_;
 		};
 
-	virtual double get_mean(){return _mean;};
-	virtual double get_variance(){return (_mean2 - _mean*_mean);};
+	double get_mean(){return _mean;};
+	double get_variance(){return (_mean2 - _mean*_mean);};
 };
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):

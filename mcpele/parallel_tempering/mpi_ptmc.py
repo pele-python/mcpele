@@ -97,8 +97,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             directory = "{0}/{1}".format(base_directory,self.rank)
             iteration = self.mcrunner.get_iterations_count()
             fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
-            mean = self.mcrunner.dump_histogram(fname)
-            self.histogram_mean_stream.write('{:<12}\t{:>12.5f}\n'.format(iteration,mean))
+            mean, variance = self.mcrunner.dump_histogram(fname)
+            self.histogram_mean_stream.write('{:<12}\t{:>12.5f}\t{:>12.5f}\n'.format(iteration,mean,variance))
             
     
     def _all_print_status(self):

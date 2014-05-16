@@ -49,7 +49,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.binsize = hbinsize
         self.histogram = RecordEnergyHistogram(hEmin,hEmax,self.binsize, adjustf_niter)
         self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.step = RandomCoordsDisplacement(self.ndim, np.random.randint(i32max))
+        self.step = RandomCoordsDisplacement(np.random.randint(i32max))
         self.metropolis = MetropolisTest(np.random.randint(i32max))
         self.conftest = CheckSphericalContainer(radius)
         
@@ -74,7 +74,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         assert(abs(step - self.binsize) < self.binsize/100)
         np.savetxt(fname, np.column_stack((Energies,hist)), delimiter='\t')
         mean, variance = self.histogram.get_mean_variance()
-        return mean
+        return mean, variance
     
     def get_histogram(self):
         """returns a energy list and a histogram list"""

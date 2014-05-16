@@ -22,18 +22,18 @@ namespace mcpele{
 
 class RandomCoordsDisplacement:public TakeStep{
 protected:
-	size_t _seed, _N;
+	size_t _seed;
 	std::mt19937_64 _generator;
 	std::uniform_real_distribution<double> _distribution;
 public:
-	RandomCoordsDisplacement(size_t N, size_t rseed);
+	RandomCoordsDisplacement(size_t rseed);
 	virtual ~RandomCoordsDisplacement() {}
 	virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
-	virtual size_t get_seed(){return _seed;}
+	size_t get_seed(){return _seed;}
 };
 
-RandomCoordsDisplacement::RandomCoordsDisplacement(size_t N, size_t rseed):
-		_seed(rseed), _N(N), _generator(_seed), _distribution(0.0,1.0)
+RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
+		_seed(rseed), _generator(_seed), _distribution(0.0,1.0)
 		{
         #ifdef DEBUG
 			std::cout<<"seed TakeStep:"<<_seed<<std::endl;
@@ -43,7 +43,7 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(size_t N, size_t rseed):
 void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
 	double rand;
 	//assert(coords.size() == _N);
-	for(size_t i=0; i<_N;++i){
+	for(size_t i=0; i<coords.size();++i){
 		rand = _distribution(_generator);
 		coords[i] += (0.5-rand)*stepsize;
 	}
@@ -56,19 +56,19 @@ void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, 
 
 class GaussianCoordsDisplacement:public TakeStep{
 protected:
-    size_t _seed, _N;
+    size_t _seed;
     double _mean, _stdev;
     std::mt19937_64 _generator;
     std::normal_distribution<double> _distribution;
 public:
-    GaussianCoordsDisplacement(size_t N, size_t rseed);
+    GaussianCoordsDisplacement(size_t rseed);
     virtual ~GaussianCoordsDisplacement() {}
     virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
-    virtual size_t get_seed(){return _seed;}
+    size_t get_seed(){return _seed;}
 };
 
-GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t N, size_t rseed):
-        _seed(rseed), _N(N), _mean(0.0), _stdev(1.0),
+GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t rseed):
+        _seed(rseed), _mean(0.0), _stdev(1.0),
         _generator(_seed), _distribution(_mean,_stdev)
         {
         #ifdef DEBUG
@@ -78,7 +78,7 @@ GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t N, size_t rseed):
 
 void GaussianCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
     //assert(coords.size() == _N);
-    for(size_t i=0; i<_N;++i){
+    for(size_t i=0; i<coords.size();++i){
         double randz = _distribution(_generator); //this is sample from N(0,1)
         coords[i] += randz*stepsize; //here the stepsize plays the same role as the stdev. This is sampled from N(0,stepsize)
     }
