@@ -76,34 +76,34 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 
 class RecordEnergyHistogram : public Action {
 protected:
-	mcpele::Histogram * _hist;
+	mcpele::Histogram _hist;
 	double _bin, _mean, _mean2; //first and second moment of the distribution
 	size_t _eqsteps, _count;
 public:
 	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
-	virtual ~RecordEnergyHistogram() {delete _hist;}
+	virtual ~RecordEnergyHistogram(){};
 
 	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
 
 	virtual Array<double> get_histogram(){
-		std::vector<double> vecdata =_hist->get_vecdata();
+		std::vector<double> vecdata =_hist.get_vecdata();
 		Array<double> histogram(vecdata);
 		Array<double> histogram2(histogram.copy());
 		return histogram2;
 	}
 
 	virtual void print_terminal(size_t ntot){
-				_hist->print_terminal(ntot);};
+				_hist.print_terminal(ntot);};
 
 	virtual double get_max(){
 		double max_;
-		max_ = _hist->max();
+		max_ = _hist.max();
 		return max_;
 	};
 
 	virtual double get_min(){
 			double min_;
-			min_ = _hist->min();
+			min_ = _hist.min();
 			return min_;
 		};
 
@@ -112,13 +112,13 @@ public:
 };
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
-			_hist(new mcpele::Histogram(min, max, bin)),_bin(bin),_mean(0.),_mean2(0.),
+			_hist(mcpele::Histogram(min, max, bin)),_bin(bin),_mean(0.),_mean2(0.),
 			_eqsteps(eqsteps),_count(0){}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
 	_count = mc->get_iterations_count();
 	if (_count > _eqsteps){
-		_hist->add_entry(energy);
+		_hist.add_entry(energy);
 	    double count = _count - _eqsteps + 1;
 		_mean = (_mean*(count-1)+energy)/count;
 	    _mean2 = (_mean2*(count-1)+(energy*energy))/count;
