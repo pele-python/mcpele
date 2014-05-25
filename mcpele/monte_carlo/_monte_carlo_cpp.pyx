@@ -86,6 +86,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     
     def run(self):
         self.thisptr.run(self.niter)
+    
+#    def __reduce__(self):
+#        return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.stepsize, self.niter))
 
 class _BaseMCRunner(_Cdef_MC):
     """

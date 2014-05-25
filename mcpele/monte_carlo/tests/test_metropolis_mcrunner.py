@@ -14,7 +14,7 @@ class TestMetropolis(unittest.TestCase):
         self.ndim = nparticles*3
         self.k=1
         self.origin = np.zeros(self.ndim)
-        self.potential = Harmonic(self.origin,self.k,com=True)
+        self.potential = Harmonic(self.origin,self.k,com=True,ndim=3)
         self.Emax = 2 #this choice is fundamentally arbitrary, it's only used to generate the initial configuration
         self.start_coords = vector_random_uniform_hypersphere(self.ndim) * np.sqrt(2*self.Emax) #coordinates sampled from Pow(ndim)
                
@@ -23,7 +23,7 @@ class TestMetropolis(unittest.TestCase):
         for T in temperatures:
             temperature=T
             stepsize=0.5
-            niter=2e6
+            niter=1e6
             mcrunner = Metropolis_MCrunner(self.potential, self.start_coords, temperature, stepsize, niter, hEmax = 100, adjustf = 0.9, 
                                            adjustf_niter = 10000, radius=10000000)
             #MCMC 
