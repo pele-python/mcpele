@@ -86,10 +86,10 @@ public:
 	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
 
 	Array<double> get_histogram(){
-		std::vector<double> vecdata =_hist.get_vecdata();
+		std::vector<double> vecdata(_hist.get_vecdata());
 		Array<double> histogram(vecdata);
-		Array<double> histogram2(histogram.copy());
-		return histogram2;
+		//Array<double> histogram2(histogram.copy());
+		return histogram;
 	}
 
 	void print_terminal(size_t ntot){

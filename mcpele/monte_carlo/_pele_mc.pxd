@@ -90,4 +90,4 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation
     """
-    cdef cppMC* thisptr 
+    cdef cppMC* thisptr

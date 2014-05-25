@@ -1,6 +1,7 @@
 import numpy as np
 from mcpele.monte_carlo import _BaseMCRunner, RandomCoordsDisplacement, MetropolisTest 
 from mcpele.monte_carlo import CheckSphericalContainer, AdjustStep, RecordEnergyHistogram
+import pylab as plt
 
 """
 pele::MCrunner
@@ -87,7 +88,6 @@ class Metropolis_MCrunner(_BaseMCRunner):
         
     def show_histogram(self):
         """shows the histogram"""
-        import pylab as plt
         hist = self.histogram.get_histogram()
         val = [i*self.binsize for i in xrange(len(hist))]
         plt.hist(val, weights=hist,bins=len(hist))
