@@ -86,11 +86,9 @@ public:
 	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
 
 	Array<double> get_histogram() {
-		std::vector<double> vecdata = _hist.get_vecdata();
+		std::vector<double> vecdata(_hist.get_vecdata());
 		Array<double> histogram(vecdata);
-		Array<double> histogram2(histogram.copy());
-		//std::cout<<histogram2<<std::endl;
-		return histogram2;
+		return histogram.copy();
 	}
 
 	void print_terminal(size_t ntot){
@@ -161,7 +159,7 @@ void RecordEnergyTimeseries::_record_energy_value(const double energy){
 
 pele::Array<double> RecordEnergyTimeseries::get_time_series(){
     _time_series.shrink_to_fit();
-    return pele::Array<double>(_time_series);
+    return pele::Array<double>(_time_series).copy();
 }
 
 }

@@ -10,16 +10,31 @@ import abc
 from pele.optimize import Result
 
 cdef class _Cdef_MC(_Cdef_BaseMC):
-        
-    cdef public _pele.BasePotential potential # this is stored so that the memory is not freed
     
-    def __cinit__(self, _pele.BasePotential pot, coords, temperature, stepsize, niter, *args, **kwargs):
-        cdef np.ndarray[double, ndim=1] coordsc = np.array(coords, dtype=float)        
-        self.potential = pot
-        self.thisptr = <cppMC*>new cppMC(self.potential.thisptr, _pele.Array[double](<double*> coordsc.data, coordsc.size), 
+    # these are stored so that the memory is not freed
+    cdef public potential
+    cdef public niter
+    cdef public temperature
+    cdef public start_coords
+    cdef public stepsize
+    
+    def __cinit__(self, pot, coords, temp, pstepsize, pniter, *args, **kwargs):
+        
+        cdef np.ndarray[double, ndim=1] start_coords = np.array(coords, dtype=float)        
+        cdef _pele.BasePotential potential = pot
+        cdef temperature = temp
+        cdef niter = pniter
+        cdef stepsize = pstepsize
+        
+        self.thisptr = <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> start_coords.data, start_coords.size), 
                                          temperature, stepsize)
-        self.niter = niter
+        
+        # these are stored so that the memory is not freed
+        self.potential = potential 
+        self.start_coords = start_coords
         self.temperature = temperature
+        self.niter = niter
+        self.stepsize = stepsize
         
     def add_action(self, _Cdef_Action action):
         self.thisptr.add_action(shared_ptr[cppAction](action.thisptr))
@@ -43,6 +58,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     def set_temperature(self, T):
         self.temperature = T
         self.thisptr.set_temperature(T)
+    
+    def reset_energy(self):
+        self.thisptr.reset_energy()
     
     def get_energy(self):
         energy = self.thisptr.get_energy()
@@ -90,8 +108,8 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     def run(self):
         self.thisptr.run(self.niter)
     
-#    def __reduce__(self):
-#        return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.stepsize, self.niter))
+    def __reduce__(self):
+        return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.stepsize, self.niter))
 
 class _BaseMCRunner(_Cdef_MC):
     """
@@ -111,8 +129,6 @@ class _BaseMCRunner(_Cdef_MC):
         super(_BaseMCRunner,self).__init__(potential, coords, temperature, stepsize, niter)
         
         self.ndim = len(coords)
-        self.start_coords = coords
-        self.stepsize = stepsize
         self.result = Result()
         self.result.message = []
     

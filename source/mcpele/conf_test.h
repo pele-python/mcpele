@@ -19,26 +19,24 @@ namespace mcpele{
 class CheckSphericalContainer:public ConfTest{
 protected:
 	double _radius2;
+	size_t _ndim;
 public:
-	CheckSphericalContainer(double radius);
+	CheckSphericalContainer(double radius, size_t ndim);
 	virtual bool test(Array<double> &trial_coords, MC * mc);
 	virtual ~CheckSphericalContainer(){}
 };
 
-CheckSphericalContainer::CheckSphericalContainer(double radius):
-		_radius2(radius*radius){}
+CheckSphericalContainer::CheckSphericalContainer(double radius, size_t ndim):
+		_radius2(radius*radius),_ndim(ndim){}
 
 bool CheckSphericalContainer::test(Array<double> &trial_coords, MC * mc)
 {
-  double r2;
-  int i, j, N;
-  N = trial_coords.size();
+  size_t N = trial_coords.size();
 
-  for (i=0; i<N; i+=3)
+  for (size_t i=0; i<N; i+=_ndim)
   {
-
-	  r2 = 0;
-	  for (j=i; j<i+3; ++j)
+      double r2 = 0;
+	  for (size_t j=i; j<i+_ndim; ++j)
 	  {
 		r2 += trial_coords[j] * trial_coords[j];
 	  }

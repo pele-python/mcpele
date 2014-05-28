@@ -7,6 +7,7 @@
 #include <memory>
 #include "pele/array.h"
 #include "pele/base_potential.h"
+#include <stdexcept>
 
 using std::list;
 using std::runtime_error;
@@ -75,7 +76,7 @@ public:
 
 class MC {
 protected:
-    shared_ptr<pele::BasePotential> _potential;
+    pele::BasePotential * _potential;
     Array<double> _coords, _trial_coords;
 	list< shared_ptr<Action> > _actions;
 	list< shared_ptr<AcceptTest> > _accept_tests;
@@ -107,6 +108,12 @@ public:
 		_energy = energy;
 	}
 	double get_energy(){return _energy;}
+	//this function is necessary if for example some potential parameter has been varied
+	void reset_energy(){
+	    if(_niter > 0){throw std::runtime_error("MC::reset_energy after first iteration is forbidden");}
+	    _energy = _potential->get_energy(_coords);
+	    ++_neval;
+	}
 	double get_trial_energy(){return _trial_energy;}
 	Array<double> get_coords(){return _coords;}
 	Array<double> get_trial_coords(){return _trial_coords;}
@@ -116,7 +123,7 @@ public:
 	size_t get_iterations_count(){return _nitercount;};
 	size_t get_neval(){return _neval;};
 	double get_stepsize(){return _stepsize;};
-	shared_ptr<pele::BasePotential> get_potential_ptr(){return _potential;}
+	pele::BasePotential * get_potential_ptr(){return _potential;}
 };
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize):
@@ -127,8 +134,9 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
 		{
 			_energy = _potential->get_energy(_coords);
 			_trial_energy = _energy;
-			//std::cout<<"Energy is "<<_energy<<std::endl;
 			++_neval;
+			/*std::cout<<"mcrunner Energy is "<<_energy<<std::endl;
+			std::cout<<"mcrunner potential ptr is "<<_potential<<std::endl;*/
 		}
 
 void MC::one_iteration()

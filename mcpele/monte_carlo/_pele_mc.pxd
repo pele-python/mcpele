@@ -78,6 +78,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         void add_late_conf_test( shared_ptr[cppConfTest]) except +
         void set_takestep( shared_ptr[cppTakeStep]) except +
         void set_coordinates(_pele.Array[double]&, double) except +
+        void reset_energy() except +
         double get_energy() except +
         _pele.Array[double] get_coords() except +
         double get_accepted_fraction() except +

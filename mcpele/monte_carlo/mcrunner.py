@@ -39,7 +39,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
     """
     def __init__(self, potential, coords, temperature, stepsize, niter, 
                  hEmin=0, hEmax=100, hbinsize=0.01, radius=2.5,
-                 acceptance=0.5, adjustf=0.9, adjustf_niter = 1e4, adjustf_navg = 100):
+                 acceptance=0.5, adjustf=0.9, adjustf_niter = 1e4, adjustf_navg = 100, bdim=3):
         #construct base class
         super(Metropolis_MCrunner,self).__init__(potential, coords, temperature,
                                                   stepsize, niter)
@@ -52,7 +52,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
         self.step = RandomCoordsDisplacement(np.random.randint(i32max))
         self.metropolis = MetropolisTest(np.random.randint(i32max))
-        self.conftest = CheckSphericalContainer(radius)
+        self.conftest = CheckSphericalContainer(radius, bdim)
         
         #set up pele:MC
         self.set_takestep(self.step)
