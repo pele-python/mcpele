@@ -36,13 +36,13 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     neighbours with geometrically distributed temperatures.
     *pfreq: printing frequency
     """
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, base_directory=None, verbose=False):
-        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, base_directory=base_directory, verbose=verbose)
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, base_directory=None, verbose=False):
+        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, base_directory=base_directory, verbose=verbose)
         self.exchange_dic = {1:'right',-1:'left'}
         self.exchange_choice = random.choice(self.exchange_dic.keys()) 
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nproc,dtype='int32') #this is useful to print exchange permutations
-            
+        
     def _print(self):
         self._all_dump_histogram()
         self._all_print_status()
@@ -57,7 +57,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         self._all_print_parameters()
         self.status_stream = open('{0}/{1}'.format(directory,'status'),'w')
         self.histogram_mean_stream = open('{0}/{1}'.format(directory,'hist_mean'),'w')
-        self.histogram_mean_stream.write('{:<12}\t{:<12}\n'.format('iteration','<E>'))
+        self.histogram_mean_stream.write('{:<15}\t{:<15}\n'.format('iteration','<E>'))
         if self.rank == 0:
             self.permutations_stream = open(r'{0}/rem_permutations'.format(base_directory),'w')
     
@@ -98,7 +98,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             iteration = self.mcrunner.get_iterations_count()
             fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
             mean, variance = self.mcrunner.dump_histogram(fname)
-            self.histogram_mean_stream.write('{:<12}\t{:>12.5f}\t{:>12.5f}\n'.format(iteration,mean,variance))
+            self.histogram_mean_stream.write('{:<15}\t{:>15.15e}\t{:>15.15e}\n'.format(iteration,mean,variance))
             
     
     def _all_print_status(self):
@@ -106,7 +106,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         #print float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count)
         status.frac_acc_swaps = float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count)
         f = self.status_stream
-        if self.ptiter == 0:
+        if self.ptiter == self.skip:
             f.write('#')
             for key, value in status.iteritems():
                 f.write('{:<12}\t'.format(key))

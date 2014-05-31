@@ -19,7 +19,7 @@ class _MPI_Parallel_Tempering(object):
     """
     __metaclass__  = abc.ABCMeta
     
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, base_directory=None, verbose=False):
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, base_directory=None, verbose=False):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
         self.nproc = self.comm.Get_size() #total number of processors (replicas)
@@ -30,6 +30,7 @@ class _MPI_Parallel_Tempering(object):
         self.ex_outstream = open("exchanges", "w")
         self.verbose = verbose
         self.ptiter = 0
+        self.skip = skip #might want to skip the first few swaps to allow for equilibration
         self.pfreq = pfreq
         self.no_exchange_int = -12345 #this NEGATIVE number in exchange pattern means that no exchange should be attempted
         self.initialised = False #flag
@@ -78,9 +79,10 @@ class _MPI_Parallel_Tempering(object):
         result = self.mcrunner.get_results()
         self.energy = result.energy
         self.config = result.coords
-        self._attempt_exchange()
-        #print and increase parallel tempering count
-        self._print()
+        if self.ptiter >= self.skip:
+            self._attempt_exchange()
+            #print and increase parallel tempering count
+            self._print()
         self.ptiter += 1
          
             

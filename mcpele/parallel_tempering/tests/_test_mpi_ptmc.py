@@ -12,12 +12,12 @@ if __name__ == "__main__":
     #parser.add_argument("-K", "--nreplicas", type=int, help="number of replicas", default=300)
     args = parser.parse_args()
     
-    ndim = 3
+    bdim = 3
     k=1
     origin = np.zeros(ndim)
-    potential = Harmonic(origin,k,com=False,ndim=ndim)
+    potential = Harmonic(origin,k,bdim=bdim,com=False)
     Emax = 3
-    start_coords = vector_random_uniform_hypersphere(ndim) * np.sqrt(2*Emax) #coordinates sampled from Pow(ndim)
+    start_coords = vector_random_uniform_hypersphere(bdim) * np.sqrt(2*Emax) #coordinates sampled from Pow(ndim)
     path = args.base_directory
     
     #Parallel Tempering
