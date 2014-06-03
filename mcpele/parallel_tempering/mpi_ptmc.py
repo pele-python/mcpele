@@ -134,11 +134,11 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         perform all the tasks required prior to starting the computation
         """
         self._get_temps()
-        self.config, self.energy = self.mcrunner.get_config()
         self.T = self._scatter_single_value(self.Tarray)
         if self.verbose:
             print "processor {0} temperature {1}".format(self.rank,self.T)
         self.mcrunner.set_control(self.T)
+        self.config, self.energy = self.mcrunner.get_config()
         self._print_initialise()
         self.initialised = True
     

@@ -14,7 +14,7 @@ if __name__ == "__main__":
     
     bdim = 3
     k=1
-    origin = np.zeros(ndim)
+    origin = np.zeros(bdim)
     potential = Harmonic(origin,k,bdim=bdim,com=False)
     Emax = 3
     start_coords = vector_random_uniform_hypersphere(bdim) * np.sqrt(2*Emax) #coordinates sampled from Pow(ndim)
