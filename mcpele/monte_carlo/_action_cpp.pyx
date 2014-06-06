@@ -41,8 +41,9 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
         double get_mean() except +
         double get_variance() except +
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
-        cppRecordEnergyTimeseries(const size_t) except +
+        cppRecordEnergyTimeseries(const size_t, const size_t) except +
         _pele.Array[double] get_time_series() except +
+        void clear() except +
         
 cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
     """This class is the python interface for the c++ pele::RecordEnergyHistogram acceptance test class implementation
@@ -89,8 +90,8 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
     """This class is the python interface for the c++ bv::RecordEnergyTimeseries action class implementation
     """
     cdef cppRecordEnergyTimeseries* newptr
-    def __cinit__(self, record_every):
-        self.thisptr = <cppAction*>new cppRecordEnergyTimeseries(record_every)
+    def __cinit__(self, niter, record_every):
+        self.thisptr = <cppAction*>new cppRecordEnergyTimeseries(niter, record_every)
         self.newptr = <cppRecordEnergyTimeseries*> self.thisptr
         
     @cython.boundscheck(False)
@@ -104,6 +105,10 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
             series[i] = seriesdata[i]
               
         return series
+    
+    def clear(self):
+        """clears time series"""
+        self.newptr.clear()
     
 class RecordEnergyTimeseries(_Cdef_RecordEnergyTimeseries):
     """This class is the python interface for the c++ RecordEnergyTimeseries implementation.
