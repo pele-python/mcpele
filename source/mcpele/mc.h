@@ -117,6 +117,7 @@ public:
 	double get_trial_energy(){return _trial_energy;}
 	Array<double> get_coords(){return _coords.copy();}
 	Array<double> get_trial_coords(){return _trial_coords.copy();}
+	double get_norm_coords(){return norm(_coords);}
 	double get_accepted_fraction(){return ((double) _accept_count)/_nitercount;};
 	double get_conf_rejection_fraction(){return ((double)_conf_reject_count)/_nitercount;};
 	double get_E_rejection_fraction(){return ((double)_E_reject_count)/_nitercount;};

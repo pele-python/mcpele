@@ -78,6 +78,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
               
         return x
     
+    def get_norm_coords(self):
+        return self.thisptr.get_norm_coords()
+    
     def get_accepted_fraction(self):
         accepted_frac = self.thisptr.get_accepted_fraction()
         return accepted_frac

@@ -87,6 +87,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         double get_E_rejection_fraction() except +
         size_t get_neval() except +
         double get_stepsize() except +
+        double get_norm_coords() except +
 
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation
