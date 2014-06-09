@@ -72,13 +72,13 @@ class _MPI_Parallel_Tempering(object):
         *attempt an exchange
         """
         #set configuration and temperature at which want to perform run
-        self.mcrunner.set_config(self.config, self.energy)
+        self.mcrunner.set_config(np.array(self.config,dtype='d'), self.energy)
         #now run the MCMC walk
         self.mcrunner.run()
         #collect the results
         result = self.mcrunner.get_results()
         self.energy = result.energy
-        self.config = result.coords
+        self.config = np.array(result.coords,dtype='d')
         if self.ptiter >= self.skip:
             self._attempt_exchange()
             #print and increase parallel tempering count
@@ -97,6 +97,7 @@ class _MPI_Parallel_Tempering(object):
                 print "processor {0} iteration {1}".format(self.rank,ptiter)
             self.one_iteration()
             ptiter += 1
+        print 'process {0} terminated'.format(self.rank)
     
     def _scatter_data(self, in_send_array, adim):
         """
@@ -171,6 +172,7 @@ class _MPI_Parallel_Tempering(object):
         swap data between two processors, the message sent buffer is replaced with the received message
         """
         assert(dest == source)
+        data = np.array(data,dtype='d')
         self.comm.Sendrecv_replace(data, dest=dest,source=source)
         return data
     
@@ -206,7 +208,7 @@ class _MPI_Parallel_Tempering(object):
         exchange_buddy = self._scatter_single_value(np.array(exchange_pattern,dtype='d'))
         exchange_buddy = int(exchange_buddy)
         #attempt configurations swap
-        self.config = self._exchange_pairs(exchange_buddy, self.config)
+        self.config = self._exchange_pairs(exchange_buddy, np.array(self.config,dtype='d'))
         #swap energies
         E = self._exchange_pairs(exchange_buddy, np.array([self.energy],dtype='d'))
         assert(len(E)==1)
