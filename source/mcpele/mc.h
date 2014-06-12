@@ -107,23 +107,23 @@ public:
 		_coords = coords.copy();
 		_energy = energy;
 	}
-	double get_energy(){return _energy;}
+	double get_energy() const {return _energy;}
 	//this function is necessary if for example some potential parameter has been varied
 	void reset_energy(){
 	    if(_niter > 0){throw std::runtime_error("MC::reset_energy after first iteration is forbidden");}
 	    _energy = _potential->get_energy(_coords);
 	    ++_neval;
 	}
-	double get_trial_energy(){return _trial_energy;}
-	Array<double> get_coords(){return _coords.copy();}
-	Array<double> get_trial_coords(){return _trial_coords.copy();}
-	double get_norm_coords(){return norm(_coords);}
-	double get_accepted_fraction(){return ((double) _accept_count)/_nitercount;};
-	double get_conf_rejection_fraction(){return ((double)_conf_reject_count)/_nitercount;};
-	double get_E_rejection_fraction(){return ((double)_E_reject_count)/_nitercount;};
-	size_t get_iterations_count(){return _nitercount;};
-	size_t get_neval(){return _neval;};
-	double get_stepsize(){return _stepsize;};
+	double get_trial_energy() const {return _trial_energy;}
+	Array<double> get_coords() const {return _coords.copy();}
+	Array<double> get_trial_coords() const {return _trial_coords.copy();}
+	double get_norm_coords() const {return norm(_coords);}
+	double get_accepted_fraction() const {return ((double) _accept_count)/_nitercount;};
+	double get_conf_rejection_fraction() const {return ((double)_conf_reject_count)/_nitercount;};
+	double get_E_rejection_fraction() const {return ((double)_E_reject_count)/_nitercount;};
+	size_t get_iterations_count() const {return _nitercount;};
+	size_t get_neval() const {return _neval;};
+	double get_stepsize() const {return _stepsize;};
 	pele::BasePotential * get_potential_ptr(){return _potential;}
 };
 

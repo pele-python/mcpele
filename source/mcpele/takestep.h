@@ -29,7 +29,7 @@ public:
 	RandomCoordsDisplacement(size_t rseed);
 	virtual ~RandomCoordsDisplacement() {}
 	virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
-	size_t get_seed(){return _seed;}
+	size_t get_seed() const {return _seed;}
 };
 
 RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
@@ -64,7 +64,7 @@ public:
     GaussianCoordsDisplacement(size_t rseed);
     virtual ~GaussianCoordsDisplacement() {}
     virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
-    size_t get_seed(){return _seed;}
+    size_t get_seed() const {return _seed;}
 };
 
 GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t rseed):

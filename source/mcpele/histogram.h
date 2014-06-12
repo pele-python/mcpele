@@ -36,14 +36,14 @@ public:
 	Histogram(double min, double max, double bin);
 	~Histogram() {}
 	void add_entry(double entry);
-	double max(){return _max;};
-	double min(){return _min;};
-	double bin(){return _bin;};
-	size_t size(){return _N;};
+	double max() const {return _max;};
+	double min() const {return _min;};
+	double bin() const {return _bin;};
+	size_t size() const {return _N;};
 	vector<double>::iterator begin();
 	vector<double>::iterator end();
-	vector<double> get_vecdata(){return _hist;};
-	void print_terminal(size_t ntot){
+	vector<double> get_vecdata() const {return _hist;};
+	void print_terminal(size_t ntot) const {
 		for(size_t i=0; i<_hist.size();++i)
 		{
 			std::cout << i << "-" << (i+1) << ": ";

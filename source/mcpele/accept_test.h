@@ -28,7 +28,7 @@ public:
 	MetropolisTest(size_t rseed);
 	virtual ~MetropolisTest() {}
 	virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc);
-	size_t get_seed(){return _seed;}
+	size_t get_seed() const {return _seed;}
 };
 
 MetropolisTest::MetropolisTest(size_t rseed):
