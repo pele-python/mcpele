@@ -36,8 +36,10 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.niter = niter
         self.stepsize = stepsize
         
+    #def add_action(self, _Cdef_Action action):
+    #    self.thisptr.add_action(shared_ptr[cppAction](action.thisptr))
     def add_action(self, _Cdef_Action action):
-        self.thisptr.add_action(shared_ptr[cppAction](action.thisptr))
+        self.thisptr.add_action(action.thisptr)
     
     def add_accept_test(self, _Cdef_AcceptTest test):
         self.thisptr.add_accept_test(shared_ptr[cppAcceptTest](test.thisptr))
