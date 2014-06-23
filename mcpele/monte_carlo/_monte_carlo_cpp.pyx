@@ -36,22 +36,20 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.niter = niter
         self.stepsize = stepsize
         
-    #def add_action(self, _Cdef_Action action):
-    #    self.thisptr.add_action(shared_ptr[cppAction](action.thisptr))
     def add_action(self, _Cdef_Action action):
         self.thisptr.add_action(action.thisptr)
     
     def add_accept_test(self, _Cdef_AcceptTest test):
-        self.thisptr.add_accept_test(shared_ptr[cppAcceptTest](test.thisptr))
+        self.thisptr.add_accept_test(test.thisptr)
     
     def add_conf_test(self, _Cdef_ConfTest test):
-        self.thisptr.add_conf_test(shared_ptr[cppConfTest](test.thisptr))
+        self.thisptr.add_conf_test(test.thisptr)
     
     def add_late_conf_test(self, _Cdef_ConfTest test):
-        self.thisptr.add_late_conf_test(shared_ptr[cppConfTest](test.thisptr))
+        self.thisptr.add_late_conf_test(test.thisptr)
     
     def set_takestep(self, _Cdef_TakeStep takestep):
-        self.thisptr.set_takestep(shared_ptr[cppTakeStep](takestep.thisptr))
+        self.thisptr.set_takestep(takestep.thisptr)
         
     def set_coordinates(self, coords, energy):
         cdef np.ndarray[double, ndim=1] ccoords = np.array(coords, dtype=float)

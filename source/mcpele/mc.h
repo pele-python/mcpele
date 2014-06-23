@@ -76,15 +76,16 @@ public:
 
 class MC {
 public:
-    typedef std::vector<Action*> actions_t;
+    typedef std::list<Action*> actions_t;
+    typedef std::list<AcceptTest*> accept_t;
+    typedef std::list<ConfTest*> conf_t;
 protected:
     pele::BasePotential * _potential;
     Array<double> _coords, _trial_coords;
-    //list< shared_ptr<Action> > _actions;
     actions_t _actions;
-    list< shared_ptr<AcceptTest> > _accept_tests;
-    list< shared_ptr<ConfTest> > _conf_tests, _late_conf_tests;
-    shared_ptr<TakeStep> _takestep;
+    accept_t _accept_tests;
+    conf_t _conf_tests, _late_conf_tests;
+    TakeStep* _takestep;
     size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
     bool _success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
@@ -101,12 +102,11 @@ public:
     void run(size_t max_iter);
     void set_temperature(double T){_temperature = T;}
     void set_stepsize(double stepsize){_stepsize = stepsize;}
-    //void add_action(shared_ptr<Action> action){_actions.push_back(action);}
     void add_action(Action* action){_actions.push_back(action);}
-    void add_accept_test( shared_ptr<AcceptTest> accept_test){_accept_tests.push_back(accept_test);}
-    void add_conf_test( shared_ptr<ConfTest> conf_test){_conf_tests.push_back(conf_test);}
-    void add_late_conf_test( shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
-    void set_takestep( shared_ptr<TakeStep> takestep){_takestep = takestep;}
+    void add_accept_test(AcceptTest* accept_test){_accept_tests.push_back(accept_test);}
+    void add_conf_test(ConfTest* conf_test){_conf_tests.push_back(conf_test);}
+    void add_late_conf_test(ConfTest* conf_test){_late_conf_tests.push_back(conf_test);}
+    void set_takestep( TakeStep* takestep){_takestep = takestep;}
     void set_coordinates(Array<double>& coords, double energy){
 	    _coords = coords.copy();
 	    _energy = energy;
@@ -156,8 +156,8 @@ void MC::one_iteration()
 
     //std::cout<<"_conf_test size "<<_conf_tests.size()<<std::endl; //debug
 
-    for (auto& test : _conf_tests ){
-	_success = test->test(_trial_coords, this);
+    for (conf_t::iterator test = _conf_tests.begin(); test != _conf_tests.end(); ++test){
+	_success = (*test)->test(_trial_coords, this);
 	    if (_success == false){
 		    ++_conf_reject_count;
 		    break;
@@ -169,8 +169,8 @@ void MC::one_iteration()
 	    _trial_energy = _potential->get_energy(_trial_coords);
 	    ++_neval;
 
-	    for (auto& test : _accept_tests ){
-		    _success = test->test(_trial_coords, _trial_energy, _coords, _energy, _temperature, this);
+	    for (accept_t::iterator test = _accept_tests.begin(); test != _accept_tests.end(); ++test){
+		    _success = (*test)->test(_trial_coords, _trial_energy, _coords, _energy, _temperature, this);
 		    if (_success == false){
 			    ++_E_reject_count;
 			    break;
@@ -178,24 +178,22 @@ void MC::one_iteration()
 	    }
 
 	    if (_success == true){
-		for (auto& test : _late_conf_tests ){
-	    _success = test->test(_trial_coords, this);
-	    if (_success == false){
-		++_conf_reject_count;
-		break;
-	    }
+
+		for (conf_t::iterator test = _late_conf_tests.begin(); test != _late_conf_tests.end(); ++test){
+		    _success = (*test)->test(_trial_coords, this);
+		    if (_success == false){
+			++_conf_reject_count;
+			break;
+		    }
 		}
 
 		if (_success == true){
-	    _coords.assign(_trial_coords);
-	    _energy = _trial_energy;
-	    ++_accept_count;
+		    _coords.assign(_trial_coords);
+		    _energy = _trial_energy;
+		    ++_accept_count;
 		}
 	    }
     }
-    //for (auto& action : _actions){
-    //    action->action(_coords, _energy, _success, this);
-    //    }
     for (actions_t::iterator action = _actions.begin(); action != _actions.end(); ++action){
 	(*action)->action(_coords, _energy, _success, this);
     }
