@@ -25,8 +25,9 @@ class MC;
 
 class Action {
 public:
-	virtual ~Action(){}
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc) =0;
+    Action(){std::cout<< "Action()" << std::endl;}
+    virtual ~Action(){std::cout << "~Action()" << std::endl;}
+    virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc) =0;
 };
 
 /*
@@ -35,8 +36,10 @@ public:
 
 class AcceptTest{
 public:
-	virtual ~AcceptTest(){}
-	virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc) =0;
+    AcceptTest(){std::cout << "AcceptTest()" << std::endl;}
+    //virtual ~AcceptTest(){}
+    virtual ~AcceptTest(){std::cout << "~AcceptTest()" << std::endl;}
+    virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc) =0;
 };
 
 /*
@@ -45,8 +48,10 @@ public:
 
 class ConfTest{
 public:
-	virtual ~ConfTest(){}
-	virtual bool test(Array<double> &trial_coords, MC * mc) =0;
+    ConfTest(){std::cout << "ConfTest()" << std::endl;}
+    //virtual ~ConfTest(){}
+    virtual ~ConfTest(){std::cout << "~ConfTest()" << std::endl;}
+    virtual bool test(Array<double> &trial_coords, MC * mc) =0;
 };
 
 /*
@@ -55,8 +60,10 @@ public:
 
 class TakeStep{
 public:
-	virtual ~TakeStep(){}
-	virtual void takestep(Array<double> &coords, double stepsize, MC * mc) =0;
+    TakeStep(){std::cout << "TakeStep()" << std::endl;}
+    //virtual ~TakeStep(){}
+    virtual ~TakeStep(){std::cout << "TakeStep()" << std::endl;}
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc) =0;
 };
 
 /*
@@ -96,7 +103,7 @@ public:
 
     MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize);
 
-    ~MC(){}
+    virtual ~MC(){}
 
     void one_iteration();
     void run(size_t max_iter);
@@ -156,7 +163,9 @@ void MC::one_iteration()
 
     //std::cout<<"_conf_test size "<<_conf_tests.size()<<std::endl; //debug
 
+    //for (auto& test : _conf_tests ){
     for (conf_t::iterator test = _conf_tests.begin(); test != _conf_tests.end(); ++test){
+	//_success = test->test(_trial_coords, this);
 	_success = (*test)->test(_trial_coords, this);
 	    if (_success == false){
 		    ++_conf_reject_count;

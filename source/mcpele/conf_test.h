@@ -27,7 +27,10 @@ public:
 };
 
 CheckSphericalContainer::CheckSphericalContainer(double radius, size_t ndim):
-		_radius2(radius*radius),_ndim(ndim){}
+		_radius2(radius*radius),_ndim(ndim)
+    {
+	//std::cout << "construct CheckSphericalContainer" << std::endl;
+    }
 
 bool CheckSphericalContainer::test(Array<double> &trial_coords, MC * mc)
 {
