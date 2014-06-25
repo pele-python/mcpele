@@ -24,7 +24,7 @@ class RandomCoordsDisplacement:public TakeStep{
 protected:
 	size_t _seed;
 	static std::mt19937_64 _generator;
-	static std::uniform_real_distribution<double> _distribution;
+	std::uniform_real_distribution<double> _distribution;
 public:
 	RandomCoordsDisplacement(size_t rseed);
 	virtual ~RandomCoordsDisplacement() {}

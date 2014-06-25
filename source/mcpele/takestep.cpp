@@ -4,11 +4,10 @@ namespace mcpele{
 
 //static members of RandomCoordsDisplacement
 std::mt19937_64 RandomCoordsDisplacement::_generator;
-std::uniform_real_distribution<double> RandomCoordsDisplacement::_distribution(0.0,1.0);
 
 //other members
 RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
-		_seed(rseed)
+		_seed(rseed),_distribution(0.0,1.0)
 		{
 		    set_generator_seed(_seed);
         #ifdef DEBUG
