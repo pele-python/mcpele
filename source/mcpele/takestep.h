@@ -43,13 +43,14 @@ class GaussianCoordsDisplacement:public TakeStep{
 protected:
     size_t _seed;
     double _mean, _stdev;
-    std::mt19937_64 _generator;
+    static std::mt19937_64 _generator;
     std::normal_distribution<double> _distribution;
 public:
     GaussianCoordsDisplacement(size_t rseed);
     virtual ~GaussianCoordsDisplacement() {}
     virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
     size_t get_seed() const {return _seed;}
+    static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
 
 }
