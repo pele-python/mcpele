@@ -27,8 +27,8 @@ protected:
 	std::uniform_real_distribution<double> _distribution;
 public:
 	RandomCoordsDisplacement(size_t rseed);
-	//virtual ~RandomCoordsDisplacement() {}
-	virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" << std::endl; }
+	virtual ~RandomCoordsDisplacement() {}
+	//virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" << std::endl; }
 	virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
 	size_t get_seed() const {return _seed;}
 };
@@ -39,7 +39,7 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
         #ifdef DEBUG
 			std::cout<<"seed TakeStep:"<<_seed<<std::endl;
         #endif
-			std::cout << "construct RandomCoordsDisplacement" << std::endl;
+			//std::cout << "construct RandomCoordsDisplacement" << std::endl;
 		}
 
 void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){

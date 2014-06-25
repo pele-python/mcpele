@@ -17,9 +17,8 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     cdef public temperature
     cdef public start_coords
     cdef public stepsize
-    
+
     def __cinit__(self, pot, coords, temp, pstepsize, pniter, *args, **kwargs):
-        
         cdef np.ndarray[double, ndim=1] start_coords = np.array(coords, dtype=float)        
         cdef _pele.BasePotential potential = pot
         cdef temperature = temp
@@ -35,6 +34,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.temperature = temperature
         self.niter = niter
         self.stepsize = stepsize
+        
         
     def add_action(self, _Cdef_Action action):
         self.thisptr.add_action(action.thisptr)
