@@ -66,7 +66,7 @@ setup(name='mcpele',
 # build the c++ files
 #
 
-include_sources = ["source/mcpele" + f for f in os.listdir("source/mcpele") 
+include_sources = ["source/mcpele/" + f for f in os.listdir("source/mcpele") 
                    if f.endswith(".cpp")]
 include_dirs = [numpy_include, "source"]
 
