@@ -25,17 +25,22 @@ protected:
 	size_t _seed;
 	std::mt19937_64 _generator;
 	std::uniform_real_distribution<double> _distribution;
+	//static std::mt19937_64 _generator;
+	//static std::uniform_real_distribution<double> _distribution;
 public:
 	RandomCoordsDisplacement(size_t rseed);
 	virtual ~RandomCoordsDisplacement() {}
 	//virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" << std::endl; }
 	virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
 	size_t get_seed() const {return _seed;}
+	//static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
 
 RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
 		_seed(rseed), _generator(_seed), _distribution(0.0,1.0)
+		//_seed(rseed)
 		{
+		    //set_generator_seed(_seed);
         #ifdef DEBUG
 			std::cout<<"seed TakeStep:"<<_seed<<std::endl;
         #endif
