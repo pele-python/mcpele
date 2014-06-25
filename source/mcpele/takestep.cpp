@@ -16,6 +16,10 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
 	    //std::cout << "construct RandomCoordsDisplacement" << std::endl;
 	}
 
+RandomCoordsDisplacement::RandomCoordsDisplacement():
+	_seed(42), _distribution(0.0,1.0)
+	{}
+
 void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
 	double rand;
 	//assert(coords.size() == _N);
@@ -37,6 +41,10 @@ GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t rseed):
 		std::cout<<"seed TakeStep:"<<_seed<<std::endl;
 	    #endif
         }
+
+GaussianCoordsDisplacement::GaussianCoordsDisplacement():
+        _seed(42), _mean(0.0), _stdev(1.0), _distribution(_mean,_stdev)
+        {}
 
 void GaussianCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
     //assert(coords.size() == _N);

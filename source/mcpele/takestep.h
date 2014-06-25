@@ -27,9 +27,10 @@ protected:
 	std::uniform_real_distribution<double> _distribution;
 public:
 	RandomCoordsDisplacement(size_t rseed);
-	virtual ~RandomCoordsDisplacement() {}
+	RandomCoordsDisplacement();
+	virtual ~RandomCoordsDisplacement(){}
 	//virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" << std::endl; }
-	virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
+	virtual void takestep(Array<double>& coords, double stepsize, MC * mc=NULL);
 	size_t get_seed() const {return _seed;}
 	static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
@@ -47,8 +48,9 @@ protected:
     std::normal_distribution<double> _distribution;
 public:
     GaussianCoordsDisplacement(size_t rseed);
-    virtual ~GaussianCoordsDisplacement() {}
-    virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
+    GaussianCoordsDisplacement();
+    virtual ~GaussianCoordsDisplacement(){}
+    virtual void takestep(Array<double>& coords, double stepsize, MC * mc=NULL);
     size_t get_seed() const {return _seed;}
     static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
