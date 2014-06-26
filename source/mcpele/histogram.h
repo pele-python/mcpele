@@ -27,23 +27,30 @@ namespace mcpele{
  * */
 
 class Histogram{
-protected:
+private:
 	double _max, _min, _bin, _eps;
 	int _N;
 	vector<double> _hist;
-public:
 	int _niter;
+	double _mean, _mean2; //first and second moment of the distribution
+public:
 	Histogram(double min, double max, double bin);
 	~Histogram() {}
 	void add_entry(double entry);
-	double max() const {return _max;};
-	double min() const {return _min;};
-	double bin() const {return _bin;};
-	size_t size() const {return _N;};
+	double max() const {return _max;}
+	double min() const {return _min;}
+	double bin() const {return _bin;}
+	size_t size() const {return _N;}
 	int entries() const {return _niter;}
+	double get_mean() const {return _mean;}
+	double get_variance() const {return (_mean2 - _mean*_mean);}
+	void update_moment_info(const double input){
+	    _mean = (_mean*_niter+input)/(_niter+1);
+	    _mean2 = (_mean2*_niter+(input*input))/(_niter+1);
+	}
 	vector<double>::iterator begin();
 	vector<double>::iterator end();
-	vector<double> get_vecdata() const {return _hist;};
+	vector<double> get_vecdata() const {return _hist;}
 	void print_terminal(size_t ntot) const {
 		for(size_t i=0; i<_hist.size();++i)
 		{
@@ -57,7 +64,7 @@ public:
 Histogram::Histogram(double min, double max, double bin):
 		_max(floor((max/bin)+1)*bin),_min(floor((min/bin))*bin),_bin(bin),
 		_eps(std::numeric_limits<double>::epsilon()),_N((_max - _min) / bin),
-		_hist(_N,0),_niter(0)
+		_hist(_N,0),_niter(0),_mean(0),_mean2(0)
 		{
         #ifdef DEBUG
 			std::cout<<"histogram is of size "<<_N<<std::endl;
@@ -65,6 +72,7 @@ Histogram::Histogram(double min, double max, double bin):
 		}
 
 inline void Histogram::add_entry(double E){
+	update_moment_info(E);
 	int i;
 	E = E + _eps; //this is a dirty hack, not entirely sure of its generality and possible consequences, tests seem to be fine
 	i = floor((E-_min)/_bin);

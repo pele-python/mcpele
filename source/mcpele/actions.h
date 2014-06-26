@@ -77,7 +77,7 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 class RecordEnergyHistogram : public Action {
 protected:
 	mcpele::Histogram _hist;
-	double _bin, _mean, _mean2; //first and second moment of the distribution
+private:
 	size_t _eqsteps, _count;
 public:
 	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
@@ -101,13 +101,13 @@ public:
 	};
 
 	double get_min() const {
-			double min_;
-			min_ = _hist.min();
-			return min_;
-		};
+		double min_;
+		min_ = _hist.min();
+		return min_;
+	};
 
-	double get_mean() const {return _mean;};
-	double get_variance() const {return (_mean2 - _mean*_mean);};
+	double get_mean() const {return _hist.get_mean();}
+	double get_variance() const {return _hist.get_variance();}
 	int get_entries() const {return _hist.entries();}
 };
 
@@ -117,11 +117,9 @@ RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin,
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
 	_count = mc->get_iterations_count();
-	if (_count > _eqsteps){
-		_hist.add_entry(energy);
-	    double count = _count - _eqsteps + 1;
-		_mean = (_mean*(count-1)+energy)/count;
-	    _mean2 = (_mean2*(count-1)+(energy*energy))/count;
+	if (_count > _eqsteps)
+	{
+	    _hist.add_entry(energy);
 	}
 }
 
