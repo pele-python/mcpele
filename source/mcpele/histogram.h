@@ -40,6 +40,7 @@ public:
 	double min() const {return _min;};
 	double bin() const {return _bin;};
 	size_t size() const {return _N;};
+	int entries() const {return _niter;}
 	vector<double>::iterator begin();
 	vector<double>::iterator end();
 	vector<double> get_vecdata() const {return _hist;};

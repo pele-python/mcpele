@@ -108,6 +108,7 @@ public:
 
 	double get_mean() const {return _mean;};
 	double get_variance() const {return (_mean2 - _mean*_mean);};
+	int get_entries() const {return _hist.entries();}
 };
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
