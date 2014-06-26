@@ -112,7 +112,7 @@ public:
 };
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
-			_hist(mcpele::Histogram(min, max, bin)),_bin(bin),_mean(0.),_mean2(0.),
+			_hist(mcpele::Histogram(min, max, bin)),
 			_eqsteps(eqsteps),_count(0){}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
