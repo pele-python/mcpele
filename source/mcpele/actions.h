@@ -106,6 +106,7 @@ public:
 		return min_;
 	};
 
+	size_t get_eqsteps() const {return _eqsteps;}
 	double get_mean() const {return _hist.get_mean();}
 	double get_variance() const {return _hist.get_variance();}
 	int get_entries() const {return _hist.entries();}
