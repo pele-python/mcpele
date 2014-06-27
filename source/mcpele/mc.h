@@ -85,8 +85,11 @@ public:
 class MC {
 public:
     typedef std::list<Action*> actions_t;
+    //typedef std::vector<Action*> actions_t;
     typedef std::list<AcceptTest*> accept_t;
+    //typedef std::vector<AcceptTest*> accept_t;
     typedef std::list<ConfTest*> conf_t;
+    //typedef std::vector<ConfTest*> conf_t;
 protected:
     pele::BasePotential * _potential;
     Array<double> _coords, _trial_coords;
