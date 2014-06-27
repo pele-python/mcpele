@@ -26,13 +26,33 @@ namespace mcpele{
  * 	 beads as the number of iterations (commented out at the end of the script)
  * */
 
+class Moments{
+private:
+    typedef double data_t;
+    typedef size_t index_t;
+    data_t _mean;
+    data_t _mean2;
+    index_t _count;
+public:
+    Moments():_mean(0),_mean2(0),_count(0){}
+    void update(const data_t input){
+	_mean = (_mean*_count+input)/(_count+1);
+	_mean2 = (_mean2*_count+(input*input))/(_count+1);
+	if (_count==std::numeric_limits<index_t>::max()) throw std::runtime_error("Moments: update: integer overflow");
+	++_count;
+    }
+    void operator()(const data_t input){update(input);}
+    data_t mean()const{return _mean;}
+    data_t variance()const{return (_mean2 - _mean*_mean);}
+};
+
 class Histogram{
 private:
 	double _max, _min, _bin, _eps;
 	int _N;
 	vector<double> _hist;
 	int _niter;
-	double _mean, _mean2; //first and second moment of the distribution
+	Moments moments;
 public:
 	Histogram(double min, double max, double bin);
 	~Histogram() {}
@@ -42,12 +62,8 @@ public:
 	double bin() const {return _bin;}
 	size_t size() const {return _N;}
 	int entries() const {return _niter;}
-	double get_mean() const {return _mean;}
-	double get_variance() const {return (_mean2 - _mean*_mean);}
-	void update_moment_info(const double input){
-	    _mean = (_mean*_niter+input)/(_niter+1);
-	    _mean2 = (_mean2*_niter+(input*input))/(_niter+1);
-	}
+	double get_mean() const {return moments.mean();}
+	double get_variance() const {return moments.variance();}
 	vector<double>::iterator begin();
 	vector<double>::iterator end();
 	vector<double> get_vecdata() const {return _hist;}
@@ -64,7 +80,7 @@ public:
 Histogram::Histogram(double min, double max, double bin):
 		_max(floor((max/bin)+1)*bin),_min(floor((min/bin))*bin),_bin(bin),
 		_eps(std::numeric_limits<double>::epsilon()),_N((_max - _min) / bin),
-		_hist(_N,0),_niter(0),_mean(0),_mean2(0)
+		_hist(_N,0),_niter(0)
 		{
         #ifdef DEBUG
 			std::cout<<"histogram is of size "<<_N<<std::endl;
@@ -72,7 +88,7 @@ Histogram::Histogram(double min, double max, double bin):
 		}
 
 inline void Histogram::add_entry(double E){
-	update_moment_info(E);
+	moments(E);
 	int i;
 	E = E + _eps; //this is a dirty hack, not entirely sure of its generality and possible consequences, tests seem to be fine
 	i = floor((E-_min)/_bin);
