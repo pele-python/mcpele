@@ -27,9 +27,10 @@ namespace mcpele{
  * */
 
 class Moments{
-private:
+public:
     typedef double data_t;
     typedef size_t index_t;
+private:
     data_t _mean;
     data_t _mean2;
     index_t _count;
