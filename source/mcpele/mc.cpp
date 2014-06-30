@@ -1,11 +1,13 @@
 #include "mc.h"
+#include "progress.h"
 
 namespace mcpele{
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize):
             _potential(potential), _coords(coords.copy()),_trial_coords(_coords.copy()), _takestep(NULL),
 			_nitercount(0), _accept_count(0), _E_reject_count(0), _conf_reject_count(0),
-			_success(true), _niter(0), _neval(0), _stepsize(stepsize), _temperature(temperature)
+			_success(true), _print_progress(false), _niter(0), _neval(0), _stepsize(stepsize),
+			_temperature(temperature)
 
 		{
 			_energy = _potential->get_energy(_coords);
@@ -92,11 +94,13 @@ void MC::check_input(){
 void MC::run(size_t max_iter)
 {
     check_input();
+    progress stat(max_iter);
     while(_niter < max_iter){
 	//std::cout << "done: " << double(_niter)/double(max_iter) << std::endl;
 	//std::cout << "_niter: " << _niter << std::endl;
 	//std::cout << "max_iter: " << max_iter << std::endl;
 	this->one_iteration();
+	if (_print_progress) stat.next(_niter);
     }
     _niter = 0;
 }

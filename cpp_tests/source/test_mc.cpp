@@ -53,5 +53,6 @@ TEST_F(TestMC, BasicFunctionalityAddingModules){
     mcpele::RandomCoordsDisplacement sampler_uniform(42);
     mc.set_takestep(&sampler_uniform);
     EXPECT_TRUE( mc.take_step_specified() );
+    mc.set_print_progress(true);
     mc.run(max_iter);
 }
