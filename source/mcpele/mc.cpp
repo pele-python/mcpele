@@ -1,11 +1,13 @@
 #include "mc.h"
+#include "progress.h"
 
 namespace mcpele{
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize):
             _potential(potential), _coords(coords.copy()),_trial_coords(_coords.copy()), _takestep(NULL),
 			_nitercount(0), _accept_count(0), _E_reject_count(0), _conf_reject_count(0),
-			_success(true), _niter(0), _neval(0), _stepsize(stepsize), _temperature(temperature)
+			_success(true), _print_progress(false), _niter(0), _neval(0), _stepsize(stepsize),
+			_temperature(temperature)
 
 		{
 			_energy = _potential->get_energy(_coords);
@@ -79,21 +81,27 @@ void MC::one_iteration()
 }
 
 void MC::check_input(){
-    if (!take_step_specified())
-	throw std::runtime_error("MC::check_input: takestep not set");
+    //std::cout << "_conf_tests.size(): " << _conf_tests.size() << std::endl; //debug
+    //std::cout << "_late_conf_tests.size(): " << _late_conf_tests.size() << std::endl; //debug
+    //std::cout << "_actions.size(): " << _actions.size() << std::endl; //debug
+    //std::cout << "_accept_tests.size(): " << _accept_tests.size() << std::endl; //debug
+    if (!take_step_specified()) throw std::runtime_error("MC::check_input: takestep not set");
+    if (_conf_tests.size()==0) std::cout << "warning: no conf tests set" << std::endl;
+    if (_actions.size()==0) std::cout << "warning: no actions set" << std::endl;
+    if (_accept_tests.size()==0) std::cout << "warning: no accept tests set" << std::endl;
 }
 
 void MC::run(size_t max_iter)
 {
-    std::cout << "_conf_tests.size(): " << _conf_tests.size() << std::endl; //debug
-    std::cout << "_late_conf_tests.size(): " << _late_conf_tests.size() << std::endl; //debug
-    std::cout << "_actions.size(): " << _actions.size() << std::endl; //debug
-    std::cout << "_accept_tests.size(): " << _accept_tests.size() << std::endl; //debug
-    //throw std::runtime_error("TEST!");
     check_input();
-    while(_niter < max_iter)
-	    //std::cout << "done: " << double(_niter)/double(max_iter) << std::endl;
-	    this->one_iteration();
+    progress stat(max_iter);
+    while(_niter < max_iter){
+	//std::cout << "done: " << double(_niter)/double(max_iter) << std::endl;
+	//std::cout << "_niter: " << _niter << std::endl;
+	//std::cout << "max_iter: " << max_iter << std::endl;
+	this->one_iteration();
+	if (_print_progress) stat.next(_niter);
+    }
     _niter = 0;
 }
 

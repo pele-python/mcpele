@@ -101,6 +101,7 @@ protected:
     size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
     bool _success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
+    bool _print_progress;
 public:
     /*need to keep these public to make them accessible to tests and actions, be careful though!*/
     size_t _niter, _neval;
@@ -143,6 +144,7 @@ public:
     pele::BasePotential * get_potential_ptr(){return _potential;}
     bool take_step_specified()const{return (_takestep!=NULL);}
     void check_input();
+    void set_print_progress(const bool input){_print_progress=input;}
 };
 
 }//namespace mcpele
