@@ -1,6 +1,8 @@
+#include <stdexcept>
+#include <cmath>
+
 #include "actions.h"
 
-using std::runtime_error;
 using pele::Array;
 using std::sqrt;
 
@@ -17,7 +19,10 @@ namespace mcpele{
 AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg):
     _target(target),_factor(factor),_acceptedf(0),
     _niter(niter),_navg(navg),_count(0),_naccepted(0),
-    _nrejected(0){}
+    _nrejected(0)
+    {
+	if (factor > 1 || factor < 0) throw std::runtime_error("AdjustStep: illegal input");
+    }
 
 void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
 

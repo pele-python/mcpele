@@ -1,17 +1,14 @@
 #ifndef _MCPELE_ACTIONS_H
 #define _MCPELE_ACTIONS_H
 
-#include <math.h>
 #include <algorithm>
 #include <list>
+
 #include "pele/array.h"
 #include "pele/distance.h"
+
 #include "mc.h"
 #include "histogram.h"
-
-using std::runtime_error;
-using pele::Array;
-using std::sqrt;
 
 namespace mcpele{
 
@@ -30,7 +27,7 @@ protected:
 public:
 	AdjustStep(double target, double factor, size_t niter, size_t navg);
 	virtual ~AdjustStep() {}
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
+	virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
 };
 
 
@@ -47,11 +44,11 @@ public:
 	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
 	virtual ~RecordEnergyHistogram(){};
 
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
+	virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
 
-	Array<double> get_histogram() const {
+	pele::Array<double> get_histogram() const {
 		std::vector<double> vecdata(_hist.get_vecdata());
-		Array<double> histogram(vecdata);
+		pele::Array<double> histogram(vecdata);
 		return histogram.copy();
 	}
 
@@ -88,7 +85,7 @@ class RecordEnergyTimeseries : public Action{
     public:
         RecordEnergyTimeseries(const size_t niter, const size_t record_every);
         virtual ~RecordEnergyTimeseries(){}
-        virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
+        virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
         pele::Array<double> get_time_series(){
             _time_series.shrink_to_fit();
             return pele::Array<double>(_time_series).copy();
