@@ -86,6 +86,7 @@ void MC::run(size_t max_iter)
     std::cout << "_accept_tests.size(): " << _accept_tests.size() << std::endl; //debug
     //throw std::runtime_error("TEST!");
     while(_niter < max_iter)
+	    //std::cout << "done: " << double(_niter)/double(max_iter) << std::endl;
 	    this->one_iteration();
     _niter = 0;
 }
