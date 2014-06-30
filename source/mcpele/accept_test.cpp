@@ -5,13 +5,17 @@ using pele::Array;
 
 namespace mcpele{
 
+//static member
+std::mt19937_64 MetropolisTest::_generator;
+
 MetropolisTest::MetropolisTest(size_t rseed):
-        _seed(rseed), _generator(_seed), _distribution(0.0,1.0)
+        _seed(rseed), _distribution(0.0,1.0)
 		{
-        #ifdef DEBUG
-			std::cout<<"seed Metropolis:"<<_seed<<std::endl;
-			//std::chrono::system_clock::now().time_since_epoch().count()
-        #endif
+		set_generator_seed(_seed);
+		#ifdef DEBUG
+		    std::cout<<"seed Metropolis:"<<_seed<<std::endl;
+		    //std::chrono::system_clock::now().time_since_epoch().count()
+		#endif
 		}
 
 bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy, Array<double>& old_coords, double old_energy, double temperature, MC * mc)

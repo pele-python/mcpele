@@ -21,7 +21,7 @@ namespace mcpele{
 class MetropolisTest:public AcceptTest{
 protected:
 	size_t _seed;
-	std::mt19937_64 _generator;
+	static std::mt19937_64 _generator;
 	std::uniform_real_distribution<double> _distribution;
 
 public:
@@ -29,6 +29,7 @@ public:
 	virtual ~MetropolisTest() {}
 	virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc);
 	size_t get_seed() const {return _seed;}
+	static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
 
 /*ENERGY WINDOW TEST
