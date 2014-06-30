@@ -1,6 +1,5 @@
 #cython: boundscheck=False
 #cython: wraparound=False
-##aaacython: noncheck=True
 
 cimport pele.potentials._pele as _pele
 from libcpp cimport bool as cbool

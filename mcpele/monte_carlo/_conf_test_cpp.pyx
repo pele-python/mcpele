@@ -1,18 +1,9 @@
 # distutils: language = c++
 # distutils: sources = conf_test.cpp
 
-cimport cython
-import sys
-from libcpp cimport bool as cbool
-import numpy as np
-cimport numpy as np
-cimport pele.potentials._pele as _pele
-cimport pele.optimize._pele_opt as _pele_opt 
-from _pele_mc cimport cppConfTest,_Cdef_ConfTest
 
-cdef extern from "mcpele/conf_test.h" namespace "mcpele":
-    cdef cppclass cppCheckSphericalContainer "mcpele::CheckSphericalContainer":
-        cppCheckSphericalContainer(double, size_t) except+
+import sys
+import numpy as np
 
 #===============================================================================
 # Check spherical container

@@ -1,13 +1,11 @@
 # distutils: language = c++
 # distutils: sources = mc.cpp
 
-import numpy as np
-cimport numpy as np
-cimport pele.potentials._pele as _pele
 cimport cython
+cimport numpy as np
+
+import numpy as np
 import sys
-from libcpp cimport bool as cbool
-from _pele_mc cimport *
 import abc
 from pele.optimize import Result
 

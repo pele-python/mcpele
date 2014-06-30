@@ -1,21 +1,15 @@
 # distutils: language = c++
 # distutils: sources = actions.cpp
 
-import numpy as np
-cimport numpy as np
-cimport pele.potentials._pele as _pele
 cimport cython
+cimport numpy as np
+
+import numpy as np
 import sys
-from libcpp cimport bool as cbool
-from _pele_mc cimport cppAction,_Cdef_Action
 
 #===============================================================================
 # Adjust step size
 #===============================================================================
-
-cdef extern from "mcpele/actions.h" namespace "mcpele": 
-    cdef cppclass cppAdjustStep "mcpele::AdjustStep":
-        cppAdjustStep(double, double, size_t, size_t) except +
         
 cdef class _Cdef_AdjustStep(_Cdef_Action):
     """This class is the python interface for the c++ pele::AdjustStep action class implementation
@@ -36,20 +30,6 @@ class AdjustStep(_Cdef_AdjustStep):
 # Record Energy Histogram
 #===============================================================================        
 
-cdef extern from "mcpele/actions.h" namespace "mcpele":
-    cdef cppclass cppRecordEnergyHistogram "mcpele::RecordEnergyHistogram":
-        cppRecordEnergyHistogram(double, double, double, size_t) except +
-        _pele.Array[double] get_histogram() except +
-        void print_terminal(size_t) except +
-        double get_max() except +
-        double get_min() except +
-        double get_mean() except +
-        double get_variance() except +
-    cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
-        cppRecordEnergyTimeseries(const size_t, const size_t) except +
-        _pele.Array[double] get_time_series() except +
-        void clear() except +
-        
 cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
     """This class is the python interface for the c++ pele::RecordEnergyHistogram acceptance test class implementation
     """
@@ -57,6 +37,9 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
     def __cinit__(self, min, max, bin, eqsteps):
         self.thisptr = <cppAction*>new cppRecordEnergyHistogram(min, max, bin, eqsteps)
         self.newptr = <cppRecordEnergyHistogram*> self.thisptr
+    
+    def __dealloc__(self):
+        del self.thisptr
     
     @cython.boundscheck(False)
     def get_histogram(self):
@@ -98,6 +81,9 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
     def __cinit__(self, niter, record_every):
         self.thisptr = <cppAction*>new cppRecordEnergyTimeseries(niter, record_every)
         self.newptr = <cppRecordEnergyTimeseries*> self.thisptr
+    
+    def __dealloc__(self):
+        del self.thisptr
         
     @cython.boundscheck(False)
     def get_time_series(self):
