@@ -141,6 +141,8 @@ public:
     size_t get_neval() const {return _neval;};
     double get_stepsize() const {return _stepsize;};
     pele::BasePotential * get_potential_ptr(){return _potential;}
+    bool take_step_specified()const{return (_takestep!=NULL);}
+    void check_input();
 };
 
 }//namespace mcpele

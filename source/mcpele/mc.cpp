@@ -17,9 +17,6 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
 
 void MC::one_iteration()
 {
-    if (_takestep==NULL)
-	   throw std::runtime_error("takestep not set");
-
     _success = true;
     ++_niter;
     ++_nitercount;
@@ -81,6 +78,11 @@ void MC::one_iteration()
     }
 }
 
+void MC::check_input(){
+    if (!take_step_specified())
+	throw std::runtime_error("MC::check_input: takestep not set");
+}
+
 void MC::run(size_t max_iter)
 {
     std::cout << "_conf_tests.size(): " << _conf_tests.size() << std::endl; //debug
@@ -88,6 +90,7 @@ void MC::run(size_t max_iter)
     std::cout << "_actions.size(): " << _actions.size() << std::endl; //debug
     std::cout << "_accept_tests.size(): " << _accept_tests.size() << std::endl; //debug
     //throw std::runtime_error("TEST!");
+    check_input();
     while(_niter < max_iter)
 	    //std::cout << "done: " << double(_niter)/double(max_iter) << std::endl;
 	    this->one_iteration();
