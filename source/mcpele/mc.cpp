@@ -3,7 +3,7 @@
 namespace mcpele{
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize):
-            _potential(potential), _coords(coords.copy()),_trial_coords(_coords.copy()),
+            _potential(potential), _coords(coords.copy()),_trial_coords(_coords.copy()), _takestep(NULL),
 			_nitercount(0), _accept_count(0), _E_reject_count(0), _conf_reject_count(0),
 			_success(true), _niter(0), _neval(0), _stepsize(stepsize), _temperature(temperature)
 
@@ -17,6 +17,9 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
 
 void MC::one_iteration()
 {
+    if (_takestep==NULL)
+	   throw std::runtime_error("takestep not set");
+
     _success = true;
     ++_niter;
     ++_nitercount;

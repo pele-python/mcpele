@@ -1,13 +1,14 @@
 #ifndef _MCPELE_MC_H
 #define _MCPELE_MC_H
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <list>
 #include <memory>
+#include <stdexcept>
+
 #include "pele/array.h"
 #include "pele/base_potential.h"
-#include <stdexcept>
 
 using std::list;
 using std::runtime_error;
