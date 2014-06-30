@@ -1,4 +1,6 @@
 # distutils: language = c++
+# distutils: sources = conf_test.cpp
+
 cimport cython
 import sys
 from libcpp cimport bool as cbool
@@ -23,6 +25,9 @@ cdef class _Cdef_CheckSphericalContainer(_Cdef_ConfTest):
     def __cinit__(self, radius, ndim):
         self.thisptr = <cppConfTest*>new cppCheckSphericalContainer(radius, ndim)
         self.newptr = <cppCheckSphericalContainer*> self.thisptr
+    
+    def __dealloc__(self):
+        del self.thisptr
         
 class CheckSphericalContainer(_Cdef_CheckSphericalContainer):
     """This class is the python interface for the c++ CheckSphericalContainer implementation.

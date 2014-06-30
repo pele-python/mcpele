@@ -8,10 +8,10 @@ from libcpp cimport bool as cbool
 #===============================================================================
 # shared pointer
 #===============================================================================
-cdef extern from "<memory>" namespace "std":
-    cdef cppclass shared_ptr[T]:
-        shared_ptr(T*)
-        # Note: operator->, operator= are not supported
+#cdef extern from "<memory>" namespace "std":
+#    cdef cppclass shared_ptr[T]:
+#        shared_ptr(T*)
+#        # Note: operator->, operator= are not supported
 
 #===============================================================================
 # mcpele::TakeStep

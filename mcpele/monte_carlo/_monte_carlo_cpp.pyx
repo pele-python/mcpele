@@ -1,4 +1,6 @@
 # distutils: language = c++
+# distutils: sources = mc.cpp
+
 import numpy as np
 cimport numpy as np
 cimport pele.potentials._pele as _pele
@@ -35,7 +37,10 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.niter = niter
         self.stepsize = stepsize
         
-        
+    
+    def __dealloc__(self):
+        del self.thisptr
+    
     def add_action(self, _Cdef_Action action):
         self.thisptr.add_action(action.thisptr)
     

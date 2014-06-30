@@ -28,41 +28,9 @@ protected:
 	double _target, _factor, _acceptedf;
 	size_t _niter, _navg, _count, _naccepted, _nrejected;
 public:
-	AdjustStep(double target, double factor, size_t niter, size_t navg):
-				_target(target),_factor(factor),_acceptedf(0),
-				_niter(niter),_navg(navg),_count(0),_naccepted(0),
-				_nrejected(0){}
+	AdjustStep(double target, double factor, size_t niter, size_t navg);
 	virtual ~AdjustStep() {}
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc) {
-
-		_count = mc->get_iterations_count();
-
-		if (_count <= _niter)
-			{
-				if (accepted == true)
-					++_naccepted;
-				else
-					++_nrejected;
-
-				if(_count % _navg == 0)
-				{
-					_acceptedf = (double) _naccepted / (_naccepted + _nrejected);
-
-					//std::cout<<"acceptance "<<_acceptedf<<std::endl;
-					//std::cout<<"stepsize before"<<mc->_stepsize<<std::endl;
-					if (_acceptedf < _target)
-						mc->_stepsize *= _factor;
-					else
-						mc->_stepsize /= _factor;
-					//std::cout<<"stepsize after"<<mc->_stepsize<<std::endl;
-
-					//now reset to zero memory of acceptance and rejection
-					_naccepted = 0;
-					_nrejected = 0;
-				}
-
-			}
-	}
+	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
 };
 
 
@@ -76,18 +44,10 @@ protected:
 private:
 	size_t _eqsteps, _count;
 public:
-	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
-				_hist(mcpele::Histogram(min, max, bin)),
-				_eqsteps(eqsteps),_count(0){}
+	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
 	virtual ~RecordEnergyHistogram(){};
 
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc) {
-		_count = mc->get_iterations_count();
-		if (_count > _eqsteps)
-		{
-		    _hist.add_entry(energy);
-		}
-	}
+	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
 
 	Array<double> get_histogram() const {
 		std::vector<double> vecdata(_hist.get_vecdata());
@@ -126,18 +86,9 @@ class RecordEnergyTimeseries : public Action{
         const size_t _niter, _record_every;
         std::vector<double> _time_series;
     public:
-        RecordEnergyTimeseries(const size_t niter, const size_t record_every)
-            :_niter(niter),_record_every(record_every)
-            {
-                _time_series.reserve(niter);
-                if (record_every==0) throw std::runtime_error("RecordEnergyTimeseries: __record_every expected to be at least 1");
-            }
+        RecordEnergyTimeseries(const size_t niter, const size_t record_every);
         virtual ~RecordEnergyTimeseries(){}
-        virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc){
-            size_t counter = mc->get_iterations_count();
-            if (counter % _record_every == 0)
-                _record_energy_value(energy);
-        }
+        virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
         pele::Array<double> get_time_series(){
             _time_series.shrink_to_fit();
             return pele::Array<double>(_time_series).copy();

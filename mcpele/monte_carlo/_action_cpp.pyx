@@ -1,4 +1,6 @@
 # distutils: language = c++
+# distutils: sources = actions.cpp
+
 import numpy as np
 cimport numpy as np
 cimport pele.potentials._pele as _pele
@@ -22,6 +24,9 @@ cdef class _Cdef_AdjustStep(_Cdef_Action):
     def __cinit__(self, target, factor, niter, navg):
         self.thisptr = <cppAction*>new cppAdjustStep(target, factor, niter, navg)
         self.newptr = <cppAdjustStep*> self.thisptr
+    
+    def __dealloc__(self):
+        del self.thisptr
         
 class AdjustStep(_Cdef_AdjustStep):
     """This class is the python interface for the c++ AdjustStep implementation.
