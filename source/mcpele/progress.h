@@ -30,38 +30,38 @@ public:
     void next(const index_t idx, std::ostream& stm = std::cout){
 	curr = static_cast<index_t>(static_cast<float_t>(idx)*oom*100);
 	if (curr!=prev){
-	    TimePercentage(idx-1);
+	    TimePercentage(idx-1,stm);
 	}
     }
 
-    void TimePercentage(const index_t smp){
+    void TimePercentage(const index_t smp, std::ostream& stm){
 	// percentage done
-	std::cout << "---" << std::endl;
-	std::cout << "percentage done" << std::endl;
-	std::cout << curr << " %" << std::endl;
+	stm << "---" << std::endl;
+	stm << "percentage done" << std::endl;
+	stm << curr << " %" << std::endl;
 	prev = curr;
-	std::cout << "---" << std::endl;
+	stm << "---" << std::endl;
 	// time elapsed
-	std::cout << "time elapsed" << std::endl;
-	PrintTime();
+	stm << "time elapsed" << std::endl;
+	PrintTime(stm);
 	// estimated time to completion
-	std::cout << "---" << std::endl;
-	std::cout << "estimated time to completion" << std::endl;
-	IntToTime(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock());
+	stm << "---" << std::endl;
+	stm << "estimated time to completion" << std::endl;
+	IntToTime(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock(), stm);
 	// estimated total time
-	std::cout << "---" << std::endl;
-	std::cout << "estimated total run time" << std::endl;
-	IntToTime(((float_t)m/(float_t)(smp+1))*(float_t)clock());
-	std::cout << "---" << std::endl;
+	stm << "---" << std::endl;
+	stm << "estimated total run time" << std::endl;
+	IntToTime(((float_t)m/(float_t)(smp+1))*(float_t)clock(), stm);
+	stm << "---" << std::endl;
 	// estimated completion time in local time
-	std::cout << "estimated completion local time" << std::endl;
+	stm << "estimated completion local time" << std::endl;
 	time_t timer = time(NULL);
 	timer+=(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock())/CLOCKS_PER_SEC;
-	std::cout << ctime(&timer);
-	std::cout << "---" << std::endl;
+	stm << ctime(&timer);
+	stm << "---" << std::endl;
     }
 
-    void PrintTime(){
+    void PrintTime(std::ostream& stm){
 	long_t tm = clock();
 	long_t days = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
 	tm%=((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
@@ -71,25 +71,25 @@ public:
 	tm%=((long_t)CLOCKS_PER_SEC*(long_t)60);
 	long_t seconds = tm/((long_t)CLOCKS_PER_SEC);
 	if (days){
-		if (days>1) std::cout << days << " days  ";
-		else std::cout << days << " day  ";
+		if (days>1) stm << days << " days  ";
+		else stm << days << " day  ";
 	}
 	if (hours){
-		if (hours>1) std::cout << hours << " hours  ";
-		else std::cout << hours << " hour  ";
+		if (hours>1) stm << hours << " hours  ";
+		else stm << hours << " hour  ";
 	}
 	if (minutes){
-		if (minutes>1) std::cout << minutes << " minutes  ";
-		else std::cout << minutes << " minute  ";
+		if (minutes>1) stm << minutes << " minutes  ";
+		else stm << minutes << " minute  ";
 	}
 	if (seconds){
-		if (seconds>1) std::cout << seconds << " seconds";
-		else std::cout << seconds << " second";
+		if (seconds>1) stm << seconds << " seconds";
+		else stm << seconds << " second";
 	}
-	std::cout << std::endl;
+	stm << std::endl;
     }
 
-    void IntToTime(const long_t inp){
+    void IntToTime(const long_t inp, std::ostream& stm){
 	long_t tm = inp;
 	long_t days = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
 	tm%=((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
@@ -99,22 +99,22 @@ public:
 	tm%=((long_t)CLOCKS_PER_SEC*(long_t)60);
 	long_t seconds = tm/((long_t)CLOCKS_PER_SEC);
 	if (days){
-		if (days>1) std::cout << days << " days  ";
-		else std::cout << days << " day  ";
+		if (days>1) stm << days << " days  ";
+		else stm << days << " day  ";
 	}
 	if (hours){
-		if (hours>1) std::cout << hours << " hours  ";
-		else std::cout << hours << " hour  ";
+		if (hours>1) stm << hours << " hours  ";
+		else stm << hours << " hour  ";
 	}
 	if (minutes){
-		if (minutes>1) std::cout << minutes << " minutes  ";
-		else std::cout << minutes << " minute  ";
+		if (minutes>1) stm << minutes << " minutes  ";
+		else stm << minutes << " minute  ";
 	}
 	if (seconds){
-		if (seconds>1) std::cout << seconds << " seconds";
-		else std::cout << seconds << " second";
+		if (seconds>1) stm << seconds << " seconds";
+		else stm << seconds << " second";
 	}
-	std::cout << std::endl;
+	stm << std::endl;
     }
 
 };
