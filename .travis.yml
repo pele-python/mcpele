@@ -40,10 +40,10 @@ install:
   - git clone https://github.com/pele-python/pele.git
   - cd pele
   - python setup.py build --fcompiler=gfortran
-  - python setup.py install
+  - sudo python setup.py install
   - cd ..
   - python setup.py build --fcompiler=gfortran
-  - python setup.py install
+  - sudo python setup.py install
 
 script:
   # avoid running in the checkout directory so nose finds built modules..
