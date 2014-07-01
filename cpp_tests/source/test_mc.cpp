@@ -40,7 +40,7 @@ public:
 	stepsize = 1e-2;
 	k = 400;
 	potential = new pele::Harmonic(origin, k, boxdim);
-	max_iter = 1e4;
+	max_iter = 1e5;
     }
 
     virtual void TearDown() {
@@ -79,11 +79,11 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
     delete metropolis;
 }
 
-TEST_F(TestMC, BasicFunctionalityAddingModulesPoly){
+TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
-    EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc->get_potential_ptr())->get_k() );
-    std::cout << "initial step size: " << mc->get_stepsize() << std::endl;
+    EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr())->get_k() );
+    //std::cout << "initial step size: " << mc->get_stepsize() << std::endl;
     mcpele::TakeStep* sampler_uniform = new mcpele::RandomCoordsDisplacement;
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform);
@@ -91,15 +91,29 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesPoly){
     mcpele::AcceptTest* metropolis = new mcpele::MetropolisTest(42);
     mc->add_accept_test(metropolis);
     //AdjustStep(double target, double factor, size_t niter, size_t navg)
-    mcpele::Action* adjust_step = new mcpele::AdjustStep(0.2, 0.5, max_iter/1e1, max_iter/1e2);
+    const size_t adj_iter(max_iter/1e1);
+    mcpele::Action* adjust_step = new mcpele::AdjustStep(0.2, 0.5, adj_iter, adj_iter/1e1);
     mc->add_action(adjust_step);
+    //(double min, double max, double bin, size_t eqsteps)
+    mcpele::Action* record_histogram = new mcpele::RecordEnergyHistogram(0,10,1,adj_iter);
+    mc->add_action(record_histogram);
     //mc->set_print_progress(true);
     mc->run(max_iter);
     EXPECT_TRUE( mc->get_iterations_count() == max_iter );
+    //std::cout << "mean energy: " << std::endl;
+    //std::cout << static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_mean() << std::endl;
+    //std::cout << sqrt(static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_variance()) << std::endl;
+    //std::cout << "prediced mean energy: " << std::endl;
+    //std::cout << 0.5*ndof << std::endl;
+    const double computed_mean = static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_mean();
+    const double computed_std = sqrt(static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_variance());
+    const double expected_mean = 0.5*ndof;
+    EXPECT_NEAR(computed_mean, expected_mean, computed_std);
     //std::cout << "acc frac: " << mc->get_accepted_fraction() << std::endl;
-    std::cout << "final step size: " << mc->get_stepsize() << std::endl;
+    //std::cout << "final step size: " << mc->get_stepsize() << std::endl;
     delete mc;
     delete sampler_uniform;
     delete metropolis;
     delete adjust_step;
+    delete record_histogram;
 }
