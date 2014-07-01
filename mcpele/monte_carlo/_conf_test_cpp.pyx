@@ -3,7 +3,6 @@
 
 
 import sys
-import numpy as np
 
 #===============================================================================
 # Check spherical container
