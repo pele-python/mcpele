@@ -145,6 +145,7 @@ public:
     bool take_step_specified()const{return (_takestep!=NULL);}
     void check_input();
     void set_print_progress(const bool input){_print_progress=input;}
+    void set_print_progress(){set_print_progress(true);}
 };
 
 }//namespace mcpele
