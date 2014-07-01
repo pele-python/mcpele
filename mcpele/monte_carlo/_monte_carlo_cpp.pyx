@@ -70,6 +70,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         return energy
     
     @cython.boundscheck(False)
+    @cython.wraparound(False)
     def get_coords(self):
         """return a histogram array"""
         cdef _pele.Array[double] xi = self.thisptr.get_coords()
