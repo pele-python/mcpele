@@ -7,23 +7,19 @@ from numpy.distutils.core import setup
 from numpy.distutils.core import Extension
 from numpy.distutils.misc_util import has_cxx_sources
 import numpy as np
+import pele
 
 ## Numpy header files 
 numpy_lib = os.path.split(np.__file__)[0] 
 numpy_include = os.path.join(numpy_lib, 'core/include') 
 
 ##find pele path
-pypath = os.environ['PYTHONPATH'].split(os.pathsep)
-found = False
-for path in pypath:
-    if '/pele' in path:
-        pelepath = path
-        found = True
-        break
-if found is not True:
-    sys.stderr.write("WARNING: could't find path to pele in $PYTHONPATH\n")
+try:
+    pelepath = os.path.dirname(pele.__file__)[:-5]
+except:
+    sys.stderr.write("WARNING: could't find path to pele\n")
     sys.exit()
-    
+
 def generate_cython():
     cwd = os.path.abspath(os.path.dirname(__file__))
     print("Cythonizing sources")
