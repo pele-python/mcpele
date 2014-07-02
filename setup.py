@@ -25,7 +25,7 @@ def generate_cython():
     print("Cythonizing sources")
     p = subprocess.call([sys.executable,
                           os.path.join(cwd, 'cythonize.py'),
-                          'mcpele'],
+                          'mcpele', "-I %s/pele/potentials/" % pelepath],
                          cwd=cwd)
     if p != 0:
         raise RuntimeError("Running cythonize failed!")
