@@ -26,23 +26,48 @@ namespace mcpele{
  * 	 beads as the number of iterations (commented out at the end of the script)
  * */
 
+class Moments{
+public:
+    typedef double data_t;
+    typedef size_t index_t;
+private:
+    data_t _mean;
+    data_t _mean2;
+    index_t _count;
+public:
+    Moments():_mean(0),_mean2(0),_count(0){}
+    void update(const data_t input){
+	_mean = (_mean*_count+input)/(_count+1);
+	_mean2 = (_mean2*_count+(input*input))/(_count+1);
+	if (_count==std::numeric_limits<index_t>::max()) throw std::runtime_error("Moments: update: integer overflow");
+	++_count;
+    }
+    void operator()(const data_t input){update(input);}
+    data_t mean()const{return _mean;}
+    data_t variance()const{return (_mean2 - _mean*_mean);}
+};
+
 class Histogram{
-protected:
+private:
 	double _max, _min, _bin, _eps;
 	int _N;
 	vector<double> _hist;
-public:
 	int _niter;
+	Moments moments;
+public:
 	Histogram(double min, double max, double bin);
 	~Histogram() {}
 	void add_entry(double entry);
-	double max() const {return _max;};
-	double min() const {return _min;};
-	double bin() const {return _bin;};
-	size_t size() const {return _N;};
-	vector<double>::iterator begin();
-	vector<double>::iterator end();
-	vector<double> get_vecdata() const {return _hist;};
+	double max() const {return _max;}
+	double min() const {return _min;}
+	double bin() const {return _bin;}
+	size_t size() const {return _N;}
+	int entries() const {return _niter;}
+	double get_mean() const {return moments.mean();}
+	double get_variance() const {return moments.variance();}
+	vector<double>::iterator begin(){return _hist.begin();}
+	vector<double>::iterator end(){return _hist.end();}
+	vector<double> get_vecdata() const {return _hist;}
 	void print_terminal(size_t ntot) const {
 		for(size_t i=0; i<_hist.size();++i)
 		{
@@ -53,86 +78,6 @@ public:
 	void resize(double E, int i);
 };
 
-Histogram::Histogram(double min, double max, double bin):
-		_max(floor((max/bin)+1)*bin),_min(floor((min/bin))*bin),_bin(bin),
-		_eps(std::numeric_limits<double>::epsilon()),_N((_max - _min) / bin),
-		_hist(_N,0),_niter(0)
-		{
-        #ifdef DEBUG
-			std::cout<<"histogram is of size "<<_N<<std::endl;
-        #endif
-		}
-
-inline void Histogram::add_entry(double E){
-	int i;
-	E = E + _eps; //this is a dirty hack, not entirely sure of its generality and possible consequences, tests seem to be fine
-	i = floor((E-_min)/_bin);
-	if (i < _N && i >= 0)
-	{
-		_hist[i] += 1;
-		++_niter;
-	}
-	else
-		this->resize(E,i);
-
-	/*THIS IS A TEST*/
-	/*int renorm = 0;
-	 * for(vector<size_t>::iterator it = _hist.begin();it != _hist.end();++it)
-	  {
-		  renorm += *it;
-	  }
-
-	if (renorm != _niter)
-	{
-		std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n renorm "<<renorm<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
-		assert(renorm == _niter);
-	}*/
-}
-
-inline void Histogram::resize(double E, int i){
-	int newlen;
-	if (i >= _N)
-		{
-			newlen = (i + 1) - _N;
-			_hist.insert(_hist.end(),(newlen-1),0);
-			_hist.push_back(1);
-			++_niter;
-			_max = floor((E/_bin)+1)*_bin; //round to nearest increment
-			_N = round((_max - _min) / _bin); //was round
-			if ( (int) _hist.size() != _N)
-			{
-				std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
-				assert( (int) _hist.size() == _N);
-				exit (EXIT_FAILURE);
-			}
-			std::cout<<"resized above at niter "<<_niter<<std::endl;
-		}
-	else if (i < 0)
-		{
-			newlen = -1*i;
-			_hist.insert(_hist.begin(),(newlen-1),0);
-			_hist.insert(_hist.begin(),1);
-			++_niter;
-			_min = floor((E/_bin))*_bin; //round to nearest increment
-			_N = round((_max-_min)/_bin); //was round
-			if ( (int) _hist.size() != _N)
-			{
-				std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
-				assert( (int) _hist.size() == _N);
-				exit (EXIT_FAILURE);
-			}
-			std::cout<<"resized below at niter "<<_niter<<std::endl;
-		}
-	else
-		{
-			std::cerr<<"histogram encountered unexpected condition"<<std::endl;
-			std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
-		}
-}
-
-vector<double>::iterator Histogram::begin(){return _hist.begin();}
-vector<double>::iterator Histogram::end(){return _hist.end();}
-
-}
+}//namespace mcpele
 
 #endif

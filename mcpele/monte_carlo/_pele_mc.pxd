@@ -1,6 +1,5 @@
 #cython: boundscheck=False
 #cython: wraparound=False
-##aaacython: noncheck=True
 
 cimport pele.potentials._pele as _pele
 from libcpp cimport bool as cbool
@@ -8,10 +7,10 @@ from libcpp cimport bool as cbool
 #===============================================================================
 # shared pointer
 #===============================================================================
-cdef extern from "<memory>" namespace "std":
-    cdef cppclass shared_ptr[T]:
-        shared_ptr(T*)
-        # Note: operator->, operator= are not supported
+#cdef extern from "<memory>" namespace "std":
+#    cdef cppclass shared_ptr[T]:
+#        shared_ptr(T*)
+#        # Note: operator->, operator= are not supported
 
 #===============================================================================
 # mcpele::TakeStep
@@ -72,11 +71,11 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         void run(size_t) except +
         void set_temperature(double) except +
         void set_stepsize(double) except +
-        void add_action(shared_ptr[cppAction]) except +
-        void add_accept_test( shared_ptr[cppAcceptTest]) except +
-        void add_conf_test( shared_ptr[cppConfTest]) except +
-        void add_late_conf_test( shared_ptr[cppConfTest]) except +
-        void set_takestep( shared_ptr[cppTakeStep]) except +
+        void add_action(cppAction*) except +
+        void add_accept_test(cppAcceptTest*) except +
+        void add_conf_test(cppConfTest*) except +
+        void add_late_conf_test(cppConfTest*) except +
+        void set_takestep(cppTakeStep*) except +
         void set_coordinates(_pele.Array[double]&, double) except +
         void reset_energy() except +
         double get_energy() except +

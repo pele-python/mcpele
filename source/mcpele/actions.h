@@ -1,17 +1,14 @@
 #ifndef _MCPELE_ACTIONS_H
 #define _MCPELE_ACTIONS_H
 
-#include <math.h>
 #include <algorithm>
 #include <list>
+
 #include "pele/array.h"
 #include "pele/distance.h"
+
 #include "mc.h"
 #include "histogram.h"
-
-using std::runtime_error;
-using pele::Array;
-using std::sqrt;
 
 namespace mcpele{
 
@@ -30,45 +27,9 @@ protected:
 public:
 	AdjustStep(double target, double factor, size_t niter, size_t navg);
 	virtual ~AdjustStep() {}
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
+	virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
 };
 
-AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg):
-			_target(target),_factor(factor),_acceptedf(0),
-			_niter(niter),_navg(navg),_count(0),_naccepted(0),
-			_nrejected(0){}
-
-
-void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
-
-	_count = mc->get_iterations_count();
-
-	if (_count <= _niter)
-		{
-			if (accepted == true)
-				++_naccepted;
-			else
-				++_nrejected;
-
-			if(_count % _navg == 0)
-			{
-				_acceptedf = (double) _naccepted / (_naccepted + _nrejected);
-
-				//std::cout<<"acceptance "<<_acceptedf<<std::endl;
-				//std::cout<<"stepsize before"<<mc->_stepsize<<std::endl;
-				if (_acceptedf < _target)
-					mc->_stepsize *= _factor;
-				else
-					mc->_stepsize /= _factor;
-				//std::cout<<"stepsize after"<<mc->_stepsize<<std::endl;
-
-				//now reset to zero memory of acceptance and rejection
-				_naccepted = 0;
-				_nrejected = 0;
-			}
-
-		}
-}
 
 /*
  * Record energy histogram
@@ -77,17 +38,17 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 class RecordEnergyHistogram : public Action {
 protected:
 	mcpele::Histogram _hist;
-	double _bin, _mean, _mean2; //first and second moment of the distribution
+private:
 	size_t _eqsteps, _count;
 public:
 	RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
 	virtual ~RecordEnergyHistogram(){};
 
-	virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
+	virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
 
-	Array<double> get_histogram() const {
+	pele::Array<double> get_histogram() const {
 		std::vector<double> vecdata(_hist.get_vecdata());
-		Array<double> histogram(vecdata);
+		pele::Array<double> histogram(vecdata);
 		return histogram.copy();
 	}
 
@@ -101,28 +62,16 @@ public:
 	};
 
 	double get_min() const {
-			double min_;
-			min_ = _hist.min();
-			return min_;
-		};
+		double min_;
+		min_ = _hist.min();
+		return min_;
+	};
 
-	double get_mean() const {return _mean;};
-	double get_variance() const {return (_mean2 - _mean*_mean);};
+	size_t get_eqsteps() const {return _eqsteps;}
+	double get_mean() const {return _hist.get_mean();}
+	double get_variance() const {return _hist.get_variance();}
+	int get_entries() const {return _hist.entries();}
 };
-
-RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps):
-			_hist(mcpele::Histogram(min, max, bin)),_bin(bin),_mean(0.),_mean2(0.),
-			_eqsteps(eqsteps),_count(0){}
-
-void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) {
-	_count = mc->get_iterations_count();
-	if (_count > _eqsteps){
-		_hist.add_entry(energy);
-	    double count = _count - _eqsteps + 1;
-		_mean = (_mean*(count-1)+energy)/count;
-	    _mean2 = (_mean2*(count-1)+(energy*energy))/count;
-	}
-}
 
 /*
  * Record energy time series, measuring every __record_every-th step.
@@ -130,38 +79,19 @@ void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool ac
 
 class RecordEnergyTimeseries : public Action{
     private:
-        void _record_energy_value(const double energy);
+	void _record_energy_value(const double energy){_time_series.push_back(energy);}
         const size_t _niter, _record_every;
         std::vector<double> _time_series;
     public:
         RecordEnergyTimeseries(const size_t niter, const size_t record_every);
         virtual ~RecordEnergyTimeseries(){}
-        virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc);
-        pele::Array<double> get_time_series();
+        virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
+        pele::Array<double> get_time_series(){
+            _time_series.shrink_to_fit();
+            return pele::Array<double>(_time_series).copy();
+        }
         void clear(){_time_series.clear();}
 };
-
-RecordEnergyTimeseries::RecordEnergyTimeseries(const size_t niter, const size_t record_every)
-    :_niter(niter),_record_every(record_every)
-    {
-        _time_series.reserve(niter);
-        if (record_every==0) throw std::runtime_error("RecordEnergyTimeseries: __record_every expected to be at least 1");
-    }
-
-void RecordEnergyTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc){
-    size_t counter = mc->get_iterations_count();
-    if (counter % _record_every == 0)
-        _record_energy_value(energy);
-}
-
-void RecordEnergyTimeseries::_record_energy_value(const double energy){
-    _time_series.push_back(energy);
-}
-
-pele::Array<double> RecordEnergyTimeseries::get_time_series(){
-    _time_series.shrink_to_fit();
-    return pele::Array<double>(_time_series).copy();
-}
 
 }
 #endif

@@ -1,11 +1,11 @@
 # distutils: language = c++
-import numpy as np
-cimport numpy as np
-cimport pele.potentials._pele as _pele
+# distutils: sources = mc.cpp
+
 cimport cython
+cimport numpy as np
+
+import numpy as np
 import sys
-from libcpp cimport bool as cbool
-from _pele_mc cimport *
 import abc
 from pele.optimize import Result
 
@@ -17,9 +17,8 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     cdef public temperature
     cdef public start_coords
     cdef public stepsize
-    
+
     def __cinit__(self, pot, coords, temp, pstepsize, pniter, *args, **kwargs):
-        
         cdef np.ndarray[double, ndim=1] start_coords = np.array(coords, dtype=float)        
         cdef _pele.BasePotential potential = pot
         cdef temperature = temp
@@ -36,20 +35,24 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.niter = niter
         self.stepsize = stepsize
         
+    
+    def __dealloc__(self):
+        del self.thisptr
+    
     def add_action(self, _Cdef_Action action):
-        self.thisptr.add_action(shared_ptr[cppAction](action.thisptr))
+        self.thisptr.add_action(action.thisptr)
     
     def add_accept_test(self, _Cdef_AcceptTest test):
-        self.thisptr.add_accept_test(shared_ptr[cppAcceptTest](test.thisptr))
+        self.thisptr.add_accept_test(test.thisptr)
     
     def add_conf_test(self, _Cdef_ConfTest test):
-        self.thisptr.add_conf_test(shared_ptr[cppConfTest](test.thisptr))
+        self.thisptr.add_conf_test(test.thisptr)
     
     def add_late_conf_test(self, _Cdef_ConfTest test):
-        self.thisptr.add_late_conf_test(shared_ptr[cppConfTest](test.thisptr))
+        self.thisptr.add_late_conf_test(test.thisptr)
     
     def set_takestep(self, _Cdef_TakeStep takestep):
-        self.thisptr.set_takestep(shared_ptr[cppTakeStep](takestep.thisptr))
+        self.thisptr.set_takestep(takestep.thisptr)
         
     def set_coordinates(self, coords, energy):
         cdef np.ndarray[double, ndim=1] ccoords = np.array(coords, dtype=float)
@@ -67,6 +70,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         return energy
     
     @cython.boundscheck(False)
+    @cython.wraparound(False)
     def get_coords(self):
         """return a histogram array"""
         cdef _pele.Array[double] xi = self.thisptr.get_coords()
