@@ -25,9 +25,13 @@ FILE(GLOB mcpele_sources ${mcpele_include}/*.cpp)
 add_library(mcpele_lib ${mcpele_sources})
 
 # set the pele include directory
-set(pele_include ../../../pele/source)
+set(pele_include ../../../pele/source CACHE STRING "the pele c++ source directory")
+if (EXISTS ${pele_include}/pele/array.h)
+  message("pele include directory: ${pele_include}")
+else()
+  message(FATAL_ERROR "pele include directory is not correct: ${pele_include} : use ccmake to set it")
+endif()
 include_directories(${pele_include})
-message("pele include directory ${pele_include}")
 
 # build the pele library
 FILE(GLOB pele_sources ${pele_include}/*.cpp)
