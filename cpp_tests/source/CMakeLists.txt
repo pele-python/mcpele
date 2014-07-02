@@ -16,12 +16,12 @@ set(gtest_libs gtest gtest_main)
 message("gtest_libs ${gtest_libs}")
 
 # set the mcpele include directory
-set(mcpele_include ../../source/mcpele)
+set(mcpele_include ../../source)
 include_directories(${mcpele_include})
 message("mcpele include directory ${mcpele_include}")
 
 # build the mcpele library
-FILE(GLOB mcpele_sources ${mcpele_include}/*.cpp)
+FILE(GLOB mcpele_sources ${mcpele_include}/mcpele/*.cpp)
 add_library(mcpele_lib ${mcpele_sources})
 
 # set the pele include directory
