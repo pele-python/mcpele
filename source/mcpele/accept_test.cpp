@@ -45,11 +45,6 @@ EnergyWindowTest::EnergyWindowTest(double min_energy, double max_energy):
 
 bool EnergyWindowTest::test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc)
 {
-	bool success = true;
-
-	if ((trial_energy < _min_energy) or (trial_energy > _max_energy))
-		success = false;
-
-	return success;
+	return ((trial_energy >= _min_energy) and (trial_energy <= _max_energy));
 }
 }
