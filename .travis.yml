@@ -42,7 +42,7 @@ install:
   - source activate pelenv
   - pip install networkx sqlalchemy hungarian pyro4 brewer2mpl pyopengl mpi4py
   - pwd
-  - cd /home/pele-python
+  - cd $HOME/build/pele-python
   - git clone https://github.com/pele-python/pele.git
   - cd pele
   - python setup.py build --fcompiler=gfortran
