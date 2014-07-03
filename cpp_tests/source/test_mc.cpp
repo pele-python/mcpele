@@ -7,11 +7,11 @@
 
 #include "pele/harmonic.h"
 
-#include "takestep.h"
-#include "accept_test.h"
-#include "actions.h"
+#include "mcpele/takestep.h"
+#include "mcpele/accept_test.h"
+#include "mcpele/actions.h"
 
-#include "mc.h"
+#include "mcpele/mc.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
