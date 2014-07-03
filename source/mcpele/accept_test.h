@@ -27,7 +27,9 @@ protected:
 public:
     MetropolisTest(size_t rseed);
     virtual ~MetropolisTest() {}
-    virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc);
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc);
     size_t get_seed() const {return _seed;}
     static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
@@ -42,7 +44,9 @@ protected:
 public:
     EnergyWindowTest(double min_energy, double max_energy);
     virtual ~EnergyWindowTest() {}
-    virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc);
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc);
 };
 
 }

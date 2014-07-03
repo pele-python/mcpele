@@ -29,7 +29,8 @@ public:
     //Action(){std::cout<< "Action()" << std::endl;}
     //virtual ~Action(){std::cout << "~Action()" << std::endl;}
     virtual ~Action(){}
-    virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc=NULL) =0;
+    virtual void action(Array<double> &coords, double energy, bool accepted,
+            MC* mc=NULL) =0;
 };
 
 /*
@@ -41,7 +42,9 @@ public:
     //AcceptTest(){std::cout << "AcceptTest()" << std::endl;}
     //virtual ~AcceptTest(){std::cout << "~AcceptTest()" << std::endl;}
     virtual ~AcceptTest(){}
-    virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc=NULL) =0;
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc=NULL) =0;
 };
 
 /*
@@ -126,10 +129,13 @@ public:
     }
     double get_energy() const {return _energy;}
     //this function is necessary if for example some potential parameter has been varied
-    void reset_energy(){
-    if(_niter > 0){throw std::runtime_error("MC::reset_energy after first iteration is forbidden");}
-    _energy = _potential->get_energy(_coords);
-    ++_neval;
+    void reset_energy()
+    {
+        if(_niter > 0){
+            throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
+        }
+        _energy = _potential->get_energy(_coords);
+        ++_neval;
     }
     double get_trial_energy() const {return _trial_energy;}
     Array<double> get_coords() const {return _coords.copy();}

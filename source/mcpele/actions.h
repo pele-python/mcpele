@@ -78,19 +78,19 @@ public:
  */
 
 class RecordEnergyTimeseries : public Action{
-    private:
+private:
     void _record_energy_value(const double energy){_time_series.push_back(energy);}
-        const size_t _niter, _record_every;
-        std::vector<double> _time_series;
-    public:
-        RecordEnergyTimeseries(const size_t niter, const size_t record_every);
-        virtual ~RecordEnergyTimeseries(){}
-        virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
-        pele::Array<double> get_time_series(){
-            _time_series.shrink_to_fit();
-            return pele::Array<double>(_time_series).copy();
-        }
-        void clear(){_time_series.clear();}
+    const size_t _niter, _record_every;
+    std::vector<double> _time_series;
+public:
+    RecordEnergyTimeseries(const size_t niter, const size_t record_every);
+    virtual ~RecordEnergyTimeseries(){}
+    virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
+    pele::Array<double> get_time_series(){
+        _time_series.shrink_to_fit();
+        return pele::Array<double>(_time_series).copy();
+    }
+    void clear(){_time_series.clear();}
 };
 
 }

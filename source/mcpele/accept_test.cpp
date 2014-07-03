@@ -9,16 +9,18 @@ namespace mcpele{
 std::mt19937_64 MetropolisTest::_generator;
 
 MetropolisTest::MetropolisTest(size_t rseed):
-        _seed(rseed), _distribution(0.0,1.0)
-        {
-        set_generator_seed(_seed);
-        #ifdef DEBUG
-            std::cout<<"seed Metropolis:"<<_seed<<std::endl;
-            //std::chrono::system_clock::now().time_since_epoch().count()
-        #endif
-        }
+    _seed(rseed), _distribution(0.0,1.0)
+{
+    set_generator_seed(_seed);
+#ifdef DEBUG
+    std::cout<<"seed Metropolis:"<<_seed<<std::endl;
+    //std::chrono::system_clock::now().time_since_epoch().count()
+#endif
+}
 
-bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy, Array<double>& old_coords, double old_energy, double temperature, MC * mc)
+bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
+        Array<double>& old_coords, double old_energy, double temperature, 
+        MC * mc)
 {
     double rand, w, wcomp;
     bool success = true;
@@ -29,8 +31,7 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy, Arra
     if (w < 1.0)
     {
         rand = _distribution(_generator);
-        if (rand > w)
-            success = false;
+        if (rand > w) success = false;
     }
 
     return success;
@@ -38,12 +39,14 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy, Arra
 
 /*ENERGY WINDOW TEST
  * this test checks that the energy of the system stays within a certain energy window
- * */
+ */
+EnergyWindowTest::EnergyWindowTest(double min_energy, double max_energy)
+    : _min_energy(min_energy),_max_energy(max_energy)
+{}
 
-EnergyWindowTest::EnergyWindowTest(double min_energy, double max_energy):
-        _min_energy(min_energy),_max_energy(max_energy){}
-
-bool EnergyWindowTest::test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc)
+bool EnergyWindowTest::test(Array<double> &trial_coords, double trial_energy,
+        Array<double> & old_coords, double old_energy, double temperature, 
+        MC * mc)
 {
     return ((trial_energy >= _min_energy) and (trial_energy <= _max_energy));
 }

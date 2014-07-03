@@ -16,7 +16,8 @@ using pele::Array;
 
 namespace mcpele{
 
-class CheckSphericalContainer:public ConfTest{
+class CheckSphericalContainer:public ConfTest
+{
 protected:
     double _radius2;
     size_t _ndim;
