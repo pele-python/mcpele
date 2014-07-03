@@ -16,11 +16,8 @@ cdef class _Cdef_AdjustStep(_Cdef_Action):
     """
     cdef cppAdjustStep* newptr
     def __cinit__(self, target, factor, niter, navg):
-        self.thisptr = shared_ptr[cppAction](new cppAdjustStep(target, factor, niter, navg))
-        self.newptr = shared_ptr[cppAdjustStep](self.thisptr)
-    
-#    def __dealloc__(self):
-#        del self.thisptr
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppAdjustStep(target, factor, niter, navg))
+        self.newptr = <cppAdjustStep*> self.thisptr.get()
         
 class AdjustStep(_Cdef_AdjustStep):
     """This class is the python interface for the c++ AdjustStep implementation.
@@ -37,9 +34,6 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
     def __cinit__(self, min, max, bin, eqsteps):
         self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordEnergyHistogram(min, max, bin, eqsteps))
         self.newptr = <cppRecordEnergyHistogram*> self.thisptr.get()
-    
-    def __dealloc__(self):
-        del self.thisptr
     
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -80,11 +74,8 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
     """
     cdef cppRecordEnergyTimeseries* newptr
     def __cinit__(self, niter, record_every):
-        self.thisptr = <cppAction*>new cppRecordEnergyTimeseries(niter, record_every)
-        self.newptr = <cppRecordEnergyTimeseries*> self.thisptr
-    
-    def __dealloc__(self):
-        del self.thisptr
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordEnergyTimeseries(niter, record_every))
+        self.newptr = <cppRecordEnergyTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)

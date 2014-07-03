@@ -9,9 +9,9 @@ from libcpp cimport bool as cbool
 #===============================================================================
 cdef extern from "<memory>" namespace "std":
     cdef cppclass shared_ptr[T]:
-        shared_ptr()
-        shared_ptr(T*)
-        T* get()
+        shared_ptr() except+
+        shared_ptr(T*) except+
+        T* get() except+
         # Note: operator->, operator= are not supported
 
 #===============================================================================

@@ -12,11 +12,8 @@ cdef class _Cdef_Metropolis(_Cdef_AcceptTest):
     """
     cdef cppMetropolisTest* newptr
     def __cinit__(self, rseed):
-        self.thisptr = shared_ptr[cppAcceptTest](new cppMetropolisTest(rseed))
-        self.newptr = shared_ptr[cppMetropolisTest](self.thisptr)
-
-#    def __dealloc__(self):
-#        del self.thisptr
+        self.thisptr = shared_ptr[cppAcceptTest](<cppAcceptTest*> new cppMetropolisTest(rseed))
+        self.newptr = <cppMetropolisTest*> self.thisptr.get()
         
 class MetropolisTest(_Cdef_Metropolis):
     """This class is the python interface for the c++ Metropolis implementation.
