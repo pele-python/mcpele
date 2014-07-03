@@ -40,7 +40,7 @@ install:
   - conda create --yes -n pelenv python=$TRAVIS_PYTHON_VERSION nose pip cython numpy scipy matplotlib qt pyqt
   - source activate pelenv
   - pip install networkx sqlalchemy hungarian pyro4 brewer2mpl pyopengl mpi4py
-  - cd ~/pele-python
+  - cd $HOME/pele-python
   - git clone https://github.com/pele-python/pele.git
   - cd pele
   - python setup.py build --fcompiler=gfortran
