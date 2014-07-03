@@ -20,16 +20,18 @@ namespace mcpele{
 
 class MetropolisTest:public AcceptTest{
 protected:
-	size_t _seed;
-	static std::mt19937_64 _generator;
-	std::uniform_real_distribution<double> _distribution;
+    size_t _seed;
+    static std::mt19937_64 _generator;
+    std::uniform_real_distribution<double> _distribution;
 
 public:
-	MetropolisTest(size_t rseed);
-	virtual ~MetropolisTest() {}
-	virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc);
-	size_t get_seed() const {return _seed;}
-	static void set_generator_seed(const size_t inp){_generator.seed(inp);}
+    MetropolisTest(size_t rseed);
+    virtual ~MetropolisTest() {}
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc);
+    size_t get_seed() const {return _seed;}
+    static void set_generator_seed(const size_t inp){_generator.seed(inp);}
 };
 
 /*ENERGY WINDOW TEST
@@ -38,11 +40,13 @@ public:
 
 class EnergyWindowTest:public AcceptTest{
 protected:
-	double _min_energy, _max_energy;
+    double _min_energy, _max_energy;
 public:
-	EnergyWindowTest(double min_energy, double max_energy);
-	virtual ~EnergyWindowTest() {}
-	virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc);
+    EnergyWindowTest(double min_energy, double max_energy);
+    virtual ~EnergyWindowTest() {}
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc);
 };
 
 }
