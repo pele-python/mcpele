@@ -9,11 +9,11 @@ using std::sqrt;
 namespace mcpele{
 
 /*Adjust Step
- * 	factor is a multiplicative factor by which the stepsize is adjusted
- * 	niter determines the number of steps for which the action should take effect (generally
- * 	we want to adjust the step size only at the beginning of a simulation)
- * 	navg is the number of steps over which the acceptance is averaged
- * 	factor must be 0<f<1, if rejected make step shorter, if accepted make step longer
+ *     factor is a multiplicative factor by which the stepsize is adjusted
+ *     niter determines the number of steps for which the action should take effect (generally
+ *     we want to adjust the step size only at the beginning of a simulation)
+ *     navg is the number of steps over which the acceptance is averaged
+ *     factor must be 0<f<1, if rejected make step shorter, if accepted make step longer
 */
 
 AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg):
@@ -21,7 +21,7 @@ AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg):
     _niter(niter),_navg(navg),_count(0),_naccepted(0),
     _nrejected(0)
     {
-	if (factor > 1 || factor < 0) throw std::runtime_error("AdjustStep: illegal input");
+    if (factor > 1 || factor < 0) throw std::runtime_error("AdjustStep: illegal input");
     }
 
 void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC* mc) {

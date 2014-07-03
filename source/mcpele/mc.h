@@ -121,15 +121,15 @@ public:
     void add_late_conf_test(shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
     void set_takestep(shared_ptr<TakeStep> takestep){_takestep = takestep;}
     void set_coordinates(Array<double>& coords, double energy){
-	    _coords = coords.copy();
-	    _energy = energy;
+        _coords = coords.copy();
+        _energy = energy;
     }
     double get_energy() const {return _energy;}
     //this function is necessary if for example some potential parameter has been varied
     void reset_energy(){
-	if(_niter > 0){throw std::runtime_error("MC::reset_energy after first iteration is forbidden");}
-	_energy = _potential->get_energy(_coords);
-	++_neval;
+    if(_niter > 0){throw std::runtime_error("MC::reset_energy after first iteration is forbidden");}
+    _energy = _potential->get_energy(_coords);
+    ++_neval;
     }
     double get_trial_energy() const {return _trial_energy;}
     Array<double> get_coords() const {return _coords.copy();}

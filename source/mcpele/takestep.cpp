@@ -7,26 +7,26 @@ std::mt19937_64 RandomCoordsDisplacement::_generator;
 
 //other members
 RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed):
-	_seed(rseed), _distribution(0.0,1.0)
-	{
-	    set_generator_seed(_seed);
-	    #ifdef DEBUG
-		std::cout<<"seed TakeStep:"<<_seed<<std::endl;
-	    #endif
-	    //std::cout << "construct RandomCoordsDisplacement" << std::endl;
-	}
+    _seed(rseed), _distribution(0.0,1.0)
+    {
+        set_generator_seed(_seed);
+        #ifdef DEBUG
+        std::cout<<"seed TakeStep:"<<_seed<<std::endl;
+        #endif
+        //std::cout << "construct RandomCoordsDisplacement" << std::endl;
+    }
 
 RandomCoordsDisplacement::RandomCoordsDisplacement():
-	_seed(42), _distribution(0.0,1.0)
-	{}
+    _seed(42), _distribution(0.0,1.0)
+    {}
 
 void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc){
-	double rand;
-	//assert(coords.size() == _N);
-	for(size_t i=0; i<coords.size();++i){
-	    rand = _distribution(_generator);
-		coords[i] += (0.5-rand)*stepsize;
-	}
+    double rand;
+    //assert(coords.size() == _N);
+    for(size_t i=0; i<coords.size();++i){
+        rand = _distribution(_generator);
+        coords[i] += (0.5-rand)*stepsize;
+    }
 }
 
 //static members of GaussianCoordsDisplacement
@@ -36,10 +36,10 @@ std::mt19937_64 GaussianCoordsDisplacement::_generator;
 GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t rseed):
         _seed(rseed), _mean(0.0), _stdev(1.0), _distribution(_mean,_stdev)
         {
-	    set_generator_seed(_seed);
-	    #ifdef DEBUG
-		std::cout<<"seed TakeStep:"<<_seed<<std::endl;
-	    #endif
+        set_generator_seed(_seed);
+        #ifdef DEBUG
+        std::cout<<"seed TakeStep:"<<_seed<<std::endl;
+        #endif
         }
 
 GaussianCoordsDisplacement::GaussianCoordsDisplacement():

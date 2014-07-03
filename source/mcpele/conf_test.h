@@ -18,13 +18,13 @@ namespace mcpele{
 
 class CheckSphericalContainer:public ConfTest{
 protected:
-	double _radius2;
-	size_t _ndim;
+    double _radius2;
+    size_t _ndim;
 public:
 
-	CheckSphericalContainer(double radius, size_t ndim);
-	virtual bool test(Array<double> &trial_coords, MC * mc);
-	virtual ~CheckSphericalContainer(){}
+    CheckSphericalContainer(double radius, size_t ndim);
+    virtual bool test(Array<double> &trial_coords, MC * mc);
+    virtual ~CheckSphericalContainer(){}
 };
 
 }//namespace mcpele
