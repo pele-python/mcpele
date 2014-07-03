@@ -1,5 +1,5 @@
 cimport pele.potentials._pele as _pele
-from _pele_mc cimport cppAction,_Cdef_Action
+from _pele_mc cimport cppAction,_Cdef_Action, shared_ptr
 from libcpp cimport bool as cbool
 
 cdef extern from "mcpele/actions.h" namespace "mcpele": 

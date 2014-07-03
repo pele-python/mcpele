@@ -1,5 +1,5 @@
 from libcpp cimport bool as cbool
-from _pele_mc cimport cppAcceptTest,_Cdef_AcceptTest
+from _pele_mc cimport cppAcceptTest,_Cdef_AcceptTest, shared_ptr
 
 #===============================================================================
 # Metropolis acceptance criterion
