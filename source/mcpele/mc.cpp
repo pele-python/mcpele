@@ -31,10 +31,10 @@ void MC::one_iteration()
     // perform the initial configuration test
     //for (auto& test : _conf_tests ){
     for (conf_t::iterator test1 = _conf_tests.begin(); test1 != _conf_tests.end(); ++test1){
-    //for (size_t test1 = 0; test1 != _conf_tests.size(); ++test1){
-	//_success = test->test(_trial_coords, this);
-	_success = (*test1)->test(_trial_coords, this);
-	//_success = _conf_tests.at(test1)->test(_trial_coords, this);
+        //for (size_t test1 = 0; test1 != _conf_tests.size(); ++test1){
+        //_success = test->test(_trial_coords, this);
+        _success = (*test1)->test(_trial_coords, this);
+        //_success = _conf_tests.at(test1)->test(_trial_coords, this);
 	    if (_success == false){
 		    ++_conf_reject_count;
 		    break;
