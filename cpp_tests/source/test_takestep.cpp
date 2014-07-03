@@ -25,7 +25,7 @@ public:
     virtual void SetUp(){
 	seed = 42;
 	ndof = 33;
-	coor.resize(ndof);
+	coor = Array<double>(ndof);
 	for (size_t i = 0; i < ndof; ++i){ coor[i] = 4242; }
 	reference = coor.copy();
 	stepsize = 0.1;

@@ -26,9 +26,9 @@ public:
 	ndof = 1000;
 	nsteps = 100;
 	ntot = nsteps*ndof;
-	displ_uniform.resize(ndof);
-	displ_gaussian.resize(ndof);
-	baseline.resize(ndof);
+	displ_uniform = Array<double>(ndof);
+	displ_gaussian = Array<double>(ndof);
+	baseline = Array<double>(ndof);
 	for (size_t i = 0; i < ndof; ++i){
 	    displ_uniform[i] = 0;
 	    displ_gaussian[i] = 0;

@@ -33,9 +33,9 @@ public:
 	boxdim = 3;
 	nparticles = 1e1;
 	ndof = boxdim*nparticles;
-	origin.resize(ndof);
+	origin = Array<double>(ndof);
 	std::fill(origin.data(),origin.data()+ndof,0);
-	x.resize(ndof);
+	x = Array<double>(ndof);
 	std::fill(x.data(),x.data()+ndof,0);
 	stepsize = 1e-2;
 	k = 400;
