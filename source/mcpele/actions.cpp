@@ -61,8 +61,11 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
  * Record energy histogram
 */
 
-RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps)
-    : _hist(mcpele::Histogram(min, max, bin)), _eqsteps(eqsteps),_count(0)
+RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double
+        bin, size_t eqsteps)
+    : _hist(mcpele::Histogram(min, max, bin)), 
+    _eqsteps(eqsteps), 
+    _count(0)
 {}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) 
@@ -78,7 +81,7 @@ void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool ac
  */
 
 RecordEnergyTimeseries::RecordEnergyTimeseries(const size_t niter, const size_t record_every)
-    :_niter(niter),_record_every(record_every)
+    : _niter(niter), _record_every(record_every)
 {
     _time_series.reserve(niter);
     if (record_every==0) 

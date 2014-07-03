@@ -47,7 +47,7 @@ void Histogram::resize(double E, int i)
     int newlen;
     if (i >= _N) {
         newlen = (i + 1) - _N;
-        _hist.insert(_hist.end(),(newlen-1),0);
+        _hist.insert(_hist.end(), (newlen-1), 0);
         _hist.push_back(1);
         ++_niter;
         _max = floor((E/_bin)+1)*_bin; //round to nearest increment
@@ -60,7 +60,7 @@ void Histogram::resize(double E, int i)
         std::cout<<"resized above at niter "<<_niter<<std::endl;
     } else if (i < 0) {
         newlen = -1*i;
-        _hist.insert(_hist.begin(),(newlen-1),0);
+        _hist.insert(_hist.begin(), (newlen-1), 0);
         _hist.insert(_hist.begin(),1);
         ++_niter;
         _min = floor((E/_bin))*_bin; //round to nearest increment

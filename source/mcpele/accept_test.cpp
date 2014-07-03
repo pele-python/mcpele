@@ -8,8 +8,8 @@ namespace mcpele{
 //static member
 std::mt19937_64 MetropolisTest::_generator;
 
-MetropolisTest::MetropolisTest(size_t rseed):
-    _seed(rseed), _distribution(0.0,1.0)
+MetropolisTest::MetropolisTest(size_t rseed)
+    : _seed(rseed), _distribution(0.0,1.0)
 {
     set_generator_seed(_seed);
 #ifdef DEBUG
@@ -28,8 +28,7 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
     wcomp = (trial_energy - old_energy) / temperature;
     w = exp(-wcomp);
 
-    if (w < 1.0)
-    {
+    if (w < 1.0){
         rand = _distribution(_generator);
         if (rand > w) success = false;
     }
@@ -45,8 +44,8 @@ EnergyWindowTest::EnergyWindowTest(double min_energy, double max_energy)
 {}
 
 bool EnergyWindowTest::test(Array<double> &trial_coords, double trial_energy,
-        Array<double> & old_coords, double old_energy, double temperature, 
-        MC * mc)
+    Array<double> & old_coords, double old_energy, double temperature, 
+    MC * mc)
 {
     return ((trial_energy >= _min_energy) and (trial_energy <= _max_energy));
 }
