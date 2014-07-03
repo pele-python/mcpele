@@ -25,8 +25,10 @@ void MC::one_iteration()
 
     _trial_coords.assign(_coords);
 
+    // take a step with the trial coords
     _takestep->takestep(_trial_coords, _stepsize, this);
 
+    // perform the initial configuration test
     //for (auto& test : _conf_tests ){
     for (conf_t::iterator test1 = _conf_tests.begin(); test1 != _conf_tests.end(); ++test1){
     //for (size_t test1 = 0; test1 != _conf_tests.size(); ++test1){
@@ -39,11 +41,14 @@ void MC::one_iteration()
 	    }
     }
 
+    // if the trial configuration is OK, compute the energy, and run the acceptance tests
     if (_success == true)
     {
+        // compute the energy
 	    _trial_energy = _potential->get_energy(_trial_coords);
-	    ++_neval;
+	    ++_neval;  // shouldn't this be in get_energy() ?
 
+	    // perform the acceptance tests.  Stop as soon as one of them fails
 	    for (accept_t::iterator test2 = _accept_tests.begin(); test2 != _accept_tests.end(); ++test2){
 	    //for (size_t test2 = 0; test2 < _accept_tests.size(); ++test2){
 		    _success = (*test2)->test(_trial_coords, _trial_energy, _coords, _energy, _temperature, this);
@@ -53,26 +58,30 @@ void MC::one_iteration()
 			    break;
 		    }
 	    }
-
-	    if (_success == true){
-
-		for (conf_t::iterator test3 = _late_conf_tests.begin(); test3 != _late_conf_tests.end(); ++test3){
-		//for (size_t test3 = 0; test3 < _late_conf_tests.size(); ++test3){
-		    _success = (*test3)->test(_trial_coords, this);
-		    //_success = _late_conf_tests.at(test3)->test(_trial_coords, this);
-		    if (_success == false){
-			++_conf_reject_count;
-			break;
-		    }
-		}
-
-		if (_success == true){
-		    _coords.assign(_trial_coords);
-		    _energy = _trial_energy;
-		    ++_accept_count;
-		}
-	    }
     }
+
+    // Do some final checks to ensure the configuration is OK.
+    // These come last because they might be computationally demanding.
+    if (_success == true){
+        for (conf_t::iterator test3 = _late_conf_tests.begin(); test3 != _late_conf_tests.end(); ++test3){
+        //for (size_t test3 = 0; test3 < _late_conf_tests.size(); ++test3){
+            _success = (*test3)->test(_trial_coords, this);
+            //_success = _late_conf_tests.at(test3)->test(_trial_coords, this);
+            if (_success == false){
+            ++_conf_reject_count;
+            break;
+            }
+        }
+    }
+
+    // if the step is accepted, copy the coordinates and energy
+    if (_success == true){
+        _coords.assign(_trial_coords);
+        _energy = _trial_energy;
+        ++_accept_count;
+    }
+
+    // perform the actions on the new configuration
     for (actions_t::iterator action1 = _actions.begin(); action1 != _actions.end(); ++action1){
     //for (size_t action1 = 0; action1 < _actions.size(); ++action1){
 	(*action1)->action(_coords, _energy, _success, this);
