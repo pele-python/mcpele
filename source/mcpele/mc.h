@@ -85,19 +85,19 @@ public:
 
 class MC {
 public:
-    //typedef std::list<Action*> actions_t;
-    typedef std::vector<Action*> actions_t;
-    //typedef std::list<AcceptTest*> accept_t;
-    typedef std::vector<AcceptTest*> accept_t;
-    //typedef std::list<ConfTest*> conf_t;
-    typedef std::vector<ConfTest*> conf_t;
+    //typedef std::list<shared_ptr<Action>> actions_t;
+    typedef std::vector<shared_ptr<Action>> actions_t;
+    //typedef std::list<shared_ptr<AcceptTest>> accept_t;
+    typedef std::vector<shared_ptr<AcceptTest>> accept_t;
+    //typedef std::list<shared_ptr<ConfTest>> conf_t;
+    typedef std::vector<shared_ptr<ConfTest>> conf_t;
 protected:
     pele::BasePotential * _potential;
     Array<double> _coords, _trial_coords;
     actions_t _actions;
     accept_t _accept_tests;
     conf_t _conf_tests, _late_conf_tests;
-    TakeStep* _takestep;
+    shared_ptr<TakeStep> _takestep;
     size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
     bool _success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
@@ -115,11 +115,11 @@ public:
     void run(size_t max_iter);
     void set_temperature(double T){_temperature = T;}
     void set_stepsize(double stepsize){_stepsize = stepsize;}
-    void add_action(Action* action){_actions.push_back(action);}
-    void add_accept_test(AcceptTest* accept_test){_accept_tests.push_back(accept_test);}
-    void add_conf_test(ConfTest* conf_test){_conf_tests.push_back(conf_test);}
-    void add_late_conf_test(ConfTest* conf_test){_late_conf_tests.push_back(conf_test);}
-    void set_takestep( TakeStep* takestep){_takestep = takestep;}
+    void add_action(shared_ptr<Action> action){_actions.push_back(action);}
+    void add_accept_test(shared_ptr<AcceptTest> accept_test){_accept_tests.push_back(accept_test);}
+    void add_conf_test(shared_ptr<ConfTest> conf_test){_conf_tests.push_back(conf_test);}
+    void add_late_conf_test(shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
+    void set_takestep(shared_ptr<TakeStep> takestep){_takestep = takestep;}
     void set_coordinates(Array<double>& coords, double energy){
 	    _coords = coords.copy();
 	    _energy = energy;

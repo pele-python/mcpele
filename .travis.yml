@@ -45,8 +45,8 @@ install:
   - cd $HOME/build/pele-python
   - git clone https://github.com/pele-python/pele.git
   - cd pele
-  - python setup.py build --fcompiler=gfortran
-  - python setup.py install
+  - python setup.py build_ext -i --fcompiler=gfortran
+  - export PYTHONPATH="$PWD:$PYTHONPATH"
   - cd ../mcpele
   - python setup.py build --fcompiler=gfortran
   - python setup.py install
