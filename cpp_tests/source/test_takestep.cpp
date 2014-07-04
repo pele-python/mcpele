@@ -23,17 +23,17 @@ public:
     double f;
 
     virtual void SetUp(){
-	seed = 42;
-	ndof = 33;
-	coor = Array<double>(ndof);
-	for (size_t i = 0; i < ndof; ++i){ coor[i] = 4242; }
-	reference = coor.copy();
-	stepsize = 0.1;
-	niterations = 10000;
-	f = 0.1;
+    seed = 42;
+    ndof = 33;
+    coor = Array<double>(ndof);
+    for (size_t i = 0; i < ndof; ++i){ coor[i] = 4242; }
+    reference = coor.copy();
+    stepsize = 0.1;
+    niterations = 10000;
+    f = 0.1;
     }
     virtual void TearDown() {
-	/////
+    /////
     }
 };
 
@@ -42,7 +42,7 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_OneIteration){
     mcpele::RandomCoordsDisplacement displ(seed);
     displ.takestep(coor,stepsize);
     for (size_t i = 0; i < ndof; ++i){
-	EXPECT_NEAR( reference[i], coor[i], stepsize*0.5 );
+    EXPECT_NEAR( reference[i], coor[i], stepsize*0.5 );
     }
 }
 
@@ -50,21 +50,21 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
     mcpele::RandomCoordsDisplacement displ(seed);
     for (size_t i = 0; i < niterations; ++i){
-	displ.takestep(coor,stepsize);
+    displ.takestep(coor,stepsize);
     }
     for (size_t i = 0; i < ndof; ++i){
-	EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
+    EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
     }
 }
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterationsReAllocate){
     // n iterations give expected vairation even if step generator is deleted and re-allocated
     for (size_t i = 0; i < niterations; ++i){
-	//mcpele::RandomCoordsDisplacement displ(seed); // this constructor re-seeds the rng
-	mcpele::RandomCoordsDisplacement displ; // this constructor does not re-seed the rng
-	displ.takestep(coor,stepsize);
+    //mcpele::RandomCoordsDisplacement displ(seed); // this constructor re-seeds the rng
+    mcpele::RandomCoordsDisplacement displ; // this constructor does not re-seed the rng
+    displ.takestep(coor,stepsize);
     }
     for (size_t i = 0; i < ndof; ++i){
-	EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
+    EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
     }
 }
