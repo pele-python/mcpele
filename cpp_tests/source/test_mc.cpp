@@ -118,25 +118,25 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
 }
 
 struct TrivialConfTest : public mcpele::ConfTest{
-    bool result;
+    bool return_val;
     size_t call_count;
-    TrivialConfTest(bool return_val)
-        : result(return_val), call_count(0)
+    TrivialConfTest(bool return_val1)
+        : return_val(return_val1), call_count(0)
     {}
 
     virtual bool test(Array<double> &trial_coords, mcpele::MC * mc)
     {
         call_count++;
-        return result;
+        return return_val;
     }
 
 };
 
 struct TrivialAcceptTest : public mcpele::AcceptTest{
-    bool result;
+    bool return_val;
     size_t call_count;
-    TrivialAcceptTest(bool return_val)
-        : result(return_val), call_count(0)
+    TrivialAcceptTest(bool return_val1)
+        : return_val(return_val1), call_count(0)
     {}
 
     virtual bool test(Array<double> &trial_coords, double trial_energy,
@@ -144,7 +144,7 @@ struct TrivialAcceptTest : public mcpele::AcceptTest{
             MC * mc)
     {
         call_count++;
-        return result;
+        return return_val;
     }
 
 };
@@ -160,82 +160,80 @@ struct TrivialTakestep : public mcpele::TakeStep{
     }
 };
 
-//class TestMCMock: public ::testing::Test{
+struct TrivialPotential : public pele::BasePotential{
+    size_t call_count;
+    virtual double get_energy(Array<double> coords)
+    {
+        call_count++;
+        return 0.;
+    }
+};
 
-TEST_F(TestMC, ConfTest_Fails){
-    TrivialConfTest * ct = new TrivialConfTest(false);
-    std::shared_ptr<ConfTest> ctest( ct );
-    TrivialTakestep * ts = new TrivialTakestep();
-    mcpele::MC mc(potential, x, 1, stepsize);
-    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
-    mc.add_conf_test(ctest);
-    mc.run(10);
+class TestMCMock: public ::testing::Test{
+public:
+    MC * mc;
+    Array<double> x0;
+    TrivialPotential * pot;
+    TrivialConfTest * ct;
+    TrivialConfTest * lct;
+    TrivialTakestep * ts;
+    TrivialAcceptTest * at;
+
+    virtual void SetUp()
+    {
+        x0 = Array<double>(2, 0.);
+        pot = new TrivialPotential();
+        ct = new TrivialConfTest(true);
+        lct = new TrivialConfTest(true);
+        at = new TrivialAcceptTest(true);
+        ts = new TrivialTakestep();
+        mc = new mcpele::MC(pot, x0, 1, 1);
+
+        mc->add_conf_test(std::shared_ptr<ConfTest>(ct));
+        mc->set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
+        mc->add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
+        mc->add_late_conf_test(std::shared_ptr<ConfTest>(lct));
+
+    }
+    virtual void TearDown()
+    {
+        delete mc;
+        delete pot;
+    }
+};
+
+TEST_F(TestMCMock, ConfTest_Fails){
+    ct->return_val = false;
+    mc->run(10);
     EXPECT_EQ(ct->call_count, 10);
     EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(mc.get_neval(), 1);
+    EXPECT_EQ(mc->get_neval(), 1);
 }
 
-TEST_F(TestMC, ConfTest_Passes){
-    mcpele::MC mc(potential, x, 1, stepsize);
-
-    TrivialConfTest * ct = new TrivialConfTest(true);
-    mc.add_conf_test(std::shared_ptr<ConfTest>(ct));
-
-    TrivialTakestep * ts = new TrivialTakestep();
-    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
-
-    mc.run(10);
+TEST_F(TestMCMock, ConfTest_Passes){
+    mc->run(10);
     EXPECT_EQ(ct->call_count, 10);
     EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(mc.get_neval(), 11);
+    EXPECT_EQ(mc->get_neval(), 11);
 }
 
-TEST_F(TestMC, AcceptTest_Passes){
-    mcpele::MC mc(potential, x, 1, stepsize);
-
-    TrivialConfTest * ct = new TrivialConfTest(true);
-    mc.add_conf_test(std::shared_ptr<ConfTest>(ct));
-
-    TrivialTakestep * ts = new TrivialTakestep();
-    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
-
-    TrivialAcceptTest * at = new TrivialAcceptTest(true);
-    mc.add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
-
-    TrivialConfTest * lct = new TrivialConfTest(true);
-    mc.add_late_conf_test(std::shared_ptr<ConfTest>(lct));
-
-
-    mc.run(10);
+TEST_F(TestMCMock, AcceptTest_Passes){
+    mc->run(10);
     EXPECT_EQ(ct->call_count, 10);
     EXPECT_EQ(ts->call_count, 10);
     EXPECT_EQ(at->call_count, 10);
     EXPECT_EQ(lct->call_count, 10);
-    EXPECT_EQ(mc.get_neval(), 11);
-    EXPECT_EQ(mc.get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_neval(), 11);
+    EXPECT_EQ(mc->get_iterations_count(), 10);
 }
 
-TEST_F(TestMC, AcceptTest_Fails){
-    mcpele::MC mc(potential, x, 1, stepsize);
-
-    TrivialConfTest * ct = new TrivialConfTest(true);
-    mc.add_conf_test(std::shared_ptr<ConfTest>(ct));
-
-    TrivialTakestep * ts = new TrivialTakestep();
-    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
-
-    TrivialAcceptTest * at = new TrivialAcceptTest(false);
-    mc.add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
-
-    TrivialConfTest * lct = new TrivialConfTest(true);
-    mc.add_late_conf_test(std::shared_ptr<ConfTest>(lct));
-
-
-    mc.run(10);
+TEST_F(TestMCMock, AcceptTest_Fails){
+    at->return_val = false;
+    mc->run(10);
     EXPECT_EQ(ct->call_count, 10);
     EXPECT_EQ(ts->call_count, 10);
     EXPECT_EQ(at->call_count, 10);
     EXPECT_EQ(lct->call_count, 0);
-    EXPECT_EQ(mc.get_neval(), 11);
-    EXPECT_EQ(mc.get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_neval(), 11);
+    EXPECT_EQ(mc->get_iterations_count(), 10);
 }
