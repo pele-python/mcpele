@@ -17,6 +17,8 @@
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
 using std::shared_ptr;
+using mcpele::ConfTest;
+using mcpele::MC;
 
 class TestMC: public ::testing::Test{
 public:
@@ -33,21 +35,21 @@ public:
     size_t max_iter;
 
     virtual void SetUp(){
-    boxdim = 3;
-    nparticles = 1e1;
-    ndof = boxdim*nparticles;
-    origin = Array<double>(ndof);
-    std::fill(origin.data(),origin.data()+ndof,0);
-    x = Array<double>(ndof);
-    std::fill(x.data(),x.data()+ndof,0);
-    stepsize = 1e-2;
-    k = 400;
-    potential = new pele::Harmonic(origin, k, boxdim);
-    max_iter = 1e5;
+        boxdim = 3;
+        nparticles = 1e1;
+        ndof = boxdim*nparticles;
+        origin = Array<double>(ndof);
+        std::fill(origin.data(),origin.data()+ndof,0);
+        x = Array<double>(ndof);
+        std::fill(x.data(),x.data()+ndof,0);
+        stepsize = 1e-2;
+        k = 400;
+        potential = new pele::Harmonic(origin, k, boxdim);
+        max_iter = 1e5;
     }
 
     virtual void TearDown() {
-    delete potential;
+        delete potential;
     }
 };
 
@@ -113,4 +115,56 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     //std::cout << "acc frac: " << mc->get_accepted_fraction() << std::endl;
     //std::cout << "final step size: " << mc->get_stepsize() << std::endl;
     delete mc;
+}
+
+struct TrivialConfTest : public mcpele::ConfTest{
+    bool result;
+    size_t call_count;
+    TrivialConfTest(bool return_val)
+        : result(return_val), call_count(0)
+    {}
+
+    virtual bool test(Array<double> &trial_coords, mcpele::MC * mc)
+    {
+        call_count++;
+        return result;
+    }
+
+};
+
+struct TrivialTakestep : public mcpele::TakeStep{
+    size_t call_count;
+    TrivialTakestep()
+        : call_count(0)
+    {}
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL)
+    {
+        call_count++;
+    }
+};
+
+TEST_F(TestMC, ConfTest_Fails){
+    TrivialConfTest * ct = new TrivialConfTest(false);
+    std::shared_ptr<ConfTest> ctest( ct );
+    TrivialTakestep * ts = new TrivialTakestep();
+    mcpele::MC mc(potential, x, 1, stepsize);
+    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
+    mc.add_conf_test(ctest);
+    mc.run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(mc.get_neval(), 1);
+}
+
+TEST_F(TestMC, ConfTest_Passes){
+    TrivialConfTest * ct = new TrivialConfTest(true);
+    std::shared_ptr<ConfTest> ctest( ct );
+    TrivialTakestep * ts = new TrivialTakestep();
+    mcpele::MC mc(potential, x, 1, stepsize);
+    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
+    mc.add_conf_test(ctest);
+    mc.run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(mc.get_neval(), 11);
 }

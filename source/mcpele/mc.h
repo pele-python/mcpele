@@ -174,6 +174,7 @@ protected:
         ++_neval;
         return _potential->get_energy(x);
     }
+    bool do_conf_tests();
 };
 
 }//namespace mcpele
