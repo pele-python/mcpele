@@ -135,8 +135,7 @@ public:
         if(_niter > 0){
             throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
         }
-        _energy = _potential->get_energy(_coords);
-        ++_neval;
+        _energy = compute_energy(_coords);
     }
     double get_trial_energy() const {return _trial_energy;}
     Array<double> get_coords() const {return _coords.copy();}
@@ -153,6 +152,13 @@ public:
     void check_input();
     void set_print_progress(const bool input){_print_progress=input;}
     void set_print_progress(){set_print_progress(true);}
+
+protected:
+    inline double compute_energy(Array<double> x)
+    {
+        ++_neval;
+        return _potential->get_energy(x);
+    }
 };
 
 }//namespace mcpele

@@ -18,11 +18,9 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
     _neval(0), 
     _stepsize(stepsize), 
     _temperature(temperature)
-
 {
-    _energy = _potential->get_energy(_coords);
+    _energy = compute_energy(_coords);
     _trial_energy = _energy;
-    ++_neval;
     /*std::cout<<"mcrunner Energy is "<<_energy<< "\n";
     std::cout<<"mcrunner potential ptr is "<<_potential<< "\n";*/
 }
@@ -51,8 +49,7 @@ void MC::one_iteration()
     if (_success == true)
     {
         // compute the energy
-        _trial_energy = _potential->get_energy(_trial_coords);
-        ++_neval;  // shouldn't this be in get_energy() ?
+        _trial_energy = compute_energy(_trial_coords);
 
         // perform the acceptance tests.  Stop as soon as one of them fails
         for (accept_t::iterator test2 = _accept_tests.begin(); test2 != _accept_tests.end(); ++test2){
