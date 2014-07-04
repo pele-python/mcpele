@@ -123,7 +123,8 @@ public:
     void add_conf_test(shared_ptr<ConfTest> conf_test){_conf_tests.push_back(conf_test);}
     void add_late_conf_test(shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
     void set_takestep(shared_ptr<TakeStep> takestep){_takestep = takestep;}
-    void set_coordinates(Array<double>& coords, double energy){
+    void set_coordinates(Array<double>& coords, double energy)
+    {
         _coords = coords.copy();
         _energy = energy;
     }
@@ -148,7 +149,7 @@ public:
     size_t get_neval() const {return _neval;};
     double get_stepsize() const {return _stepsize;};
     pele::BasePotential * get_potential_ptr(){return _potential;}
-    bool take_step_specified()const{return (_takestep!=NULL);}
+    bool take_step_specified() const {return (_takestep!=NULL);}
     void check_input();
     void set_print_progress(const bool input){_print_progress=input;}
     void set_print_progress(){set_print_progress(true);}
