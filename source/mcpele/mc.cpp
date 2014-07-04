@@ -33,8 +33,8 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
 bool MC::do_conf_tests(Array<double> x)
 {
     bool result;
-    for (conf_t::iterator test1 = _conf_tests.begin(); test1 != _conf_tests.end(); ++test1){
-        result = (*test1)->test(x, this);
+    for (auto & test : _conf_tests){
+        result = test->test(x, this);
         if (not result){
             ++_conf_reject_count;
             return false;
@@ -49,8 +49,8 @@ bool MC::do_conf_tests(Array<double> x)
 bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
 {
     bool result;
-    for (accept_t::iterator test2 = _accept_tests.begin(); test2 != _accept_tests.end(); ++test2){
-        result = (*test2)->test(xtrial, etrial, xold, eold, _temperature, this);
+    for (auto & test : _accept_tests){
+        result = test->test(xtrial, etrial, xold, eold, _temperature, this);
         if (not result){
             ++_E_reject_count;
             return false;
@@ -65,8 +65,8 @@ bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold
 bool MC::do_late_conf_tests(Array<double> x)
 {
     bool result;
-    for (conf_t::iterator test3 = _late_conf_tests.begin(); test3 != _late_conf_tests.end(); ++test3){
-        result = (*test3)->test(x, this);
+    for (auto & test : _late_conf_tests){
+        result = test->test(x, this);
         if (not result){
             ++_conf_reject_count;
             return false;
@@ -77,8 +77,8 @@ bool MC::do_late_conf_tests(Array<double> x)
 
 void MC::do_actions(Array<double> x, double energy, bool success)
 {
-    for (actions_t::iterator action1 = _actions.begin(); action1 != _actions.end(); ++action1){
-        (*action1)->action(x, energy, success, this);
+    for (auto & action : _actions){
+        action->action(x, energy, success, this);
     }
 }
 
