@@ -95,7 +95,7 @@ void MC::check_input(){
     //std::cout << "_actions.size(): " << _actions.size() << std::endl; //debug
     //std::cout << "_accept_tests.size(): " << _accept_tests.size() << std::endl; //debug
     if (!take_step_specified()) throw std::runtime_error("MC::check_input: takestep not set");
-    if (_conf_tests.size()==0) std::cout << "warning: no conf tests set" << std::endl;
+    if (_conf_tests.size()==0 && _late_conf_tests.size()==0) std::cout << "warning: no conf tests set" << std::endl;
     if (_actions.size()==0) std::cout << "warning: no actions set" << std::endl;
     if (_accept_tests.size()==0) std::cout << "warning: no accept tests set" << std::endl;
 }
