@@ -160,6 +160,18 @@ struct TrivialTakestep : public mcpele::TakeStep{
     }
 };
 
+struct TrivialAction : public mcpele::Action{
+    size_t call_count;
+    TrivialAction()
+        : call_count(0)
+    {}
+    virtual void action(Array<double> &coords, double energy, bool accepted,
+            MC* mc)
+    {
+        call_count++;
+    }
+};
+
 struct TrivialPotential : public pele::BasePotential{
     size_t call_count;
     virtual double get_energy(Array<double> coords)
@@ -178,6 +190,7 @@ public:
     TrivialConfTest * lct;
     TrivialTakestep * ts;
     TrivialAcceptTest * at;
+    TrivialAction * a;
 
     virtual void SetUp()
     {
@@ -187,12 +200,14 @@ public:
         lct = new TrivialConfTest(true);
         at = new TrivialAcceptTest(true);
         ts = new TrivialTakestep();
+        a = new TrivialAction();
         mc = new mcpele::MC(pot, x0, 1, 1);
 
         mc->add_conf_test(std::shared_ptr<ConfTest>(ct));
         mc->set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
         mc->add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
         mc->add_late_conf_test(std::shared_ptr<ConfTest>(lct));
+        mc->add_action(std::shared_ptr<mcpele::Action>(a));
 
     }
     virtual void TearDown()
@@ -202,29 +217,28 @@ public:
     }
 };
 
-TEST_F(TestMCMock, ConfTest_Fails){
-    ct->return_val = false;
-    mc->run(10);
-    EXPECT_EQ(ct->call_count, 10);
-    EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(mc->get_neval(), 1);
-}
-
-TEST_F(TestMCMock, ConfTest_Passes){
-    mc->run(10);
-    EXPECT_EQ(ct->call_count, 10);
-    EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(mc->get_neval(), 11);
-}
-
-TEST_F(TestMCMock, AcceptTest_Passes){
+TEST_F(TestMCMock, AllPass_AllCalled){
     mc->run(10);
     EXPECT_EQ(ct->call_count, 10);
     EXPECT_EQ(ts->call_count, 10);
     EXPECT_EQ(at->call_count, 10);
     EXPECT_EQ(lct->call_count, 10);
+    EXPECT_EQ(a->call_count, 10);
     EXPECT_EQ(mc->get_neval(), 11);
     EXPECT_EQ(mc->get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_naccept(), 10);
+    EXPECT_EQ(mc->get_nreject(), 0);
+}
+
+TEST_F(TestMCMock, ConfTest_Fails){
+    ct->return_val = false;
+    mc->run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 0);
+    EXPECT_EQ(lct->call_count, 0);
+    EXPECT_EQ(a->call_count, 10);
+    EXPECT_EQ(mc->get_neval(), 1);
 }
 
 TEST_F(TestMCMock, AcceptTest_Fails){
@@ -234,6 +248,23 @@ TEST_F(TestMCMock, AcceptTest_Fails){
     EXPECT_EQ(ts->call_count, 10);
     EXPECT_EQ(at->call_count, 10);
     EXPECT_EQ(lct->call_count, 0);
+    EXPECT_EQ(a->call_count, 10);
     EXPECT_EQ(mc->get_neval(), 11);
     EXPECT_EQ(mc->get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_naccept(), 0);
+    EXPECT_EQ(mc->get_nreject(), 10);
+}
+
+TEST_F(TestMCMock, LateConfTest_Fails){
+    lct->return_val = false;
+    mc->run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 10);
+    EXPECT_EQ(lct->call_count, 10);
+    EXPECT_EQ(a->call_count, 10);
+    EXPECT_EQ(mc->get_neval(), 11);
+    EXPECT_EQ(mc->get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_naccept(), 0);
+    EXPECT_EQ(mc->get_nreject(), 10);
 }

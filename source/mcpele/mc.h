@@ -150,6 +150,8 @@ public:
     Array<double> get_coords() const { return _coords.copy(); }
     Array<double> get_trial_coords() const { return _trial_coords.copy(); }
     double get_norm_coords() const { return norm(_coords); }
+    size_t get_naccept() const { return _accept_count; };
+    size_t get_nreject() const { return _nitercount - _accept_count; };
     double get_accepted_fraction() const { return ((double) _accept_count)/_nitercount; };
     double get_conf_rejection_fraction() const
     {
@@ -176,6 +178,8 @@ protected:
     }
     bool do_conf_tests(Array<double> x);
     bool do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold);
+    bool do_late_conf_tests(Array<double> x);
+    void do_actions(Array<double> x, double energy, bool success);
 };
 
 }//namespace mcpele

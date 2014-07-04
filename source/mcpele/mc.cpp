@@ -59,6 +59,30 @@ bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold
     return true;
 }
 
+/**
+ * perform the configuration tests.  Stop as soon as one of them fails
+ */
+bool MC::do_late_conf_tests(Array<double> x)
+{
+    bool result;
+    for (conf_t::iterator test3 = _late_conf_tests.begin(); test3 != _late_conf_tests.end(); ++test3){
+        result = (*test3)->test(x, this);
+        if (not result){
+            ++_conf_reject_count;
+            return false;
+        }
+    }
+    return true;
+}
+
+void MC::do_actions(Array<double> x, double energy, bool success)
+{
+    for (actions_t::iterator action1 = _actions.begin(); action1 != _actions.end(); ++action1){
+        (*action1)->action(x, energy, success, this);
+    }
+}
+
+
 void MC::one_iteration()
 {
     _success = true;
@@ -74,8 +98,7 @@ void MC::one_iteration()
     _success = do_conf_tests(_trial_coords);
 
     // if the trial configuration is OK, compute the energy, and run the acceptance tests
-    if (_success == true)
-    {
+    if (_success) {
         // compute the energy
         _trial_energy = compute_energy(_trial_coords);
 
@@ -85,27 +108,19 @@ void MC::one_iteration()
 
     // Do some final checks to ensure the configuration is OK.
     // These come last because they might be computationally demanding.
-    if (_success == true){
-        for (conf_t::iterator test3 = _late_conf_tests.begin(); test3 != _late_conf_tests.end(); ++test3){
-            _success = (*test3)->test(_trial_coords, this);
-            if (_success == false){
-                ++_conf_reject_count;
-                break;
-            }
-        }
+    if (_success) {
+        _success = do_late_conf_tests(_trial_coords);
     }
 
     // if the step is accepted, copy the coordinates and energy
-    if (_success == true){
+    if (_success) {
         _coords.assign(_trial_coords);
         _energy = _trial_energy;
         ++_accept_count;
     }
 
     // perform the actions on the new configuration
-    for (actions_t::iterator action1 = _actions.begin(); action1 != _actions.end(); ++action1){
-        (*action1)->action(_coords, _energy, _success, this);
-    }
+    do_actions(_coords, _energy, _success);
 }
 
 void MC::check_input(){
