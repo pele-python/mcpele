@@ -174,7 +174,8 @@ protected:
         ++_neval;
         return _potential->get_energy(x);
     }
-    bool do_conf_tests();
+    bool do_conf_tests(Array<double> x);
+    bool do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold);
 };
 
 }//namespace mcpele

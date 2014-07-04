@@ -27,13 +27,32 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
     std::cout<<"mcrunner potential ptr is "<<_potential<< "\n";*/
 }
 
-bool MC::do_conf_tests()
+/**
+ * perform the configuration tests.  Stop as soon as one of them fails
+ */
+bool MC::do_conf_tests(Array<double> x)
 {
     bool result;
     for (conf_t::iterator test1 = _conf_tests.begin(); test1 != _conf_tests.end(); ++test1){
-        result = (*test1)->test(_trial_coords, this);
+        result = (*test1)->test(x, this);
         if (not result){
             ++_conf_reject_count;
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * perform the acceptance tests.  Stop as soon as one of them fails
+ */
+bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
+{
+    bool result;
+    for (accept_t::iterator test2 = _accept_tests.begin(); test2 != _accept_tests.end(); ++test2){
+        result = (*test2)->test(xtrial, etrial, xold, eold, _temperature, this);
+        if (not result){
+            ++_E_reject_count;
             return false;
         }
     }
@@ -51,15 +70,8 @@ void MC::one_iteration()
     // take a step with the trial coords
     _takestep->takestep(_trial_coords, _stepsize, this);
 
-    // perform the initial configuration test
-    _success = do_conf_tests();
-//    for (conf_t::iterator test1 = _conf_tests.begin(); test1 != _conf_tests.end(); ++test1){
-//        _success = (*test1)->test(_trial_coords, this);
-//        if (_success == false){
-//            ++_conf_reject_count;
-//            break;
-//        }
-//    }
+    // perform the initial configuration tests
+    _success = do_conf_tests(_trial_coords);
 
     // if the trial configuration is OK, compute the energy, and run the acceptance tests
     if (_success == true)
@@ -68,13 +80,7 @@ void MC::one_iteration()
         _trial_energy = compute_energy(_trial_coords);
 
         // perform the acceptance tests.  Stop as soon as one of them fails
-        for (accept_t::iterator test2 = _accept_tests.begin(); test2 != _accept_tests.end(); ++test2){
-            _success = (*test2)->test(_trial_coords, _trial_energy, _coords, _energy, _temperature, this);
-            if (_success == false){
-                ++_E_reject_count;
-                break;
-            }
-        }
+        _success = do_accept_tests(_trial_coords, _trial_energy, _coords, _energy);
     }
 
     // Do some final checks to ensure the configuration is OK.

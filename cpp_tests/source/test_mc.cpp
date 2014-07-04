@@ -132,6 +132,23 @@ struct TrivialConfTest : public mcpele::ConfTest{
 
 };
 
+struct TrivialAcceptTest : public mcpele::AcceptTest{
+    bool result;
+    size_t call_count;
+    TrivialAcceptTest(bool return_val)
+        : result(return_val), call_count(0)
+    {}
+
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc)
+    {
+        call_count++;
+        return result;
+    }
+
+};
+
 struct TrivialTakestep : public mcpele::TakeStep{
     size_t call_count;
     TrivialTakestep()
@@ -142,6 +159,8 @@ struct TrivialTakestep : public mcpele::TakeStep{
         call_count++;
     }
 };
+
+//class TestMCMock: public ::testing::Test{
 
 TEST_F(TestMC, ConfTest_Fails){
     TrivialConfTest * ct = new TrivialConfTest(false);
@@ -157,14 +176,66 @@ TEST_F(TestMC, ConfTest_Fails){
 }
 
 TEST_F(TestMC, ConfTest_Passes){
-    TrivialConfTest * ct = new TrivialConfTest(true);
-    std::shared_ptr<ConfTest> ctest( ct );
-    TrivialTakestep * ts = new TrivialTakestep();
     mcpele::MC mc(potential, x, 1, stepsize);
+
+    TrivialConfTest * ct = new TrivialConfTest(true);
+    mc.add_conf_test(std::shared_ptr<ConfTest>(ct));
+
+    TrivialTakestep * ts = new TrivialTakestep();
     mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
-    mc.add_conf_test(ctest);
+
     mc.run(10);
     EXPECT_EQ(ct->call_count, 10);
     EXPECT_EQ(ts->call_count, 10);
     EXPECT_EQ(mc.get_neval(), 11);
+}
+
+TEST_F(TestMC, AcceptTest_Passes){
+    mcpele::MC mc(potential, x, 1, stepsize);
+
+    TrivialConfTest * ct = new TrivialConfTest(true);
+    mc.add_conf_test(std::shared_ptr<ConfTest>(ct));
+
+    TrivialTakestep * ts = new TrivialTakestep();
+    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
+
+    TrivialAcceptTest * at = new TrivialAcceptTest(true);
+    mc.add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
+
+    TrivialConfTest * lct = new TrivialConfTest(true);
+    mc.add_late_conf_test(std::shared_ptr<ConfTest>(lct));
+
+
+    mc.run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 10);
+    EXPECT_EQ(lct->call_count, 10);
+    EXPECT_EQ(mc.get_neval(), 11);
+    EXPECT_EQ(mc.get_iterations_count(), 10);
+}
+
+TEST_F(TestMC, AcceptTest_Fails){
+    mcpele::MC mc(potential, x, 1, stepsize);
+
+    TrivialConfTest * ct = new TrivialConfTest(true);
+    mc.add_conf_test(std::shared_ptr<ConfTest>(ct));
+
+    TrivialTakestep * ts = new TrivialTakestep();
+    mc.set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
+
+    TrivialAcceptTest * at = new TrivialAcceptTest(false);
+    mc.add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
+
+    TrivialConfTest * lct = new TrivialConfTest(true);
+    mc.add_late_conf_test(std::shared_ptr<ConfTest>(lct));
+
+
+    mc.run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 10);
+    EXPECT_EQ(lct->call_count, 0);
+    EXPECT_EQ(mc.get_neval(), 11);
+    EXPECT_EQ(mc.get_iterations_count(), 10);
 }
