@@ -1,6 +1,8 @@
 #include "mc.h"
 #include "progress.h"
 
+using pele::Array;
+
 namespace mcpele{
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize)
