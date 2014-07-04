@@ -75,7 +75,7 @@ public:
     {
         for(size_t i=0; i<_hist.size();++i) {
             std::cout << i << "-" << (i+1) << ": ";
-            std::cout << std::string(_hist[i]*10000/ntot,'*') << std::endl;
+            std::cout << std::string(_hist[i]*10000/ntot,'*') <<  "\n";
         }
     };
     void resize(double E, int i);

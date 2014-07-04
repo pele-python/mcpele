@@ -29,7 +29,7 @@ public:
     RandomCoordsDisplacement(size_t rseed);
     RandomCoordsDisplacement();
     virtual ~RandomCoordsDisplacement(){}
-    //virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" << std::endl; }
+    //virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" <<  "\n"; }
     virtual void takestep(Array<double>& coords, double stepsize, MC * mc=NULL);
     size_t get_seed() const {return _seed;}
     static void set_generator_seed(const size_t inp){_generator.seed(inp);}

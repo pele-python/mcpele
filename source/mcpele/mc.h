@@ -26,8 +26,8 @@ class MC;
 
 class Action {
 public:
-    //Action(){std::cout<< "Action()" << std::endl;}
-    //virtual ~Action(){std::cout << "~Action()" << std::endl;}
+    //Action(){std::cout<< "Action()" <<  "\n";}
+    //virtual ~Action(){std::cout << "~Action()" <<  "\n";}
     virtual ~Action(){}
     virtual void action(Array<double> &coords, double energy, bool accepted,
             MC* mc=NULL) =0;
@@ -39,8 +39,8 @@ public:
 
 class AcceptTest{
 public:
-    //AcceptTest(){std::cout << "AcceptTest()" << std::endl;}
-    //virtual ~AcceptTest(){std::cout << "~AcceptTest()" << std::endl;}
+    //AcceptTest(){std::cout << "AcceptTest()" <<  "\n";}
+    //virtual ~AcceptTest(){std::cout << "~AcceptTest()" <<  "\n";}
     virtual ~AcceptTest(){}
     virtual bool test(Array<double> &trial_coords, double trial_energy,
             Array<double> & old_coords, double old_energy, double temperature,
@@ -53,8 +53,8 @@ public:
 
 class ConfTest{
 public:
-    //ConfTest(){std::cout << "ConfTest()" << std::endl;}
-    //virtual ~ConfTest(){std::cout << "~ConfTest()" << std::endl;}
+    //ConfTest(){std::cout << "ConfTest()" <<  "\n";}
+    //virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
     virtual ~ConfTest(){}
     virtual bool test(Array<double> &trial_coords, MC * mc=NULL) =0;
 };
@@ -65,8 +65,8 @@ public:
 
 class TakeStep{
 public:
-    //TakeStep(){std::cout << "TakeStep()" << std::endl;}
-    //virtual ~TakeStep(){std::cout << "TakeStep()" << std::endl;}
+    //TakeStep(){std::cout << "TakeStep()" <<  "\n";}
+    //virtual ~TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     virtual ~TakeStep(){}
     virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL) =0;
 };

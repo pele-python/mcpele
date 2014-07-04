@@ -13,7 +13,7 @@ MetropolisTest::MetropolisTest(size_t rseed)
 {
     set_generator_seed(_seed);
 #ifdef DEBUG
-    std::cout<<"seed Metropolis:"<<_seed<<std::endl;
+    std::cout<<"seed Metropolis:"<<_seed<< "\n";
     //std::chrono::system_clock::now().time_since_epoch().count()
 #endif
 }

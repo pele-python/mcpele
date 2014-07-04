@@ -11,7 +11,7 @@ Histogram::Histogram(double min, double max, double bin)
     _hist(_N,0),_niter(0)
 {
 #ifdef DEBUG
-    std::cout<<"histogram is of size "<<_N<<std::endl;
+    std::cout<<"histogram is of size "<<_N<< "\n";
 #endif
 }
 
@@ -37,7 +37,7 @@ void Histogram::add_entry(double E)
 
     if (renorm != _niter)
     {
-        std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n renorm "<<renorm<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
+        std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n renorm "<<renorm<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
         assert(renorm == _niter);
     }*/
 }
@@ -53,11 +53,11 @@ void Histogram::resize(double E, int i)
         _max = floor((E/_bin)+1)*_bin; //round to nearest increment
         _N = round((_max - _min) / _bin); //was round
         if ( (int) _hist.size() != _N) {
-            std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
+            std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
             assert( (int) _hist.size() == _N);
             exit (EXIT_FAILURE);
         }
-        std::cout<<"resized above at niter "<<_niter<<std::endl;
+        std::cout<<"resized above at niter "<<_niter<< "\n";
     } else if (i < 0) {
         newlen = -1*i;
         _hist.insert(_hist.begin(), (newlen-1), 0);
@@ -66,14 +66,14 @@ void Histogram::resize(double E, int i)
         _min = floor((E/_bin))*_bin; //round to nearest increment
         _N = round((_max-_min)/_bin); //was round
         if ( (int) _hist.size() != _N) {
-            std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
+            std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
             assert( (int) _hist.size() == _N);
             exit (EXIT_FAILURE);
         }
-        std::cout<<"resized below at niter "<<_niter<<std::endl;
+        std::cout<<"resized below at niter "<<_niter<< "\n";
     } else {
-        std::cerr<<"histogram encountered unexpected condition"<<std::endl;
-        std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<<std::endl;
+        std::cerr<<"histogram encountered unexpected condition"<< "\n";
+        std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
     }
 }
 

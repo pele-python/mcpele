@@ -8,7 +8,7 @@ namespace mcpele{
 CheckSphericalContainer::CheckSphericalContainer(double radius, size_t ndim)
     : _radius2(radius*radius), _ndim(ndim)
 {
-    //std::cout << "construct CheckSphericalContainer" << std::endl;
+    //std::cout << "construct CheckSphericalContainer" <<  "\n";
 }
 
 bool CheckSphericalContainer::test(Array<double> &trial_coords, MC * mc)

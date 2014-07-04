@@ -11,9 +11,9 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed)
 {
     set_generator_seed(_seed);
 #ifdef DEBUG
-    std::cout<<"seed TakeStep:"<<_seed<<std::endl;
+    std::cout<<"seed TakeStep:"<<_seed<< "\n";
 #endif
-    //std::cout << "construct RandomCoordsDisplacement" << std::endl;
+    //std::cout << "construct RandomCoordsDisplacement" <<  "\n";
 }
 
 RandomCoordsDisplacement::RandomCoordsDisplacement()
@@ -39,7 +39,7 @@ GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t rseed)
 {
     set_generator_seed(_seed);
 #ifdef DEBUG
-    std::cout<<"seed TakeStep:"<<_seed<<std::endl;
+    std::cout<<"seed TakeStep:"<<_seed<< "\n";
 #endif
 }
 

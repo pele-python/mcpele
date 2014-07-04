@@ -38,29 +38,29 @@ public:
     void TimePercentage(const index_t smp, std::ostream& stm)
     {
         // percentage done
-        stm << "---" << std::endl;
-        stm << "percentage done" << std::endl;
-        stm << curr << " %" << std::endl;
+        stm << "---" <<  "\n";
+        stm << "percentage done" <<  "\n";
+        stm << curr << " %" <<  "\n";
         prev = curr;
-        stm << "---" << std::endl;
+        stm << "---" <<  "\n";
         // time elapsed
-        stm << "time elapsed" << std::endl;
+        stm << "time elapsed" <<  "\n";
         PrintTime(stm);
         // estimated time to completion
-        stm << "---" << std::endl;
-        stm << "estimated time to completion" << std::endl;
+        stm << "---" <<  "\n";
+        stm << "estimated time to completion" <<  "\n";
         IntToTime(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock(), stm);
         // estimated total time
-        stm << "---" << std::endl;
-        stm << "estimated total run time" << std::endl;
+        stm << "---" <<  "\n";
+        stm << "estimated total run time" <<  "\n";
         IntToTime(((float_t)m/(float_t)(smp+1))*(float_t)clock(), stm);
-        stm << "---" << std::endl;
+        stm << "---" <<  "\n";
         // estimated completion time in local time
-        stm << "estimated completion local time" << std::endl;
+        stm << "estimated completion local time" <<  "\n";
         time_t timer = time(NULL);
         timer+=(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock())/CLOCKS_PER_SEC;
         stm << ctime(&timer);
-        stm << "---" << std::endl;
+        stm << "---" <<  "\n";
     }
 
     void PrintTime(std::ostream& stm)
@@ -89,7 +89,7 @@ public:
             if (seconds>1) stm << seconds << " seconds";
             else stm << seconds << " second";
         }
-        stm << std::endl;
+        stm <<  "\n";
     }
 
     void IntToTime(const long_t inp, std::ostream& stm)
@@ -118,7 +118,7 @@ public:
             if (seconds>1) stm << seconds << " seconds";
             else stm << seconds << " second";
         }
-        stm << std::endl;
+        stm <<  "\n";
     }
 
 };

@@ -40,13 +40,13 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
         {
             _acceptedf = (double) _naccepted / (_naccepted + _nrejected);
 
-            //std::cout<<"acceptance "<<_acceptedf<<std::endl;
-            //std::cout<<"stepsize before"<<mc->_stepsize<<std::endl;
+            //std::cout<<"acceptance "<<_acceptedf<< "\n";
+            //std::cout<<"stepsize before"<<mc->_stepsize<< "\n";
             if (_acceptedf < _target)
                 mc->_stepsize *= _factor;
             else
                 mc->_stepsize /= _factor;
-            //std::cout<<"stepsize after"<<mc->_stepsize<<std::endl;
+            //std::cout<<"stepsize after"<<mc->_stepsize<< "\n";
 
             //now reset to zero memory of acceptance and rejection
             _naccepted = 0;

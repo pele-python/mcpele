@@ -23,8 +23,8 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
     _energy = _potential->get_energy(_coords);
     _trial_energy = _energy;
     ++_neval;
-    /*std::cout<<"mcrunner Energy is "<<_energy<<std::endl;
-    std::cout<<"mcrunner potential ptr is "<<_potential<<std::endl;*/
+    /*std::cout<<"mcrunner Energy is "<<_energy<< "\n";
+    std::cout<<"mcrunner potential ptr is "<<_potential<< "\n";*/
 }
 
 void MC::one_iteration()
@@ -90,14 +90,14 @@ void MC::one_iteration()
 }
 
 void MC::check_input(){
-    //std::cout << "_conf_tests.size(): " << _conf_tests.size() << std::endl; //debug
-    //std::cout << "_late_conf_tests.size(): " << _late_conf_tests.size() << std::endl; //debug
-    //std::cout << "_actions.size(): " << _actions.size() << std::endl; //debug
-    //std::cout << "_accept_tests.size(): " << _accept_tests.size() << std::endl; //debug
+    //std::cout << "_conf_tests.size(): " << _conf_tests.size() <<  "\n"; //debug
+    //std::cout << "_late_conf_tests.size(): " << _late_conf_tests.size() <<  "\n"; //debug
+    //std::cout << "_actions.size(): " << _actions.size() <<  "\n"; //debug
+    //std::cout << "_accept_tests.size(): " << _accept_tests.size() <<  "\n"; //debug
     if (!take_step_specified()) throw std::runtime_error("MC::check_input: takestep not set");
-    if (_conf_tests.size()==0) std::cout << "warning: no conf tests set" << std::endl;
-    if (_actions.size()==0) std::cout << "warning: no actions set" << std::endl;
-    if (_accept_tests.size()==0) std::cout << "warning: no accept tests set" << std::endl;
+    if (_conf_tests.size()==0) std::cout << "warning: no conf tests set" <<  "\n";
+    if (_actions.size()==0) std::cout << "warning: no actions set" <<  "\n";
+    if (_accept_tests.size()==0) std::cout << "warning: no accept tests set" <<  "\n";
 }
 
 void MC::run(size_t max_iter)
@@ -105,9 +105,9 @@ void MC::run(size_t max_iter)
     check_input();
     progress stat(max_iter);
     while(_niter < max_iter){
-        //std::cout << "done: " << double(_niter)/double(max_iter) << std::endl;
-        //std::cout << "_niter: " << _niter << std::endl;
-        //std::cout << "max_iter: " << max_iter << std::endl;
+        //std::cout << "done: " << double(_niter)/double(max_iter) <<  "\n";
+        //std::cout << "_niter: " << _niter <<  "\n";
+        //std::cout << "max_iter: " << max_iter <<  "\n";
         this->one_iteration();
         if (_print_progress) stat.next(_niter);
     }
