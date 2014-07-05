@@ -116,19 +116,28 @@ public:
 
     void one_iteration();
     void run(size_t max_iter);
-    void set_temperature(double T){_temperature = T;}
-    void set_stepsize(double stepsize){_stepsize = stepsize;}
-    void add_action(shared_ptr<Action> action){_actions.push_back(action);}
-    void add_accept_test(shared_ptr<AcceptTest> accept_test){_accept_tests.push_back(accept_test);}
-    void add_conf_test(shared_ptr<ConfTest> conf_test){_conf_tests.push_back(conf_test);}
-    void add_late_conf_test(shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
+    void set_temperature(double T) { _temperature = T; }
+    void set_stepsize(double stepsize){ _stepsize = stepsize; }
+    void add_action(shared_ptr<Action> action) { _actions.push_back(action); }
+    void add_accept_test(shared_ptr<AcceptTest> accept_test)
+    {
+        _accept_tests.push_back(accept_test);
+    }
+    void add_conf_test(shared_ptr<ConfTest> conf_test)
+    {
+        _conf_tests.push_back(conf_test);
+    }
+    void add_late_conf_test(shared_ptr<ConfTest> conf_test)
+    {
+        _late_conf_tests.push_back(conf_test);
+    }
     void set_takestep(shared_ptr<TakeStep> takestep){_takestep = takestep;}
     void set_coordinates(Array<double>& coords, double energy)
     {
         _coords = coords.copy();
         _energy = energy;
     }
-    double get_energy() const {return _energy;}
+    double get_energy() const { return _energy; }
     //this function is necessary if for example some potential parameter has been varied
     void reset_energy()
     {
@@ -137,21 +146,29 @@ public:
         }
         _energy = compute_energy(_coords);
     }
-    double get_trial_energy() const {return _trial_energy;}
-    Array<double> get_coords() const {return _coords.copy();}
-    Array<double> get_trial_coords() const {return _trial_coords.copy();}
-    double get_norm_coords() const {return norm(_coords);}
-    double get_accepted_fraction() const {return ((double) _accept_count)/_nitercount;};
-    double get_conf_rejection_fraction() const {return ((double)_conf_reject_count)/_nitercount;};
-    double get_E_rejection_fraction() const {return ((double)_E_reject_count)/_nitercount;};
-    size_t get_iterations_count() const {return _nitercount;};
+    double get_trial_energy() const { return _trial_energy; }
+    Array<double> get_coords() const { return _coords.copy(); }
+    Array<double> get_trial_coords() const { return _trial_coords.copy(); }
+    double get_norm_coords() const { return norm(_coords); }
+    size_t get_naccept() const { return _accept_count; };
+    size_t get_nreject() const { return _nitercount - _accept_count; };
+    double get_accepted_fraction() const { return ((double) _accept_count)/_nitercount; };
+    double get_conf_rejection_fraction() const
+    {
+        return ((double)_conf_reject_count)/_nitercount;
+    }
+    double get_E_rejection_fraction() const
+    {
+        return ((double)_E_reject_count)/_nitercount;
+    }
+    size_t get_iterations_count() const { return _nitercount; }
     size_t get_neval() const {return _neval;};
     double get_stepsize() const {return _stepsize;};
-    pele::BasePotential * get_potential_ptr(){return _potential;}
-    bool take_step_specified() const {return (_takestep!=NULL);}
+    pele::BasePotential * get_potential_ptr() { return _potential; }
+    bool take_step_specified() const { return (_takestep!=NULL); }
     void check_input();
-    void set_print_progress(const bool input){_print_progress=input;}
-    void set_print_progress(){set_print_progress(true);}
+    void set_print_progress(const bool input) { _print_progress=input; }
+    void set_print_progress() { set_print_progress(true); }
 
 protected:
     inline double compute_energy(Array<double> x)
@@ -159,6 +176,10 @@ protected:
         ++_neval;
         return _potential->get_energy(x);
     }
+    bool do_conf_tests(Array<double> x);
+    bool do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold);
+    bool do_late_conf_tests(Array<double> x);
+    void do_actions(Array<double> x, double energy, bool success);
 };
 
 }//namespace mcpele
