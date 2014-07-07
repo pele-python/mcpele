@@ -12,8 +12,9 @@ def read_Visits(fname):
 class ParallelTemperingTest(unittest.TestCase):
     
     def test_heat_capacity(self):
-        self.ndim=3
-        self.nprocs=4
+        self.bdim = 3
+        self.natoms = 4
+        self.nprocs = 4
         testdir = os.path.dirname(__file__)
         # create a temporary directory using the context manager
         tmpdir=tempfile.mkdtemp()
@@ -43,9 +44,10 @@ class ParallelTemperingTest(unittest.TestCase):
                         
             average2 = np.average(np.square(ener),weights=hist)
                         
-            cv =  (average2 - average**2)/(T**2) + float(self.ndim)/2
-                        
-            self.assertLess(cv-self.ndim,0.01,'failed for replica of rank {} cv = {}'.format(i,cv))
+            cv =  (average2 - average**2)/(T**2)
+            cv_true = self.natoms*self.bdim/2.0
+            
+            self.assertLess(cv-cv_true,0.1,'failed for replica of rank {} cv = {}'.format(i,cv))
             
 if __name__ == "__main__":
     logging.basicConfig(filename='ParallelTempering.log',level=logging.DEBUG)  
