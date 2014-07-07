@@ -17,6 +17,8 @@
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
 using std::shared_ptr;
+using mcpele::ConfTest;
+using mcpele::MC;
 
 class TestMC: public ::testing::Test{
 public:
@@ -33,21 +35,21 @@ public:
     size_t max_iter;
 
     virtual void SetUp(){
-    boxdim = 3;
-    nparticles = 1e1;
-    ndof = boxdim*nparticles;
-    origin = Array<double>(ndof);
-    std::fill(origin.data(),origin.data()+ndof,0);
-    x = Array<double>(ndof);
-    std::fill(x.data(),x.data()+ndof,0);
-    stepsize = 1e-2;
-    k = 400;
-    potential = new pele::Harmonic(origin, k, boxdim);
-    max_iter = 1e5;
+        boxdim = 3;
+        nparticles = 1e1;
+        ndof = boxdim*nparticles;
+        origin = Array<double>(ndof);
+        std::fill(origin.data(),origin.data()+ndof,0);
+        x = Array<double>(ndof);
+        std::fill(x.data(),x.data()+ndof,0);
+        stepsize = 1e-2;
+        k = 400;
+        potential = new pele::Harmonic(origin, k, boxdim);
+        max_iter = 1e5;
     }
 
     virtual void TearDown() {
-    delete potential;
+        delete potential;
     }
 };
 
@@ -113,4 +115,156 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     //std::cout << "acc frac: " << mc->get_accepted_fraction() << std::endl;
     //std::cout << "final step size: " << mc->get_stepsize() << std::endl;
     delete mc;
+}
+
+struct TrivialConfTest : public mcpele::ConfTest{
+    bool return_val;
+    size_t call_count;
+    TrivialConfTest(bool return_val1)
+        : return_val(return_val1), call_count(0)
+    {}
+
+    virtual bool test(Array<double> &trial_coords, mcpele::MC * mc)
+    {
+        call_count++;
+        return return_val;
+    }
+
+};
+
+struct TrivialAcceptTest : public mcpele::AcceptTest{
+    bool return_val;
+    size_t call_count;
+    TrivialAcceptTest(bool return_val1)
+        : return_val(return_val1), call_count(0)
+    {}
+
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc)
+    {
+        call_count++;
+        return return_val;
+    }
+
+};
+
+struct TrivialTakestep : public mcpele::TakeStep{
+    size_t call_count;
+    TrivialTakestep()
+        : call_count(0)
+    {}
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL)
+    {
+        call_count++;
+    }
+};
+
+struct TrivialAction : public mcpele::Action{
+    size_t call_count;
+    TrivialAction()
+        : call_count(0)
+    {}
+    virtual void action(Array<double> &coords, double energy, bool accepted,
+            MC* mc)
+    {
+        call_count++;
+    }
+};
+
+struct TrivialPotential : public pele::BasePotential{
+    size_t call_count;
+    virtual double get_energy(Array<double> coords)
+    {
+        call_count++;
+        return 0.;
+    }
+};
+
+class TestMCMock: public ::testing::Test{
+public:
+    MC * mc;
+    Array<double> x0;
+    TrivialPotential * pot;
+    TrivialConfTest * ct;
+    TrivialConfTest * lct;
+    TrivialTakestep * ts;
+    TrivialAcceptTest * at;
+    TrivialAction * a;
+
+    virtual void SetUp()
+    {
+        x0 = Array<double>(2, 0.);
+        pot = new TrivialPotential();
+        ct = new TrivialConfTest(true);
+        lct = new TrivialConfTest(true);
+        at = new TrivialAcceptTest(true);
+        ts = new TrivialTakestep();
+        a = new TrivialAction();
+        mc = new mcpele::MC(pot, x0, 1, 1);
+
+        mc->add_conf_test(std::shared_ptr<ConfTest>(ct));
+        mc->set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
+        mc->add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
+        mc->add_late_conf_test(std::shared_ptr<ConfTest>(lct));
+        mc->add_action(std::shared_ptr<mcpele::Action>(a));
+
+    }
+    virtual void TearDown()
+    {
+        delete mc;
+        delete pot;
+    }
+};
+
+TEST_F(TestMCMock, AllPass_AllCalled){
+    mc->run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 10);
+    EXPECT_EQ(lct->call_count, 10);
+    EXPECT_EQ(a->call_count, 10);
+    EXPECT_EQ(mc->get_neval(), 11);
+    EXPECT_EQ(mc->get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_naccept(), 10);
+    EXPECT_EQ(mc->get_nreject(), 0);
+}
+
+TEST_F(TestMCMock, ConfTest_Fails){
+    ct->return_val = false;
+    mc->run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 0);
+    EXPECT_EQ(lct->call_count, 0);
+    EXPECT_EQ(a->call_count, 10);
+    EXPECT_EQ(mc->get_neval(), 1);
+}
+
+TEST_F(TestMCMock, AcceptTest_Fails){
+    at->return_val = false;
+    mc->run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 10);
+    EXPECT_EQ(lct->call_count, 0);
+    EXPECT_EQ(a->call_count, 10);
+    EXPECT_EQ(mc->get_neval(), 11);
+    EXPECT_EQ(mc->get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_naccept(), 0);
+    EXPECT_EQ(mc->get_nreject(), 10);
+}
+
+TEST_F(TestMCMock, LateConfTest_Fails){
+    lct->return_val = false;
+    mc->run(10);
+    EXPECT_EQ(ct->call_count, 10);
+    EXPECT_EQ(ts->call_count, 10);
+    EXPECT_EQ(at->call_count, 10);
+    EXPECT_EQ(lct->call_count, 10);
+    EXPECT_EQ(a->call_count, 10);
+    EXPECT_EQ(mc->get_neval(), 11);
+    EXPECT_EQ(mc->get_iterations_count(), 10);
+    EXPECT_EQ(mc->get_naccept(), 0);
+    EXPECT_EQ(mc->get_nreject(), 10);
 }

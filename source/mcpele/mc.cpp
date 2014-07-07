@@ -1,6 +1,8 @@
 #include "mc.h"
 #include "progress.h"
 
+using pele::Array;
+
 namespace mcpele{
 
 MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize)
@@ -25,6 +27,62 @@ MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperatur
     std::cout<<"mcrunner potential ptr is "<<_potential<< "\n";*/
 }
 
+/**
+ * perform the configuration tests.  Stop as soon as one of them fails
+ */
+bool MC::do_conf_tests(Array<double> x)
+{
+    bool result;
+    for (auto & test : _conf_tests){
+        result = test->test(x, this);
+        if (not result){
+            ++_conf_reject_count;
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * perform the acceptance tests.  Stop as soon as one of them fails
+ */
+bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
+{
+    bool result;
+    for (auto & test : _accept_tests){
+        result = test->test(xtrial, etrial, xold, eold, _temperature, this);
+        if (not result){
+            ++_E_reject_count;
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * perform the configuration tests.  Stop as soon as one of them fails
+ */
+bool MC::do_late_conf_tests(Array<double> x)
+{
+    bool result;
+    for (auto & test : _late_conf_tests){
+        result = test->test(x, this);
+        if (not result){
+            ++_conf_reject_count;
+            return false;
+        }
+    }
+    return true;
+}
+
+void MC::do_actions(Array<double> x, double energy, bool success)
+{
+    for (auto & action : _actions){
+        action->action(x, energy, success, this);
+    }
+}
+
+
 void MC::one_iteration()
 {
     _success = true;
@@ -36,54 +94,33 @@ void MC::one_iteration()
     // take a step with the trial coords
     _takestep->takestep(_trial_coords, _stepsize, this);
 
-    // perform the initial configuration test
-    for (conf_t::iterator test1 = _conf_tests.begin(); test1 != _conf_tests.end(); ++test1){
-        _success = (*test1)->test(_trial_coords, this);
-        if (_success == false){
-            ++_conf_reject_count;
-            break;
-        }
-    }
+    // perform the initial configuration tests
+    _success = do_conf_tests(_trial_coords);
 
     // if the trial configuration is OK, compute the energy, and run the acceptance tests
-    if (_success == true)
-    {
+    if (_success) {
         // compute the energy
         _trial_energy = compute_energy(_trial_coords);
 
         // perform the acceptance tests.  Stop as soon as one of them fails
-        for (accept_t::iterator test2 = _accept_tests.begin(); test2 != _accept_tests.end(); ++test2){
-            _success = (*test2)->test(_trial_coords, _trial_energy, _coords, _energy, _temperature, this);
-            if (_success == false){
-                ++_E_reject_count;
-                break;
-            }
-        }
+        _success = do_accept_tests(_trial_coords, _trial_energy, _coords, _energy);
     }
 
     // Do some final checks to ensure the configuration is OK.
     // These come last because they might be computationally demanding.
-    if (_success == true){
-        for (conf_t::iterator test3 = _late_conf_tests.begin(); test3 != _late_conf_tests.end(); ++test3){
-            _success = (*test3)->test(_trial_coords, this);
-            if (_success == false){
-                ++_conf_reject_count;
-                break;
-            }
-        }
+    if (_success) {
+        _success = do_late_conf_tests(_trial_coords);
     }
 
     // if the step is accepted, copy the coordinates and energy
-    if (_success == true){
+    if (_success) {
         _coords.assign(_trial_coords);
         _energy = _trial_energy;
         ++_accept_count;
     }
 
     // perform the actions on the new configuration
-    for (actions_t::iterator action1 = _actions.begin(); action1 != _actions.end(); ++action1){
-        (*action1)->action(_coords, _energy, _success, this);
-    }
+    do_actions(_coords, _energy, _success);
 }
 
 void MC::check_input(){
