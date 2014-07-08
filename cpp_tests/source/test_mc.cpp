@@ -219,52 +219,52 @@ public:
 
 TEST_F(TestMCMock, AllPass_AllCalled){
     mc->run(10);
-    EXPECT_EQ(ct->call_count, 10);
-    EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(at->call_count, 10);
-    EXPECT_EQ(lct->call_count, 10);
-    EXPECT_EQ(a->call_count, 10);
-    EXPECT_EQ(mc->get_neval(), 11);
-    EXPECT_EQ(mc->get_iterations_count(), 10);
-    EXPECT_EQ(mc->get_naccept(), 10);
-    EXPECT_EQ(mc->get_nreject(), 0);
+    EXPECT_EQ(ct->call_count, size_t(10));
+    EXPECT_EQ(ts->call_count, size_t(10));
+    EXPECT_EQ(at->call_count, size_t(10));
+    EXPECT_EQ(lct->call_count, size_t(10));
+    EXPECT_EQ(a->call_count, size_t(10));
+    EXPECT_EQ(mc->get_neval(), size_t(11));
+    EXPECT_EQ(mc->get_iterations_count(), size_t(10));
+    EXPECT_EQ(mc->get_naccept(), size_t(10));
+    EXPECT_EQ(mc->get_nreject(), size_t(0));
 }
 
 TEST_F(TestMCMock, ConfTest_Fails){
     ct->return_val = false;
     mc->run(10);
-    EXPECT_EQ(ct->call_count, 10);
-    EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(at->call_count, 0);
-    EXPECT_EQ(lct->call_count, 0);
-    EXPECT_EQ(a->call_count, 10);
-    EXPECT_EQ(mc->get_neval(), 1);
+    EXPECT_EQ(ct->call_count, size_t(10));
+    EXPECT_EQ(ts->call_count, size_t(10));
+    EXPECT_EQ(at->call_count, size_t(0));
+    EXPECT_EQ(lct->call_count, size_t(0));
+    EXPECT_EQ(a->call_count, size_t(10));
+    EXPECT_EQ(mc->get_neval(), size_t(1));
 }
 
 TEST_F(TestMCMock, AcceptTest_Fails){
     at->return_val = false;
     mc->run(10);
-    EXPECT_EQ(ct->call_count, 10);
-    EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(at->call_count, 10);
-    EXPECT_EQ(lct->call_count, 0);
-    EXPECT_EQ(a->call_count, 10);
-    EXPECT_EQ(mc->get_neval(), 11);
-    EXPECT_EQ(mc->get_iterations_count(), 10);
-    EXPECT_EQ(mc->get_naccept(), 0);
-    EXPECT_EQ(mc->get_nreject(), 10);
+    EXPECT_EQ(ct->call_count, size_t(10));
+    EXPECT_EQ(ts->call_count, size_t(10));
+    EXPECT_EQ(at->call_count, size_t(10));
+    EXPECT_EQ(lct->call_count, size_t(0));
+    EXPECT_EQ(a->call_count, size_t(10));
+    EXPECT_EQ(mc->get_neval(), size_t(11));
+    EXPECT_EQ(mc->get_iterations_count(), size_t(10));
+    EXPECT_EQ(mc->get_naccept(), size_t(0));
+    EXPECT_EQ(mc->get_nreject(), size_t(10));
 }
 
 TEST_F(TestMCMock, LateConfTest_Fails){
     lct->return_val = false;
     mc->run(10);
-    EXPECT_EQ(ct->call_count, 10);
-    EXPECT_EQ(ts->call_count, 10);
-    EXPECT_EQ(at->call_count, 10);
-    EXPECT_EQ(lct->call_count, 10);
-    EXPECT_EQ(a->call_count, 10);
-    EXPECT_EQ(mc->get_neval(), 11);
-    EXPECT_EQ(mc->get_iterations_count(), 10);
-    EXPECT_EQ(mc->get_naccept(), 0);
-    EXPECT_EQ(mc->get_nreject(), 10);
+    EXPECT_EQ(ct->call_count, size_t(10));
+    EXPECT_EQ(ts->call_count, size_t(10));
+    EXPECT_EQ(at->call_count, size_t(10));
+    EXPECT_EQ(lct->call_count, size_t(10));
+    EXPECT_EQ(a->call_count, size_t(10));
+    EXPECT_EQ(mc->get_neval(), size_t(11));
+    EXPECT_EQ(mc->get_iterations_count(), size_t(10));
+    EXPECT_EQ(mc->get_naccept(), size_t(0));
+    EXPECT_EQ(mc->get_nreject(), size_t(10));
 }
