@@ -74,17 +74,16 @@ with initializer lists, put the colon on a separate line from the name.  And the
 Try to keep the lines not too much longer than 80 characters.
 
 Try to generally use braces with if statements.
-for loops should never not have braces.  it's just too dangerous.
+for loops should always have braces.  it's just too dangerous otherwise.
 
     // very easy to introduce problems
     if (condition)
         do_something;
 
-
 add a space after for, if, while, etc
 
-    for(i = 0; i < N; ++i){ //no!
-    for (i = 0; i < N; ++i) { //yes!
+    for(i = 0; i < N; ++i){ // no
+    for (i = 0; i < N; ++i) { // yes
 
 Put whitespace between operators
 
@@ -99,3 +98,35 @@ Put whitespace between operators
     }
 
 
+for naming, we follow the python convention and use CamelCase for class names
+and lower_case_under_score for function and variable names.
+
+Ideally functions should have a name that contains a verb. It should be the
+action that the function performs.
+
+    value()     //bad
+    get_value() //good
+
+If you can't come up with a function name that describes what the function
+does, that might be an indication that your function does too many things.
+Try breaking up your function into many functions that each perform one action.
+Functions should be simple enough that you can know what it's going to do just
+by reading the name.
+
+When naming the c++ tests we follow the standard convention and use 
+
+    TEST(ClassNameOrTestGroup, ActionPerformed_ExpectedResult)
+
+the above is all CamelCase except for the single underscore separating the
+action and the expected result.
+
+For documentation, 
+we try to follow the c++ Doxygen format.  That way we can
+automatically generate nice looking documentation.  
+http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html
+In particular, functions should be documented like so
+
+    /**
+     * return the energy
+     */
+    double get_energy();
