@@ -106,11 +106,13 @@ cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
     """This class is the python interface for the c++ RecordLowestEValueTimeseries action class implementation
     """
     cdef cppRecordLowestEValueTimeseries* newptr
-    def __cinit__(self, niter, record_every, _pele.cBasePotential* landscape_potential, boxdimension,
-                  _pele.Array[double] ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0):
+    cdef ranvec
+    def __cinit__(self, niter, record_every, _pele.BasePotential landscape_potential, boxdimension,
+                  ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0):
+        cdef np.ndarray[double, ndim=1] ranvecc = ranvec
         self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordLowestEValueTimeseries(niter, record_every,
-                                                                                              landscape_potential, boxdimension,
-                                                                                              ranvec, lbfgstol, lbfgsM,
+                                                                                              landscape_potential.thisptr, boxdimension,
+                                                                                              _pele.Array[double](<double*> ranvecc.data, ranvecc.size), lbfgstol, lbfgsM,
                                                                                               lbfgsniter, lbfgsmaxstep, H0))
         self.newptr = <cppRecordLowestEValueTimeseries*> self.thisptr.get()
         
