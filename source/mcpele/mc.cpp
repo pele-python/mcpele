@@ -5,7 +5,7 @@ using pele::Array;
 
 namespace mcpele{
 
-MC::MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize)
+MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, double temperature, double stepsize)
     : _potential(potential),
     _coords(coords.copy()),
     _trial_coords(_coords.copy()), 
