@@ -94,14 +94,10 @@ TEST(EVTimeseries, Works){
     EXPECT_DOUBLE_EQ(enumerical, etrue);
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
 
-    const double lbfgstol = 1e-2;
-    const size_t lbfgsM = 5;
     const size_t lbfgsniter = 30;
-    const double lbfgsmaxstep = 0.3;
-    const double H0 = 1;
     pele::Array<double> ranvec = origin.copy();
     //series_t* ts = new series_t(niter, record_every);
-    series_t* ts = new series_t(niter, record_every, landscape_potential, boxdim, ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0);
+    series_t* ts = new series_t(niter, record_every, landscape_potential, boxdim, ranvec, lbfgsniter);
     //series_t* ts = new series_t(niter, record_every, potential, boxdim, ranvec);
 
     mc->add_action(std::shared_ptr<series_t>(ts));
