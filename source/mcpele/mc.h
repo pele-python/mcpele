@@ -26,10 +26,11 @@ class MC;
 
 class Action {
 public:
-    //Action(){std::cout<< "Action()" << std::endl;}
-    //virtual ~Action(){std::cout << "~Action()" << std::endl;}
+    //Action(){std::cout<< "Action()" <<  "\n";}
+    //virtual ~Action(){std::cout << "~Action()" <<  "\n";}
     virtual ~Action(){}
-    virtual void action(Array<double> &coords, double energy, bool accepted, MC* mc=NULL) =0;
+    virtual void action(Array<double> &coords, double energy, bool accepted,
+            MC* mc) =0;
 };
 
 /*
@@ -38,10 +39,12 @@ public:
 
 class AcceptTest{
 public:
-    //AcceptTest(){std::cout << "AcceptTest()" << std::endl;}
-    //virtual ~AcceptTest(){std::cout << "~AcceptTest()" << std::endl;}
+    //AcceptTest(){std::cout << "AcceptTest()" <<  "\n";}
+    //virtual ~AcceptTest(){std::cout << "~AcceptTest()" <<  "\n";}
     virtual ~AcceptTest(){}
-    virtual bool test(Array<double> &trial_coords, double trial_energy, Array<double> & old_coords, double old_energy, double temperature, MC * mc=NULL) =0;
+    virtual bool test(Array<double> &trial_coords, double trial_energy,
+            Array<double> & old_coords, double old_energy, double temperature,
+            MC * mc) =0;
 };
 
 /*
@@ -50,10 +53,10 @@ public:
 
 class ConfTest{
 public:
-    //ConfTest(){std::cout << "ConfTest()" << std::endl;}
-    //virtual ~ConfTest(){std::cout << "~ConfTest()" << std::endl;}
+    //ConfTest(){std::cout << "ConfTest()" <<  "\n";}
+    //virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
     virtual ~ConfTest(){}
-    virtual bool test(Array<double> &trial_coords, MC * mc=NULL) =0;
+    virtual bool test(Array<double> &trial_coords, MC * mc) =0;
 };
 
 /*
@@ -62,10 +65,10 @@ public:
 
 class TakeStep{
 public:
-    //TakeStep(){std::cout << "TakeStep()" << std::endl;}
-    //virtual ~TakeStep(){std::cout << "TakeStep()" << std::endl;}
+    //TakeStep(){std::cout << "TakeStep()" <<  "\n";}
+    //virtual ~TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     virtual ~TakeStep(){}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL) =0;
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc) =0;
 };
 
 /*
@@ -85,14 +88,11 @@ public:
 
 class MC {
 public:
-    //typedef std::list<shared_ptr<Action>> actions_t;
     typedef std::vector<shared_ptr<Action>> actions_t;
-    //typedef std::list<shared_ptr<AcceptTest>> accept_t;
     typedef std::vector<shared_ptr<AcceptTest>> accept_t;
-    //typedef std::list<shared_ptr<ConfTest>> conf_t;
     typedef std::vector<shared_ptr<ConfTest>> conf_t;
 protected:
-    pele::BasePotential * _potential;
+    std::shared_ptr<pele::BasePotential> _potential;
     Array<double> _coords, _trial_coords;
     actions_t _actions;
     accept_t _accept_tests;
@@ -107,45 +107,76 @@ public:
     size_t _niter, _neval;
     double _stepsize, _temperature, _energy, _trial_energy;
 
-    MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize);
+    MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, double temperature, double stepsize);
 
-    virtual ~MC(){}
+    virtual ~MC() {}
 
     void one_iteration();
     void run(size_t max_iter);
-    void set_temperature(double T){_temperature = T;}
-    void set_stepsize(double stepsize){_stepsize = stepsize;}
-    void add_action(shared_ptr<Action> action){_actions.push_back(action);}
-    void add_accept_test(shared_ptr<AcceptTest> accept_test){_accept_tests.push_back(accept_test);}
-    void add_conf_test(shared_ptr<ConfTest> conf_test){_conf_tests.push_back(conf_test);}
-    void add_late_conf_test(shared_ptr<ConfTest> conf_test){_late_conf_tests.push_back(conf_test);}
+    void set_temperature(double T) { _temperature = T; }
+    void set_stepsize(double stepsize){ _stepsize = stepsize; }
+    void add_action(shared_ptr<Action> action) { _actions.push_back(action); }
+    void add_accept_test(shared_ptr<AcceptTest> accept_test)
+    {
+        _accept_tests.push_back(accept_test);
+    }
+    void add_conf_test(shared_ptr<ConfTest> conf_test)
+    {
+        _conf_tests.push_back(conf_test);
+    }
+    void add_late_conf_test(shared_ptr<ConfTest> conf_test)
+    {
+        _late_conf_tests.push_back(conf_test);
+    }
     void set_takestep(shared_ptr<TakeStep> takestep){_takestep = takestep;}
-    void set_coordinates(Array<double>& coords, double energy){
-	    _coords = coords.copy();
-	    _energy = energy;
+    void set_coordinates(Array<double>& coords, double energy)
+    {
+        _coords = coords.copy();
+        _energy = energy;
     }
-    double get_energy() const {return _energy;}
+    double get_energy() const { return _energy; }
     //this function is necessary if for example some potential parameter has been varied
-    void reset_energy(){
-	if(_niter > 0){throw std::runtime_error("MC::reset_energy after first iteration is forbidden");}
-	_energy = _potential->get_energy(_coords);
-	++_neval;
+    void reset_energy()
+    {
+        if(_niter > 0){
+            throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
+        }
+        _energy = compute_energy(_coords);
     }
-    double get_trial_energy() const {return _trial_energy;}
-    Array<double> get_coords() const {return _coords.copy();}
-    Array<double> get_trial_coords() const {return _trial_coords.copy();}
-    double get_norm_coords() const {return norm(_coords);}
-    double get_accepted_fraction() const {return ((double) _accept_count)/_nitercount;};
-    double get_conf_rejection_fraction() const {return ((double)_conf_reject_count)/_nitercount;};
-    double get_E_rejection_fraction() const {return ((double)_E_reject_count)/_nitercount;};
-    size_t get_iterations_count() const {return _nitercount;};
+    double get_trial_energy() const { return _trial_energy; }
+    Array<double> get_coords() const { return _coords.copy(); }
+    Array<double> get_trial_coords() const { return _trial_coords.copy(); }
+    double get_norm_coords() const { return norm(_coords); }
+    size_t get_naccept() const { return _accept_count; };
+    size_t get_nreject() const { return _nitercount - _accept_count; };
+    double get_accepted_fraction() const { return ((double) _accept_count)/_nitercount; };
+    double get_conf_rejection_fraction() const
+    {
+        return ((double)_conf_reject_count)/_nitercount;
+    }
+    double get_E_rejection_fraction() const
+    {
+        return ((double)_E_reject_count)/_nitercount;
+    }
+    size_t get_iterations_count() const { return _nitercount; }
     size_t get_neval() const {return _neval;};
     double get_stepsize() const {return _stepsize;};
-    pele::BasePotential * get_potential_ptr(){return _potential;}
-    bool take_step_specified()const{return (_takestep!=NULL);}
+    std::shared_ptr<pele::BasePotential> get_potential_ptr() { return _potential; }
+    bool take_step_specified() const { return (_takestep!=NULL); }
     void check_input();
-    void set_print_progress(const bool input){_print_progress=input;}
-    void set_print_progress(){set_print_progress(true);}
+    void set_print_progress(const bool input) { _print_progress=input; }
+    void set_print_progress() { set_print_progress(true); }
+
+protected:
+    inline double compute_energy(Array<double> x)
+    {
+        ++_neval;
+        return _potential->get_energy(x);
+    }
+    bool do_conf_tests(Array<double> x);
+    bool do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold);
+    bool do_late_conf_tests(Array<double> x);
+    void do_actions(Array<double> x, double energy, bool success);
 };
 
 }//namespace mcpele

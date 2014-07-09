@@ -83,8 +83,9 @@ class Metropolis_MCrunner(_BaseMCRunner):
         histl = self.histogram.get_histogram()
         hist = np.array(histl)
         Energies, step = np.linspace(Emin,Emax,num=len(hist),endpoint=False,retstep=True)
+        mean, variance = self.histogram.get_mean_variance()
         assert(abs(step - self.binsize) < self.binsize/100)
-        return Energies, hist
+        return Energies, hist, mean, variance
         
     def show_histogram(self):
         """shows the histogram"""
