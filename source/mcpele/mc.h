@@ -30,7 +30,7 @@ public:
     //virtual ~Action(){std::cout << "~Action()" <<  "\n";}
     virtual ~Action(){}
     virtual void action(Array<double> &coords, double energy, bool accepted,
-            MC* mc=NULL) =0;
+            MC* mc) =0;
 };
 
 /*
@@ -44,7 +44,7 @@ public:
     virtual ~AcceptTest(){}
     virtual bool test(Array<double> &trial_coords, double trial_energy,
             Array<double> & old_coords, double old_energy, double temperature,
-            MC * mc=NULL) =0;
+            MC * mc) =0;
 };
 
 /*
@@ -56,7 +56,7 @@ public:
     //ConfTest(){std::cout << "ConfTest()" <<  "\n";}
     //virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
     virtual ~ConfTest(){}
-    virtual bool test(Array<double> &trial_coords, MC * mc=NULL) =0;
+    virtual bool test(Array<double> &trial_coords, MC * mc) =0;
 };
 
 /*
@@ -68,7 +68,7 @@ public:
     //TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     //virtual ~TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     virtual ~TakeStep(){}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL) =0;
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc) =0;
 };
 
 /*
