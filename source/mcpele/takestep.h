@@ -28,13 +28,13 @@ protected:
 public:
     RandomCoordsDisplacement(size_t rseed);
     RandomCoordsDisplacement();
-    virtual ~RandomCoordsDisplacement(){}
+    virtual ~RandomCoordsDisplacement() {}
     //virtual ~RandomCoordsDisplacement() { std::cout << "destruct RandomCoordsDisplacement" <<  "\n"; }
     virtual void takestep(Array<double>& coords, double stepsize, MC * mc=NULL);
     size_t get_seed() const {return _seed;}
-    static void set_generator_seed(const size_t inp){_generator.seed(inp);}
-    double expected_mean()const{return 0;}
-    double expected_variance(const double ss)const{return ss*ss/static_cast<double>(12);}
+    static void set_generator_seed(const size_t inp) { _generator.seed(inp); }
+    double expected_mean() const { return 0; }
+    double expected_variance(const double ss) const { return ss*ss/static_cast<double>(12); }
 };
 
 /*
@@ -54,9 +54,9 @@ public:
     virtual ~GaussianCoordsDisplacement(){}
     virtual void takestep(Array<double>& coords, double stepsize, MC * mc=NULL);
     size_t get_seed() const {return _seed;}
-    static void set_generator_seed(const size_t inp){_generator.seed(inp);}
-    double expected_mean()const{return 0;}
-    double expected_variance(const double ss)const{return ss*ss;}
+    static void set_generator_seed(const size_t inp) {_generator.seed(inp);}
+    double expected_mean() const { return 0; }
+    double expected_variance(const double ss) const { return ss*ss; }
 };
 
 }
