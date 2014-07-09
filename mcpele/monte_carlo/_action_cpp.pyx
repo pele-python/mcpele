@@ -97,3 +97,40 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
 class RecordEnergyTimeseries(_Cdef_RecordEnergyTimeseries):
     """This class is the python interface for the c++ RecordEnergyTimeseries implementation.
     """
+    
+#===============================================================================
+# RecordEnergyTimeseries
+#===============================================================================
+        
+cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
+    """This class is the python interface for the c++ RecordLowestEValueTimeseries action class implementation
+    """
+    cdef cppRecordLowestEValueTimeseries* newptr
+    def __cinit__(self, niter, record_every, _pele.cBasePotential* landscape_potential, boxdimension,
+                  _pele.Array[double] ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0):
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordLowestEValueTimeseries(niter, record_every,
+                                                                                              landscape_potential, boxdimension,
+                                                                                              ranvec, lbfgstol, lbfgsM,
+                                                                                              lbfgsniter, lbfgsmaxstep, H0))
+        self.newptr = <cppRecordLowestEValueTimeseries*> self.thisptr.get()
+        
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_time_series(self):
+        """return a lowest eigenvalue time series array"""
+        cdef _pele.Array[double] seriesi = self.newptr.get_time_series()
+        cdef double *seriesdata = seriesi.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] series = np.zeros(seriesi.size())
+        cdef size_t i
+        for i in xrange(seriesi.size()):
+            series[i] = seriesdata[i]
+              
+        return series
+    
+    def clear(self):
+        """clears time series"""
+        self.newptr.clear()
+    
+class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
+    """This class is the python interface for the c++ RecordLowestEValueTimeseries implementation.
+    """
