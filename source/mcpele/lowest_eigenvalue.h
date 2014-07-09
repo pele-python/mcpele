@@ -6,7 +6,7 @@
 namespace mcpele{
 
 
-class LowestEigenvalue{
+class FindLowestEigenvalue{
 private:
     pele::BasePotential* _landscape_potential;
     const size_t _boxdimension;
@@ -17,7 +17,7 @@ private:
     const double _lbfgsmaxstep;
     double _H0;
 public:
-    LowestEigenvalue(pele::BasePotential* landscape_potential, const size_t boxdimension,
+    FindLowestEigenvalue(pele::BasePotential* landscape_potential, const size_t boxdimension,
             pele::Array<double> ranvec, const double lbfgstol, const size_t lbfgsM,
             const size_t lbfgsniter, const double lbfgsmaxstep, const double H0);
     double get_lowest_eigenvalue(pele::Array<double> coords);

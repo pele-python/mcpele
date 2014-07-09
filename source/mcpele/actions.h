@@ -119,7 +119,7 @@ public:
 
 class RecordLowestEValueTimeseries : public RecordScalarTimeseries{
 private:
-    LowestEigenvalue _lowest_ev;
+    FindLowestEigenvalue _lowest_ev;
 public:
     RecordLowestEValueTimeseries(const size_t niter, const size_t record_every,
             pele::BasePotential* landscape_potential, const size_t boxdimension,
