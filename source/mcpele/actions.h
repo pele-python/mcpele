@@ -74,24 +74,54 @@ public:
 };
 
 /*
- * Record energy time series, measuring every __record_every-th step.
+ * Record scalar time series, every record_every-th step.
  */
 
-class RecordEnergyTimeseries : public Action{
+class RecordScalarTimeseries : public Action{
 private:
-    void _record_energy_value(const double energy){_time_series.push_back(energy);}
     const size_t _niter, _record_every;
     std::vector<double> _time_series;
+    void _record_scalar_value(const double input)
+    {
+        _time_series.push_back(input);
+    }
 public:
-    RecordEnergyTimeseries(const size_t niter, const size_t record_every);
-    virtual ~RecordEnergyTimeseries(){}
+    RecordScalarTimeseries(const size_t, const size_t);
+    virtual ~RecordScalarTimeseries(){}
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
-    pele::Array<double> get_time_series(){
+    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc) = 0;
+    pele::Array<double> get_time_series()
+    {
         _time_series.shrink_to_fit();
         return pele::Array<double>(_time_series).copy();
     }
-    void clear(){_time_series.clear();}
+    void clear()
+    {
+        _time_series.clear();
+    }
 };
 
-}
-#endif
+/*
+ * Record energy time series
+ */
+
+class RecordEnergyTimeseries : public RecordScalarTimeseries{
+public:
+    RecordEnergyTimeseries(const size_t niter, const size_t record_every);
+    virtual ~RecordEnergyTimeseries(){}
+    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc);
+};
+
+/*
+ * Record time series of lowest eigenvalue
+ */
+
+class RecordLowestEValueTimeseries : public RecordScalarTimeseries{
+public:
+    RecordLowestEValueTimeseries(const size_t niter, const size_t record_every);
+    virtual ~RecordLowestEValueTimeseries(){}
+    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc);
+};
+
+}//namespace mcpele
+#endif//#ifndef _MCPELE_ACTIONS_H
