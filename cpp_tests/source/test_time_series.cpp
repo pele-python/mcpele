@@ -7,8 +7,12 @@
 
 #include "pele/array.h"
 #include "pele/harmonic.h"
+#include "pele/hs_wca.h"
+#include "pele/lj.h"
 
 #include "mcpele/actions.h"
+
+#define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
 struct TrivialTakestep : public mcpele::TakeStep{
     size_t call_count;
@@ -29,7 +33,7 @@ TEST(EnergyTimeseries, Basic){
     const size_t record_every = 100;
     const double k = 400;
     const double stepsize = 1e-2;
-    pele::Array<double> coords(ndof,1);
+    pele::Array<double> coords(ndof,2);
     pele::Array<double> origin(ndof,0);
     pele::Harmonic* potential = new pele::Harmonic(origin, k, boxdim);
     const auto enumerical = potential->get_energy(coords);
@@ -38,7 +42,7 @@ TEST(EnergyTimeseries, Basic){
         const auto delta = coords[i] - origin[i];
         etrue += 0.5*k*delta*delta;
     }
-    EXPECT_EQ(enumerical, etrue);
+    EXPECT_DOUBLE_EQ(enumerical, etrue);
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
     mcpele::RecordEnergyTimeseries* ts = new mcpele::RecordEnergyTimeseries(niter, record_every);
     mc->add_action(std::shared_ptr<mcpele::RecordEnergyTimeseries>(ts));
@@ -48,39 +52,69 @@ TEST(EnergyTimeseries, Basic){
     pele::Array<double> series = ts->get_time_series();
     EXPECT_EQ(series.size(), niter/record_every);
     for (size_t i = 0; i < series.size(); ++i) {
-        EXPECT_EQ(series[i], enumerical);
+        EXPECT_DOUBLE_EQ(series[i], enumerical);
     }
     delete potential;
 }
 
 TEST(EVTimeseries, Works){
+    typedef mcpele::RecordLowestEValueTimeseries series_t;
+    //typedef mcpele::RecordEnergyTimeseries series_t;
     const size_t boxdim = 3;
-    const size_t nparticles = 100;
+    const size_t nparticles = 4;
     const size_t ndof = nparticles*boxdim;
-    const size_t niter = 10000;
-    const size_t record_every = 100;
+    const size_t niter = 100;
+    const size_t record_every = 10;
     const double k = 400;
     const double stepsize = 1e-2;
-    pele::Array<double> coords(ndof,1);
-    pele::Array<double> origin(ndof,0);
+    pele::Array<double> coords(ndof,2);
+    for (size_t i = 0; i < coords.size(); ++i){
+        coords[i] += 0.1*i;
+    }
+    pele::Array<double> origin(ndof,1);
+    for (size_t i = 0; i < origin.size(); ++i){
+        origin[i] -= 0.01*i;
+    }
     pele::Harmonic* potential = new pele::Harmonic(origin, k, boxdim);
+
+    const double eps = 1;
+    const double sca = 1;
+    pele::Array<double> radii(nparticles,1);
+    pele::HS_WCA* landscape_potential = new pele::HS_WCA(eps, sca, radii);
+
+    //pele::Harmonic* landscape_potential = new pele::Harmonic(origin, k, boxdim);
+    //pele::LJ* landscape_potential = new pele::LJ(1, 1);
+
     const auto enumerical = potential->get_energy(coords);
     double etrue(0);
     for (size_t i = 0; i < ndof; ++i) {
         const auto delta = coords[i] - origin[i];
         etrue += 0.5*k*delta*delta;
     }
-    EXPECT_EQ(enumerical, etrue);
+    EXPECT_DOUBLE_EQ(enumerical, etrue);
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
-    mcpele::RecordLowestEValueTimeseries* ts = new mcpele::RecordLowestEValueTimeseries(niter, record_every);
-    mc->add_action(std::shared_ptr<mcpele::RecordLowestEValueTimeseries>(ts));
+
+    const double lbfgstol = 1e-2;
+    const size_t lbfgsM = 5;
+    const size_t lbfgsniter = 30;
+    const double lbfgsmaxstep = 0.3;
+    const double H0 = 1;
+    pele::Array<double> ranvec = origin.copy();
+    //series_t* ts = new series_t(niter, record_every);
+    series_t* ts = new series_t(niter, record_every, landscape_potential, boxdim, ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0);
+    //series_t* ts = new series_t(niter, record_every, potential, boxdim, ranvec);
+
+    mc->add_action(std::shared_ptr<series_t>(ts));
     mc->set_takestep(std::make_shared<TrivialTakestep>());
+    //mc->set_print_progress();
     mc->run(niter);
     EXPECT_EQ(mc->get_iterations_count(), niter);
     pele::Array<double> series = ts->get_time_series();
     EXPECT_EQ(series.size(), niter/record_every);
+    const double eigenvalue_reference = series[0];
     for (size_t i = 0; i < series.size(); ++i) {
-        EXPECT_EQ(series[i], enumerical);
+        EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-10);
     }
     delete potential;
+    delete landscape_potential;
 }
