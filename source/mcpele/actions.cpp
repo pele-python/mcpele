@@ -119,8 +119,8 @@ RecordLowestEValueTimeseries::RecordLowestEValueTimeseries(const size_t niter, c
         pele::BasePotential* landscape_potential, const size_t boxdimension,
         pele::Array<double> ranvec, const double lbfgstol, const size_t lbfgsM,
         const size_t lbfgsniter, const double lbfgsmaxstep, const double H0)
-    : RecordScalarTimeseries(niter, record_every)
-    , _lowest_ev(landscape_potential, boxdimension, ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0)
+    : RecordScalarTimeseries(niter, record_every),
+      _lowest_ev(landscape_potential, boxdimension, ranvec, lbfgstol, lbfgsM, lbfgsniter, lbfgsmaxstep, H0)
 {}
 
 double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
