@@ -57,7 +57,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesStatic){
     mcpele::MC mc(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc.get_potential_ptr())->get_k() );
-    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>();
+    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
     EXPECT_TRUE( !mc.take_step_specified() );
     mc.set_takestep(sampler_uniform);
     EXPECT_TRUE( mc.take_step_specified() );
@@ -71,7 +71,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
     mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc->get_potential_ptr())->get_k() );
-    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>();
+    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform);
     EXPECT_TRUE( mc->take_step_specified() );
@@ -87,7 +87,7 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr())->get_k() );
     //std::cout << "initial step size: " << mc->get_stepsize() << std::endl;
-    shared_ptr<mcpele::TakeStep> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>();
+    shared_ptr<mcpele::TakeStep> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform);
     EXPECT_TRUE( mc->take_step_specified() );
