@@ -1,7 +1,7 @@
 #ifndef _MCPELE_HISTOGRAM_H
 #define _MCPELE_HISTOGRAM_H
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <list>
 #include "pele/array.h"
