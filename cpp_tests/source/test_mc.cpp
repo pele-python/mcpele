@@ -31,7 +31,7 @@ public:
     arr_t x;
     double stepsize;
     double k;
-    pele::Harmonic* potential;
+    std::shared_ptr<pele::Harmonic> potential;
     size_t max_iter;
 
     virtual void SetUp(){
@@ -44,19 +44,15 @@ public:
         std::fill(x.data(),x.data()+ndof,0);
         stepsize = 1e-2;
         k = 400;
-        potential = new pele::Harmonic(origin, k, boxdim);
+        potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
         max_iter = 1e5;
-    }
-
-    virtual void TearDown() {
-        delete potential;
     }
 };
 
 TEST_F(TestMC, BasicFunctionalityAddingModulesStatic){
     mcpele::MC mc(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
-    EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc.get_potential_ptr())->get_k() );
+    EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc.get_potential_ptr().get())->get_k() );
     shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
     EXPECT_TRUE( !mc.take_step_specified() );
     mc.set_takestep(sampler_uniform);
@@ -70,7 +66,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesStatic){
 TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
     mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
-    EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc->get_potential_ptr())->get_k() );
+    EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
     shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform);
@@ -85,7 +81,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
 TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
-    EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr())->get_k() );
+    EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
     //std::cout << "initial step size: " << mc->get_stepsize() << std::endl;
     shared_ptr<mcpele::TakeStep> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
     EXPECT_TRUE( !mc->take_step_specified() );
@@ -185,7 +181,7 @@ class TestMCMock: public ::testing::Test{
 public:
     MC * mc;
     Array<double> x0;
-    TrivialPotential * pot;
+    std::shared_ptr<TrivialPotential> pot;
     TrivialConfTest * ct;
     TrivialConfTest * lct;
     TrivialTakestep * ts;
@@ -195,7 +191,7 @@ public:
     virtual void SetUp()
     {
         x0 = Array<double>(2, 0.);
-        pot = new TrivialPotential();
+        pot = std::make_shared<TrivialPotential>();
         ct = new TrivialConfTest(true);
         lct = new TrivialConfTest(true);
         at = new TrivialAcceptTest(true);
@@ -208,12 +204,10 @@ public:
         mc->add_accept_test(std::shared_ptr<mcpele::AcceptTest>(at));
         mc->add_late_conf_test(std::shared_ptr<ConfTest>(lct));
         mc->add_action(std::shared_ptr<mcpele::Action>(a));
-
     }
     virtual void TearDown()
     {
         delete mc;
-        delete pot;
     }
 };
 
