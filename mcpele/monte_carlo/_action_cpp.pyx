@@ -108,7 +108,7 @@ cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
     cdef cppRecordLowestEValueTimeseries* newptr
     cdef ranvec
     def __cinit__(self, niter, record_every, _pele.BasePotential landscape_potential, boxdimension,
-                  ranvec, lbfgstol, lbfgsM, lbfgsniter):
+                  ranvec, lbfgsniter):
         cdef np.ndarray[double, ndim=1] ranvecc = ranvec
         self.thisptr = shared_ptr[cppAction](<cppAction*> new 
                  cppRecordLowestEValueTimeseries(niter, record_every,
