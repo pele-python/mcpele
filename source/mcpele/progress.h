@@ -14,22 +14,22 @@ public:
     typedef double float_t;
     typedef long long int long_t;
 private:
-    const float_t oom;
-    const index_t m;
+    const float_t inverse_of_total_iterations;
+    const index_t total_iterations;
     index_t curr;
     index_t prev;
 public:
 
     progress(const index_t totalin)
-        : oom(1.0/static_cast<float_t>(totalin)), 
-        m(totalin),
+        : inverse_of_total_iterations(1.0/static_cast<float_t>(totalin)),
+        total_iterations(totalin),
         curr(0),
         prev(0)
     {}
 
     void next(const index_t idx, std::ostream& stm = std::cout)
     {
-        curr = static_cast<index_t>(static_cast<float_t>(idx)*oom*100);
+        curr = static_cast<index_t>(static_cast<float_t>(idx)*inverse_of_total_iterations*100);
         if (curr!=prev){
             TimePercentage(idx-1,stm);
         }
@@ -49,16 +49,16 @@ public:
         // estimated time to completion
         stm << "---" <<  "\n";
         stm << "estimated time to completion" <<  "\n";
-        IntToTime(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock(), stm);
+        IntToTime(((float_t)(total_iterations-smp-1)/(float_t)(smp+1))*(float_t)clock(), stm);
         // estimated total time
         stm << "---" <<  "\n";
         stm << "estimated total run time" <<  "\n";
-        IntToTime(((float_t)m/(float_t)(smp+1))*(float_t)clock(), stm);
+        IntToTime(((float_t)total_iterations/(float_t)(smp+1))*(float_t)clock(), stm);
         stm << "---" <<  "\n";
         // estimated completion time in local time
         stm << "estimated completion local time" <<  "\n";
         time_t timer = time(NULL);
-        timer+=(((float_t)(m-smp-1)/(float_t)(smp+1))*(float_t)clock())/CLOCKS_PER_SEC;
+        timer+=(((float_t)(total_iterations-smp-1)/(float_t)(smp+1))*(float_t)clock())/CLOCKS_PER_SEC;
         stm << ctime(&timer);
         stm << "---" <<  "\n";
     }
