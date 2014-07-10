@@ -10,7 +10,6 @@
 
 using std::vector;
 using std::runtime_error;
-using std::sqrt;
 
 namespace mcpele{
 
