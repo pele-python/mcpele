@@ -100,9 +100,9 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     //(double min, double max, double bin, size_t eqsteps)
     shared_ptr<mcpele::Action> record_histogram = std::make_shared<mcpele::RecordEnergyHistogram>(0,10,1,adj_iter);
     mc->add_action(record_histogram);
-    mc->set_print_progress(true);
-    mc->run(max_iter*100);
-    EXPECT_TRUE( mc->get_iterations_count() == max_iter*100 );
+    //mc->set_print_progress(true);
+    mc->run(max_iter);
+    EXPECT_TRUE( mc->get_iterations_count() == max_iter );
     //std::cout << "mean energy: " << std::endl;
     //std::cout << static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_mean() << std::endl;
     //std::cout << sqrt(static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_variance()) << std::endl;

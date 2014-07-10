@@ -76,24 +76,49 @@ public:
     void print_time_percentage(const index_t smp, std::ostream& stm)
     {
         // percentage done
+        update_and_print_percentage_complete(stm);
+        // time elapsed
+        get_and_print_elapsed_time(stm);
+        // estimated time to completion
+        estimate_and_print_time_to_complete(smp, stm);
+        // estimated total time
+        estimate_and_print_total_time(smp, stm);
+        // estimated completion time in local time
+        estimate_and_print_completion_local_time(smp, stm);
+    }
+
+    void update_and_print_percentage_complete(std::ostream& stm)
+    {
         stm << "---" <<  "\n";
         stm << "percentage done" <<  "\n";
         stm << curr << " %" <<  "\n";
         prev = curr;
         stm << "---" <<  "\n";
-        // time elapsed
+    }
+
+    void get_and_print_elapsed_time(std::ostream& stm)
+    {
         stm << "time elapsed" <<  "\n";
         print_elapsed_time(stm);
-        // estimated time to completion
+    }
+
+    void estimate_and_print_time_to_complete(const index_t smp, std::ostream& stm)
+    {
         stm << "---" <<  "\n";
         stm << "estimated time to completion" <<  "\n";
         print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)clock(), stm);
-        // estimated total time
+    }
+
+    void estimate_and_print_total_time(const index_t smp, std::ostream& stm)
+    {
         stm << "---" <<  "\n";
         stm << "estimated total run time" <<  "\n";
         print_estimated_time(((float_t)total_iterations / (float_t)(smp + 1)) * (float_t)clock(), stm);
         stm << "---" <<  "\n";
-        // estimated completion time in local time
+    }
+
+    void estimate_and_print_completion_local_time(const index_t smp, std::ostream& stm)
+    {
         stm << "estimated completion local time" <<  "\n";
         time_t timer = time(NULL);
         timer+=(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)clock()) / CLOCKS_PER_SEC;
