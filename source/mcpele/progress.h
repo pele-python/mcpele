@@ -29,13 +29,13 @@ public:
 
     void next(const index_t idx, std::ostream& stm = std::cout)
     {
-        curr = static_cast<index_t>(static_cast<float_t>(idx)*inverse_of_total_iterations*100);
-        if (curr!=prev){
-            TimePercentage(idx-1,stm);
+        curr = static_cast<index_t>(static_cast<float_t>(idx) * inverse_of_total_iterations * 100);
+        if (curr != prev) {
+            print_time_percentage(idx - 1, stm);
         }
     }
 
-    void TimePercentage(const index_t smp, std::ostream& stm)
+    void print_time_percentage(const index_t smp, std::ostream& stm)
     {
         // percentage done
         stm << "---" <<  "\n";
@@ -45,25 +45,25 @@ public:
         stm << "---" <<  "\n";
         // time elapsed
         stm << "time elapsed" <<  "\n";
-        PrintTime(stm);
+        print_elapsed_time(stm);
         // estimated time to completion
         stm << "---" <<  "\n";
         stm << "estimated time to completion" <<  "\n";
-        IntToTime(((float_t)(total_iterations-smp-1)/(float_t)(smp+1))*(float_t)clock(), stm);
+        print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)clock(), stm);
         // estimated total time
         stm << "---" <<  "\n";
         stm << "estimated total run time" <<  "\n";
-        IntToTime(((float_t)total_iterations/(float_t)(smp+1))*(float_t)clock(), stm);
+        print_estimated_time(((float_t)total_iterations / (float_t)(smp + 1)) * (float_t)clock(), stm);
         stm << "---" <<  "\n";
         // estimated completion time in local time
         stm << "estimated completion local time" <<  "\n";
         time_t timer = time(NULL);
-        timer+=(((float_t)(total_iterations-smp-1)/(float_t)(smp+1))*(float_t)clock())/CLOCKS_PER_SEC;
+        timer+=(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)clock()) / CLOCKS_PER_SEC;
         stm << ctime(&timer);
         stm << "---" <<  "\n";
     }
 
-    void PrintTime(std::ostream& stm)
+    void print_elapsed_time(std::ostream& stm)
     {
         long_t tm = clock();
         long_t days = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
@@ -92,7 +92,7 @@ public:
         stm <<  "\n";
     }
 
-    void IntToTime(const long_t inp, std::ostream& stm)
+    void print_estimated_time(const long_t inp, std::ostream& stm)
     {
         long_t tm = inp;
         long_t days = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
