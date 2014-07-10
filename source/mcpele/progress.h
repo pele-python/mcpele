@@ -99,7 +99,7 @@ public:
     void get_and_print_elapsed_time(std::ostream& stm)
     {
         stm << "time elapsed" <<  "\n";
-        print_elapsed_time(stm);
+        print_estimated_time(clock(), stm);
     }
 
     void estimate_and_print_time_to_complete(const index_t smp, std::ostream& stm)
@@ -126,60 +126,27 @@ public:
         stm << "---" <<  "\n";
     }
 
-    void print_elapsed_time(std::ostream& stm)
-    {
-        long_t tm = clock();
-        long_t days = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
-        tm%=((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
-        long_t hours = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60);
-        tm%=((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60);
-        long_t minutes = tm/((long_t)CLOCKS_PER_SEC*(long_t)60);
-        tm%=((long_t)CLOCKS_PER_SEC*(long_t)60);
-        long_t seconds = tm/((long_t)CLOCKS_PER_SEC);
-        if (days){
-            if (days>1) stm << days << " days  ";
-            else stm << days << " day  ";
-        }
-        if (hours){
-            if (hours>1) stm << hours << " hours  ";
-            else stm << hours << " hour  ";
-        }
-        if (minutes){
-            if (minutes>1) stm << minutes << " minutes  ";
-            else stm << minutes << " minute  ";
-        }
-        if (seconds){
-            if (seconds>1) stm << seconds << " seconds";
-            else stm << seconds << " second";
-        }
-        stm <<  "\n";
-    }
-
     void print_estimated_time(const long_t inp, std::ostream& stm)
     {
         long_t tm = inp;
-        long_t days = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
-        tm%=((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60*(long_t)24);
-        long_t hours = tm/((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60);
-        tm%=((long_t)CLOCKS_PER_SEC*(long_t)60*(long_t)60);
-        long_t minutes = tm/((long_t)CLOCKS_PER_SEC*(long_t)60);
-        tm%=((long_t)CLOCKS_PER_SEC*(long_t)60);
-        long_t seconds = tm/((long_t)CLOCKS_PER_SEC);
-        if (days){
-            if (days>1) stm << days << " days  ";
-            else stm << days << " day  ";
+        long_t days = tm / ((long_t)CLOCKS_PER_SEC * (long_t)60 * (long_t)60 * (long_t)24);
+        tm %= ((long_t)CLOCKS_PER_SEC * (long_t)60 * (long_t)60 * (long_t)24);
+        long_t hours = tm / ((long_t)CLOCKS_PER_SEC * (long_t)60 * (long_t)60);
+        tm %= ((long_t)CLOCKS_PER_SEC * (long_t)60 * (long_t)60);
+        long_t minutes = tm / ((long_t)CLOCKS_PER_SEC * (long_t)60);
+        tm %= ((long_t)CLOCKS_PER_SEC * (long_t)60);
+        long_t seconds = tm / ((long_t)CLOCKS_PER_SEC);
+        if (days) {
+            stm << days << " " << ((days > 1) ? "days" : "day") << " ";
         }
-        if (hours){
-            if (hours>1) stm << hours << " hours  ";
-            else stm << hours << " hour  ";
+        if (hours) {
+            stm << hours << " " << ((hours > 1) ? "hours" : "hour") << " ";
         }
-        if (minutes){
-            if (minutes>1) stm << minutes << " minutes  ";
-            else stm << minutes << " minute  ";
+        if (minutes) {
+            stm << minutes << " " << ((minutes > 1) ? "minutes" : "minute") << " ";
         }
-        if (seconds){
-            if (seconds>1) stm << seconds << " seconds";
-            else stm << seconds << " second";
+        if (seconds) {
+            stm << seconds << " " << ((seconds > 1) ? "seconds" : "second");
         }
         stm <<  "\n";
     }
