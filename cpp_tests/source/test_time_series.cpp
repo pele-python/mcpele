@@ -35,7 +35,7 @@ TEST(EnergyTimeseries, Basic){
     const double stepsize = 1e-2;
     pele::Array<double> coords(ndof,2);
     pele::Array<double> origin(ndof,0);
-    pele::Harmonic* potential = new pele::Harmonic(origin, k, boxdim);
+    std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
     const auto enumerical = potential->get_energy(coords);
     double etrue(0);
     for (size_t i = 0; i < ndof; ++i) {
@@ -54,7 +54,6 @@ TEST(EnergyTimeseries, Basic){
     for (size_t i = 0; i < series.size(); ++i) {
         EXPECT_DOUBLE_EQ(series[i], enumerical);
     }
-    delete potential;
 }
 
 TEST(EVTimeseries, Works){
@@ -75,12 +74,12 @@ TEST(EVTimeseries, Works){
     for (size_t i = 0; i < origin.size(); ++i){
         origin[i] -= 0.01*i;
     }
-    pele::Harmonic* potential = new pele::Harmonic(origin, k, boxdim);
+    std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
 
     const double eps = 1;
     const double sca = 1;
     pele::Array<double> radii(nparticles,1);
-    pele::HS_WCA* landscape_potential = new pele::HS_WCA(eps, sca, radii);
+    std::shared_ptr<pele::HS_WCA> landscape_potential = std::make_shared<pele::HS_WCA>(eps, sca, radii);
 
     //pele::Harmonic* landscape_potential = new pele::Harmonic(origin, k, boxdim);
     //pele::LJ* landscape_potential = new pele::LJ(1, 1);
@@ -97,7 +96,7 @@ TEST(EVTimeseries, Works){
     const size_t lbfgsniter = 30;
     pele::Array<double> ranvec = origin.copy();
     //series_t* ts = new series_t(niter, record_every);
-    series_t* ts = new series_t(niter, record_every, landscape_potential, boxdim, ranvec, lbfgsniter);
+    std::shared_ptr<series_t> ts = std::make_shared<series_t>(niter, record_every, landscape_potential, boxdim, ranvec, lbfgsniter);
     //series_t* ts = new series_t(niter, record_every, potential, boxdim, ranvec);
 
     mc->add_action(std::shared_ptr<series_t>(ts));
@@ -111,6 +110,4 @@ TEST(EVTimeseries, Works){
     for (size_t i = 0; i < series.size(); ++i) {
         EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-10);
     }
-    delete potential;
-    delete landscape_potential;
 }

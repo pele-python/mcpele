@@ -19,7 +19,7 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
         void clear() except +
     cdef cppclass cppRecordLowestEValueTimeseries "mcpele::RecordLowestEValueTimeseries":
         cppRecordLowestEValueTimeseries(const size_t, const size_t,
-            _pele.cBasePotential*, const size_t, _pele.Array[double]
+            shared_ptr[_pele.cBasePotential], const size_t, _pele.Array[double]
             , const size_t) except +
         _pele.Array[double] get_time_series() except +
         void clear() except +

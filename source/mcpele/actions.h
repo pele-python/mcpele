@@ -122,7 +122,7 @@ private:
     FindLowestEigenvalue _lowest_ev;
 public:
     RecordLowestEValueTimeseries(const size_t niter, const size_t record_every,
-            pele::BasePotential* landscape_potential, const size_t boxdimension,
+            std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
             pele::Array<double> ranvec, const size_t lbfgsniter = 30);
     virtual ~RecordLowestEValueTimeseries(){}
     virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy,
