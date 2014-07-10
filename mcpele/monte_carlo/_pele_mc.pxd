@@ -2,17 +2,8 @@
 #cython: wraparound=False
 
 cimport pele.potentials._pele as _pele
+from pele.potentials._pele cimport shared_ptr
 from libcpp cimport bool as cbool
-
-#===============================================================================
-# shared pointer
-#===============================================================================
-cdef extern from "<memory>" namespace "std":
-    cdef cppclass shared_ptr[T]:
-        shared_ptr() except+
-        shared_ptr(T*) except+
-        T* get() except+
-        # Note: operator->, operator= are not supported
 
 #===============================================================================
 # mcpele::TakeStep
@@ -68,7 +59,7 @@ cdef class _Cdef_Action(object):
 
 cdef extern from "mcpele/mc.h" namespace "mcpele":
     cdef cppclass cppMC "mcpele::MC":
-        cppMC(_pele.cBasePotential *, _pele.Array[double]&, double, double) except +
+        cppMC(shared_ptr[_pele.cBasePotential], _pele.Array[double]&, double, double) except +
         void one_iteration() except +
         void run(size_t) except +
         void set_temperature(double) except +
@@ -93,4 +84,4 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation
     """
-    cdef cppMC* thisptr
+    cdef shared_ptr[cppMC] thisptr
