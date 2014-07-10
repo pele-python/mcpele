@@ -7,6 +7,24 @@
 
 namespace mcpele{
 
+/*
+ * For a loop of total_iterations steps (assumed to take on average the same time),
+ * progress keeps track of the time that elapsed, computes the likely total time
+ * the whole loop will take, prints the local time at which the loop will likely
+ * terminate, and prints how much time is left until loop terimnation.
+ * Output is printed 100 times, for each percent of the loop that is done.
+ *
+ * The usage is as follows:
+ *
+ * const int iterations = 100000;
+ * progress status(iterations);
+ * size_t niter = 0;
+ * while (niter < iterations) {
+ *      do_something;
+ *      ++niter;
+ *      status.next(niter);
+ * }
+ */
 
 class progress{
 public:
