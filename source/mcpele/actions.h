@@ -133,6 +133,7 @@ public:
 /*
  * Record time series of root mean squared displacement (averaged over all particles)
  * Motivation: check if HS fluid is decorrelated between snapshots
+ * Probably this is most useful if particles are not placed back into periodic box.
  */
 
 class RecordMeanRMSDisplacementTimeseries : public RecordScalarTimeseries{
