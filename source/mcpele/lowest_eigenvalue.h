@@ -11,7 +11,6 @@ namespace mcpele{
 class FindLowestEigenvalue{
 private:
     std::shared_ptr<pele::LowestEigPotential> _lowesteigpot;
-    size_t _lbfgsniter;
     pele::Array<double> _ranvec;
     pele::LBFGS _lbfgs;
 public:
