@@ -9,7 +9,6 @@ FindLowestEigenvalue::FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> 
         pele::Array<double> ranvec, const size_t lbfgsniter)
     : _lowesteigpot(std::make_shared<pele::LowestEigPotential>(landscape_potential, ranvec.copy(), boxdimension)),
       _lbfgsniter(lbfgsniter),
-      _H0(1),
       _ranvec((ranvec /= norm(ranvec)).copy()),
       _lbfgs(_lowesteigpot, _ranvec.copy())
 {
@@ -18,14 +17,12 @@ FindLowestEigenvalue::FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> 
     }
 }
 
-double FindLowestEigenvalue::get_lowest_eigenvalue(pele::Array<double> coords)
+double FindLowestEigenvalue::compute_lowest_eigenvalue(pele::Array<double> coords)
 {
     _lowesteigpot->reset_coords(coords);
     _lbfgs.reset(_ranvec);
-    _lbfgs.set_H0(_H0);
     _lbfgs.set_use_relative_f(1);
     _lbfgs.run(_lbfgsniter);
-    _H0 = _lbfgs.get_H0();
     const double lowesteig = _lbfgs.get_f();
     return lowesteig;
 }

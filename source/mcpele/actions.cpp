@@ -124,7 +124,7 @@ RecordLowestEValueTimeseries::RecordLowestEValueTimeseries(const size_t niter, c
 
 double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
-    return _lowest_ev(coords);
+    return _lowest_ev.compute_lowest_eigenvalue(coords);
 }
 
 }//namespace mcpele
