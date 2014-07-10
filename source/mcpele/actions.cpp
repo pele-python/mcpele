@@ -84,10 +84,10 @@ RecordScalarTimeseries::RecordScalarTimeseries(const size_t niter, const size_t 
     : _niter(niter),
       _record_every(record_every)
 {
-    _time_series.reserve(niter);
     if (record_every==0) {
         throw std::runtime_error("RecordScalarTimeseries: record_every expected to be at least 1");
     }
+    _time_series.reserve(niter/record_every);
 }
 
 void RecordScalarTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc)
@@ -125,6 +125,22 @@ RecordLowestEValueTimeseries::RecordLowestEValueTimeseries(const size_t niter, c
 double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
     return _lowest_ev.compute_lowest_eigenvalue(coords);
+}
+
+/*
+ * Record time series of root mean squared displacement (averaged over all particles)
+ * Motivation: check if HS fluid is decorrelated between snapshots
+ */
+
+RecordMeanRMSDisplacementTimeseries::RecordMeanRMSDisplacementTimeseries(const size_t niter, const size_t record_every,
+            pele::Array<double> initial_coords, const size_t boxdimension)
+    : RecordScalarTimeseries(niter, record_every),
+      _rsm_displacement(initial_coords, boxdimension)
+{}
+
+double RecordMeanRMSDisplacementTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
+{
+    return _rsm_displacement.compute_mean_rsm_displacement(coords);
 }
 
 }//namespace mcpele

@@ -10,6 +10,7 @@
 #include "mc.h"
 #include "histogram.h"
 #include "lowest_eigenvalue.h"
+#include "rsm_displacement.h"
 
 namespace mcpele{
 
@@ -127,6 +128,22 @@ public:
     virtual ~RecordLowestEValueTimeseries(){}
     virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy,
             const bool accepted, MC* mc);
+};
+
+/*
+ * Record time series of root mean squared displacement (averaged over all particles)
+ * Motivation: check if HS fluid is decorrelated between snapshots
+ */
+
+class RecordMeanRMSDisplacementTimeseries : public RecordScalarTimeseries{
+private:
+    GetMeanRMSDisplacement _rsm_displacement;
+public:
+    RecordMeanRMSDisplacementTimeseries(const size_t niter, const size_t record_every,
+            pele::Array<double> initial_coords, const size_t boxdimension);
+    virtual ~RecordMeanRMSDisplacementTimeseries(){}
+    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy,
+                const bool accepted, MC* mc);
 };
 
 }//namespace mcpele
