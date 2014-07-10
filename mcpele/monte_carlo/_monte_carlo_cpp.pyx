@@ -25,8 +25,8 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         cdef niter = pniter
         cdef stepsize = pstepsize
         
-        self.thisptr = <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> start_coords.data, start_coords.size), 
-                                         temperature, stepsize)
+        self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> start_coords.data, start_coords.size), 
+                                         temperature, stepsize) )
         
         # these are stored so that the memory is not freed
         self.potential = potential 
@@ -34,46 +34,42 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.temperature = temperature
         self.niter = niter
         self.stepsize = stepsize
-        
-    
-    def __dealloc__(self):
-        del self.thisptr
     
     def add_action(self, _Cdef_Action action):
-        self.thisptr.add_action(action.thisptr)
+        self.thisptr.get().add_action(action.thisptr)
     
     def add_accept_test(self, _Cdef_AcceptTest test):
-        self.thisptr.add_accept_test(test.thisptr)
+        self.thisptr.get().add_accept_test(test.thisptr)
     
     def add_conf_test(self, _Cdef_ConfTest test):
-        self.thisptr.add_conf_test(test.thisptr)
+        self.thisptr.get().add_conf_test(test.thisptr)
     
     def add_late_conf_test(self, _Cdef_ConfTest test):
-        self.thisptr.add_late_conf_test(test.thisptr)
+        self.thisptr.get().add_late_conf_test(test.thisptr)
     
     def set_takestep(self, _Cdef_TakeStep takestep):
-        self.thisptr.set_takestep(takestep.thisptr)
+        self.thisptr.get().set_takestep(takestep.thisptr)
         
     def set_coordinates(self, coords, energy):
         cdef np.ndarray[double, ndim=1] ccoords = np.array(coords, dtype=float)
-        self.thisptr.set_coordinates(_pele.Array[double](<double*> ccoords.data, ccoords.size), energy)
+        self.thisptr.get().set_coordinates(_pele.Array[double](<double*> ccoords.data, ccoords.size), energy)
     
     def set_temperature(self, T):
         self.temperature = T
-        self.thisptr.set_temperature(T)
+        self.thisptr.get().set_temperature(T)
     
     def reset_energy(self):
-        self.thisptr.reset_energy()
+        self.thisptr.get().reset_energy()
     
     def get_energy(self):
-        energy = self.thisptr.get_energy()
+        energy = self.thisptr.get().get_energy()
         return energy
     
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def get_coords(self):
         """return a histogram array"""
-        cdef _pele.Array[double] xi = self.thisptr.get_coords()
+        cdef _pele.Array[double] xi = self.thisptr.get().get_coords()
         cdef double *xdata = xi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] x = np.zeros(xi.size())
         cdef size_t i
@@ -83,37 +79,37 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         return x
     
     def get_norm_coords(self):
-        return self.thisptr.get_norm_coords()
+        return self.thisptr.get().get_norm_coords()
     
     def get_accepted_fraction(self):
-        accepted_frac = self.thisptr.get_accepted_fraction()
+        accepted_frac = self.thisptr.get().get_accepted_fraction()
         return accepted_frac
     
     def get_iterations_count(self):
-        n = self.thisptr.get_iterations_count()
+        n = self.thisptr.get().get_iterations_count()
         return n
     
     def get_conf_rejection_fraction(self):
-        f = self.thisptr.get_conf_rejection_fraction()
+        f = self.thisptr.get().get_conf_rejection_fraction()
         return f
     
     def get_E_rejection_fraction(self):
-        f = self.thisptr.get_E_rejection_fraction()
+        f = self.thisptr.get().get_E_rejection_fraction()
         return f
     
     def get_neval(self):
-        neval = self.thisptr.get_neval()
+        neval = self.thisptr.get().get_neval()
         return neval
     
     def get_stepsize(self):
-        s = self.thisptr.get_stepsize()
+        s = self.thisptr.get().get_stepsize()
         return s
     
     def one_iteration(self):
-        self.thisptr.one_iteration()
+        self.thisptr.get().one_iteration()
     
     def run(self):
-        self.thisptr.run(self.niter)
+        self.thisptr.get().run(self.niter)
     
     def __reduce__(self):
         return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.stepsize, self.niter))

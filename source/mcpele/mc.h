@@ -30,7 +30,7 @@ public:
     //virtual ~Action(){std::cout << "~Action()" <<  "\n";}
     virtual ~Action(){}
     virtual void action(Array<double> &coords, double energy, bool accepted,
-            MC* mc=NULL) =0;
+            MC* mc) =0;
 };
 
 /*
@@ -44,7 +44,7 @@ public:
     virtual ~AcceptTest(){}
     virtual bool test(Array<double> &trial_coords, double trial_energy,
             Array<double> & old_coords, double old_energy, double temperature,
-            MC * mc=NULL) =0;
+            MC * mc) =0;
 };
 
 /*
@@ -56,7 +56,7 @@ public:
     //ConfTest(){std::cout << "ConfTest()" <<  "\n";}
     //virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
     virtual ~ConfTest(){}
-    virtual bool test(Array<double> &trial_coords, MC * mc=NULL) =0;
+    virtual bool test(Array<double> &trial_coords, MC * mc) =0;
 };
 
 /*
@@ -68,7 +68,7 @@ public:
     //TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     //virtual ~TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     virtual ~TakeStep(){}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL) =0;
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc) =0;
 };
 
 /*
@@ -88,14 +88,11 @@ public:
 
 class MC {
 public:
-    //typedef std::list<shared_ptr<Action>> actions_t;
     typedef std::vector<shared_ptr<Action>> actions_t;
-    //typedef std::list<shared_ptr<AcceptTest>> accept_t;
     typedef std::vector<shared_ptr<AcceptTest>> accept_t;
-    //typedef std::list<shared_ptr<ConfTest>> conf_t;
     typedef std::vector<shared_ptr<ConfTest>> conf_t;
 protected:
-    pele::BasePotential * _potential;
+    std::shared_ptr<pele::BasePotential> _potential;
     Array<double> _coords, _trial_coords;
     actions_t _actions;
     accept_t _accept_tests;
@@ -110,9 +107,9 @@ public:
     size_t _niter, _neval;
     double _stepsize, _temperature, _energy, _trial_energy;
 
-    MC(pele::BasePotential * potential, Array<double>& coords, double temperature, double stepsize);
+    MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, double temperature, double stepsize);
 
-    virtual ~MC(){}
+    virtual ~MC() {}
 
     void one_iteration();
     void run(size_t max_iter);
@@ -164,7 +161,7 @@ public:
     size_t get_iterations_count() const { return _nitercount; }
     size_t get_neval() const {return _neval;};
     double get_stepsize() const {return _stepsize;};
-    pele::BasePotential * get_potential_ptr() { return _potential; }
+    std::shared_ptr<pele::BasePotential> get_potential_ptr() { return _potential; }
     bool take_step_specified() const { return (_takestep!=NULL); }
     void check_input();
     void set_print_progress(const bool input) { _print_progress=input; }
