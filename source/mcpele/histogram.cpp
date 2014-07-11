@@ -77,4 +77,18 @@ void Histogram::resize(double E, int i)
     }
 }
 
+/*
+ * Note: This gives the error bar on a bin of width _bin, under the assumption that the sum of all bin areas is 1.
+ * */
+std::vector<double> Histogram::get_vecdata_error() const
+{
+    std::vector<double> result(_hist.size(), 0);
+    for (size_t i = 0; i < result.size(); ++i) {
+        const double this_fraction = static_cast<double>(_hist.at(i)) / static_cast<double>(entries());
+        result.at(i) = sqrt(this_fraction * (1 - this_fraction) / _bin) / sqrt(entries());
+    }
+    return result;
+}
+
+
 }//namespace mcpele
