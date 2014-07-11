@@ -22,22 +22,21 @@ public:
     arr_t displ_gaussian;
     arr_t baseline;
     double ss;
+    mcpele::MC* mc;
     virtual void SetUp(){
-    ndof = 1000;
-    nsteps = 100;
-    ntot = nsteps*ndof;
-    displ_uniform = Array<double>(ndof);
-    displ_gaussian = Array<double>(ndof);
-    baseline = Array<double>(ndof);
-    for (size_t i = 0; i < ndof; ++i){
-        displ_uniform[i] = 0;
-        displ_gaussian[i] = 0;
-        baseline[i] = 0;
-    }
-    ss = 4.2;
-    }
-    virtual void TearDown() {
-    ;
+        ndof = 1000;
+        nsteps = 100;
+        ntot = nsteps*ndof;
+        displ_uniform = Array<double>(ndof);
+        displ_gaussian = Array<double>(ndof);
+        baseline = Array<double>(ndof);
+        for (size_t i = 0; i < ndof; ++i){
+            displ_uniform[i] = 0;
+            displ_gaussian[i] = 0;
+            baseline[i] = 0;
+        }
+        ss = 4.2;
+        mc = NULL;
     }
 };
 
@@ -49,8 +48,8 @@ TEST_F(TestHistogram, TestMoments){
     for (size_t step = 0; step < nsteps; ++step){
     std::fill(displ_uniform.data(),displ_uniform.data()+ndof,0);
     std::fill(displ_gaussian.data(),displ_gaussian.data()+ndof,0);
-    sampler_uniform.takestep(displ_uniform,ss);
-    sampler_gaussian.takestep(displ_gaussian,ss);
+    sampler_uniform.takestep(displ_uniform, ss, mc);
+    sampler_gaussian.takestep(displ_gaussian, ss, mc);
     for (size_t dof = 0; dof < ndof; ++dof){
         hist_uniform.add_entry(displ_uniform[dof]);
         hist_gaussian.add_entry(displ_gaussian[dof]);
