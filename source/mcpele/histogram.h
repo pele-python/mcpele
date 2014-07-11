@@ -34,12 +34,12 @@ private:
     data_t _mean2;
     index_t _count;
 public:
-    Moments():_mean(0),_mean2(0),_count(0){}
+    Moments():_mean(0), _mean2(0), _count(0) {}
     void update(const data_t input)
     {
-        _mean = (_mean*_count+input)/(_count+1);
-        _mean2 = (_mean2*_count+(input*input))/(_count+1);
-        if (_count==std::numeric_limits<index_t>::max()) {
+        _mean = (_mean * _count + input) / (_count + 1);
+        _mean2 = (_mean2 * _count + (input * input)) / (_count + 1);
+        if (_count == std::numeric_limits<index_t>::max()) {
             throw std::runtime_error("Moments: update: integer overflow");
         }
         ++_count;
@@ -47,7 +47,7 @@ public:
     void operator() (const data_t input){ update(input); }
     index_t count() const { return _count; }
     data_t mean() const { return _mean; }
-    data_t variance() const{ return (_mean2 - _mean*_mean); }
+    data_t variance() const{ return (_mean2 - _mean * _mean); }
 };
 
 class Histogram{
@@ -73,9 +73,9 @@ public:
     vector<double> get_vecdata() const {return _hist;}
     void print_terminal(size_t ntot) const 
     {
-        for(size_t i=0; i<_hist.size();++i) {
-            std::cout << i << "-" << (i+1) << ": ";
-            std::cout << std::string(_hist[i]*10000/ntot,'*') <<  "\n";
+        for(size_t i = 0; i < _hist.size(); ++i) {
+            std::cout << i << "-" << (i + 1) << ": ";
+            std::cout << std::string(_hist[i] * 10000 / ntot, '*') <<  "\n";
         }
     };
     void resize(double E, int i);
