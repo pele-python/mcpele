@@ -4,12 +4,10 @@
 #include <cmath>
 #include <algorithm>
 #include <list>
-#include "pele/array.h"
 #include <iostream>
 #include <limits>
 
-using std::vector;
-using std::runtime_error;
+#include "pele/array.h"
 
 namespace mcpele{
 
@@ -54,7 +52,7 @@ class Histogram{
 private:
     double _max, _min, _bin, _eps;
     int _N;
-    vector<double> _hist;
+    std::vector<double> _hist;
     int _niter;
     Moments moments;
 public:
@@ -68,9 +66,9 @@ public:
     int entries() const {return _niter;}
     double get_mean() const {return moments.mean();}
     double get_variance() const {return moments.variance();}
-    vector<double>::iterator begin(){return _hist.begin();}
-    vector<double>::iterator end(){return _hist.end();}
-    vector<double> get_vecdata() const {return _hist;}
+    std::vector<double>::iterator begin(){return _hist.begin();}
+    std::vector<double>::iterator end(){return _hist.end();}
+    std::vector<double> get_vecdata() const {return _hist;}
     void print_terminal(size_t ntot) const 
     {
         for(size_t i = 0; i < _hist.size(); ++i) {
