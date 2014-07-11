@@ -77,21 +77,54 @@ void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool ac
 }
 
 /*
+ * Record scalar time series, every record_every-th step.
+ */
+
+RecordScalarTimeseries::RecordScalarTimeseries(const size_t niter, const size_t record_every)
+    : _niter(niter),
+      _record_every(record_every)
+{
+    _time_series.reserve(niter);
+    if (record_every==0) {
+        throw std::runtime_error("RecordScalarTimeseries: record_every expected to be at least 1");
+    }
+}
+
+void RecordScalarTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc)
+{
+    const size_t counter = mc->get_iterations_count();
+    if (counter % _record_every == 0) {
+        _record_scalar_value(this->get_recorded_scalar(coords, energy, accepted, mc));
+    }
+}
+
+/*
  * Record energy time series, measuring every __record_every-th step.
  */
 
 RecordEnergyTimeseries::RecordEnergyTimeseries(const size_t niter, const size_t record_every)
-    : _niter(niter), _record_every(record_every)
+    : RecordScalarTimeseries(niter, record_every)
+{}
+
+double RecordEnergyTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
-    _time_series.reserve(niter);
-    if (record_every==0) 
-        throw std::runtime_error("RecordEnergyTimeseries: __record_every expected to be at least 1");
+    return energy;
 }
 
-void RecordEnergyTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc)
+/*
+ * Record time series of lowest eigenvalue
+ */
+
+RecordLowestEValueTimeseries::RecordLowestEValueTimeseries(const size_t niter, const size_t record_every,
+        std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
+        pele::Array<double> ranvec, const size_t lbfgsniter)
+    : RecordScalarTimeseries(niter, record_every),
+      _lowest_ev(landscape_potential, boxdimension, ranvec, lbfgsniter)
+{}
+
+double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
-    size_t counter = mc->get_iterations_count();
-    if (counter % _record_every == 0)
-        _record_energy_value(energy);
+    return _lowest_ev.compute_lowest_eigenvalue(coords);
 }
-}
+
+}//namespace mcpele
