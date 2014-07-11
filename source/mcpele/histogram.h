@@ -69,6 +69,7 @@ public:
     std::vector<double>::iterator begin(){return _hist.begin();}
     std::vector<double>::iterator end(){return _hist.end();}
     std::vector<double> get_vecdata() const {return _hist;}
+    std::vector<double> get_vecdata_error() const;
     void print_terminal(size_t ntot) const 
     {
         for(size_t i = 0; i < _hist.size(); ++i) {
