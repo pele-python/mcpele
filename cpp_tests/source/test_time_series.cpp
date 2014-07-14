@@ -111,3 +111,31 @@ TEST(EVTimeseries, Works){
         EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-10);
     }
 }
+
+TEST(MRSMTimeseries, Works){
+    const size_t boxdim = 3;
+    const size_t nparticles = 100;
+    const size_t ndof = nparticles*boxdim;
+    const size_t niter = 10000;
+    const size_t record_every = 100;
+    const double stepsize = 1e-2;
+    pele::Array<double> coords(ndof,2);
+    pele::Array<double> origin(ndof,0);
+
+    const double k = 400;
+    std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
+    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
+
+    mcpele::RecordMeanRMSDisplacementTimeseries* ts = new mcpele::RecordMeanRMSDisplacementTimeseries(niter, record_every, origin, boxdim);
+    mc->add_action(std::shared_ptr<mcpele::RecordMeanRMSDisplacementTimeseries>(ts));
+    mc->set_takestep(std::make_shared<TrivialTakestep>());
+
+    mc->run(niter);
+    EXPECT_EQ(mc->get_iterations_count(), niter);
+
+    pele::Array<double> series = ts->get_time_series();
+    EXPECT_EQ(series.size(), niter/record_every);
+    for (size_t i = 0; i < series.size(); ++i){
+        EXPECT_NEAR_RELATIVE(series[i], sqrt(12), 1e-14);
+    }
+}

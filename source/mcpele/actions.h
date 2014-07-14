@@ -10,6 +10,7 @@
 #include "mc.h"
 #include "histogram.h"
 #include "lowest_eigenvalue.h"
+#include "rsm_displacement.h"
 
 namespace mcpele{
 
@@ -23,8 +24,14 @@ namespace mcpele{
 
 class AdjustStep : public Action {
 protected:
-    double _target, _factor, _acceptedf;
-    size_t _niter, _navg, _count, _naccepted, _nrejected;
+    const double m_target;
+    const double m_factor;
+    double m_acceptedf;
+    const size_t m_niter;
+    const size_t m_navg;
+    size_t m_count;
+    size_t m_naccepted;
+    size_t m_nrejected;
 public:
     AdjustStep(double target, double factor, size_t niter, size_t navg);
     virtual ~AdjustStep() {}
@@ -38,9 +45,10 @@ public:
 
 class RecordEnergyHistogram : public Action {
 protected:
-    mcpele::Histogram _hist;
+    mcpele::Histogram m_hist;
 private:
-    size_t _eqsteps, _count;
+    const size_t m_eqsteps;
+    size_t m_count;
 public:
     RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
     virtual ~RecordEnergyHistogram(){};
@@ -48,30 +56,30 @@ public:
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
 
     pele::Array<double> get_histogram() const {
-        std::vector<double> vecdata(_hist.get_vecdata());
+        std::vector<double> vecdata(m_hist.get_vecdata());
         pele::Array<double> histogram(vecdata);
         return histogram.copy();
     }
 
     void print_terminal(size_t ntot) const {
-                _hist.print_terminal(ntot);};
+                m_hist.print_terminal(ntot);};
 
     double get_max() const {
         double max_;
-        max_ = _hist.max();
+        max_ = m_hist.max();
         return max_;
     };
 
     double get_min() const {
         double min_;
-        min_ = _hist.min();
+        min_ = m_hist.min();
         return min_;
     };
 
-    size_t get_eqsteps() const {return _eqsteps;}
-    double get_mean() const {return _hist.get_mean();}
-    double get_variance() const {return _hist.get_variance();}
-    int get_entries() const {return _hist.entries();}
+    size_t get_eqsteps() const {return m_eqsteps;}
+    double get_mean() const {return m_hist.get_mean();}
+    double get_variance() const {return m_hist.get_variance();}
+    int get_entries() const {return m_hist.entries();}
 };
 
 /*
@@ -80,11 +88,12 @@ public:
 
 class RecordScalarTimeseries : public Action{
 private:
-    const size_t _niter, _record_every;
-    std::vector<double> _time_series;
-    void _record_scalar_value(const double input)
+    const size_t m_niter;
+    const size_t m_record_every;
+    std::vector<double> m_time_series;
+    void m_record_scalar_value(const double input)
     {
-        _time_series.push_back(input);
+        m_time_series.push_back(input);
     }
 public:
     RecordScalarTimeseries(const size_t, const size_t);
@@ -93,12 +102,12 @@ public:
     virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc) = 0;
     pele::Array<double> get_time_series()
     {
-        _time_series.shrink_to_fit();
-        return pele::Array<double>(_time_series).copy();
+        m_time_series.shrink_to_fit();
+        return pele::Array<double>(m_time_series).copy();
     }
     void clear()
     {
-        _time_series.clear();
+        m_time_series.clear();
     }
 };
 
@@ -119,7 +128,7 @@ public:
 
 class RecordLowestEValueTimeseries : public RecordScalarTimeseries{
 private:
-    FindLowestEigenvalue _lowest_ev;
+    FindLowestEigenvalue m_lowest_ev;
 public:
     RecordLowestEValueTimeseries(const size_t niter, const size_t record_every,
             std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
@@ -127,6 +136,23 @@ public:
     virtual ~RecordLowestEValueTimeseries(){}
     virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy,
             const bool accepted, MC* mc);
+};
+
+/*
+ * Record time series of root mean squared displacement (averaged over all particles)
+ * Motivation: check if HS fluid is decorrelated between snapshots
+ * Probably this is most useful if particles are not placed back into periodic box.
+ */
+
+class RecordMeanRMSDisplacementTimeseries : public RecordScalarTimeseries{
+private:
+    GetMeanRMSDisplacement m_rsm_displacement;
+public:
+    RecordMeanRMSDisplacementTimeseries(const size_t niter, const size_t record_every,
+            pele::Array<double> initial_coords, const size_t boxdimension);
+    virtual ~RecordMeanRMSDisplacementTimeseries(){}
+    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy,
+                const bool accepted, MC* mc);
 };
 
 }//namespace mcpele
