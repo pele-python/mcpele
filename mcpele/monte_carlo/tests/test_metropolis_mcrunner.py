@@ -43,7 +43,7 @@ class TestMetropolis(unittest.TestCase):
             
             print cv, cv_true
             
-            self.assertLess(abs(cv-cv_true),1e-1,'failed for temperature {}, cv = {}'.format(T,cv))
+            self.assertLess(abs(cv-cv_true),3e-1,'failed for temperature {}, cv = {}'.format(T,cv))
     
     def test_heat_capacity_3D(self):
         self.bdim = 3
@@ -67,7 +67,7 @@ class TestMetropolis(unittest.TestCase):
             
             print cv, cv_true
             
-            self.assertLess(abs(cv-cv_true),1e-1,'failed for temperature {}, cv = {}'.format(T,cv))
+            self.assertLess(abs(cv-cv_true),3e-1,'failed for temperature {}, cv = {}'.format(T,cv))
     
     def test_heat_capacity_2D_com(self):
         self.bdim = 2
@@ -92,7 +92,7 @@ class TestMetropolis(unittest.TestCase):
             
             print cv, cv_true
             
-            self.assertLess(abs(cv-cv_true),1e-1,'failed for temperature {}, cv = {}'.format(T,cv))
+            self.assertLess(abs(cv-cv_true),3e-1,'failed for temperature {}, cv = {}'.format(T,cv))
     
     def test_heat_capacity_2D(self):
         self.bdim = 2
@@ -116,7 +116,7 @@ class TestMetropolis(unittest.TestCase):
             
             print cv, cv_true
             
-            self.assertLess(abs(cv-cv_true),1e-1,'failed for temperature {}, cv = {}'.format(T,cv))
+            self.assertLess(abs(cv-cv_true),3e-1,'failed for temperature {}, cv = {}'.format(T,cv))
 
 if __name__ == "__main__":
     logging.basicConfig(filename='Metropolis_mcrunner.log',level=logging.DEBUG)
