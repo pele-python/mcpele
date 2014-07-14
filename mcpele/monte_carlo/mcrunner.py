@@ -50,8 +50,10 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.binsize = hbinsize
         self.histogram = RecordEnergyHistogram(hEmin,hEmax,self.binsize, adjustf_niter)
         self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.step = RandomCoordsDisplacement(np.random.randint(i32max))
-        self.metropolis = MetropolisTest(np.random.randint(i32max))
+        self.step = RandomCoordsDisplacement(42)
+        #self.step = RandomCoordsDisplacement(np.random.randint(i32max))
+        self.metropolis = MetropolisTest(44)
+        #self.metropolis = MetropolisTest(np.random.randint(i32max))
         self.conftest = CheckSphericalContainer(radius, bdim)
         
         #set up pele:MC
