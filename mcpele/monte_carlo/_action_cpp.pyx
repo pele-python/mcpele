@@ -99,7 +99,7 @@ class RecordEnergyTimeseries(_Cdef_RecordEnergyTimeseries):
     """
     
 #===============================================================================
-# RecordEnergyTimeseries
+# RecordLowestEValueTimeseries
 #===============================================================================
         
 cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
@@ -135,4 +135,42 @@ cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
     
 class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
     """This class is the python interface for the c++ RecordLowestEValueTimeseries implementation.
+    """
+    
+#===============================================================================
+# RecordMeanRMSDisplacementTimeseries
+#===============================================================================
+        
+cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
+    """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries action class implementation
+    """
+    cdef cppRecordMeanRMSDisplacementTimeseries* newptr
+    cdef initial
+    def __cinit__(self, niter, record_every, initial, boxdimension):
+        cdef np.ndarray[double, ndim=1] initialc = initial
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new 
+                 cppRecordMeanRMSDisplacementTimeseries(niter, record_every,
+                                                        _pele.Array[double](<double*> initialc.data, initialc.size),
+                                                        boxdimension))
+        self.newptr = <cppRecordMeanRMSDisplacementTimeseries*> self.thisptr.get()
+        
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_time_series(self):
+        """return a mean rsm time series array"""
+        cdef _pele.Array[double] seriesi = self.newptr.get_time_series()
+        cdef double *seriesdata = seriesi.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] series = np.zeros(seriesi.size())
+        cdef size_t i
+        for i in xrange(seriesi.size()):
+            series[i] = seriesdata[i]
+              
+        return series
+    
+    def clear(self):
+        """clears time series"""
+        self.newptr.clear()
+    
+class RecordMeanRMSDisplacementTimeseries(_Cdef_RecordMeanRMSDisplacementTimeseries):
+    """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries implementation.
     """
