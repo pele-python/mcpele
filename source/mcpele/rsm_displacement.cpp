@@ -19,7 +19,7 @@ double GetMeanRMSDisplacement::compute_mean_rsm_displacement(pele::Array<double>
     if (new_coords.size() != m_initial_coordinates.size()) {
         throw std::runtime_error("GetMeanRMSDisplacement::compute_mean_rsm_displacement: illegal new coords");
     }
-    Moments mom; //this should probably not get an m_, because the scope limited tothis function?
+    Moments mom;
     for (size_t particle = 0; particle < m_nr_particles; ++particle) {
         mom.update(get_particle_rsm_displ(particle, new_coords));
     }
