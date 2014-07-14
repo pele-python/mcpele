@@ -14,9 +14,11 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     def __cinit__(self, rseed):
         self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacement(rseed))
         self.newptr = <cppRandomCoordsDisplacement*> self.thisptr.get()
+    
     def get_seed(self):
         cdef res = self.newptr.get_seed()
         return res
+    
     def set_generator_seed(self, input):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
@@ -36,9 +38,11 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
     def __cinit__(self, rseed):
         self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed))
         self.newptr = <cppGaussianCoordsDisplacement*> self.thisptr.get()
+    
     def get_seed(self):
         cdef res = self.newptr.get_seed()
         return res
+    
     def set_generator_seed(self, input):
         cdef inp = input
         self.newptr.set_generator_seed(inp)

@@ -12,28 +12,22 @@ from pele.optimize import Result
 cdef class _Cdef_MC(_Cdef_BaseMC):
     
     # these are stored so that the memory is not freed
-    cdef public potential
-    cdef public niter
-    cdef public temperature
+    cdef public _pele.BasePotential potential
+    cdef public size_t niter
+    cdef public double temperature
     cdef public start_coords
-    cdef public stepsize
+    cdef public double stepsize
 
     def __cinit__(self, pot, coords, temp, pstepsize, pniter, *args, **kwargs):
-        cdef np.ndarray[double, ndim=1] start_coords = np.array(coords, dtype=float)        
-        cdef _pele.BasePotential potential = pot
-        cdef temperature = temp
-        cdef niter = pniter
-        cdef stepsize = pstepsize
-        
-        self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(potential.thisptr, _pele.Array[double](<double*> start_coords.data, start_coords.size), 
-                                         temperature, stepsize) )
-        
-        # these are stored so that the memory is not freed
-        self.potential = potential 
-        self.start_coords = start_coords
-        self.temperature = temperature
-        self.niter = niter
-        self.stepsize = stepsize
+        cdef np.ndarray[double, ndim=1] cstart_coords = np.array(coords, dtype=float)        
+        self.potential = pot 
+        self.start_coords = cstart_coords
+        self.temperature = temp
+        self.stepsize = pstepsize
+        self.niter = pniter
+                
+        self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(self.potential.thisptr, _pele.Array[double](<double*> cstart_coords.data, cstart_coords.size), 
+                                         self.temperature, self.stepsize) )
     
     def add_action(self, _Cdef_Action action):
         self.thisptr.get().add_action(action.thisptr)
