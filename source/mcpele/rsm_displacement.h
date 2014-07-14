@@ -8,9 +8,9 @@ namespace mcpele{
 
 class GetMeanRMSDisplacement{
 private:
-    pele::Array<double> initial_coordinates;
-    const size_t boxdimension;
-    const size_t nr_particles;
+    pele::Array<double> m_initial_coordinates;
+    const size_t m_boxdimension;
+    const size_t m_nr_particles;
 public:
     virtual ~GetMeanRMSDisplacement(){}
     GetMeanRMSDisplacement(pele::Array<double>, const size_t);

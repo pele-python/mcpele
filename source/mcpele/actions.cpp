@@ -17,9 +17,14 @@ namespace mcpele{
 */
 
 AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg)
-    : _target(target), _factor(factor), _acceptedf(0),
-    _niter(niter), _navg(navg), _count(0), _naccepted(0),
-    _nrejected(0)
+    : m_target(target),
+      m_factor(factor),
+      m_acceptedf(0),
+      m_niter(niter),
+      m_navg(navg),
+      m_count(0),
+      m_naccepted(0),
+      m_nrejected(0)
 {
     if (factor > 1 || factor < 0) 
         throw std::runtime_error("AdjustStep: illegal input");
@@ -28,29 +33,29 @@ AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg)
 void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC* mc) 
 {
 
-    _count = mc->get_iterations_count();
+    m_count = mc->get_iterations_count();
 
-    if (_count <= _niter) {
+    if (m_count <= m_niter) {
         if (accepted == true)
-            ++_naccepted;
+            ++m_naccepted;
         else
-            ++_nrejected;
+            ++m_nrejected;
 
-        if(_count % _navg == 0)
+        if(m_count % m_navg == 0)
         {
-            _acceptedf = (double) _naccepted / (_naccepted + _nrejected);
+            m_acceptedf = (double) m_naccepted / (m_naccepted + m_nrejected);
 
             //std::cout<<"acceptance "<<_acceptedf<< "\n";
             //std::cout<<"stepsize before"<<mc->_stepsize<< "\n";
-            if (_acceptedf < _target)
-                mc->_stepsize *= _factor;
+            if (m_acceptedf < m_target)
+                mc->_stepsize *= m_factor;
             else
-                mc->_stepsize /= _factor;
+                mc->_stepsize /= m_factor;
             //std::cout<<"stepsize after"<<mc->_stepsize<< "\n";
 
             //now reset to zero memory of acceptance and rejection
-            _naccepted = 0;
-            _nrejected = 0;
+            m_naccepted = 0;
+            m_nrejected = 0;
         }
 
     }
@@ -63,16 +68,16 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
 
 RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double
         bin, size_t eqsteps)
-    : _hist(mcpele::Histogram(min, max, bin)), 
-    _eqsteps(eqsteps), 
-    _count(0)
+    : m_hist(min, max, bin),
+      m_eqsteps(eqsteps),
+      m_count(0)
 {}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) 
 {
-    _count = mc->get_iterations_count();
-    if (_count > _eqsteps){
-        _hist.add_entry(energy);
+    m_count = mc->get_iterations_count();
+    if (m_count > m_eqsteps){
+        m_hist.add_entry(energy);
     }
 }
 
@@ -81,20 +86,20 @@ void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool ac
  */
 
 RecordScalarTimeseries::RecordScalarTimeseries(const size_t niter, const size_t record_every)
-    : _niter(niter),
-      _record_every(record_every)
+    : m_niter(niter),
+      m_record_every(record_every)
 {
     if (record_every==0) {
         throw std::runtime_error("RecordScalarTimeseries: record_every expected to be at least 1");
     }
-    _time_series.reserve(niter/record_every);
+    m_time_series.reserve(niter/record_every);
 }
 
 void RecordScalarTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc)
 {
     const size_t counter = mc->get_iterations_count();
-    if (counter % _record_every == 0) {
-        _record_scalar_value(this->get_recorded_scalar(coords, energy, accepted, mc));
+    if (counter % m_record_every == 0) {
+        m_record_scalar_value(this->get_recorded_scalar(coords, energy, accepted, mc));
     }
 }
 
@@ -119,12 +124,12 @@ RecordLowestEValueTimeseries::RecordLowestEValueTimeseries(const size_t niter, c
         std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
         pele::Array<double> ranvec, const size_t lbfgsniter)
     : RecordScalarTimeseries(niter, record_every),
-      _lowest_ev(landscape_potential, boxdimension, ranvec, lbfgsniter)
+      m_lowest_ev(landscape_potential, boxdimension, ranvec, lbfgsniter)
 {}
 
 double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
-    return _lowest_ev.compute_lowest_eigenvalue(coords);
+    return m_lowest_ev.compute_lowest_eigenvalue(coords);
 }
 
 /*
@@ -135,12 +140,12 @@ double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &co
 RecordMeanRMSDisplacementTimeseries::RecordMeanRMSDisplacementTimeseries(const size_t niter, const size_t record_every,
             pele::Array<double> initial_coords, const size_t boxdimension)
     : RecordScalarTimeseries(niter, record_every),
-      _rsm_displacement(initial_coords, boxdimension)
+      m_rsm_displacement(initial_coords, boxdimension)
 {}
 
 double RecordMeanRMSDisplacementTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
-    return _rsm_displacement.compute_mean_rsm_displacement(coords);
+    return m_rsm_displacement.compute_mean_rsm_displacement(coords);
 }
 
 }//namespace mcpele
