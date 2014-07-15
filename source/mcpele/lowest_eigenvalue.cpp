@@ -6,9 +6,9 @@ namespace mcpele{
 
 
 FindLowestEigenvalue::FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
-        pele::Array<double> ranvec, const size_t lbfgsniter)
+        const pele::Array<double> ranvec, const size_t lbfgsniter)
     : _lowesteigpot(std::make_shared<pele::LowestEigPotential>(landscape_potential, ranvec.copy(), boxdimension)),
-      _ranvec((ranvec /= norm(ranvec)).copy()),
+      _ranvec((ranvec.copy() /= norm(ranvec))),
       _lbfgs(_lowesteigpot, _ranvec.copy())
 {
     if (isinf(double(1) / norm(ranvec))) {
