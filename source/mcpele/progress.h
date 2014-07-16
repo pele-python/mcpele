@@ -56,13 +56,15 @@ private:
     const index_t total_iterations;
     index_t curr;
     index_t prev;
+    const long_t start_time;
 public:
 
     progress(const index_t totalin)
         : inverse_of_total_iterations(1.0/static_cast<float_t>(totalin)),
         total_iterations(totalin),
         curr(0),
-        prev(0)
+        prev(0),
+        start_time(clock())
     {}
 
     void next(const index_t idx, std::ostream& stm = std::cout)
@@ -99,21 +101,21 @@ public:
     void get_and_print_elapsed_time(std::ostream& stm)
     {
         stm << "time elapsed" <<  "\n";
-        print_estimated_time(clock(), stm);
+        print_estimated_time(clock() - start_time, stm);
     }
 
     void estimate_and_print_time_to_complete(const index_t smp, std::ostream& stm)
     {
         stm << "---" <<  "\n";
         stm << "estimated time to completion" <<  "\n";
-        print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)clock(), stm);
+        print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
     }
 
     void estimate_and_print_total_time(const index_t smp, std::ostream& stm)
     {
         stm << "---" <<  "\n";
         stm << "estimated total run time" <<  "\n";
-        print_estimated_time(((float_t)total_iterations / (float_t)(smp + 1)) * (float_t)clock(), stm);
+        print_estimated_time(((float_t)total_iterations / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
         stm << "---" <<  "\n";
     }
 
@@ -121,7 +123,7 @@ public:
     {
         stm << "estimated completion local time" <<  "\n";
         time_t timer = time(NULL);
-        timer+=(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)clock()) / CLOCKS_PER_SEC;
+        timer+=(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time)) / CLOCKS_PER_SEC;
         stm << ctime(&timer);
         stm << "---" <<  "\n";
     }
