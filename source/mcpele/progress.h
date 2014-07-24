@@ -79,53 +79,52 @@ public:
     {
         // percentage done
         update_and_print_percentage_complete(stm);
+        stm <<  ". ";
         // time elapsed
         get_and_print_elapsed_time(stm);
+        stm <<  ". ";
         // estimated time to completion
         estimate_and_print_time_to_complete(smp, stm);
+        stm <<  ". ";
         // estimated total time
         estimate_and_print_total_time(smp, stm);
+        stm <<  ". ";
         // estimated completion time in local time
         estimate_and_print_completion_local_time(smp, stm);
+        stm << "\n";
     }
 
     void update_and_print_percentage_complete(std::ostream& stm)
     {
-        stm << "---" <<  "\n";
-        stm << "percentage done" <<  "\n";
-        stm << curr << " %" <<  "\n";
+        stm << "percentage done" <<  ": ";
+        stm << curr << " %";
         prev = curr;
-        stm << "---" <<  "\n";
     }
 
     void get_and_print_elapsed_time(std::ostream& stm)
     {
-        stm << "time elapsed" <<  "\n";
+        stm << "time elapsed" <<  ": ";
         print_estimated_time(clock() - start_time, stm);
     }
 
     void estimate_and_print_time_to_complete(const index_t smp, std::ostream& stm)
     {
-        stm << "---" <<  "\n";
-        stm << "estimated time to completion" <<  "\n";
+        stm << "estimated time to completion" <<  ": ";
         print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
     }
 
     void estimate_and_print_total_time(const index_t smp, std::ostream& stm)
     {
-        stm << "---" <<  "\n";
-        stm << "estimated total run time" <<  "\n";
+        stm << "estimated total run time" <<  ": ";
         print_estimated_time(((float_t)total_iterations / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
-        stm << "---" <<  "\n";
     }
 
     void estimate_and_print_completion_local_time(const index_t smp, std::ostream& stm)
     {
-        stm << "estimated completion local time" <<  "\n";
+        stm << "estimated completion local time" <<  ": ";
         time_t timer = time(NULL);
-        timer+=(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time)) / CLOCKS_PER_SEC;
+        timer += (((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time)) / CLOCKS_PER_SEC;
         stm << ctime(&timer);
-        stm << "---" <<  "\n";
     }
 
     void print_estimated_time(const long_t inp, std::ostream& stm)
@@ -150,7 +149,6 @@ public:
         if (seconds) {
             stm << seconds << " " << ((seconds > 1) ? "seconds" : "second");
         }
-        stm <<  "\n";
     }
 
 };

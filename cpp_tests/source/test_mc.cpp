@@ -79,6 +79,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
 }
 
 TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
+    max_iter *= 10;
     mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
@@ -96,7 +97,7 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     //(double min, double max, double bin, size_t eqsteps)
     shared_ptr<mcpele::Action> record_histogram = std::make_shared<mcpele::RecordEnergyHistogram>(0,10,1,adj_iter);
     mc->add_action(record_histogram);
-    //mc->set_print_progress(true);
+    mc->set_print_progress(true);
     mc->run(max_iter);
     EXPECT_TRUE( mc->get_iterations_count() == max_iter );
     //std::cout << "mean energy: " << std::endl;
