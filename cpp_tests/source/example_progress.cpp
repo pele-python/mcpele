@@ -11,12 +11,10 @@ int main()
     while (niter < N) {
         tmp = sqrt(N);
         tmp *= tmp;
-        tmp = pow(tmp,4.2);
-        tmp = pow(tmp,1.0/4.2);
+        tmp = pow(tmp, 4.2);
+        tmp = pow(tmp, 1.0 / 4.2);
         ++niter;
         stat.next(niter);
-        //std::cout << "\r";
-        //std::cout << niter;
     }
     std::cout << tmp << "\n";
     return 0;   
