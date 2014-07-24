@@ -4,6 +4,8 @@
 #include <ctime>
 #include <utility>
 #include <iostream>
+#include <string>
+#include <algorithm>
 
 namespace mcpele{
 
@@ -95,12 +97,11 @@ public:
         stm <<  ". ";
         // estimated completion time in local time
         estimate_and_print_completion_local_time(smp, stm);
-        //stm.flush();
+        stm.flush();
     }
 
     void update_and_print_percentage_complete(std::ostream& stm)
     {
-        stm << "status" <<  ": ";
         stm << curr << " %";
         prev = curr;
     }
@@ -128,7 +129,9 @@ public:
         stm << "ends" <<  ": ";
         time_t timer = time(NULL);
         timer += (((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time)) / CLOCKS_PER_SEC;
-        stm << ctime(&timer);
+        std::string tmp(ctime(&timer));
+        tmp.erase(std::remove(tmp.begin(), tmp.end(), '\n'), tmp.end());
+        stm << tmp;
     }
 
     void print_estimated_time(const long_t inp, std::ostream& stm)
