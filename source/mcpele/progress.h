@@ -59,9 +59,9 @@ public:
         curr = static_cast<index_t>(static_cast<float_t>(idx) * inverse_of_total_iterations * 100);
         if (curr != prev) {
             print_time_percentage(idx - 1, stm);
-        }
-        if (curr == 100) {
-            stm << "\n";
+            if (curr == 100) {
+                stm << "\n";
+            }
         }
     }
 
