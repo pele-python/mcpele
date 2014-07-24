@@ -97,6 +97,7 @@ public:
         stm <<  ". ";
         // estimated completion time in local time
         estimate_and_print_completion_local_time(smp, stm);
+        stm << "       ";
         stm.flush();
     }
 
@@ -108,13 +109,13 @@ public:
 
     void get_and_print_elapsed_time(std::ostream& stm)
     {
-        stm << "elapsed" <<  ": ";
+        stm << "done" <<  ": ";
         print_estimated_time(clock() - start_time, stm);
     }
 
     void estimate_and_print_time_to_complete(const index_t smp, std::ostream& stm)
     {
-        stm << "remaining" <<  ": ";
+        stm << "todo" <<  ": ";
         print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
     }
 
