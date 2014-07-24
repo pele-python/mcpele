@@ -73,10 +73,14 @@ public:
         if (curr != prev) {
             print_time_percentage(idx - 1, stm);
         }
+        if (curr == 100) {
+            stm << "\n";
+        }
     }
 
     void print_time_percentage(const index_t smp, std::ostream& stm)
     {
+        stm << "\r";
         // percentage done
         update_and_print_percentage_complete(stm);
         stm <<  ". ";
@@ -91,37 +95,37 @@ public:
         stm <<  ". ";
         // estimated completion time in local time
         estimate_and_print_completion_local_time(smp, stm);
-        stm << "\n";
+        //stm.flush();
     }
 
     void update_and_print_percentage_complete(std::ostream& stm)
     {
-        stm << "percentage done" <<  ": ";
+        stm << "status" <<  ": ";
         stm << curr << " %";
         prev = curr;
     }
 
     void get_and_print_elapsed_time(std::ostream& stm)
     {
-        stm << "time elapsed" <<  ": ";
+        stm << "elapsed" <<  ": ";
         print_estimated_time(clock() - start_time, stm);
     }
 
     void estimate_and_print_time_to_complete(const index_t smp, std::ostream& stm)
     {
-        stm << "estimated time to completion" <<  ": ";
+        stm << "remaining" <<  ": ";
         print_estimated_time(((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
     }
 
     void estimate_and_print_total_time(const index_t smp, std::ostream& stm)
     {
-        stm << "estimated total run time" <<  ": ";
+        stm << "total" <<  ": ";
         print_estimated_time(((float_t)total_iterations / (float_t)(smp + 1)) * (float_t)(clock() - start_time), stm);
     }
 
     void estimate_and_print_completion_local_time(const index_t smp, std::ostream& stm)
     {
-        stm << "estimated completion local time" <<  ": ";
+        stm << "ends" <<  ": ";
         time_t timer = time(NULL);
         timer += (((float_t)(total_iterations - smp - 1) / (float_t)(smp + 1)) * (float_t)(clock() - start_time)) / CLOCKS_PER_SEC;
         stm << ctime(&timer);
@@ -138,16 +142,16 @@ public:
         tm %= ((long_t)CLOCKS_PER_SEC * (long_t)60);
         long_t seconds = tm / ((long_t)CLOCKS_PER_SEC);
         if (days) {
-            stm << days << " " << ((days > 1) ? "days" : "day") << " ";
+            stm << days << " d ";
         }
         if (hours) {
-            stm << hours << " " << ((hours > 1) ? "hours" : "hour") << " ";
+            stm << hours << " h ";
         }
         if (minutes) {
-            stm << minutes << " " << ((minutes > 1) ? "minutes" : "minute") << " ";
+            stm << minutes << " m ";
         }
         if (seconds) {
-            stm << seconds << " " << ((seconds > 1) ? "seconds" : "second");
+            stm << seconds << " s";
         }
     }
 
