@@ -29,22 +29,7 @@ namespace mcpele{
  *
  * Example output:
  *
- * ---
- * percentage done
- * 16 %
- * ---
- * time elapsed
- * 10 seconds
- * ---
- * estimated time to completion
- * 53 seconds
- * ---
- * estimated total run time
- * 1 minute  4 seconds
- * ---
- * estimated completion local time
- * Thu Jul 10 11:29:38 2014
- * ---
+ * 28 %. done: 3 s. todo: 10 s. total: 14 s. ends: Thu Jul 24 13:56:51 2014
  *
  */
 
