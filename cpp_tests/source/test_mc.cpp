@@ -79,6 +79,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
 }
 
 TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
+    //max_iter *= 10;
     mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
