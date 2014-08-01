@@ -83,6 +83,42 @@ public:
 };
 
 /*
+ * Record pair-distance distribution (radial distribution function)
+ * Templated on boxdimension, should work fine with pele::periodic_distance
+ */
+
+template<size_t BOXDIM>
+class RecordPairDistHistogram : public Action {
+private:
+    pele::periodic_distance<BOXDIM> m_distance;
+    mcpele::PairDistHistogram m_hist_gr;
+    const size_t m_eqsteps;
+public:
+    RecordPairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps)
+        : m_distance(boxvector.data()),
+          m_hist_gr(m_distance, boxvector, nr_bins),
+          m_eqsteps(eqsteps)
+    {}
+    virtual ~RecordPairDistHistogram() {}
+    virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc)
+    {
+        const index_t count = mc->get_iterations_count();
+        if (count > m_equsteps) {
+            m_hist_gr.add_configuration(coords);
+        }
+    }
+    size_t get_eqsteps() const
+    {
+        return m_eqsteps;
+    }
+    pele::Array<double> get_hist_gr() const
+    {
+        std::vector<double> vecdata(m_hist_gr.get_vecdata());
+        return pele::Array<double>(vecdata).copy();
+    }
+}
+
+/*
  * Record scalar time series, every record_every-th step.
  */
 
