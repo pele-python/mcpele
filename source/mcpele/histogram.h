@@ -68,6 +68,7 @@ public:
     double get_variance() const {return moments.variance();}
     std::vector<double>::iterator begin(){return _hist.begin();}
     std::vector<double>::iterator end(){return _hist.end();}
+    double get_position(const size_t bin_index) const {return _min + (0.5 + bin_index) * _bin;}
     std::vector<double> get_vecdata() const {return _hist;}
     std::vector<double> get_vecdata_error() const;
     void print_terminal(size_t ntot) const 

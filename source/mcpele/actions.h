@@ -11,6 +11,7 @@
 #include "histogram.h"
 #include "lowest_eigenvalue.h"
 #include "rsm_displacement.h"
+#include "pair_dist_histogram.h"
 
 namespace mcpele{
 
@@ -90,17 +91,15 @@ public:
 template<size_t BOXDIM>
 class RecordPairDistHistogram : public Action {
 private:
-    pele::periodic_distance<BOXDIM> m_distance;
-    mcpele::PairDistHistogram m_hist_gr;
+    mcpele::PairDistHistogram<BOXDIM> m_hist_gr;
     const size_t m_eqsteps;
 public:
     RecordPairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps)
-        : m_distance(boxvector.data()),
-          m_hist_gr(m_distance, boxvector, nr_bins),
+        : m_hist_gr(boxvector, nr_bins),
           m_eqsteps(eqsteps)
     {}
     virtual ~RecordPairDistHistogram() {}
-    virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc)
+    virtual void action(pele::Array<double>& coords, double energy, bool accepted, MC* mc)
     {
         const index_t count = mc->get_iterations_count();
         if (count > m_equsteps) {
