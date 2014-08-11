@@ -101,8 +101,8 @@ public:
     virtual ~RecordPairDistHistogram() {}
     virtual void action(pele::Array<double>& coords, double energy, bool accepted, MC* mc)
     {
-        const index_t count = mc->get_iterations_count();
-        if (count > m_equsteps) {
+        const size_t count = mc->get_iterations_count();
+        if (count > m_eqsteps) {
             m_hist_gr.add_configuration(coords);
         }
     }
@@ -115,7 +115,7 @@ public:
         std::vector<double, double> vecdata(m_hist_gr.get_vecdata());
         return pele::Array< std::pair<double, double> >(vecdata).copy();
     }
-}
+};
 
 /*
  * Record scalar time series, every record_every-th step.

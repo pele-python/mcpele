@@ -20,7 +20,7 @@ private:
     const double m_min_dist;
     const double m_max_dist;
     const double m_delta_bin;
-    mcpele::histogram m_hist;
+    mcpele::Histogram m_hist;
 public:
     PairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins)
         : m_distance(boxvector.data()),
@@ -47,9 +47,9 @@ public:
     void add_distance(const size_t i, const size_t j, const double* coor)
     {
         double* rij = new double[BOXDIM];
-        m_distance.get_rij(rij, x + i * BOXDIM, x + j * BOXDIM);
+        m_distance.get_rij(rij, coor + i * BOXDIM, coor + j * BOXDIM);
         double r2 = 0;
-        for (index_t k = 0; k < BOXDIM; ++k) {
+        for (size_t k = 0; k < BOXDIM; ++k) {
             r2 += rij[k] * rij[k];
         }
         delete[] rij;
@@ -71,7 +71,7 @@ public:
             result.at(i).first = r;
             const double delta_r = m_hist.bin();
             const double ring_area_r = 2 * M_PI * delta_r;
-            const double g_of_r = normalization * static_cast<double>(hist.get_entry(i)) / ring_area_r;
+            const double g_of_r = normalization * static_cast<double>(m_hist.get_entry(i)) / ring_area_r;
             result.at(i).second = g_of_r;
         }
     }
