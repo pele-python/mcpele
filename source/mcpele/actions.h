@@ -110,10 +110,10 @@ public:
     {
         return m_eqsteps;
     }
-    pele::Array<double> get_hist_gr() const
+    pele::Array< std::pair<double, double> > get_hist_gr() const
     {
-        std::vector<double> vecdata(m_hist_gr.get_vecdata());
-        return pele::Array<double>(vecdata).copy();
+        std::vector<double, double> vecdata(m_hist_gr.get_vecdata());
+        return pele::Array< std::pair<double, double> >(vecdata).copy();
     }
 }
 
