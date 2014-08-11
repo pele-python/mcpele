@@ -63,10 +63,16 @@ public:
     }
     std::vector< std::pair<double, double> > get_vecdata() const
     {
+        const double area_largest_disc = M_PI * m_max_dist * m_max_dist - M_PI * m_min_dist * m_min_dist;
+        const double normalization = area_largest_disc / static_cast<double>(m_hist.entries());
         std::vector< std::pair<double, double> > result(m_hist.size());
         for (size_t i = 0; i < m_hist.size(); ++i) {
-            result.at(i).fist = m_hist.get_position(i);
-            result.ad(i).second = //////////////////////////////////////;
+            const double r = m_hist.get_position(i);
+            result.at(i).first = r;
+            const double delta_r = m_hist.bin();
+            const double ring_area_r = 2 * M_PI * delta_r;
+            const double g_of_r = normalization * static_cast<double>(hist.get_entry(i)) / ring_area_r;
+            result.at(i).second = g_of_r;
         }
     }
 };

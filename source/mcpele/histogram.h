@@ -70,6 +70,7 @@ public:
     std::vector<double>::iterator end(){return _hist.end();}
     double get_position(const size_t bin_index) const {return _min + (0.5 + bin_index) * _bin;}
     std::vector<double> get_vecdata() const {return _hist;}
+    double get_entry(const size_t bin_index) const {return _hist.at(bin_index);}
     std::vector<double> get_vecdata_error() const;
     void print_terminal(size_t ntot) const 
     {
