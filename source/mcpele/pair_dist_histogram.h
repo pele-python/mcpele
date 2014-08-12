@@ -21,14 +21,16 @@ private:
     const double m_max_dist;
     const double m_delta_bin;
     mcpele::Histogram m_hist;
+    size_t m_nr_configs;
 public:
     PairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins)
-        : m_distance(boxvector.data()),
+        : m_distance(boxvector),
           m_nr_bins(nr_bins),
           m_min_dist(0),
           m_max_dist(0.5 * *std::min_element(boxvector.data(), boxvector.data() + BOXDIM)),
           m_delta_bin((m_max_dist - m_min_dist) / static_cast<double>(m_nr_bins)),
-          m_hist(m_min_dist, m_max_dist, m_delta_bin)
+          m_hist(m_min_dist, m_max_dist, m_delta_bin),
+          m_nr_configs(0)
     {
         if (BOXDIM != boxvector.size()) {
             throw std::runtime_error("PairDistHistogram: illegal boxvector size");
@@ -37,6 +39,7 @@ public:
     virtual ~PairDistHistogram() {}
     void add_configuration(pele::Array<double> coords)
     {
+        ++m_nr_configs;
         const size_t nr_particles(coords.size() / BOXDIM);
         for (size_t i = 0; i < nr_particles; ++i) {
             for (size_t j = i + 1; j < nr_particles; ++j) {
@@ -61,19 +64,24 @@ public:
         }
         m_hist.add_entry(r);
     }
-    std::vector< std::pair<double, double> > get_vecdata() const
+    double volume_nball(const double radius, const size_t ndim) const
     {
-        const double area_largest_disc = M_PI * m_max_dist * m_max_dist - M_PI * m_min_dist * m_min_dist;
-        const double normalization = area_largest_disc / static_cast<double>(m_hist.entries());
+        return pow(M_PI, 0.5 * ndim) * pow(radius, ndim) / tgamma(0.5 * ndim + 1);
+    }
+    std::vector< std::pair<double, double> > get_vecdata(const double number_density, const size_t nr_particles) const
+    {
         std::vector< std::pair<double, double> > result(m_hist.size());
         for (size_t i = 0; i < m_hist.size(); ++i) {
             const double r = m_hist.get_position(i);
             result.at(i).first = r;
             const double delta_r = m_hist.bin();
-            const double ring_area_r = 2 * M_PI * delta_r;
-            const double g_of_r = normalization * static_cast<double>(m_hist.get_entry(i)) / ring_area_r;
+            const double shell_volume_r = volume_nball(r + 0.5 * delta_r, BOXDIM) - volume_nball(r - 0.5 * delta_r, BOXDIM);
+            const double nid = shell_volume_r * number_density;
+            const double normalization = 2.0 / (static_cast<double>(m_nr_configs) * static_cast<double>(nr_particles) * nid);
+            const double g_of_r = normalization * static_cast<double>(m_hist.get_entry(i));
             result.at(i).second = g_of_r;
         }
+        return result;
     }
 };
 
