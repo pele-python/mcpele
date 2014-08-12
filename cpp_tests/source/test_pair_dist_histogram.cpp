@@ -80,19 +80,19 @@ TEST_F(TestPairDistHist, BasicFunctionality){
     EXPECT_EQ(mc->get_iterations_count(), max_iter);
     EXPECT_TRUE(record_gr->get_eqsteps() == eqsteps);
     const double number_density = nparticles / pow(boxlength, boxdim);
-    pele::Array< std::pair<double, double> > gr = record_gr->get_hist_gr(number_density, nparticles);
-    EXPECT_EQ(gr[0].first, (boxlength * 0.5 / nr_bins) * 0.5); // bin size OK
+    pele::Array<double> r = record_gr->get_hist_r();
+    pele::Array<double> gr = record_gr->get_hist_gr(number_density, nparticles);
+    EXPECT_EQ(r[0], (boxlength * 0.5 / nr_bins) * 0.5); // bin size OK
     // normalization OK
     if (boxdim == 2) {
-        EXPECT_DOUBLE_EQ(gr[0].second, nparticles * (nparticles - 1) / (nparticles * number_density * 2 * M_PI * gr[0].first * (boxlength * 0.5 / nr_bins)));
+        EXPECT_DOUBLE_EQ(gr[0], nparticles * (nparticles - 1) / (nparticles * number_density * 2 * M_PI * r[0] * (boxlength * 0.5 / nr_bins)));
     }
     if (boxdim == 3) {
-        const double r = gr[0].first;
         const double dr = (boxlength * 0.5 / nr_bins);
-        EXPECT_DOUBLE_EQ(gr[0].second, nparticles * (nparticles - 1) / (nparticles * number_density * 4 * M_PI / 3 * (pow(r + 0.5 * dr, 3) - pow(r - 0.5 * dr, 3))));
+        EXPECT_DOUBLE_EQ(gr[0], nparticles * (nparticles - 1) / (nparticles * number_density * 4 * M_PI / 3 * (pow(r[0] + 0.5 * dr, 3) - pow(r[0] - 0.5 * dr, 3))));
     }
     for (size_t i = 1; i < gr.size(); ++i) {
-        EXPECT_EQ(gr[i].second, 0);
+        EXPECT_EQ(gr[i], 0);
     }
 }
 

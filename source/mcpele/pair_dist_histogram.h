@@ -68,18 +68,26 @@ public:
     {
         return pow(M_PI, 0.5 * ndim) * pow(radius, ndim) / tgamma(0.5 * ndim + 1);
     }
-    std::vector< std::pair<double, double> > get_vecdata(const double number_density, const size_t nr_particles) const
+    std::vector<double> get_vecdata_r() const
     {
-        std::vector< std::pair<double, double> > result(m_hist.size());
+        std::vector<double> result(m_hist.size());
         for (size_t i = 0; i < m_hist.size(); ++i) {
             const double r = m_hist.get_position(i);
-            result.at(i).first = r;
+            result.at(i) = r;
+        }
+        return result;
+    }
+    std::vector<double> get_vecdata_gr(const double number_density, const size_t nr_particles) const
+    {
+        std::vector<double> result(m_hist.size());
+        for (size_t i = 0; i < m_hist.size(); ++i) {
+            const double r = m_hist.get_position(i);
             const double delta_r = m_hist.bin();
             const double shell_volume_r = volume_nball(r + 0.5 * delta_r, BOXDIM) - volume_nball(r - 0.5 * delta_r, BOXDIM);
             const double nid = shell_volume_r * number_density;
             const double normalization = 2.0 / (static_cast<double>(m_nr_configs) * static_cast<double>(nr_particles) * nid);
             const double g_of_r = normalization * static_cast<double>(m_hist.get_entry(i));
-            result.at(i).second = g_of_r;
+            result.at(i) = g_of_r;
         }
         return result;
     }

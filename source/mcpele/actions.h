@@ -110,10 +110,15 @@ public:
     {
         return m_eqsteps;
     }
-    pele::Array< std::pair<double, double> > get_hist_gr(const double number_density, const size_t nr_particles) const
+    pele::Array<double> get_hist_r() const
     {
-        std::vector< std::pair<double, double> > vecdata(m_hist_gr.get_vecdata(number_density, nr_particles));
-        return pele::Array< std::pair<double, double> >(vecdata).copy();
+        std::vector<double> vecdata(m_hist_gr.get_vecdata_r());
+        return pele::Array<double>(vecdata).copy();
+    }
+    pele::Array<double> get_hist_gr(const double number_density, const size_t nr_particles) const
+    {
+        std::vector<double> vecdata(m_hist_gr.get_vecdata_gr(number_density, nr_particles));
+        return pele::Array<double>(vecdata).copy();
     }
 };
 

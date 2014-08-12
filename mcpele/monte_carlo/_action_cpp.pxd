@@ -1,4 +1,5 @@
 cimport pele.potentials._pele as _pele
+#from pele.potentials._pele cimport array_wrap_np
 from _pele_mc cimport cppAction,_Cdef_Action, shared_ptr
 from libcpp cimport bool as cbool
 
@@ -13,6 +14,11 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
         double get_min() except +
         double get_mean() except +
         double get_variance() except +
+    cdef cppclass cppRecordPairDistHistogram[size_t]:
+        cppRecordPairDistHistogram(_pele.Array[double], size_t, size_t) except +
+        _pele.Array[double] get_hist_r() except +
+        _pele.Array[double] get_hist_gr(double, size_t) except +
+        size_t get_eqsteps() except +
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
         cppRecordEnergyTimeseries(const size_t, const size_t) except +
         _pele.Array[double] get_time_series() except +
