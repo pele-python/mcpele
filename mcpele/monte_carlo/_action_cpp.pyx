@@ -71,7 +71,8 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
 cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     """This class is the python interface for the c++ mcpele::RecordPairDistHistogram implementation
     """
-    #cdef cppRecordPairDistHistogram[size_t]* newptr #this will not work, somehow we want to use boxvector.size() as template parameter of type size_t
+    cdef cppRecordPairDistHistogram[INT2]* newptr2
+    cdef cppRecordPairDistHistogram[INT3]* newptr3
     def __cinit__(self, boxvec, nr_bins, eqsteps):
         ndim = len(boxvec)
         assert(ndim == 2 or ndim == 3)
@@ -80,10 +81,45 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         if ndim == 2:
             bv = np.array(boxvec, dtype=float)
             self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps))
+            self.newptr2 = <cppRecordPairDistHistogram[INT2]*> self.thisptr.get()
         else:
             bv = np.array(boxvec, dtype=float)
             self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps))
-        #self.newptr = <cppRecordPairDistHistogram[size_t]*> self.thisptr.get()
+            self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
+        self.ndim = ndim
+    def get_hist_r(self):
+        """return array of r values for g(r) measurement"""
+        cdef _pele.Array[double] histi
+        if self.ndim == 2:
+            histi = self.newptr2.get_hist_r()
+        elif self.ndim == 3:
+            histi = self.newptr3.get_hist_r()        
+        cdef double *histdata = histi.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
+        cdef size_t i
+        for i in xrange(histi.size()):
+            hist[i] = histdata[i]      
+        return hist
+    def get_hist_gr(self, number_density, nr_particles):
+        """return array of g(r) values for g(r) measurement"""
+        cdef _pele.Array[double] histi
+        if self.ndim == 2:
+            histi = self.newptr2.get_hist_gr(number_density, nr_particles)
+        elif self.ndim == 3:
+            histi = self.newptr3.get_hist_gr(number_density, nr_particles)        
+        cdef double *histdata = histi.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
+        cdef size_t i
+        for i in xrange(histi.size()):
+            hist[i] = histdata[i]      
+        return hist
+    def get_eqsteps(self):
+        if self.ndim == 2:
+            return self.newptr2.get_eqsteps()
+        elif self.ndim == 3:
+            return self.newptr3.get_eqsteps()
+        else:
+            raise Exception("_Cdef_RecordPairDistHistogram: boxdim fail")
 
 class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
     """This class is the python interface for the c++ RecordPairDistHistogram implementation.
