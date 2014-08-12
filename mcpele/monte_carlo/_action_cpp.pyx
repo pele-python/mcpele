@@ -75,6 +75,10 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     def __cinit__(self, boxvector, nr_bins, eqsteps):
         self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[size_t](array_wrap_np(boxvector), nr_bins, eqsteps))
         self.newptr = <cppRecordPairDistHistogram[size_t]*> self.thisptr.get()
+
+class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
+    """This class is the python interface for the c++ RecordPairDistHistogram implementation.
+    """
     
 #===============================================================================
 # RecordEnergyTimeseries
