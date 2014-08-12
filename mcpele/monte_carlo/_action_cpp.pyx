@@ -71,10 +71,19 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
 cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     """This class is the python interface for the c++ mcpele::RecordPairDistHistogram implementation
     """
-    cdef cppRecordPairDistHistogram[size_t]* newptr #this will not work, somehow we want to use boxvector.size() as template parameter of type size_t
-    def __cinit__(self, boxvector, nr_bins, eqsteps):
-        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[size_t](array_wrap_np(boxvector), nr_bins, eqsteps))
-        self.newptr = <cppRecordPairDistHistogram[size_t]*> self.thisptr.get()
+    #cdef cppRecordPairDistHistogram[size_t]* newptr #this will not work, somehow we want to use boxvector.size() as template parameter of type size_t
+    def __cinit__(self, boxvec, nr_bins, eqsteps):
+        ndim = len(boxvec)
+        assert(ndim == 2 or ndim == 3)
+        assert(len(boxvec)==ndim)
+        cdef np.ndarray[double, ndim=1] bv
+        if ndim == 2:
+            bv = np.array(boxvec, dtype=float)
+            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps))
+        else:
+            bv = np.array(boxvec, dtype=float)
+            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps))
+        #self.newptr = <cppRecordPairDistHistogram[size_t]*> self.thisptr.get()
 
 class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
     """This class is the python interface for the c++ RecordPairDistHistogram implementation.
