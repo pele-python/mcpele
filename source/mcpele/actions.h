@@ -86,6 +86,18 @@ public:
 /*
  * Record pair-distance distribution (radial distribution function)
  * Templated on boxdimension, should work fine with pele::periodic_distance
+ * Input parameters:
+ * --- boxvector: defines the (periodic) simlation box
+ * --- nr_bins: number of bins for g(r) histogram
+ * --- eqsteps: number of equilibration steps to be excluded from g(r) computation
+ * --- record_every: after more than eqsteps steps have been done, record every record_everyth step
+ * Everytime the action is called, it accumulates the present configuration into the same g(r) histogram.
+ * The action function calls add_configuration which accumulates the current configuration into the g(r) histogram.
+ * The g(r) histogram can be read out at any point after that.
+ * To read out the data, two functions are used:
+ * --- get_hist_r() gives the r value array for the g(r) histogram
+ * --- get_hist_gr() gives the corresponding g(r) value array, normalized using the input number of particles and number density
+ *     (Admittedly number density could have been reconstructed independently of that input.)
  */
 
 template<size_t BOXDIM>
