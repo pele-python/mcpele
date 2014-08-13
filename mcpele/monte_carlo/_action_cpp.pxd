@@ -24,7 +24,7 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
         double get_mean() except +
         double get_variance() except +
     cdef cppclass cppRecordPairDistHistogram "mcpele::RecordPairDistHistogram"[ndim]:
-        cppRecordPairDistHistogram(_pele.Array[double], size_t, size_t) except +
+        cppRecordPairDistHistogram(_pele.Array[double], size_t, size_t, size_t) except +
         _pele.Array[double] get_hist_r() except +
         _pele.Array[double] get_hist_gr(double, size_t) except +
         size_t get_eqsteps() except +

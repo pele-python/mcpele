@@ -93,17 +93,21 @@ class RecordPairDistHistogram : public Action {
 private:
     mcpele::PairDistHistogram<BOXDIM> m_hist_gr;
     const size_t m_eqsteps;
+    const size_t m_record_every;
 public:
-    RecordPairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps)
+    RecordPairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every)
         : m_hist_gr(boxvector, nr_bins),
-          m_eqsteps(eqsteps)
+          m_eqsteps(eqsteps),
+          m_record_every(record_every)
     {}
     virtual ~RecordPairDistHistogram() {}
     virtual void action(pele::Array<double>& coords, double energy, bool accepted, MC* mc)
     {
         const size_t count = mc->get_iterations_count();
         if (count > m_eqsteps) {
-            m_hist_gr.add_configuration(coords);
+            if (count % m_record_every == 0) {
+                m_hist_gr.add_configuration(coords);
+            }
         }
     }
     size_t get_eqsteps() const

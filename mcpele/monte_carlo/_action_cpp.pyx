@@ -73,18 +73,18 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     """
     cdef cppRecordPairDistHistogram[INT2]* newptr2
     cdef cppRecordPairDistHistogram[INT3]* newptr3
-    def __cinit__(self, boxvec, nr_bins, eqsteps):
+    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every):
         ndim = len(boxvec)
         assert(ndim == 2 or ndim == 3)
         assert(len(boxvec)==ndim)
         cdef np.ndarray[double, ndim=1] bv
         if ndim == 2:
             bv = np.array(boxvec, dtype=float)
-            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps))
+            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
             self.newptr2 = <cppRecordPairDistHistogram[INT2]*> self.thisptr.get()
         else:
             bv = np.array(boxvec, dtype=float)
-            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps))
+            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
             self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
         self.ndim = ndim
     def get_hist_r(self):
