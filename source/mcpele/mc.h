@@ -56,7 +56,7 @@ public:
     //ConfTest(){std::cout << "ConfTest()" <<  "\n";}
     //virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
     virtual ~ConfTest(){}
-    virtual bool test(Array<double> &trial_coords, MC * mc) =0;
+    virtual bool conf_test(Array<double> &trial_coords, MC * mc) =0;
 };
 
 /*
