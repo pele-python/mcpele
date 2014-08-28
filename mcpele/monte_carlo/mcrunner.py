@@ -1,7 +1,10 @@
 import numpy as np
 from mcpele.monte_carlo import _BaseMCRunner, RandomCoordsDisplacement, MetropolisTest 
 from mcpele.monte_carlo import CheckSphericalContainer, AdjustStep, RecordEnergyHistogram
-import pylab as plt
+try:
+    import matplotlib.pyplot as plt
+except ImportError as err:
+    print err
 
 """
 pele::MCrunner

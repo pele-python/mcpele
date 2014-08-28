@@ -66,12 +66,11 @@ void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC*
  * Record energy histogram
 */
 
-RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double
-        bin, size_t eqsteps)
+RecordEnergyHistogram::RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps)
     : m_hist(min, max, bin),
       m_eqsteps(eqsteps),
       m_count(0)
-{}
+    {}
 
 void RecordEnergyHistogram::action(Array<double> &coords, double energy, bool accepted, MC* mc) 
 {
