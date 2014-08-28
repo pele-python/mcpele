@@ -79,7 +79,7 @@ TEST(EVTimeseries, Works){
     const double eps = 1;
     const double sca = 1;
     pele::Array<double> radii(nparticles,1);
-    std::shared_ptr<pele::HS_WCA> landscape_potential = std::make_shared<pele::HS_WCA>(eps, sca, radii);
+    std::shared_ptr<pele::HS_WCA<3> > landscape_potential = std::make_shared<pele::HS_WCA<3>>(eps, sca, radii);
 
     //pele::Harmonic* landscape_potential = new pele::Harmonic(origin, k, boxdim);
     //pele::LJ* landscape_potential = new pele::LJ(1, 1);
