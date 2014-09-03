@@ -1,5 +1,5 @@
 [run]
 branch = True
-include = */pele/*
-source  = pele
-omit = */pele/gui/*
+include = */mcpele/*
+source  = mcpele
+omit = */mcpele/gui/*
