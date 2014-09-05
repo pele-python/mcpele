@@ -15,7 +15,7 @@ class TestPTRun(unittest.TestCase):
         self.bdim = 3
         self.natoms = 4
         self.nprocs = 4
-        testdir = os.getcwd()
+        testdir = os.path.dirname(os.path.abspath(__file__))
         # create a temporary directory using the context manager
         tmpdir=tempfile.mkdtemp()
         self.cmd='mpiexec -n {0} python {1}/_test_run_mpi_ptmc.py {2}'.format(self.nprocs,testdir,tmpdir)
