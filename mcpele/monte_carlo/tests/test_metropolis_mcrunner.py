@@ -49,7 +49,7 @@ class TestMetropolis(unittest.TestCase):
         self.bdim = 3
         self.ndim = self.natoms*self.bdim
         self.origin = np.zeros(self.ndim)
-        potential = Harmonic(self.origin, self.k, bdim=self.bdim, com=False)
+        potential = Harmonic(self.origin, self.k, bdim=self.bdim, com=True)
         mcrunner = Metropolis_MCrunner(potential, self.origin, 1, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
                                            bdim=self.bdim)
