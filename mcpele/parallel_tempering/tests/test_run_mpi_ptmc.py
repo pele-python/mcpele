@@ -9,19 +9,19 @@ def read_Visits(fname):
     data = np.genfromtxt(fname, delimiter='\t')
     return data[:,0], data[:,1]
 
-class ParallelTemperingTest(unittest.TestCase):
+class TestPTRun(unittest.TestCase):
     
     def test_heat_capacity(self):
         self.bdim = 3
         self.natoms = 4
         self.nprocs = 4
-        testdir = os.path.dirname(__file__)
+        testdir = os.path.dirname(os.path.abspath(__file__))
         # create a temporary directory using the context manager
         tmpdir=tempfile.mkdtemp()
-        self.cmd='mpiexec -n {0} python {1}/_test_mpi_ptmc.py {2}'.format(self.nprocs,testdir,tmpdir)
+        self.cmd='mpiexec -n {0} python {1}/_test_run_mpi_ptmc.py {2}'.format(self.nprocs,testdir,tmpdir)
         #print('created temporary directory', tmpdir)
         os.system(self.cmd)
-        temperatures = np.genfromtxt(tmpdir+'/temperatures', delimiter='\t')
+        temperatures = np.genfromtxt(os.path.join(tmpdir,'temperatures'), delimiter='\t')
         for i in xrange(self.nprocs):
             d = tmpdir+'/{}'.format(i)
             pre = 'Visits.his.'

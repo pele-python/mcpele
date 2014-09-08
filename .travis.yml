@@ -40,7 +40,7 @@ before_install:
 install:
   - conda create --yes -n pelenv python=$TRAVIS_PYTHON_VERSION nose pip cython numpy scipy matplotlib qt pyqt
   - source activate pelenv
-  - pip install networkx sqlalchemy hungarian pyro4 brewer2mpl pyopengl mpi4py
+  - pip install networkx sqlalchemy hungarian pyro4 brewer2mpl pyopengl mpi4py coverage coveralls
   - pwd
   - cd $HOME/build/pele-python
   - git clone https://github.com/pele-python/pele.git
@@ -50,6 +50,7 @@ install:
   - cd ../mcpele
   - python setup.py build --fcompiler=gfortran
   - python setup.py install
+  - cp .coveragerc $HOME
   # build the c++ tests
   - cd cpp_tests
   - cpp_test_dir=$PWD
@@ -61,6 +62,12 @@ install:
 script:
   # avoid running in the checkout directory so nose finds built modules..
   - cd $HOME
-  - nosetests mcpele
+  - nosetests --with-coverage mcpele
   # do the c++ tests
   - $cpp_test_dir/build/test_main
+
+after_success:
+  # need to be in source directory to call coverage
+  - cd $HOME/build/pele-python/mcpele # not sure if this is necessary
+  - cp $HOME/.coverage .
+  - coveralls
