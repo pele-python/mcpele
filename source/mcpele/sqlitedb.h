@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 #include <sqlite3.h> //requires sudo apt-get install libsqlite3-dev
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
 
 namespace mcpele{
 
@@ -47,13 +51,51 @@ namespace mcpele{
  *
  */
 
+template<typename T>
+std::string serialize_vector(std::vector<T> vec)
+{
+    std::ostringstream oss;
+    //store the size of the vector first
+    oss << vec.size();
+    if (!vec.empty()){
+        std::copy(vec.begin(), vec.end()-1, std::ostream_iterator<T>(oss, "\n"));
+    }
+    return oss.str();
+}
+
+template<typename T>
+std::vector<T> deserialize_vector(std::string ser_vec)
+{
+    std::stringstream ss;
+    size_t size;
+    std::vector<T> vec;
+
+    //turn string into stream
+    ss.str(ser_vec);
+    //read vector size
+    ss >> size;
+    ser_vec.resize(size);
+
+    for (size_t i=0; i<size; i++){
+        ss >> vec[i];
+    }
+
+    return vec;
+}
+
 class CheckpointSqlite3{
 private:
     sqlite3 *m_db; //database connection handle (pointer to sqlite3 structure)
+    std::string m_db_name;
     bool m_open;
-    std::stringstream m_output;
 public:
-    CheckpointSqlite3();
+
+    CheckpointSqlite3(const std::string db_name):
+        m_db(),
+        m_db_name(db_name),
+        m_open(false)
+    {};
+
     ~CheckpointSqlite3(){
         this->close();
     }
@@ -79,9 +121,9 @@ public:
      */
 
     //open sql database fname, if it doesn't exist it creates one
-    void open(const char* fname)
+    void open()
     {
-        int rc = sqlite3_open(fname, &m_db);
+        int rc = sqlite3_open(m_db_name.c_str(), &m_db);
         if( rc ){
             std::fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(m_db));
             sqlite3_close(m_db);
@@ -89,12 +131,26 @@ public:
         }
         else{
             std::fprintf(stderr, "Opened database successfully\n");
+            m_open = true;
         }
     }
 
     //close sql database
     void close(){
         sqlite3_close(m_db);
+    }
+
+    void drop_table(std::string table_name){
+        char *zErrMsg = 0;
+        std::string sql_command = "DROP TABLE IF EXISTS " + table_name +";";
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
+        if( rc != SQLITE_OK ){
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        else{
+            std::fprintf(stdout, "Table dropped successfully\n"); //a command should be for more than creating a directory
+        }
     }
 
     //create sql table
@@ -112,10 +168,10 @@ public:
     class Column{
     private:
         std::string _name; //eg column1
-        std::string _type; //eg INT, TEXT, CHAR(50), KEY
-        std::string _flags; //eg NOT NULL
+        std::string _type; //eg INT, TEXT, CHAR(50), KEY ...
+        std::string _flags; //eg NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, CHECK, DEFAULT
 
-        Column(const std::string name, const std::string type, const std::string flags):
+        Column(const std::string name, const std::string type, const std::string flags=""):
         _name(name),_type(type),_flags(flags){}
         ~Column(){}
     public:
@@ -126,9 +182,12 @@ public:
         }
     };
 
-    void create_table(std::string table_name, std::vector<Column> column_list){
+    //primary key is set by default to be ID (integer) by default
+    //creates a table if it does not exists
+    void create_table(std::string table_name, std::vector<Column> column_list, std::string primary_key="ID INT PRIMARY KEY NOT NULL"){
         char *zErrMsg = 0;
-        std::string sql_command = "CREATE TABLE " + table_name +"(";
+        std::string sql_command = "CREATE TABLE IF NOT EXISTS " + table_name +"(";
+        sql_command += primary_key + ",";
         for(auto& column : column_list){
             sql_command += column.get_cmd() + ",";
         }
@@ -156,7 +215,47 @@ public:
      *        "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
     */
 
+    template<typename T>
+    void insert(std::string table_name, std::string column_name, T value){
+            static_assert(std::is_arithmetic<T>::value,"type is not arithmetic"); //checks that the type is integer or float
+            char *zErrMsg = 0;
+            std::string sql_command = "INSERT INTO " + table_name + " ";
+            sql_command += "(" + column_name + ")";
+            sql_command += "VALUES";
+            sql_command += "(" + std::to_string(value) + ");";
+
+            int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
+            if( rc != SQLITE_OK ){
+                std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+                sqlite3_free(zErrMsg);
+            }
+            else{
+                std::fprintf(stdout, "Records created successfully\n");
+            }
+    }
+
 };
+    //these should go in a separate c++ file
+    //template specialisation for strings, these need to be outside the scope of the class
+    template<>
+    void CheckpointSqlite3::insert<std::string>(std::string table_name, std::string column_name, std::string value){
+                char *zErrMsg = 0;
+                std::string sql_command = "INSERT INTO " + table_name + " ";
+                sql_command += "(" + column_name + ")";
+                sql_command += "VALUES";
+                sql_command += "(" + value + ");";
+
+                int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
+                if( rc != SQLITE_OK ){
+                    std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+                    sqlite3_free(zErrMsg);
+                }
+                else{
+                    std::fprintf(stdout, "Records created successfully\n");
+                }
+            }
+
+    //require specialisations for
 
 }
 #endif
