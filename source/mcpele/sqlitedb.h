@@ -2,7 +2,7 @@
 #define _MCPELE_SQLITEDB_H
 
 #include <stdio.h>
-#include <sqlite3.h>
+#include <sqlite3.h> //requires sudo apt-get install libsqlite3-dev
 
 namespace mcpele{
 
@@ -83,12 +83,12 @@ public:
     {
         int rc = sqlite3_open(fname, &m_db);
         if( rc ){
-            std::fprintf(std::stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+            std::fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(m_db));
             sqlite3_close(m_db);
             std::exit(0);
         }
         else{
-            std::fprintf(std::stderr, "Opened database successfully\n");
+            std::fprintf(stderr, "Opened database successfully\n");
         }
     }
 
@@ -110,6 +110,7 @@ public:
      */
 
     class Column{
+    private:
         std::string _name; //eg column1
         std::string _type; //eg INT, TEXT, CHAR(50), KEY
         std::string _flags; //eg NOT NULL
@@ -117,7 +118,7 @@ public:
         Column(const std::string name, const std::string type, const std::string flags):
         _name(name),_type(type),_flags(flags){}
         ~Column(){}
-
+    public:
         //concatenate name type and flags to create a table column
         std::string get_cmd(){
             std::string cmd = _name + " " + _type + " " + _flags;
@@ -131,11 +132,11 @@ public:
         for(auto& column : column_list){
             sql_command += column.get_cmd() + ",";
         }
-        sql_command.pop_back(); //remove last comma
+        sql_command.erase(sql_command.end() - 1); //remove last comma
         sql_command += ");";    //closing bracket
-        int rc = sqlite3_exec(m_db, sql_command, callback, 0, &zErrMsg);
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
         if( rc != SQLITE_OK ){
-            std::fprintf(std::stderr, "SQL error: %s\n", zErrMsg);
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         }
         else{

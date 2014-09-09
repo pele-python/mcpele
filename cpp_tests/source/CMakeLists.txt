@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 enable_language(CXX)
-SET(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -std=c++0x")
+SET(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -std=c++0x -l sqlite3")
 
 #cmake_policy(SET CMP0015 NEW)
 
