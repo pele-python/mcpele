@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstdint>
-
+#include <mcpele/serialize_vector.h>
 
 namespace mcpele{
 
@@ -51,112 +51,17 @@ namespace mcpele{
  *
  */
 
-/*Serialize and deserialize functions. These only work for vectors of Plain Old Data structures.
- * Furthermore these only work if the vectors contain only a single type and no pointers or references.
-*/
-
-//implementation for floating point values
-template<typename T>
-std::string serialize_vector(const std::vector<T>& vec)
-{
-    static_assert(std::is_floating_point<T>::value && !std::is_compound<T>::value,"type is not floating point or is compound");
-    std::ostringstream strm;
-    strm.write(reinterpret_cast<const char*>(&vec[0]), vec.size()*sizeof(T));
-
-    if (strm.fail()){
-        strm.clear();
-        throw std::runtime_error("binary file writing error");
-    }
-
-    return strm.str();
-}
-
-//implementation for fixed width integer 32 bit (for portability across platforms)
-template<>
-std::string serialize_vector(const std::vector<int32_t>& vec)
-{
-    std::ostringstream strm;
-    strm.write(reinterpret_cast<const char*>(&vec[0]), vec.size()*sizeof(int32_t));
-
-    if (strm.fail()){
-        strm.clear();
-        throw std::runtime_error("binary file writing error");
-    }
-
-    return strm.str();
-}
-
-//implementation for fixed width unsigned integer 32 bit (for portability across platforms)
-template<>
-std::string serialize_vector(const std::vector<uint32_t>& vec)
-{
-    std::ostringstream strm;
-    strm.write(reinterpret_cast<const char*>(&vec[0]), vec.size()*sizeof(uint32_t));
-
-    if (strm.fail()){
-        strm.clear();
-        throw std::runtime_error("binary file writing error");
-    }
-
-    return strm.str();
-}
-
-//implementation for floating point values
-template<typename T>
-std::vector<T> deserialize_vector(const std::string& ser_vec)
-{
-    static_assert(std::is_floating_point<T>::value && !std::is_compound<T>::value,"type is not floating point or is compound");
-    std::istringstream strm(ser_vec, std::iostream::binary);
-    if (strm.fail()){
-        strm.clear();
-        throw std::runtime_error("binary file reading error");
-    }
-    const size_t length = ser_vec.size()/sizeof(T);
-    std::vector<T> vec(length);
-    strm.read(reinterpret_cast<char*>(&vec[0]), ser_vec.size());
-    return vec;
-}
-
-//implementation for fixed width integer 32 bit (for portability across platforms)
-template<>
-std::vector<int32_t> deserialize_vector(const std::string& ser_vec)
-{
-    std::istringstream strm(ser_vec, std::iostream::binary);
-    if (strm.fail()){
-        strm.clear();
-        throw std::runtime_error("binary file reading error");
-    }
-    const size_t length = ser_vec.size()/sizeof(int32_t);
-    std::vector<int32_t> vec(length);
-    strm.read(reinterpret_cast<char*>(&vec[0]), ser_vec.size());
-    return vec;
-}
-
-//implementation for fixed width unsigned integer 32 bit (for portability across platforms)
-template<>
-std::vector<uint32_t> deserialize_vector(const std::string& ser_vec)
-{
-    std::istringstream strm(ser_vec, std::iostream::binary);
-    if (strm.fail()){
-        strm.clear();
-        throw std::runtime_error("binary file reading error");
-    }
-    const size_t length = ser_vec.size()/sizeof(uint32_t);
-    std::vector<uint32_t> vec(length);
-    strm.read(reinterpret_cast<char*>(&vec[0]), ser_vec.size());
-    return vec;
-}
-
 class CheckpointSqlite3{
 private:
     sqlite3 *m_db; //database connection handle (pointer to sqlite3 structure)
-    std::string m_db_name;
+    std::string m_db_name, m_callback_output;
     bool m_open;
 public:
 
     CheckpointSqlite3(const std::string db_name):
         m_db(),
         m_db_name(db_name),
+        m_callback_output(),
         m_open(false)
     {};
 
@@ -175,6 +80,23 @@ public:
        }
        std::printf("\n");
        return 0;
+    }
+
+    /*assumes only one table and one column
+    https://stackoverflow.com/questions/12984248/sqlite-in-c-c-sqlite3-exec-parameter-set-in-callback-function-is-pointing-to
+    https://stackoverflow.com/questions/18839799/retrieve-sqlite-table-data-in-c
+    //assumes a single value is being selected
+    */
+    static int callback_select(void *data, int num_fields, char **fields, char **azColName){
+        std::string* result_str = static_cast<std::string*>(data);
+        try {
+            result_str->append(fields[0],num_fields); //DEBUG NOT SURE ABOUT THIS (AFRAID THIS IS GOING TO APPEND A SINGLE CHARACTER)
+         }
+         catch (...) {
+           // abort select on failure, don't let exception propogate through sqlite3 call-stack
+           return 1;
+         }
+        return 0;
     }
 
     /*this is a wrapper for the constructor/destructor of the database connection handle
@@ -281,21 +203,60 @@ public:
 
     template<typename T>
     void insert(std::string table_name, std::string column_name, T value){
-            static_assert(std::is_arithmetic<T>::value,"type is not arithmetic"); //checks that the type is integer or float
-            char *zErrMsg = 0;
-            std::string sql_command = "INSERT INTO " + table_name + " ";
-            sql_command += "(" + column_name + ")";
-            sql_command += "VALUES";
-            sql_command += "(" + std::to_string(value) + ");";
+        static_assert(std::is_arithmetic<T>::value,"type is not arithmetic"); //checks that the type is integer or float
+        char *zErrMsg = 0;
+        std::string sql_command = "INSERT INTO " + table_name + " ";
+        sql_command += "(" + column_name + ")";
+        sql_command += "VALUES";
+        sql_command += "(" + std::to_string(value) + ");";
 
-            int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
-            if( rc != SQLITE_OK ){
-                std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
-                sqlite3_free(zErrMsg);
-            }
-            else{
-                std::fprintf(stdout, "Records created successfully\n");
-            }
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
+        if( rc != SQLITE_OK ){
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        else{
+            std::fprintf(stdout, "Records created successfully\n");
+        }
+    }
+
+    template<typename T>
+    void insert_vector(std::string table_name, std::string column_name, std::vector<T> vec){
+        char *zErrMsg = 0;
+        std::string sql_command = "INSERT INTO " + table_name + " ";
+        sql_command += "(" + column_name + ")";
+        sql_command += "VALUES";
+        std::string ser_vec = mcpele::serialize_vector<T>(vec);
+        sql_command += "(" + ser_vec + ");";
+
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
+        if( rc != SQLITE_OK ){
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        else{
+            std::fprintf(stdout, "Records created successfully\n");
+        }
+    }
+
+    //select arithmetic value (there's a template specialisation for string)
+    template<typename T>
+    T select_value(std::string table_name, std::string column_name){
+        static_assert(std::is_arithmetic<T>::value,"type is not arithmetic"); //checks that the type is integer or float
+        char *zErrMsg = 0;
+        std::string data;
+        std::string sql_command = "SELECT " + column_name + " from " + table_name;
+
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback_select, &data, &zErrMsg);
+        if( rc != SQLITE_OK ){
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        else{
+            std::fprintf(stdout, "Operation done successfully\n");
+        }
+
+        return data;
     }
 
 };
@@ -303,21 +264,39 @@ public:
     //template specialisation for strings, these need to be outside the scope of the class
     template<>
     void CheckpointSqlite3::insert<std::string>(std::string table_name, std::string column_name, std::string value){
-                char *zErrMsg = 0;
-                std::string sql_command = "INSERT INTO " + table_name + " ";
-                sql_command += "(" + column_name + ")";
-                sql_command += "VALUES";
-                sql_command += "(" + value + ");";
+        char *zErrMsg = 0;
+        std::string sql_command = "INSERT INTO " + table_name + " ";
+        sql_command += "(" + column_name + ")";
+        sql_command += "VALUES";
+        sql_command += "(" + value + ");";
 
-                int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
-                if( rc != SQLITE_OK ){
-                    std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
-                    sqlite3_free(zErrMsg);
-                }
-                else{
-                    std::fprintf(stdout, "Records created successfully\n");
-                }
-            }
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback, 0, &zErrMsg);
+        if( rc != SQLITE_OK ){
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        else{
+            std::fprintf(stdout, "Records created successfully\n");
+        }
+    }
+
+    //select arithmetic value (there's a template specialisation for string)
+    template<>
+    std::string CheckpointSqlite3::select_value<std::string>(std::string table_name, std::string column_name){
+        char *zErrMsg = 0;
+        std::string sql_command = "SELECT " + column_name + " from " + table_name;
+
+        int rc = sqlite3_exec(m_db, sql_command.c_str(), callback_select, 0, &zErrMsg);
+        if( rc != SQLITE_OK ){
+            std::fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        else{
+            std::fprintf(stdout, "Operation done successfully\n");
+        }
+
+        return m_callback_output;
+    }
 
     //require specialisations for
 
