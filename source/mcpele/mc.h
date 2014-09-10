@@ -114,6 +114,7 @@ public:
     void one_iteration();
     void run(size_t max_iter);
     void set_temperature(double T) { _temperature = T; }
+    double get_temperature(){return _temperature;}
     void set_stepsize(double stepsize){ _stepsize = stepsize; }
     void add_action(shared_ptr<Action> action) { _actions.push_back(action); }
     void add_accept_test(shared_ptr<AcceptTest> accept_test)

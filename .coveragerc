@@ -1,0 +1,14 @@
+[run]
+branch = True
+source  = mcpele
+include = */mcpele/*
+[report]
+exclude_lines =
+    pragma: no cover
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if False
+    def draw.self
+    def load_coords_pymol.self
+    def show_histogram.self
