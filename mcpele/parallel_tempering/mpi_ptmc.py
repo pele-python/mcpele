@@ -98,7 +98,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             iteration = self.mcrunner.get_iterations_count()
             fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
             #mean, variance = self.mcrunner.dump_histogram(fname)
-            mean, variance = self.histogram.get_mean_variance()
+            mean, variance = self.mcrunner.histogram.get_mean_variance()
             self.histogram_mean_stream.write('{:<15}\t{:>15.15e}\t{:>15.15e}\n'.format(iteration,mean,variance))
             
     
