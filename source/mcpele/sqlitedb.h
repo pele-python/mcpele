@@ -5,7 +5,6 @@
 #include <sqlite3.h> //requires sudo apt-get install libsqlite3-dev
 #include <iostream>
 #include <sstream>
-#include <fstream>
 
 
 namespace mcpele{
@@ -51,35 +50,36 @@ namespace mcpele{
  *
  */
 
+/*Serialize and deserialize functions. These only work for vectors of Plain Old Data structures.
+ * Furthermore these only work if the vectors contain only a single type and no pointers or references.
+*/
 template<typename T>
-std::string serialize_vector(std::vector<T> vec)
+std::string serialize_vector(const std::vector<T>& vec)
 {
-    std::ostringstream oss;
-    //store the size of the vector first
-    oss << vec.size();
-    if (!vec.empty()){
-        std::copy(vec.begin(), vec.end()-1, std::ostream_iterator<T>(oss, "\n"));
+    static_assert(std::is_arithmetic<T>::value && !std::is_compound<T>::value,"type is not arithmetic or is compound");
+    std::ostringstream strm;
+    strm.write(reinterpret_cast<const char*>(&vec[0]), vec.size()*sizeof(T));
+
+    if (strm.fail()){
+        strm.clear();
+        throw std::runtime_error("binary file writing error");
     }
-    return oss.str();
+
+    return strm.str();
 }
 
 template<typename T>
-std::vector<T> deserialize_vector(std::string ser_vec)
+std::vector<T> deserialize_vector(const std::string& ser_vec)
 {
-    std::stringstream ss;
-    size_t size;
-    std::vector<T> vec;
-
-    //turn string into stream
-    ss.str(ser_vec);
-    //read vector size
-    ss >> size;
-    ser_vec.resize(size);
-
-    for (size_t i=0; i<size; i++){
-        ss >> vec[i];
+    static_assert(std::is_arithmetic<T>::value && !std::is_compound<T>::value,"type is not arithmetic or is compound");
+    std::istringstream strm(ser_vec, std::iostream::binary);
+    if (strm.fail()){
+        strm.clear();
+        throw std::runtime_error("binary file reading error");
     }
-
+    const size_t length = ser_vec.size()/sizeof(T);
+    std::vector<T> vec(length);
+    strm.read(reinterpret_cast<char*>(&vec[0]), ser_vec.size());
     return vec;
 }
 
