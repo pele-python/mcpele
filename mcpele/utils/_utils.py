@@ -9,6 +9,9 @@ class CDFAccumulator(object):
     def __init__(self):
         self.total_number = 0
         self.data_x = dict()
+    def add_array(self, inp):
+        for x in inp:
+            self.add(x)
     def add(self, inp):
         already_in = (inp in self.data_x)
         if already_in:
