@@ -63,6 +63,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         void one_iteration() except +
         void run(size_t) except +
         void set_temperature(double) except +
+        double get_temperature() except +
         void set_stepsize(double) except +
         void add_action(shared_ptr[cppAction]) except +
         void add_accept_test(shared_ptr[cppAcceptTest]) except +

@@ -52,6 +52,11 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.temperature = T
         self.thisptr.get().set_temperature(T)
     
+    def get_temperature(self):
+        T = self.thisptr.get().get_temperature()
+        assert(self.temperature == T) #asserts that python and cpp temperatures match
+        return T
+        
     def reset_energy(self):
         self.thisptr.get().reset_energy()
     
