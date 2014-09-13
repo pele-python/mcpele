@@ -121,7 +121,7 @@ struct TrivialConfTest : public mcpele::ConfTest{
         : return_val(return_val1), call_count(0)
     {}
 
-    virtual bool test(Array<double> &trial_coords, mcpele::MC * mc)
+    virtual bool conf_test(Array<double> &trial_coords, mcpele::MC * mc)
     {
         call_count++;
         return return_val;
