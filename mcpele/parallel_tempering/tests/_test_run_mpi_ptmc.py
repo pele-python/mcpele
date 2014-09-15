@@ -25,7 +25,7 @@ if __name__ == "__main__":
     niter = 1e4
     mcrunner = Metropolis_MCrunner(potential, origin, temperature, stepsize, niter, hEmax = 100, adjustf = 0.9, 
                                    adjustf_niter = 3000, radius = 100000)
-    ptrunner = MPI_PT_RLhandshake(mcrunner, 0.2, 1.6, max_ptiter = 501, pfreq = 10, base_directory = path, verbose = False)
+    ptrunner = MPI_PT_RLhandshake(mcrunner, 0.2, 1.6, max_ptiter = 501, pfreq = 10, base_directory = path, verbose = False, suppress_histogram = False)
     ptrunner.run()
             
             
