@@ -27,6 +27,5 @@ class CDFAccumulator(object):
         for xi in x:
             cdf_x.append(remaining_x / self.total_number)
             remaining_x -= self.data_x[xi]
-            del self.data_x[xi]
         return x, cdf_x
     
