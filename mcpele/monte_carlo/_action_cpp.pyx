@@ -231,6 +231,10 @@ cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
         """clears time series"""
         self.newptr.clear()
     
+    def moving_average_is_stable(self, nr_steps_to_check = 1000, rel_std_threshold = 1e-2):
+        cdef cbool is_stable = self.newptr.moving_average_is_stable(nr_steps_to_check, rel_std_threshold)
+        return is_stable == True
+    
 class RecordMeanRMSDisplacementTimeseries(_Cdef_RecordMeanRMSDisplacementTimeseries):
     """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries implementation.
     """
