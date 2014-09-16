@@ -36,12 +36,13 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     neighbours with geometrically distributed temperatures.
     *pfreq: printing frequency
     """
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, base_directory=None, verbose=False):
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, base_directory=None, verbose=False, suppress_histogram=True):
         super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, base_directory=base_directory, verbose=verbose)
         self.exchange_dic = {1:'right',-1:'left'}
         self.exchange_choice = random.choice(self.exchange_dic.keys()) 
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nproc,dtype='int32') #this is useful to print exchange permutations
+        self.suppress_histogram = suppress_histogram
         
     def _print(self):
         self._all_dump_histogram()
@@ -97,8 +98,10 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             directory = "{0}/{1}".format(base_directory,self.rank)
             iteration = self.mcrunner.get_iterations_count()
             fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
-            #mean, variance = self.mcrunner.dump_histogram(fname)
-            mean, variance = self.mcrunner.histogram.get_mean_variance()
+            if not self.suppress_histogram:
+                mean, variance = self.mcrunner.dump_histogram(fname)
+            else:
+                mean, variance = self.mcrunner.histogram.get_mean_variance()
             self.histogram_mean_stream.write('{:<15}\t{:>15.15e}\t{:>15.15e}\n'.format(iteration,mean,variance))
             
     
