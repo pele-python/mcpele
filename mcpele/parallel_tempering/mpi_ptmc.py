@@ -36,8 +36,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     neighbours with geometrically distributed temperatures.
     *pfreq: printing frequency
     """
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter = 10, pfreq = 1, skip = 0, base_directory = None, verbose = False, suppress_histogram = True):
-        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq = pfreq, skip = skip, base_directory = base_directory, verbose = verbose)
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, base_directory=None, verbose=False, suppress_histogram=True):
+        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, base_directory=base_directory, verbose=verbose)
         self.exchange_dic = {1:'right',-1:'left'}
         self.exchange_choice = random.choice(self.exchange_dic.keys()) 
         self.anyswap = False #set to true if any swap will happen
