@@ -34,7 +34,7 @@ bool MC::do_conf_tests(Array<double> x)
 {
     bool result;
     for (auto & test : _conf_tests){
-        result = test->test(x, this);
+        result = test->conf_test(x, this);
         if (not result){
             ++_conf_reject_count;
             return false;
@@ -66,7 +66,7 @@ bool MC::do_late_conf_tests(Array<double> x)
 {
     bool result;
     for (auto & test : _late_conf_tests){
-        result = test->test(x, this);
+        result = test->conf_test(x, this);
         if (not result){
             ++_conf_reject_count;
             return false;

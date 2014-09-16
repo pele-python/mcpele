@@ -11,7 +11,7 @@ CheckSphericalContainer::CheckSphericalContainer(double radius, size_t ndim)
     //std::cout << "construct CheckSphericalContainer" <<  "\n";
 }
 
-bool CheckSphericalContainer::test(Array<double> &trial_coords, MC * mc)
+bool CheckSphericalContainer::conf_test(Array<double> &trial_coords, MC * mc)
 {
   size_t N = trial_coords.size();
 

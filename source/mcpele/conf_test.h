@@ -24,7 +24,7 @@ protected:
 public:
 
     CheckSphericalContainer(double radius, size_t ndim);
-    virtual bool test(Array<double> &trial_coords, MC * mc);
+    virtual bool conf_test(Array<double> &trial_coords, MC * mc);
     virtual ~CheckSphericalContainer(){}
 };
 

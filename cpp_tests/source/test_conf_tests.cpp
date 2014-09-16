@@ -19,7 +19,7 @@ TEST(CheckSphericalContainer, Works){
 
     mcpele::CheckSphericalContainer check(r, ndim);
     x[0] = r - eps;
-    EXPECT_TRUE(check.test(x, mcvoid));
+    EXPECT_TRUE(check.conf_test(x, mcvoid));
     x[0] = r + eps;
-    EXPECT_FALSE(check.test(x, mcvoid));
+    EXPECT_FALSE(check.conf_test(x, mcvoid));
 }
