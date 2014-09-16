@@ -6,7 +6,7 @@ import logging
 
 def read_Visits(fname):
     """HACKED"""
-    data = np.genfromtxt(fname, delimiter = '\t')
+    data = np.genfromtxt(fname, delimiter='\t')
     return data[:,0], data[:,1]
 
 class TestPTRun(unittest.TestCase):
@@ -21,7 +21,7 @@ class TestPTRun(unittest.TestCase):
         self.cmd = 'mpiexec -n {0} python {1}/_test_run_mpi_ptmc.py {2}'.format(self.nprocs, testdir, tmpdir)
         #print('created temporary directory', tmpdir)
         os.system(self.cmd)
-        temperatures = np.genfromtxt(os.path.join(tmpdir, 'temperatures'), delimiter = '\t')
+        temperatures = np.genfromtxt(os.path.join(tmpdir, 'temperatures'), delimiter='\t')
         for i in xrange(self.nprocs):
             d = tmpdir + '/{}'.format(i)
             pre = 'Visits.his.'
@@ -40,9 +40,9 @@ class TestPTRun(unittest.TestCase):
             
             T = temperatures[i]
             
-            average = np.average(ener, weights = hist)
+            average = np.average(ener, weights=hist)
                         
-            average2 = np.average(np.square(ener), weights = hist)
+            average2 = np.average(np.square(ener), weights=hist)
                         
             cv =  (average2 - average ** 2) / (T ** 2)
             cv_true = self.natoms * self.bdim / 2.0
@@ -50,7 +50,7 @@ class TestPTRun(unittest.TestCase):
             self.assertLess(cv - cv_true, 0.1, 'failed for replica of rank {} cv = {}'.format(i, cv))
             
 if __name__ == "__main__":
-    logging.basicConfig(filename = 'ParallelTempering.log', level = logging.DEBUG)  
+    logging.basicConfig(filename='ParallelTempering.log', level=logging.DEBUG)  
     unittest.main()
         
                 
