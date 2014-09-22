@@ -1,7 +1,9 @@
 #include <stdexcept>
 #include <cmath>
+#include <algorithm>
 
 #include "actions.h"
+#include "moving_average.h"
 
 using pele::Array;
 using std::sqrt;
@@ -88,10 +90,10 @@ RecordScalarTimeseries::RecordScalarTimeseries(const size_t niter, const size_t 
     : m_niter(niter),
       m_record_every(record_every)
 {
-    if (record_every==0) {
+    if (record_every == 0) {
         throw std::runtime_error("RecordScalarTimeseries: record_every expected to be at least 1");
     }
-    m_time_series.reserve(niter/record_every);
+    m_time_series.reserve(niter / record_every);
 }
 
 void RecordScalarTimeseries::action(Array<double> &coords, double energy, bool accepted, MC* mc)
@@ -100,6 +102,32 @@ void RecordScalarTimeseries::action(Array<double> &coords, double energy, bool a
     if (counter % m_record_every == 0) {
         m_record_scalar_value(this->get_recorded_scalar(coords, energy, accepted, mc));
     }
+}
+
+/**
+ * Apply a basic check on the behavior of the moving average of the recorded
+ * time series to decide if it is sufficiently stable.
+ * Parameters:
+ * nr_steps_to_check is the number of steps, from the present into the past,
+ * that that are considered for the moving average check.
+ * rel_std_threshold is the relative size of the fluctutations in the moving
+ * average that is considered stable.
+ * Decreasing that number should make the test more sensitive.
+ */
+bool RecordScalarTimeseries::moving_average_is_stable(const size_t nr_steps_to_check, const double rel_std_threshold)
+{
+    const size_t scale = 10;
+    const size_t tmp = nr_steps_to_check / scale;
+    const size_t nr_steps_ma = tmp + (tmp % 2);
+    MovingAverageAcc moving_average(m_time_series, nr_steps_to_check, nr_steps_ma);
+    Moments moving_average_acc;
+    const size_t nr_of_different_ma = moving_average.get_nr_different_ma();
+    for (size_t i = 0; i < nr_of_different_ma; ++i, moving_average.shift_right()) {
+        moving_average_acc.update(moving_average.get());
+    }
+    const double mean_ma = moving_average_acc.mean();
+    const double std_ma = moving_average_acc.std();
+    return (std_ma / mean_ma) < rel_std_threshold;
 }
 
 /*

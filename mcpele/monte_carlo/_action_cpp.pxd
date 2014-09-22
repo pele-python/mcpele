@@ -43,4 +43,5 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
             _pele.Array[double], const size_t) except +
         _pele.Array[double] get_time_series() except +
         void clear() except +
+        cbool moving_average_is_stable(const size_t, const double) except +
         
