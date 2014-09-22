@@ -20,7 +20,7 @@ struct TrivialTakestep : public mcpele::TakeStep{
     TrivialTakestep()
         : call_count(0)
     {}
-    virtual void takestep(pele::Array<double> &coords, double stepsize, mcpele::MC * mc = NULL)
+    virtual void takestep(pele::Array<double> &coords, double stepsize, mcpele::MC * mc=NULL)
     {
         call_count++;
     }
