@@ -136,15 +136,15 @@ double RecordLowestEValueTimeseries::get_recorded_scalar(pele::Array<double> &co
  * Motivation: check if HS fluid is decorrelated between snapshots
  */
 
-RecordMeanRMSDisplacementTimeseries::RecordMeanRMSDisplacementTimeseries(const size_t niter, const size_t record_every,
+RecordDisplacementPerParticleTimeseries::RecordDisplacementPerParticleTimeseries(const size_t niter, const size_t record_every,
             pele::Array<double> initial_coords, const size_t boxdimension)
     : RecordScalarTimeseries(niter, record_every),
       m_rsm_displacement(initial_coords, boxdimension)
 {}
 
-double RecordMeanRMSDisplacementTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
+double RecordDisplacementPerParticleTimeseries::get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)
 {
-    return m_rsm_displacement.compute_mean_rsm_displacement(coords);
+    return m_rsm_displacement.compute_mean_particle_displacement(coords);
 }
 
 }//namespace mcpele
