@@ -110,6 +110,10 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     def run(self):
         self.thisptr.get().run(self.niter)
     
+    def abort(self):
+        print "terminating MC, abort called: mc._niter->->infty"
+        self.thisptr.get().abort()
+    
     def __reduce__(self):
         return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.stepsize, self.niter))
 

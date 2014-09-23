@@ -99,7 +99,7 @@ class _MPI_Parallel_Tempering(object):
             ptiter += 1
         print 'process {0} terminated'.format(self.rank)
     
-    def _scatter_data(self, in_send_array, adim):
+    def _scatter_data(self, in_send_array, adim, dtype='d'):
         """
         function to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)
         note that arrays of doubles are scattered 
@@ -108,17 +108,17 @@ class _MPI_Parallel_Tempering(object):
             # process 0 is the root, it has data to scatter
             assert(len(in_send_array) == adim)
             assert(adim % self.nproc == 0) 
-            send_array = np.array(in_send_array,dtype='d')
+            send_array = np.array(in_send_array,dtype=dtype)
         else:
             # processes other than root do not send
             assert(adim % self.nproc == 0) 
             send_array = None
         
-        recv_array = np.empty(adim/self.nproc,dtype='d')
+        recv_array = np.empty(adim/self.nproc,dtype=dtype)
         self.comm.Scatter(send_array, recv_array, root=0) 
         return recv_array 
     
-    def _scatter_single_value(self, send_array):
+    def _scatter_single_value(self, send_array, dtype='d'):
         """
         returns a single value from a scattered array for each replica (e.g. Temperature or swap partner)
         this implies that send array must be of the same length as the number of processors
@@ -126,29 +126,29 @@ class _MPI_Parallel_Tempering(object):
         if (self.rank == 0):
             assert(len(send_array) == self.nproc)
         
-        T = self._scatter_data(send_array, self.nproc)
+        T = self._scatter_data(send_array, self.nproc, dtype=dtype)
         assert(len(T) == 1)
         return T[0]
     
-    def _broadcast_data(self, in_data, adim):
+    def _broadcast_data(self, in_data, adim, dtype='d'):
         """
         identical data are broadcasted from root to all other processes
         """
         if(self.rank == 0):
-            bcast_data = in_data
+            bcast_data = np.array(in_data, dtype=dtype)
         else:
-            bcast_data = np.empty(adim,dtype='d')
+            bcast_data = np.empty(adim, dtype=dtype)
         bcast_data = self.comm.Bcast(bcast_data, root=0)
         return bcast_data
     
-    def _gather_data(self, in_send_array):
+    def _gather_data(self, in_send_array, dtype='d'):
         """
         function to gather data in equal ordered chunks from replicas (it relies on the rank of the replica)
         note that gather assumes that all the subprocess are sending the same amount of data to root, to send
         variable amounts of data must use the MPI_gatherv directive 
         """
         if (self.rank == 0):
-            recv_array = np.zeros(len(in_send_array) * self.nproc,dtype='d')
+            recv_array = np.zeros(len(in_send_array) * self.nproc, dtype=dtype)
         else:
             recv_array = None
         

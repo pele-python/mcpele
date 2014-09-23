@@ -157,6 +157,8 @@ public:
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
     virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc) = 0;
     bool moving_average_is_stable(const size_t nr_steps_to_check=1000, const double rel_std_threshold=0.1);
+    std::pair<double,double> get_moving_average_mean(const size_t nr_steps_to_check); //returns first moment of ma
+    std::pair<double,double> get_moving_average_variance(const size_t nr_steps_to_check); //returns second central moments of ma
     pele::Array<double> get_time_series()
     {
         m_time_series.shrink_to_fit();

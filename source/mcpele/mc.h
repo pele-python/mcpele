@@ -167,6 +167,10 @@ public:
     void check_input();
     void set_print_progress(const bool input) { _print_progress=input; }
     void set_print_progress() { set_print_progress(true); }
+    void abort(){
+        //this will trigger premature exit from the MC run loop
+        _niter = std::numeric_limits<size_t>::max();
+    }
 
 protected:
     inline double compute_energy(Array<double> x)

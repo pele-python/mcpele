@@ -25,7 +25,7 @@ FILE(GLOB mcpele_sources ${mcpele_include}/mcpele/*.cpp)
 add_library(mcpele_lib ${mcpele_sources})
 
 # set the pele include directory
-set(pele_include ../../../pele/source CACHE STRING "the pele c++ source directory")
+set(pele_include /home/sm958/Work/pele/source CACHE STRING "the pele c++ source directory")
 if (EXISTS ${pele_include}/pele/array.h)
   message("pele include directory: ${pele_include}")
 else()

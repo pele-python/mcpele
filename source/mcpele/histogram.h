@@ -42,6 +42,14 @@ public:
         }
         ++_count;
     }
+
+    /*replace a data point with another one*/
+    void replace(data_t old_data, data_t new_data)
+    {
+        _mean += (new_data-old_data)/_count;
+        _mean2 += (new_data*new_data - old_data*old_data)/_count;
+    }
+
     void operator() (const data_t input){ update(input); }
     index_t count() const { return _count; }
     data_t mean() const { return _mean; }

@@ -87,6 +87,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
             self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
             self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
         self.ndim = ndim
+        
     def get_hist_r(self):
         """return array of r values for g(r) measurement"""
         cdef _pele.Array[double] histi
@@ -100,6 +101,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         for i in xrange(histi.size()):
             hist[i] = histdata[i]      
         return hist
+    
     def get_hist_gr(self, number_density, nr_particles):
         """return array of g(r) values for g(r) measurement"""
         cdef _pele.Array[double] histi
@@ -113,6 +115,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         for i in xrange(histi.size()):
             hist[i] = histdata[i]      
         return hist
+    
     def get_eqsteps(self):
         if self.ndim == 2:
             return self.newptr2.get_eqsteps()
@@ -230,10 +233,6 @@ cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
     def clear(self):
         """clears time series"""
         self.newptr.clear()
-    
-    def moving_average_is_stable(self, nr_steps_to_check=1000, rel_std_threshold=1e-2):
-        cdef cbool is_stable = self.newptr.moving_average_is_stable(nr_steps_to_check, rel_std_threshold)
-        return is_stable
     
 class RecordMeanRMSDisplacementTimeseries(_Cdef_RecordMeanRMSDisplacementTimeseries):
     """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries implementation.
