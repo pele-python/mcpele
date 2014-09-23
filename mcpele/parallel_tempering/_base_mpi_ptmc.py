@@ -136,9 +136,10 @@ class _MPI_Parallel_Tempering(object):
         """
         if(self.rank == 0):
             bcast_data = np.array(in_data, dtype=dtype)
+            assert(len(bcast_data)==adim)
         else:
             bcast_data = np.empty(adim, dtype=dtype)
-        bcast_data = self.comm.Bcast(bcast_data, root=0)
+        self.comm.Bcast(bcast_data, root=0)
         return bcast_data
     
     def _gather_data(self, in_send_array, dtype='d'):
@@ -148,7 +149,7 @@ class _MPI_Parallel_Tempering(object):
         variable amounts of data must use the MPI_gatherv directive 
         """
         if (self.rank == 0):
-            recv_array = np.zeros(len(in_send_array) * self.nproc, dtype=dtype)
+            recv_array = np.empty(len(in_send_array) * self.nproc, dtype=dtype)
         else:
             recv_array = None
         
