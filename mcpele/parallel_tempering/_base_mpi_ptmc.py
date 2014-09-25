@@ -19,7 +19,7 @@ class _MPI_Parallel_Tempering(object):
     """
     __metaclass__  = abc.ABCMeta
     
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, base_directory=None, verbose=False):
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
         self.nproc = self.comm.Get_size() #total number of processors (replicas)
@@ -30,6 +30,7 @@ class _MPI_Parallel_Tempering(object):
         self.ex_outstream = open("exchanges", "w")
         self.verbose = verbose
         self.ptiter = 0
+        self.print_status = print_status
         self.skip = skip #might want to skip the first few swaps to allow for equilibration
         self.pfreq = pfreq
         self.no_exchange_int = -12345 #this NEGATIVE number in exchange pattern means that no exchange should be attempted
@@ -61,8 +62,12 @@ class _MPI_Parallel_Tempering(object):
         """
     
     @abc.abstractmethod
-    def _print(self):
+    def _print_data(self):
         """this function is responsible for printing and/or dumping the data, let it be printing the histograms or else"""
+    
+    @abc.abstractmethod
+    def _print_status(self):
+        """this function is responsible for printing and/or dumping the status, let it be printing the histograms or else"""
     
     def one_iteration(self):
         """Perform one parallel tempering iteration, this consists of the following steps:
@@ -82,7 +87,10 @@ class _MPI_Parallel_Tempering(object):
         if self.ptiter >= self.skip:
             self._attempt_exchange()
             #print and increase parallel tempering count
-            self._print()
+            if (self.ptiter % self.pfreq == 0):
+                self._print_data()
+            if self.print_status:
+                self._print_status()
         self.ptiter += 1
          
             
@@ -97,6 +105,10 @@ class _MPI_Parallel_Tempering(object):
                 print "processor {0} iteration {1}".format(self.rank,ptiter)
             self.one_iteration()
             ptiter += 1
+            #assure that data are not thrown away since last print
+            if ptiter == self.max_ptiter:
+                self._print_data()
+                self._print_status()
         print 'process {0} terminated'.format(self.rank)
     
     def _scatter_data(self, in_send_array, adim, dtype='d'):
@@ -148,6 +160,7 @@ class _MPI_Parallel_Tempering(object):
         note that gather assumes that all the subprocess are sending the same amount of data to root, to send
         variable amounts of data must use the MPI_gatherv directive 
         """
+        in_send_array = np.array(in_send_array, dtype=dtype)
         if (self.rank == 0):
             recv_array = np.empty(len(in_send_array) * self.nproc, dtype=dtype)
         else:
