@@ -9,9 +9,6 @@
 #include "pele/array.h"
 #include "pele/base_potential.h"
 
-using pele::Array;
-using std::sqrt;
-
 namespace mcpele{
 
 class MC;
@@ -25,7 +22,7 @@ public:
     //Action(){std::cout<< "Action()" <<  "\n";}
     //virtual ~Action(){std::cout << "~Action()" <<  "\n";}
     virtual ~Action(){}
-    virtual void action(Array<double> &coords, double energy, bool accepted,
+    virtual void action(pele::Array<double> &coords, double energy, bool accepted,
             MC* mc) =0;
 };
 
@@ -38,8 +35,8 @@ public:
     //AcceptTest(){std::cout << "AcceptTest()" <<  "\n";}
     //virtual ~AcceptTest(){std::cout << "~AcceptTest()" <<  "\n";}
     virtual ~AcceptTest(){}
-    virtual bool test(Array<double> &trial_coords, double trial_energy,
-            Array<double> & old_coords, double old_energy, double temperature,
+    virtual bool test(pele::Array<double> &trial_coords, double trial_energy,
+            pele::Array<double> & old_coords, double old_energy, double temperature,
             MC * mc) =0;
 };
 
@@ -52,7 +49,7 @@ public:
     //ConfTest(){std::cout << "ConfTest()" <<  "\n";}
     //virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
     virtual ~ConfTest(){}
-    virtual bool conf_test(Array<double> &trial_coords, MC * mc) =0;
+    virtual bool conf_test(pele::Array<double> &trial_coords, MC * mc) =0;
 };
 
 /*
@@ -64,7 +61,7 @@ public:
     //TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     //virtual ~TakeStep(){std::cout << "TakeStep()" <<  "\n";}
     virtual ~TakeStep(){}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc) =0;
+    virtual void takestep(pele::Array<double> &coords, double stepsize, MC * mc) =0;
 };
 
 /*
@@ -90,7 +87,7 @@ public:
     typedef std::vector<std::shared_ptr<TakeStep> > step_t;
 protected:
     std::shared_ptr<pele::BasePotential> _potential;
-    Array<double> _coords, _trial_coords;
+    pele::Array<double> _coords, _trial_coords;
     actions_t _actions;
     accept_t _accept_tests;
     conf_t _conf_tests;
@@ -105,7 +102,7 @@ public:
     size_t _niter, _neval;
     double _stepsize, _temperature, _energy, _trial_energy;
 
-    MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, double temperature, double stepsize);
+    MC(std::shared_ptr<pele::BasePotential> potential, pele::Array<double>& coords, double temperature, double stepsize);
 
     virtual ~MC() {}
 
@@ -135,7 +132,7 @@ public:
     {
         _steps.push_back(step_input);
     }
-    void set_coordinates(Array<double>& coords, double energy)
+    void set_coordinates(pele::Array<double>& coords, double energy)
     {
         _coords = coords.copy();
         _energy = energy;
@@ -150,8 +147,8 @@ public:
         _energy = compute_energy(_coords);
     }
     double get_trial_energy() const { return _trial_energy; }
-    Array<double> get_coords() const { return _coords.copy(); }
-    Array<double> get_trial_coords() const { return _trial_coords.copy(); }
+    pele::Array<double> get_coords() const { return _coords.copy(); }
+    pele::Array<double> get_trial_coords() const { return _trial_coords.copy(); }
     double get_norm_coords() const { return norm(_coords); }
     size_t get_naccept() const { return _accept_count; };
     size_t get_nreject() const { return _nitercount - _accept_count; };
@@ -174,15 +171,15 @@ public:
     void set_print_progress() { set_print_progress(true); }
 
 protected:
-    inline double compute_energy(Array<double> x)
+    inline double compute_energy(pele::Array<double> x)
     {
         ++_neval;
         return _potential->get_energy(x);
     }
-    bool do_conf_tests(Array<double> x);
-    bool do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold);
-    bool do_late_conf_tests(Array<double> x);
-    void do_actions(Array<double> x, double energy, bool success);
+    bool do_conf_tests(pele::Array<double> x);
+    bool do_accept_tests(pele::Array<double> xtrial, double etrial, pele::Array<double> xold, double eold);
+    bool do_late_conf_tests(pele::Array<double> x);
+    void do_actions(pele::Array<double> x, double energy, bool success);
     void take_steps();
 };
 

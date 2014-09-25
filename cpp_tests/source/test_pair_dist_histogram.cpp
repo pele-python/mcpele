@@ -9,6 +9,8 @@
 #include "mcpele/actions.h"
 #include "mcpele/mc.h"
 
+using pele::Array;
+
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
 using std::shared_ptr;
@@ -31,7 +33,7 @@ struct TrivialTakestep : public mcpele::TakeStep{
     TrivialTakestep()
         : call_count(0)
     {}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL)
+    virtual void takestep(Array<double> &coords, double stepsize, MC * mc)
     {
         call_count++;
     }

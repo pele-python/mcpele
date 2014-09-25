@@ -10,6 +10,8 @@
 #include "mcpele/takestep.h"
 #include "mcpele/histogram.h"
 
+using pele::Array;
+
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
 class TestHistogram: public ::testing::Test{
