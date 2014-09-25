@@ -3,16 +3,12 @@
 
 #include <cmath>
 #include <algorithm>
-#include <list>
 #include <memory>
 #include <stdexcept>
 
 #include "pele/array.h"
 #include "pele/base_potential.h"
 
-using std::list;
-using std::runtime_error;
-using std::shared_ptr;
 using pele::Array;
 using std::sqrt;
 
@@ -88,10 +84,10 @@ public:
 
 class MC {
 public:
-    typedef std::vector<shared_ptr<Action> > actions_t;
-    typedef std::vector<shared_ptr<AcceptTest> > accept_t;
-    typedef std::vector<shared_ptr<ConfTest> > conf_t;
-    typedef std::vector<shared_ptr<TakeStep> > step_t;
+    typedef std::vector<std::shared_ptr<Action> > actions_t;
+    typedef std::vector<std::shared_ptr<AcceptTest> > accept_t;
+    typedef std::vector<std::shared_ptr<ConfTest> > conf_t;
+    typedef std::vector<std::shared_ptr<TakeStep> > step_t;
 protected:
     std::shared_ptr<pele::BasePotential> _potential;
     Array<double> _coords, _trial_coords;
@@ -118,24 +114,24 @@ public:
     void set_temperature(double T) { _temperature = T; }
     double get_temperature(){return _temperature;}
     void set_stepsize(double stepsize){ _stepsize = stepsize; }
-    void add_action(shared_ptr<Action> action) { _actions.push_back(action); }
-    void add_accept_test(shared_ptr<AcceptTest> accept_test)
+    void add_action(std::shared_ptr<Action> action) { _actions.push_back(action); }
+    void add_accept_test(std::shared_ptr<AcceptTest> accept_test)
     {
         _accept_tests.push_back(accept_test);
     }
-    void add_conf_test(shared_ptr<ConfTest> conf_test)
+    void add_conf_test(std::shared_ptr<ConfTest> conf_test)
     {
         _conf_tests.push_back(conf_test);
     }
-    void add_late_conf_test(shared_ptr<ConfTest> conf_test)
+    void add_late_conf_test(std::shared_ptr<ConfTest> conf_test)
     {
         _late_conf_tests.push_back(conf_test);
     }
-    void set_takestep(shared_ptr<TakeStep> takestep)
+    void set_takestep(std::shared_ptr<TakeStep> takestep)
     {
         add_step(takestep);
     }
-    void add_step(shared_ptr<TakeStep> step_input)
+    void add_step(std::shared_ptr<TakeStep> step_input)
     {
         _steps.push_back(step_input);
     }
