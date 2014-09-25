@@ -16,9 +16,9 @@ void RandomCoordsDisplacement::takestep(Array<double>& coords, double stepsize, 
 {
     double rand;
     //assert(coords.size() == _N);
-    for (size_t i=0; i<coords.size();++i) {
+    for (size_t i = 0; i < coords.size(); ++i) {
         rand = _distribution(_generator);
-        coords[i] += (0.5-rand)*stepsize;
+        coords[i] += (0.5 - rand) * stepsize;
     }
 }
 
@@ -37,10 +37,10 @@ GaussianCoordsDisplacement::GaussianCoordsDisplacement(size_t rseed)
 void GaussianCoordsDisplacement::takestep(Array<double>& coords, double stepsize, MC * mc)
 {
     //assert(coords.size() == _N);
-    for(size_t i=0; i<coords.size(); ++i){
+    for(size_t i = 0; i < coords.size(); ++i){
         double randz = _distribution(_generator); //this is sample from N(0,1)
         coords[i] += randz * stepsize; //here the stepsize plays the same role as the stdev. This is sampled from N(0,stepsize)
     }
 }
 
-}//namespace mcpele
+} / /namespace mcpele
