@@ -9,3 +9,7 @@ cdef extern from "mcpele/takestep.h" namespace "mcpele":
         cppGaussianCoordsDisplacement(size_t) except +
         size_t get_seed() except +
         void set_generator_seed(const size_t) except +
+    cdef cppclass cppParticlePairSwap "mcpele::ParticlePairSwap":
+        cppParticlePairSwap(size_t, size_t, size_t) except +
+        size_t get_seed() except +
+        void set_generator_seed(const size_t) except +
