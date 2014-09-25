@@ -1,0 +1,6 @@
+*~
+*.cxx
+*.so
+*.pyc
+*.out
+gtest*.zip
