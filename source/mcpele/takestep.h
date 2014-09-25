@@ -1,17 +1,13 @@
 #ifndef _MCPELE_TAKESTEP_H__
 #define _MCPELE_TAKESTEP_H__
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <random>
 #include <chrono>
+
 #include "pele/array.h"
 #include "mc.h"
-
-
-using std::runtime_error;
-using pele::Array;
-using std::sqrt;
 
 namespace mcpele{
 
@@ -29,7 +25,7 @@ protected:
 public:
     RandomCoordsDisplacement(size_t rseed);
     virtual ~RandomCoordsDisplacement() {}
-    virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
+    virtual void takestep(pele::Array<double>& coords, double stepsize, MC * mc);
     size_t get_seed() const {return _seed;}
     void set_generator_seed(const size_t inp) { _generator.seed(inp); }
     double expected_mean() const { return 0; }
@@ -44,7 +40,7 @@ public:
  * this step samples first from the standard normal N(0,1) and outputs a random variate sampled from N(0,stepsize)
  */
 
-class GaussianCoordsDisplacement:public TakeStep{
+class GaussianCoordsDisplacement : public TakeStep {
 protected:
     size_t _seed;
     double _mean, _stdev;
@@ -52,16 +48,35 @@ protected:
     std::normal_distribution<double> _distribution;
 public:
     GaussianCoordsDisplacement(size_t rseed);
-    GaussianCoordsDisplacement();
-    virtual ~GaussianCoordsDisplacement(){}
-    virtual void takestep(Array<double>& coords, double stepsize, MC * mc);
-    size_t get_seed() const {return _seed;}
-    void set_generator_seed(const size_t inp) {_generator.seed(inp);}
+    virtual ~GaussianCoordsDisplacement() {}
+    virtual void takestep(pele::Array<double>& coords, double stepsize, MC * mc);
+    size_t get_seed() const { return _seed; }
+    void set_generator_seed(const size_t inp) { _generator.seed(inp); }
     double expected_mean() const { return 0; }
     /**
      * Reference: http://mathworld.wolfram.com/NormalDistribution.html
      */
     double expected_variance(const double ss) const { return ss * ss; }
+};
+
+class ParticlePairSwap : public TakeStep {
+private:
+    size_t m_seed;
+    std::mt19937_64 m_generator;
+    std::uniform_int_distribution<size_t> m_distribution;
+    const size_t m_nr_particles;
+    const size_t m_swap_every;
+public:
+    virtual ~ParticlePairSwap() {}
+    ParticlePairSwap(const size_t, const size_t, const size_t);
+    virtual void takestep(pele::Array<double>& coords, double stepsize, MC * mc);
+    void swap_coordinates(const size_t, const size_t, pele::Array<double>&);
+    size_t get_seed() const { return m_seed; }
+    void set_generator_seed(const size_t inp)
+    {
+        m_generator.seed(inp);
+        m_seed = inp;
+    }
 };
 
 }

@@ -88,16 +88,18 @@ public:
 
 class MC {
 public:
-    typedef std::vector<shared_ptr<Action>> actions_t;
-    typedef std::vector<shared_ptr<AcceptTest>> accept_t;
-    typedef std::vector<shared_ptr<ConfTest>> conf_t;
+    typedef std::vector<shared_ptr<Action> > actions_t;
+    typedef std::vector<shared_ptr<AcceptTest> > accept_t;
+    typedef std::vector<shared_ptr<ConfTest> > conf_t;
+    typedef std::vector<shared_ptr<TakeStep> > step_t;
 protected:
     std::shared_ptr<pele::BasePotential> _potential;
     Array<double> _coords, _trial_coords;
     actions_t _actions;
     accept_t _accept_tests;
-    conf_t _conf_tests, _late_conf_tests;
-    shared_ptr<TakeStep> _takestep;
+    conf_t _conf_tests;
+    conf_t _late_conf_tests;
+    step_t _steps;
     size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
     bool _success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
@@ -129,7 +131,14 @@ public:
     {
         _late_conf_tests.push_back(conf_test);
     }
-    void set_takestep(shared_ptr<TakeStep> takestep){_takestep = takestep;}
+    void set_takestep(shared_ptr<TakeStep> takestep)
+    {
+        add_step(takestep);
+    }
+    void add_step(shared_ptr<TakeStep> step_input)
+    {
+        _steps.push_back(step_input);
+    }
     void set_coordinates(Array<double>& coords, double energy)
     {
         _coords = coords.copy();
@@ -163,7 +172,7 @@ public:
     size_t get_neval() const {return _neval;};
     double get_stepsize() const {return _stepsize;};
     std::shared_ptr<pele::BasePotential> get_potential_ptr() { return _potential; }
-    bool take_step_specified() const { return (_takestep!=NULL); }
+    bool take_step_specified() const { return (_steps.size() > 0); }
     void check_input();
     void set_print_progress(const bool input) { _print_progress=input; }
     void set_print_progress() { set_print_progress(true); }
@@ -178,6 +187,7 @@ protected:
     bool do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold);
     bool do_late_conf_tests(Array<double> x);
     void do_actions(Array<double> x, double energy, bool success);
+    void take_steps();
 };
 
 }//namespace mcpele

@@ -9,7 +9,6 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, do
     : _potential(potential),
     _coords(coords.copy()),
     _trial_coords(_coords.copy()), 
-    _takestep(NULL),
     _nitercount(0), 
     _accept_count(0), 
     _E_reject_count(0),
@@ -33,9 +32,9 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, do
 bool MC::do_conf_tests(Array<double> x)
 {
     bool result;
-    for (auto & test : _conf_tests){
+    for (auto & test : _conf_tests) {
         result = test->conf_test(x, this);
-        if (not result){
+        if (not result) {
             ++_conf_reject_count;
             return false;
         }
@@ -49,9 +48,9 @@ bool MC::do_conf_tests(Array<double> x)
 bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
 {
     bool result;
-    for (auto & test : _accept_tests){
+    for (auto & test : _accept_tests) {
         result = test->test(xtrial, etrial, xold, eold, _temperature, this);
-        if (not result){
+        if (not result) {
             ++_E_reject_count;
             return false;
         }
@@ -65,9 +64,9 @@ bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold
 bool MC::do_late_conf_tests(Array<double> x)
 {
     bool result;
-    for (auto & test : _late_conf_tests){
+    for (auto & test : _late_conf_tests) {
         result = test->conf_test(x, this);
-        if (not result){
+        if (not result) {
             ++_conf_reject_count;
             return false;
         }
@@ -82,6 +81,13 @@ void MC::do_actions(Array<double> x, double energy, bool success)
     }
 }
 
+void MC::take_steps()
+{
+    for (auto & take_step : _steps) {
+        take_step->takestep(_trial_coords, _stepsize, this);
+    }
+}
+
 
 void MC::one_iteration()
 {
@@ -92,7 +98,8 @@ void MC::one_iteration()
     _trial_coords.assign(_coords);
 
     // take a step with the trial coords
-    _takestep->takestep(_trial_coords, _stepsize, this);
+    //_takestep->takestep(_trial_coords, _stepsize, this);
+    take_steps();
 
     // perform the initial configuration tests
     _success = do_conf_tests(_trial_coords);
@@ -138,12 +145,14 @@ void MC::run(size_t max_iter)
 {
     check_input();
     progress stat(max_iter);
-    while(_niter < max_iter){
+    while(_niter < max_iter) {
         //std::cout << "done: " << double(_niter)/double(max_iter) <<  "\n";
         //std::cout << "_niter: " << _niter <<  "\n";
         //std::cout << "max_iter: " << max_iter <<  "\n";
         this->one_iteration();
-        if (_print_progress) stat.next(_niter);
+        if (_print_progress) {
+            stat.next(_niter);
+        }
     }
     _niter = 0;
 }
