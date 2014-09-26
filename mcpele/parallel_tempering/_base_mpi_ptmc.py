@@ -69,6 +69,10 @@ class _MPI_Parallel_Tempering(object):
     def _print_status(self):
         """this function is responsible for printing and/or dumping the status, let it be printing the histograms or else"""
     
+    @abc.abstractmethod
+    def _close_flush(self):
+        """this function is responsible for printing and/or dumping the all streams at the end of the calculation"""
+        
     def one_iteration(self):
         """Perform one parallel tempering iteration, this consists of the following steps:
         *set the coordinates#now scatter the exchange pattern so that everybody knows who their buddy is
@@ -109,6 +113,7 @@ class _MPI_Parallel_Tempering(object):
             if ptiter == self.max_ptiter:
                 self._print_data()
                 self._print_status()
+                self._close_flush()
         print 'process {0} terminated'.format(self.rank)
     
     def _scatter_data(self, in_send_array, adim, dtype='d'):
