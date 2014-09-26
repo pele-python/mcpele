@@ -15,7 +15,7 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(size_t rseed)
     #endif
 }
 
-void RandomCoordsDisplacement::takestep(pele::Array<double>& coords, double stepsize, MC * mc)
+void RandomCoordsDisplacement::displace(pele::Array<double>& coords, double stepsize, MC * mc)
 {
     double rand;
     //assert(coords.size() == _N);

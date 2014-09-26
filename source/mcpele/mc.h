@@ -56,12 +56,51 @@ public:
  * Take Step
  */
 
-class TakeStep{
+class TakeStep {
 public:
-    //TakeStep(){std::cout << "TakeStep()" <<  "\n";}
-    //virtual ~TakeStep(){std::cout << "TakeStep()" <<  "\n";}
-    virtual ~TakeStep(){}
-    virtual void takestep(pele::Array<double> &coords, double stepsize, MC * mc) =0;
+    virtual ~TakeStep() {}
+    virtual void displace(pele::Array<double>& coords, MC* mc) = 0;
+    virtual void report(const bool success) {}
+    virtual void increase_acceptance() {}
+    virtual void decrease_acceptance() {}
+};
+
+class AdaptiveTakeStep : public TakeStep {
+protected:
+    std::shared_ptr<TakeStep> m_ts;
+    size_t m_interval;
+    size_t m_total_steps;
+    size_t m_accepted_steps;
+public:
+    virtual ~AdaptiveTakeStep() {}
+    AdaptiveTakeStep(std::shared_ptr<TakeStep> ts, const size_t interval=100)
+        : m_ts(ts),
+          m_interval(interval),
+          m_total_steps(0),
+          m_accepted_steps(0)
+    {}
+    void displace(pele::Array<double> &coords, MC * mc)
+    {
+        m_ts->displace(coords, mc);
+    }
+    void report(const bool success)
+    {
+        ++m_total_steps;
+        if (success) {
+            ++m_accepted_steps;
+        }
+        if (mc->get_iterations_count() % m_interval == 0) {
+            const double acceptance_fraction = static_cast<double>(m_accepted_steps) / static_cast<double>(m_total_steps);
+            m_accepted_steps = 0;
+            m_total_steps = 0;
+            if (acceptance_fraction < ts->get_min_acc_fraction()) {
+                ts->increase_acceptance();
+            }
+            else if (acceptance_fraction > ts->get_max_acc_fraction()) {
+                ts->decrease_acceptance();
+            }
+        }
+    }
 };
 
 /*
@@ -84,7 +123,6 @@ public:
     typedef std::vector<std::shared_ptr<Action> > actions_t;
     typedef std::vector<std::shared_ptr<AcceptTest> > accept_t;
     typedef std::vector<std::shared_ptr<ConfTest> > conf_t;
-    typedef std::vector<std::shared_ptr<TakeStep> > step_t;
 protected:
     std::shared_ptr<pele::BasePotential> _potential;
     pele::Array<double> _coords, _trial_coords;
@@ -92,7 +130,7 @@ protected:
     accept_t _accept_tests;
     conf_t _conf_tests;
     conf_t _late_conf_tests;
-    step_t _steps;
+    std::shared_ptr<TakeStep> _take_step;
     size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
     bool _success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
@@ -126,11 +164,7 @@ public:
     }
     void set_takestep(std::shared_ptr<TakeStep> takestep)
     {
-        add_step(takestep);
-    }
-    void add_step(std::shared_ptr<TakeStep> step_input)
-    {
-        _steps.push_back(step_input);
+        _take_step = takestep;
     }
     void set_coordinates(pele::Array<double>& coords, double energy)
     {

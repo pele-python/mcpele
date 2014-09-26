@@ -35,6 +35,36 @@ public:
     double expected_variance(const double ss) const { return ss * ss / static_cast<double>(12); }
 };
 
+class RandomCoordsDisplacementAdaptive : public RandomCoordsDisplacement {
+protected:
+    double m_stepsize;
+    const double m_factor;
+    const double m_min_acc_frac;
+    const double m_max_acc_frac;
+public:
+    virtual ~RandomCoordsDisplacementAdaptive() {}
+    RandomCoordsDisplacementAdaptive(const double stepsize=1, const double factor=0.9, const double min_acc_frac=0.2, const double max_acc_frac=0.5)
+        : m_stepsize(stepsize),
+          m_factor(factor),
+          m_min_acc_frac(min_acc_frac),
+          m_max_acc_frac(max_acc_frac)
+    {}
+    void displace(pele::Array<double> &coords, MC * mc)
+    {
+        takestep(coords, m_stepsize, mc);
+    }
+    void increase_acceptance()
+    {
+        m_stepsize *= factor;
+    }
+    void decrease_acceptance()
+    {
+        m_stepsize /= factor;
+    }
+    double get_min_acc_frac() const { return m_min_acc_frac; }
+    double get_max_acc_frac() const { return m_max_acc_frac; }
+};
+
 /**
  * Uniform Gaussian step
  * this step samples first from the standard normal N(0,1) and outputs a random variate sampled from N(0,stepsize)

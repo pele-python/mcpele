@@ -128,6 +128,7 @@ void MC::one_iteration()
 
     // perform the actions on the new configuration
     do_actions(_coords, _energy, _success);
+    _take_step->report(_success);
 }
 
 void MC::check_input(){
