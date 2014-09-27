@@ -10,10 +10,10 @@ import sys
 cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
     """
-    cdef cppRandomCoordsDisplacement* newptr
-    def __cinit__(self, rseed, stepsize):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacement(rseed, stepsize))
-        self.newptr = <cppRandomCoordsDisplacement*> self.thisptr.get()
+    cdef cppRandomCoordsDisplacementAdaptive* newptr
+    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacementAdaptive(rseed, stepsize, factor, min_acc_ratio, max_acc_ratio)), report_interval))
+        self.newptr = <cppRandomCoordsDisplacementAdaptive*> self.thisptr.get()
     
     def get_seed(self):
         cdef res = self.newptr.get_seed()
