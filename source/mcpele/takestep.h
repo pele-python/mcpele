@@ -49,14 +49,8 @@ public:
           m_min_acc_frac(min_acc_frac),
           m_max_acc_frac(max_acc_frac)
     {}
-    void increase_acceptance()
-    {
-        m_stepsize *= m_factor;
-    }
-    void decrease_acceptance()
-    {
-        m_stepsize /= m_factor;
-    }
+    void increase_acceptance() { m_stepsize *= m_factor; }
+    void decrease_acceptance() { m_stepsize /= m_factor; }
     double get_min_acc_frac() const { return m_min_acc_frac; }
     double get_max_acc_frac() const { return m_max_acc_frac; }
 };
