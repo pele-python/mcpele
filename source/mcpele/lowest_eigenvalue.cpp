@@ -19,7 +19,7 @@ FindLowestEigenvalue::FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> 
 double FindLowestEigenvalue::compute_lowest_eigenvalue(pele::Array<double> coords)
 {
     m_lowesteigpot->reset_coords(coords);
-    m_lbfgs.reset(_ranvec);
+    m_lbfgs.reset(m_ranvec);
     m_lbfgs.set_use_relative_f(1);
     m_lbfgs.run();
     const double lowesteig = m_lbfgs.get_f();

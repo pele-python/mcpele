@@ -7,12 +7,12 @@ Histogram::Histogram(const double min, const double max, const double bin)
       m_min(floor((min / bin)) * bin),
       m_bin(bin),
       m_eps(std::numeric_limits<double>::epsilon()),
-      m_N((_max - _min) / bin),
-      m_hist(_N, 0),
+      m_N((m_max - m_min) / bin),
+      m_hist(m_N, 0),
       m_niter(0)
 {
 #ifdef DEBUG
-    std::cout << "histogram is of size " << _N << "\n";
+    std::cout << "histogram is of size " << m_N << "\n";
 #endif
 }
 
@@ -76,7 +76,7 @@ void Histogram::resize(const double E, const int i)
     }
     else {
         std::cerr << "histogram encountered unexpected condition" << "\n";
-        std::cout << " E " << E << "\n niter " << _niter << "\n min " << m_min << "\n max " << _max << "\n i " << i << "\n N " << m_N << "\n";
+        std::cout << " E " << E << "\n niter " << m_niter << "\n min " << m_min << "\n max " << m_max << "\n i " << i << "\n N " << m_N << "\n";
     }
 }
 
@@ -85,10 +85,10 @@ void Histogram::resize(const double E, const int i)
  * */
 std::vector<double> Histogram::get_vecdata_error() const
 {
-    std::vector<double> result(_hist.size(), 0);
+    std::vector<double> result(m_hist.size(), 0);
     for (size_t i = 0; i < result.size(); ++i) {
-        const double this_fraction = static_cast<double>(_hist.at(i)) / static_cast<double>(entries());
-        result.at(i) = sqrt(this_fraction * (1 - this_fraction) / _bin) / sqrt(entries());
+        const double this_fraction = static_cast<double>(m_hist.at(i)) / static_cast<double>(entries());
+        result.at(i) = sqrt(this_fraction * (1 - this_fraction) / m_bin) / sqrt(entries());
     }
     return result;
 }

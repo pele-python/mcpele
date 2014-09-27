@@ -72,7 +72,7 @@ public:
     size_t size() const { return m_N; }
     int entries() const { return m_niter; }
     double get_mean() const { return m_moments.mean(); }
-    double get_variance() const { return moments.variance(); }
+    double get_variance() const { return m_moments.variance(); }
     std::vector<double>::iterator begin(){return m_hist.begin(); }
     std::vector<double>::iterator end(){return m_hist.end(); }
     double get_position(const size_t bin_index) const { return m_min + (0.5 + bin_index) * m_bin; }

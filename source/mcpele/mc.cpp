@@ -147,7 +147,7 @@ void MC::set_coordinates(pele::Array<double>& coords, double energy)
 }
 
 //this function is necessary if for example some potential parameter has been varied
-void reset_energy()
+void MC::reset_energy()
 {
     if(m_niter > 0){
         throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
