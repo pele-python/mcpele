@@ -113,124 +113,38 @@ public:
     virtual ~MC() {}
     void one_iteration();
     void run(const size_t max_iter);
-    void set_temperature(const double T)
-    {
-        m_temperature = T;
-    }
-    double get_temperature() const
-    {
-        return m_temperature;
-    }
-    void set_stepsize(const double stepsize)
-    {
-        m_stepsize = stepsize;
-    }
-    void add_action(std::shared_ptr<Action> action)
-    {
-        m_actions.push_back(action);
-    }
-    void add_accept_test(std::shared_ptr<AcceptTest> accept_test)
-    {
-        m_accept_tests.push_back(accept_test);
-    }
-    void add_conf_test(std::shared_ptr<ConfTest> conf_test)
-    {
-        m_conf_tests.push_back(conf_test);
-    }
-    void add_late_conf_test(std::shared_ptr<ConfTest> conf_test)
-    {
-        m_late_conf_tests.push_back(conf_test);
-    }
-    void set_takestep(std::shared_ptr<TakeStep> takestep)
-    {
-        m_take_step = takestep;
-    }
-    void set_coordinates(pele::Array<double>& coords, double energy)
-    {
-        m_coords = coords.copy();
-        m_energy = energy;
-    }
-    double get_energy() const
-    {
-        return m_energy;
-    }
-    //this function is necessary if for example some potential parameter has been varied
-    void reset_energy()
-    {
-        if(m_niter > 0){
-            throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
-        }
-        m_energy = compute_energy(m_coords);
-    }
-    double get_trial_energy() const
-    {
-        return m_trial_energy;
-    }
-    pele::Array<double> get_coords() const
-    {
-        return m_coords.copy();
-    }
-    pele::Array<double> get_trial_coords() const
-    {
-        return m_trial_coords.copy();
-    }
-    double get_norm_coords() const
-    {
-        return norm(m_coords);
-    }
-    size_t get_naccept() const
-    {
-        return m_accept_count;
-    }
-    size_t get_nreject() const
-    {
-        return m_nitercount - m_accept_count;
-    }
-    double get_accepted_fraction() const
-    {
-        return static_cast<double>(m_accept_count) / static_cast<double>(m_nitercount);
-    }
-    double get_conf_rejection_fraction() const
-    {
-        return static_cast<double>(m_conf_reject_count) / static_cast<double>(m_nitercount);
-    }
-    double get_E_rejection_fraction() const
-    {
-        return static_cast<double>(m_E_reject_count) / static_cast<double>(m_nitercount);
-    }
-    size_t get_iterations_count() const
-    {
-        return m_nitercount;
-    }
-    size_t get_neval() const
-    {
-        return m_neval;
-    }
-    double get_stepsize() const
-    {
-        return m_stepsize;
-    }
-    std::shared_ptr<pele::BasePotential> get_potential_ptr()
-    {
-        return m_potential;
-    }
-    bool take_step_specified() const
-    {
-        return (m_take_step != NULL);
-    }
+    void set_temperature(const double T) { m_temperature = T; }
+    double get_temperature() const { return m_temperature; }
+    void set_stepsize(const double stepsize) { m_stepsize = stepsize; }
+    void add_action(std::shared_ptr<Action> action) { m_actions.push_back(action); }
+    void add_accept_test(std::shared_ptr<AcceptTest> accept_test) { m_accept_tests.push_back(accept_test); }
+    void add_conf_test(std::shared_ptr<ConfTest> conf_test) { m_conf_tests.push_back(conf_test); }
+    void add_late_conf_test(std::shared_ptr<ConfTest> conf_test) { m_late_conf_tests.push_back(conf_test); }
+    void set_takestep(std::shared_ptr<TakeStep> takestep) { m_take_step = takestep; }
+    void set_coordinates(pele::Array<double>& coords, double energy);
+    double get_energy() const { return m_energy; }
+    void reset_energy();
+    double get_trial_energy() const { return m_trial_energy; }
+    pele::Array<double> get_coords() const { return m_coords.copy(); }
+    pele::Array<double> get_trial_coords() const { return m_trial_coords.copy(); }
+    double get_norm_coords() const { return norm(m_coords); }
+    size_t get_naccept() const { return m_accept_count; }
+    size_t get_nreject() const { return m_nitercount - m_accept_count; }
+    double get_accepted_fraction() const { return static_cast<double>(m_accept_count) /
+            static_cast<double>(m_nitercount); }
+    double get_conf_rejection_fraction() const { return static_cast<double>(m_conf_reject_count) /
+            static_cast<double>(m_nitercount); }
+    double get_E_rejection_fraction() const { return static_cast<double>(m_E_reject_count) /
+            static_cast<double>(m_nitercount); }
+    size_t get_iterations_count() const { return m_nitercount; }
+    size_t get_neval() const { return m_neval; }
+    double get_stepsize() const { return m_stepsize; }
+    std::shared_ptr<pele::BasePotential> get_potential_ptr() { return m_potential; }
+    bool take_step_specified() const { return (m_take_step != NULL); }
     void check_input();
-    void set_print_progress(const bool input)
-    {
-        m_print_progress = input;
-    }
-    void set_print_progress()
-    {
-        set_print_progress(true);
-    }
-    bool get_success() const
-    {
-        return m_success;
-    }
+    void set_print_progress(const bool input) { m_print_progress = input; }
+    void set_print_progress() { set_print_progress(true); }
+    bool get_success() const { return m_success; }
 protected:
     inline double compute_energy(pele::Array<double> x)
     {

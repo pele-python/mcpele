@@ -140,6 +140,21 @@ void MC::check_input(){
     if (m_accept_tests.size()==0) std::cout << "warning: no accept tests set" <<  "\n";
 }
 
+void MC::set_coordinates(pele::Array<double>& coords, double energy)
+{
+    m_coords = coords.copy();
+    m_energy = energy;
+}
+
+//this function is necessary if for example some potential parameter has been varied
+void reset_energy()
+{
+    if(m_niter > 0){
+        throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
+    }
+    m_energy = compute_energy(m_coords);
+}
+
 void MC::run(size_t max_iter)
 {
     check_input();
