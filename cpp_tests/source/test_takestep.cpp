@@ -43,8 +43,8 @@ public:
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_OneIteration){
     //one iteration gives expected variation
-    mcpele::RandomCoordsDisplacement displ(seed);
-    displ.takestep(coor, stepsize, mc);
+    mcpele::RandomCoordsDisplacement displ(seed, stepsize);
+    displ.displace(coor, mc);
     for (size_t i = 0; i < ndof; ++i){
         EXPECT_NEAR( reference[i], coor[i], stepsize*0.5 );
     }
@@ -52,9 +52,9 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_OneIteration){
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
-    mcpele::RandomCoordsDisplacement displ(seed);
+    mcpele::RandomCoordsDisplacement displ(seed, stepsize);
     for (size_t i = 0; i < niterations; ++i){
-    displ.takestep(coor, stepsize, mc);
+    displ.displace(coor, mc);
     }
     for (size_t i = 0; i < ndof; ++i){
     EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
@@ -63,9 +63,9 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterations){
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterationsReAllocate){
     // n iterations give expected vairation even if step generator is deleted and re-allocated
-    mcpele::RandomCoordsDisplacement displ(seed); // this constructor re-seeds the rng
+    mcpele::RandomCoordsDisplacement displ(seed, stepsize); // this constructor re-seeds the rng
     for (size_t i = 0; i < niterations; ++i){
-        displ.takestep(coor,stepsize, mc);
+        displ.displace(coor, mc);
     }
     for (size_t i = 0; i < ndof; ++i){
         EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );

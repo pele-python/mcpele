@@ -18,7 +18,8 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, co
       m_print_progress(false),
       m_niter(0),
       m_neval(0),
-      m_temperature(temperature)
+      m_temperature(temperature),
+      m_report_steps(0)
 {
     m_energy = compute_energy(m_coords);
     m_trial_energy = m_energy;
@@ -126,7 +127,9 @@ void MC::one_iteration()
 
     // perform the actions on the new configuration
     do_actions(m_coords, m_energy, m_success);
-    m_take_step->report(this);
+    if (get_iterations_count() <= m_report_steps) {
+        m_take_step->report(this);
+    }
 }
 
 void MC::check_input(){
