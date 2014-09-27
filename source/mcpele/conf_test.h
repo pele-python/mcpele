@@ -2,33 +2,28 @@
 #define _MCPELE_CONF_TEST_H__
 
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <random>
 #include <chrono>
+
 #include "pele/array.h"
 #include "pele/optimizer.h"
 #include "pele/distance.h"
 #include "mc.h"
 
-using std::runtime_error;
-using pele::Array;
-
 namespace mcpele{
 
-class CheckSphericalContainer:public ConfTest
-{
+class CheckSphericalContainer : public ConfTest {
 protected:
-    double _radius2;
-    size_t _ndim;
+    double m_radius2;
+    size_t m_ndim;
 public:
-
-    CheckSphericalContainer(double radius, size_t ndim);
+    CheckSphericalContainer(const double radius, const size_t ndim);
     virtual bool conf_test(Array<double> &trial_coords, MC * mc);
-    virtual ~CheckSphericalContainer(){}
+    virtual ~CheckSphericalContainer() {}
 };
 
-}//namespace mcpele
+} // namespace mcpele
 
-
-#endif
+#endif // #ifndef _MCPELE_CONF_TEST_H__

@@ -26,36 +26,31 @@ private:
     const size_t m_eqsteps;
     size_t m_count;
 public:
-    RecordEnergyHistogram(double min, double max, double bin, size_t eqsteps);
-    virtual ~RecordEnergyHistogram(){};
-
+    RecordEnergyHistogram(const double min, const double max, const double bin, const size_t eqsteps);
+    virtual ~RecordEnergyHistogram() {} ;
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
-
-    pele::Array<double> get_histogram() const {
+    pele::Array<double> get_histogram() const
+    {
         std::vector<double> vecdata(m_hist.get_vecdata());
         pele::Array<double> histogram(vecdata);
         return histogram.copy();
     }
-
-    void print_terminal(size_t ntot) const {
-                m_hist.print_terminal(ntot);};
-
-    double get_max() const {
-        double max_;
-        max_ = m_hist.max();
-        return max_;
-    };
-
-    double get_min() const {
-        double min_;
-        min_ = m_hist.min();
-        return min_;
-    };
-
-    size_t get_eqsteps() const {return m_eqsteps;}
-    double get_mean() const {return m_hist.get_mean();}
-    double get_variance() const {return m_hist.get_variance();}
-    int get_entries() const {return m_hist.entries();}
+    void print_terminal(const size_t ntot) const
+    {
+        m_hist.print_terminal(ntot);
+    }
+    double get_max() const
+    {
+        return m_hist.max();
+    }
+    double get_min() const
+    {
+        return m_hist.min();
+    }
+    size_t get_eqsteps() const { return m_eqsteps; }
+    double get_mean() const { return m_hist.get_mean(); }
+    double get_variance() const { return m_hist.get_variance(); }
+    int get_entries() const { return m_hist.entries(); }
 };
 
 /*

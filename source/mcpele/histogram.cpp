@@ -2,31 +2,32 @@
 
 namespace mcpele{
 
-Histogram::Histogram(double min, double max, double bin)
-    : _max(floor((max/bin)+1)*bin),
-    _min(floor((min/bin))*bin),
-    _bin(bin),
-    _eps(std::numeric_limits<double>::epsilon()),
-    _N((_max - _min) / bin),
-    _hist(_N,0),_niter(0)
+Histogram::Histogram(const double min, const double max, const double bin)
+    : m_max(floor((max / bin) + 1) * bin),
+      m_min(floor((min / bin)) * bin),
+      m_bin(bin),
+      m_eps(std::numeric_limits<double>::epsilon()),
+      m_N((_max - _min) / bin),
+      m_hist(_N, 0),
+      m_niter(0)
 {
 #ifdef DEBUG
-    std::cout<<"histogram is of size "<<_N<< "\n";
+    std::cout << "histogram is of size " << _N << "\n";
 #endif
 }
 
 void Histogram::add_entry(double E)
 {
-    moments(E);
+    m_moments(E);
     int i;
-    E = E + _eps; //this is a dirty hack, not entirely sure of its generality and possible consequences, tests seem to be fine
-    i = floor((E-_min)/_bin);
-    if (i < _N && i >= 0) {
-        _hist[i] += 1;
-        ++_niter;
+    E = E + m_eps; //this is a dirty hack, not entirely sure of its generality and possible consequences, tests seem to be fine
+    i = floor((E - m_min) / m_bin);
+    if (i < m_N && i >= 0) {
+        m_hist[i] += 1;
+        ++m_niter;
     }
     else
-        this->resize(E,i);
+        this->resize(E, i);
 
     /*THIS IS A TEST*/
     /*int renorm = 0;
@@ -42,38 +43,40 @@ void Histogram::add_entry(double E)
     }*/
 }
 
-void Histogram::resize(double E, int i)
+void Histogram::resize(const double E, const int i)
 {
     int newlen;
-    if (i >= _N) {
-        newlen = (i + 1) - _N;
-        _hist.insert(_hist.end(), (newlen-1), 0);
-        _hist.push_back(1);
-        ++_niter;
-        _max = floor((E/_bin)+1)*_bin; //round to nearest increment
-        _N = round((_max - _min) / _bin); //was round
-        if ( (int) _hist.size() != _N) {
-            std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
-            assert( (int) _hist.size() == _N);
+    if (i >= m_N) {
+        newlen = (i + 1) - m_N;
+        m_hist.insert(m_hist.end(), (newlen - 1), 0);
+        m_hist.push_back(1);
+        ++m_niter;
+        m_max = floor((E / m_bin) + 1) * m_bin; //round to nearest increment
+        m_N = round((m_max - m_min) / m_bin); //was round
+        if (static_cast<int>(m_hist.size()) != m_N) {
+            std::cout<< " E " << E << "\n niter " << m_niter<< "\n size " << m_hist.size() << "\n min " << m_min << "\n max " << m_max << "\n i " << i << "\n N " << m_N << "\n";
+            assert(static_cast<int>(m_hist.size()) == m_N);
             exit (EXIT_FAILURE);
         }
-        std::cout<<"resized above at niter "<<_niter<< "\n";
-    } else if (i < 0) {
-        newlen = -1*i;
-        _hist.insert(_hist.begin(), (newlen-1), 0);
-        _hist.insert(_hist.begin(),1);
-        ++_niter;
-        _min = floor((E/_bin))*_bin; //round to nearest increment
-        _N = round((_max-_min)/_bin); //was round
-        if ( (int) _hist.size() != _N) {
-            std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n size "<<_hist.size()<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
-            assert( (int) _hist.size() == _N);
+        std::cout<< "resized above at niter " << m_niter << "\n";
+    }
+    else if (i < 0) {
+        newlen = -1 * i;
+        m_hist.insert(m_hist.begin(), (newlen - 1), 0);
+        m_hist.insert(m_hist.begin(),1);
+        ++m_niter;
+        m_min = floor((E / m_bin)) * m_bin; //round to nearest increment
+        m_N = round((m_max - m_min) / m_bin); //was round
+        if ( (int) m_hist.size() != m_N) {
+            std::cout<<" E "<< E << "\n niter " << m_niter << "\n size " << m_hist.size() << "\n min " << m_min << "\n max " << m_max << "\n i " << i << "\n N " << m_N << "\n";
+            assert(static_cast<int>(m_hist.size()) == m_N);
             exit (EXIT_FAILURE);
         }
-        std::cout<<"resized below at niter "<<_niter<< "\n";
-    } else {
-        std::cerr<<"histogram encountered unexpected condition"<< "\n";
-        std::cout<<" E "<<E<<"\n niter "<<_niter<<"\n min "<<_min<<"\n max "<<_max<<"\n i "<<i<<"\n N "<<_N<< "\n";
+        std::cout<< "resized below at niter " << m_niter << "\n";
+    }
+    else {
+        std::cerr << "histogram encountered unexpected condition" << "\n";
+        std::cout << " E " << E << "\n niter " << _niter << "\n min " << m_min << "\n max " << _max << "\n i " << i << "\n N " << m_N << "\n";
     }
 }
 
