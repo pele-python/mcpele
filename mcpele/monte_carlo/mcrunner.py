@@ -1,6 +1,6 @@
 import numpy as np
 from mcpele.monte_carlo import _BaseMCRunner, RandomCoordsDisplacement, MetropolisTest 
-from mcpele.monte_carlo import CheckSphericalContainer, AdjustStep, RecordEnergyHistogram
+from mcpele.monte_carlo import CheckSphericalContainer, RecordEnergyHistogram
 try:
     import matplotlib.pyplot as plt
 except ImportError as err:
@@ -51,9 +51,9 @@ class Metropolis_MCrunner(_BaseMCRunner):
         i32max = np.iinfo(np.int32).max
         
         self.binsize = hbinsize
-        self.histogram = RecordEnergyHistogram(hEmin,hEmax,self.binsize, adjustf_niter)
-        self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.step = RandomCoordsDisplacement(42)
+        self.histogram = RecordEnergyHistogram(hEmin, hEmax, self.binsize, adjustf_niter)
+        #self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
+        self.step = RandomCoordsDisplacement(42, stepsize)
         #self.step = RandomCoordsDisplacement(np.random.randint(i32max))
         self.metropolis = MetropolisTest(44)
         #self.metropolis = MetropolisTest(np.random.randint(i32max))
