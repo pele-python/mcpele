@@ -113,7 +113,7 @@ TEST(EVTimeseries, Works) {
     }
 }
 
-TEST(MRSMTimeseries, Works){
+TEST(ParticleDisplacementTimeseries, Works){
     const size_t boxdim = 3;
     const size_t nparticles = 100;
     const size_t ndof = nparticles * boxdim;
@@ -127,8 +127,8 @@ TEST(MRSMTimeseries, Works){
     std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
 
-    mcpele::RecordMeanRMSDisplacementTimeseries* ts = new mcpele::RecordMeanRMSDisplacementTimeseries(niter, record_every, origin, boxdim);
-    mc->add_action(std::shared_ptr<mcpele::RecordMeanRMSDisplacementTimeseries>(ts));
+    mcpele::RecordDisplacementPerParticleTimeseries* ts = new mcpele::RecordDisplacementPerParticleTimeseries(niter, record_every, origin, boxdim);
+    mc->add_action(std::shared_ptr<mcpele::RecordDisplacementPerParticleTimeseries>(ts));
     mc->set_takestep(std::make_shared<TrivialTakestep>());
 
     mc->run(niter);

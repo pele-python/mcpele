@@ -38,8 +38,8 @@ cdef extern from "mcpele/actions.h" namespace "mcpele":
             , const size_t) except +
         _pele.Array[double] get_time_series() except +
         void clear() except +
-    cdef cppclass cppRecordMeanRMSDisplacementTimeseries "mcpele::RecordMeanRMSDisplacementTimeseries":
-        cppRecordMeanRMSDisplacementTimeseries(const size_t, const size_t,
+    cdef cppclass cppRecordDisplacementPerParticleTimeseries "mcpele::RecordDisplacementPerParticleTimeseries":
+        cppRecordDisplacementPerParticleTimeseries(const size_t, const size_t,
             _pele.Array[double], const size_t) except +
         _pele.Array[double] get_time_series() except +
         void clear() except +

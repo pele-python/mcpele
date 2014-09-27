@@ -198,21 +198,21 @@ class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
     """
     
 #===============================================================================
-# RecordMeanRMSDisplacementTimeseries
+# RecordDisplacementPerParticleTimeseries
 #===============================================================================
         
-cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
-    """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries action class implementation
+cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
+    """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries action class implementation
     """
-    cdef cppRecordMeanRMSDisplacementTimeseries* newptr
+    cdef cppRecordDisplacementPerParticleTimeseries* newptr
     cdef initial
     def __cinit__(self, niter, record_every, initial, boxdimension):
         cdef np.ndarray[double, ndim=1] initialc = initial
         self.thisptr = shared_ptr[cppAction](<cppAction*> new 
-                 cppRecordMeanRMSDisplacementTimeseries(niter, record_every,
-                                                        _pele.Array[double](<double*> initialc.data, initialc.size),
-                                                        boxdimension))
-        self.newptr = <cppRecordMeanRMSDisplacementTimeseries*> self.thisptr.get()
+                 cppRecordDisplacementPerParticleTimeseries(niter, record_every,
+                                                            _pele.Array[double](<double*> initialc.data, initialc.size), 
+                                                            boxdimension))
+        self.newptr = <cppRecordDisplacementPerParticleTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -230,11 +230,7 @@ cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
     def clear(self):
         """clears time series"""
         self.newptr.clear()
-    
-    def moving_average_is_stable(self, nr_steps_to_check = 1000, rel_std_threshold = 1e-2):
-        cdef cbool is_stable = self.newptr.moving_average_is_stable(nr_steps_to_check, rel_std_threshold)
-        return is_stable
-    
-class RecordMeanRMSDisplacementTimeseries(_Cdef_RecordMeanRMSDisplacementTimeseries):
-    """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries implementation.
+
+class RecordDisplacementPerParticleTimeseries(_Cdef_RecordDisplacementPerParticleTimeseries):
+    """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries implementation.
     """
