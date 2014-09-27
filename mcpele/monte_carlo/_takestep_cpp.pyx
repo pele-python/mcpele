@@ -11,8 +11,8 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
     """
     cdef cppRandomCoordsDisplacement* newptr
-    def __cinit__(self, rseed):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacement(rseed))
+    def __cinit__(self, rseed, stepsize):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacement(rseed, stepsize))
         self.newptr = <cppRandomCoordsDisplacement*> self.thisptr.get()
     
     def get_seed(self):
@@ -35,8 +35,8 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
     """
     cdef cppGaussianCoordsDisplacement* newptr
-    def __cinit__(self, rseed):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed))
+    def __cinit__(self, rseed, stepsize):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed, stepsize))
         self.newptr = <cppGaussianCoordsDisplacement*> self.thisptr.get()
     
     def get_seed(self):

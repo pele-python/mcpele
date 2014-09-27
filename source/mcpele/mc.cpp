@@ -5,23 +5,23 @@ using pele::Array;
 
 namespace mcpele{
 
-MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, double temperature, double stepsize)
-    : _potential(potential),
-    _coords(coords.copy()),
-    _trial_coords(_coords.copy()), 
-    _nitercount(0), 
-    _accept_count(0), 
-    _E_reject_count(0),
-    _conf_reject_count(0), 
-    _success(true), 
-    _print_progress(false), 
-    _niter(0),
-    _neval(0), 
-    _stepsize(stepsize), 
-    _temperature(temperature)
+MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, const double temperature)
+    : m_potential(potential),
+      m_coords(coords.copy()),
+      m_trial_coords(m_coords.copy()),
+      m_take_step(NULL),
+      m_nitercount(0),
+      m_accept_count(0),
+      m_E_reject_count(0),
+      m_conf_reject_count(0),
+      m_success(true),
+      m_print_progress(false),
+      m_niter(0),
+      m_neval(0),
+      m_temperature(temperature)
 {
-    _energy = compute_energy(_coords);
-    _trial_energy = _energy;
+    m_energy = compute_energy(m_coords);
+    m_trial_energy = m_energy;
     /*std::cout<<"mcrunner Energy is "<<_energy<< "\n";
     std::cout<<"mcrunner potential ptr is "<<_potential<< "\n";*/
 }
@@ -32,10 +32,10 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, do
 bool MC::do_conf_tests(Array<double> x)
 {
     bool result;
-    for (auto & test : _conf_tests) {
+    for (auto & test : m_conf_tests) {
         result = test->conf_test(x, this);
         if (not result) {
-            ++_conf_reject_count;
+            ++m_conf_reject_count;
             return false;
         }
     }
@@ -48,10 +48,10 @@ bool MC::do_conf_tests(Array<double> x)
 bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
 {
     bool result;
-    for (auto & test : _accept_tests) {
-        result = test->test(xtrial, etrial, xold, eold, _temperature, this);
+    for (auto & test : m_accept_tests) {
+        result = test->test(xtrial, etrial, xold, eold, m_temperature, this);
         if (not result) {
-            ++_E_reject_count;
+            ++m_E_reject_count;
             return false;
         }
     }
@@ -64,10 +64,10 @@ bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold
 bool MC::do_late_conf_tests(Array<double> x)
 {
     bool result;
-    for (auto & test : _late_conf_tests) {
+    for (auto & test : m_late_conf_tests) {
         result = test->conf_test(x, this);
         if (not result) {
-            ++_conf_reject_count;
+            ++m_conf_reject_count;
             return false;
         }
     }
@@ -76,59 +76,57 @@ bool MC::do_late_conf_tests(Array<double> x)
 
 void MC::do_actions(Array<double> x, double energy, bool success)
 {
-    for (auto & action : _actions){
+    for (auto & action : m_actions){
         action->action(x, energy, success, this);
     }
 }
 
 void MC::take_steps()
 {
-    for (auto & take_step : _steps) {
-        take_step->takestep(_trial_coords, _stepsize, this);
-    }
+    m_take_step->displace(m_trial_coords, this);
 }
 
 
 void MC::one_iteration()
 {
-    _success = true;
-    ++_niter;
-    ++_nitercount;
+    m_success = true;
+    ++m_niter;
+    ++m_nitercount;
 
-    _trial_coords.assign(_coords);
+    m_trial_coords.assign(m_coords);
 
     // take a step with the trial coords
     //_takestep->takestep(_trial_coords, _stepsize, this);
     take_steps();
 
     // perform the initial configuration tests
-    _success = do_conf_tests(_trial_coords);
+    m_success = do_conf_tests(m_trial_coords);
 
     // if the trial configuration is OK, compute the energy, and run the acceptance tests
-    if (_success) {
+    if (m_success) {
         // compute the energy
-        _trial_energy = compute_energy(_trial_coords);
+        m_trial_energy = compute_energy(m_trial_coords);
 
         // perform the acceptance tests.  Stop as soon as one of them fails
-        _success = do_accept_tests(_trial_coords, _trial_energy, _coords, _energy);
+        m_success = do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
     }
 
     // Do some final checks to ensure the configuration is OK.
     // These come last because they might be computationally demanding.
-    if (_success) {
-        _success = do_late_conf_tests(_trial_coords);
+    if (m_success) {
+        m_success = do_late_conf_tests(m_trial_coords);
     }
 
     // if the step is accepted, copy the coordinates and energy
-    if (_success) {
-        _coords.assign(_trial_coords);
-        _energy = _trial_energy;
-        ++_accept_count;
+    if (m_success) {
+        m_coords.assign(m_trial_coords);
+        m_energy = m_trial_energy;
+        ++m_accept_count;
     }
 
     // perform the actions on the new configuration
-    do_actions(_coords, _energy, _success);
-    _take_step->report(_success);
+    do_actions(m_coords, m_energy, m_success);
+    m_take_step->report(this);
 }
 
 void MC::check_input(){
@@ -137,25 +135,25 @@ void MC::check_input(){
     //std::cout << "_actions.size(): " << _actions.size() <<  "\n"; //debug
     //std::cout << "_accept_tests.size(): " << _accept_tests.size() <<  "\n"; //debug
     if (!take_step_specified()) throw std::runtime_error("MC::check_input: takestep not set");
-    if (_conf_tests.size()==0 && _late_conf_tests.size()==0) std::cout << "warning: no conf tests set" <<"\n";
-    if (_actions.size()==0) std::cout << "warning: no actions set" <<  "\n";
-    if (_accept_tests.size()==0) std::cout << "warning: no accept tests set" <<  "\n";
+    if (m_conf_tests.size()==0 && m_late_conf_tests.size()==0) std::cout << "warning: no conf tests set" <<"\n";
+    if (m_actions.size()==0) std::cout << "warning: no actions set" <<  "\n";
+    if (m_accept_tests.size()==0) std::cout << "warning: no accept tests set" <<  "\n";
 }
 
 void MC::run(size_t max_iter)
 {
     check_input();
     progress stat(max_iter);
-    while(_niter < max_iter) {
+    while(m_niter < max_iter) {
         //std::cout << "done: " << double(_niter)/double(max_iter) <<  "\n";
         //std::cout << "_niter: " << _niter <<  "\n";
         //std::cout << "max_iter: " << max_iter <<  "\n";
         this->one_iteration();
-        if (_print_progress) {
-            stat.next(_niter);
+        if (m_print_progress) {
+            stat.next(m_niter);
         }
     }
-    _niter = 0;
+    m_niter = 0;
 }
 
 }//namespace mcpele

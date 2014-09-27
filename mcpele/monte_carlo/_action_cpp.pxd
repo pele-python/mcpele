@@ -13,8 +13,6 @@ cdef extern from *:
     ctypedef int INT3 "3"    # a fake type
 
 cdef extern from "mcpele/actions.h" namespace "mcpele": 
-    cdef cppclass cppAdjustStep "mcpele::AdjustStep":
-        cppAdjustStep(double, double, size_t, size_t) except +
     cdef cppclass cppRecordEnergyHistogram "mcpele::RecordEnergyHistogram":
         cppRecordEnergyHistogram(double, double, double, size_t) except +
         _pele.Array[double] get_histogram() except +

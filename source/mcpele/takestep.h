@@ -19,15 +19,16 @@ namespace mcpele{
 
 class RandomCoordsDisplacement : public TakeStep {
 protected:
-    size_t _seed;
-    std::mt19937_64 _generator;
-    std::uniform_real_distribution<double> _distribution;
+    size_t m_seed;
+    std::mt19937_64 m_generator;
+    std::uniform_real_distribution<double> m_distribution;
+    double m_stepsize;
 public:
-    RandomCoordsDisplacement(size_t rseed);
+    RandomCoordsDisplacement(const size_t rseed, const double stepsize);
     virtual ~RandomCoordsDisplacement() {}
-    virtual void takestep(pele::Array<double>& coords, double stepsize, MC * mc);
-    size_t get_seed() const {return _seed;}
-    void set_generator_seed(const size_t inp) { _generator.seed(inp); }
+    virtual void displace(pele::Array<double>& coords, MC* mc);
+    size_t get_seed() const {return m_seed;}
+    void set_generator_seed(const size_t inp) { m_generator.seed(inp); }
     double expected_mean() const { return 0; }
     /**
      * Reference: http://mathworld.wolfram.com/UniformDistribution.html
@@ -37,29 +38,24 @@ public:
 
 class RandomCoordsDisplacementAdaptive : public RandomCoordsDisplacement {
 protected:
-    double m_stepsize;
     const double m_factor;
     const double m_min_acc_frac;
     const double m_max_acc_frac;
 public:
     virtual ~RandomCoordsDisplacementAdaptive() {}
-    RandomCoordsDisplacementAdaptive(const double stepsize=1, const double factor=0.9, const double min_acc_frac=0.2, const double max_acc_frac=0.5)
-        : m_stepsize(stepsize),
+    RandomCoordsDisplacementAdaptive(const size_t seed, const double stepsize=1, const double factor=0.9, const double min_acc_frac=0.2, const double max_acc_frac=0.5)
+        : RandomCoordsDisplacement(seed, stepsize),
           m_factor(factor),
           m_min_acc_frac(min_acc_frac),
           m_max_acc_frac(max_acc_frac)
     {}
-    void displace(pele::Array<double> &coords, MC * mc)
-    {
-        takestep(coords, m_stepsize, mc);
-    }
     void increase_acceptance()
     {
-        m_stepsize *= factor;
+        m_stepsize *= m_factor;
     }
     void decrease_acceptance()
     {
-        m_stepsize /= factor;
+        m_stepsize /= m_factor;
     }
     double get_min_acc_frac() const { return m_min_acc_frac; }
     double get_max_acc_frac() const { return m_max_acc_frac; }
@@ -72,16 +68,18 @@ public:
 
 class GaussianCoordsDisplacement : public TakeStep {
 protected:
-    size_t _seed;
-    double _mean, _stdev;
-    std::mt19937_64 _generator;
-    std::normal_distribution<double> _distribution;
+    size_t m_seed;
+    double m_mean;
+    double m_stdev;
+    std::mt19937_64 m_generator;
+    std::normal_distribution<double> m_distribution;
+    double m_stepsize;
 public:
-    GaussianCoordsDisplacement(size_t rseed);
+    GaussianCoordsDisplacement(const size_t rseed, const double stepsize);
     virtual ~GaussianCoordsDisplacement() {}
-    virtual void takestep(pele::Array<double>& coords, double stepsize, MC * mc);
-    size_t get_seed() const { return _seed; }
-    void set_generator_seed(const size_t inp) { _generator.seed(inp); }
+    virtual void displace(pele::Array<double>& coords, MC* mc);
+    size_t get_seed() const { return m_seed; }
+    void set_generator_seed(const size_t inp) { m_generator.seed(inp); }
     double expected_mean() const { return 0; }
     /**
      * Reference: http://mathworld.wolfram.com/NormalDistribution.html
@@ -99,7 +97,7 @@ private:
 public:
     virtual ~ParticlePairSwap() {}
     ParticlePairSwap(const size_t, const size_t, const size_t);
-    virtual void takestep(pele::Array<double>& coords, double stepsize, MC * mc);
+    void displace(pele::Array<double>& coords, MC* mc);
     void swap_coordinates(const size_t, const size_t, pele::Array<double>&);
     size_t get_seed() const { return m_seed; }
     void set_generator_seed(const size_t inp)

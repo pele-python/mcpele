@@ -8,60 +8,6 @@ using std::sqrt;
 
 namespace mcpele{
 
-/*Adjust Step
- *     factor is a multiplicative factor by which the stepsize is adjusted
- *     niter determines the number of steps for which the action should take effect (generally
- *     we want to adjust the step size only at the beginning of a simulation)
- *     navg is the number of steps over which the acceptance is averaged
- *     factor must be 0<f<1, if rejected make step shorter, if accepted make step longer
-*/
-
-AdjustStep::AdjustStep(double target, double factor, size_t niter, size_t navg)
-    : m_target(target),
-      m_factor(factor),
-      m_acceptedf(0),
-      m_niter(niter),
-      m_navg(navg),
-      m_count(0),
-      m_naccepted(0),
-      m_nrejected(0)
-{
-    if (factor > 1 || factor < 0) 
-        throw std::runtime_error("AdjustStep: illegal input");
-}
-
-void AdjustStep::action(Array<double> &coords, double energy, bool accepted, MC* mc) 
-{
-
-    m_count = mc->get_iterations_count();
-
-    if (m_count <= m_niter) {
-        if (accepted == true)
-            ++m_naccepted;
-        else
-            ++m_nrejected;
-
-        if(m_count % m_navg == 0)
-        {
-            m_acceptedf = (double) m_naccepted / (m_naccepted + m_nrejected);
-
-            //std::cout<<"acceptance "<<_acceptedf<< "\n";
-            //std::cout<<"stepsize before"<<mc->_stepsize<< "\n";
-            if (m_acceptedf < m_target)
-                mc->_stepsize *= m_factor;
-            else
-                mc->_stepsize /= m_factor;
-            //std::cout<<"stepsize after"<<mc->_stepsize<< "\n";
-
-            //now reset to zero memory of acceptance and rejection
-            m_naccepted = 0;
-            m_nrejected = 0;
-        }
-
-    }
-}
-
-
 /*
  * Record energy histogram
 */

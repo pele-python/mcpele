@@ -16,7 +16,6 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     cdef public size_t niter
     cdef public double temperature
     cdef public start_coords
-    cdef public double stepsize
 
     def __cinit__(self, pot, coords, temp, pstepsize, pniter, *args, **kwargs):
         cdef np.ndarray[double, ndim=1] cstart_coords = np.array(coords, dtype=float)        
@@ -26,8 +25,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.stepsize = pstepsize
         self.niter = pniter
                 
-        self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(self.potential.thisptr, _pele.Array[double](<double*> cstart_coords.data, cstart_coords.size), 
-                                         self.temperature, self.stepsize) )
+        self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(self.potential.thisptr,
+                                                            _pele.Array[double](<double*> cstart_coords.data, cstart_coords.size),
+                                                            self.temperature) )
     
     def add_action(self, _Cdef_Action action):
         self.thisptr.get().add_action(action.thisptr)
@@ -100,10 +100,6 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         neval = self.thisptr.get().get_neval()
         return neval
     
-    def get_stepsize(self):
-        s = self.thisptr.get().get_stepsize()
-        return s
-    
     def one_iteration(self):
         self.thisptr.get().one_iteration()
     
@@ -161,7 +157,6 @@ class _BaseMCRunner(_Cdef_MC):
         status.acc_frac = self.get_accepted_fraction()
         status.conf_reject_frac = self.get_conf_rejection_fraction()
         status.E_reject_frac = self.get_E_rejection_fraction()
-        status.step_size = self.get_stepsize()
         status.energy = self.get_energy()
         status.neval = self.get_neval()
         return status

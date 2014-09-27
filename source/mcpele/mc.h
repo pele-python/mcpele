@@ -60,47 +60,9 @@ class TakeStep {
 public:
     virtual ~TakeStep() {}
     virtual void displace(pele::Array<double>& coords, MC* mc) = 0;
-    virtual void report(const bool success) {}
+    virtual void report(const MC* mc) {}
     virtual void increase_acceptance() {}
     virtual void decrease_acceptance() {}
-};
-
-class AdaptiveTakeStep : public TakeStep {
-protected:
-    std::shared_ptr<TakeStep> m_ts;
-    size_t m_interval;
-    size_t m_total_steps;
-    size_t m_accepted_steps;
-public:
-    virtual ~AdaptiveTakeStep() {}
-    AdaptiveTakeStep(std::shared_ptr<TakeStep> ts, const size_t interval=100)
-        : m_ts(ts),
-          m_interval(interval),
-          m_total_steps(0),
-          m_accepted_steps(0)
-    {}
-    void displace(pele::Array<double> &coords, MC * mc)
-    {
-        m_ts->displace(coords, mc);
-    }
-    void report(const bool success)
-    {
-        ++m_total_steps;
-        if (success) {
-            ++m_accepted_steps;
-        }
-        if (mc->get_iterations_count() % m_interval == 0) {
-            const double acceptance_fraction = static_cast<double>(m_accepted_steps) / static_cast<double>(m_total_steps);
-            m_accepted_steps = 0;
-            m_total_steps = 0;
-            if (acceptance_fraction < ts->get_min_acc_fraction()) {
-                ts->increase_acceptance();
-            }
-            else if (acceptance_fraction > ts->get_max_acc_fraction()) {
-                ts->decrease_acceptance();
-            }
-        }
-    }
 };
 
 /*
@@ -124,91 +86,156 @@ public:
     typedef std::vector<std::shared_ptr<AcceptTest> > accept_t;
     typedef std::vector<std::shared_ptr<ConfTest> > conf_t;
 protected:
-    std::shared_ptr<pele::BasePotential> _potential;
-    pele::Array<double> _coords, _trial_coords;
-    actions_t _actions;
-    accept_t _accept_tests;
-    conf_t _conf_tests;
-    conf_t _late_conf_tests;
-    std::shared_ptr<TakeStep> _take_step;
-    size_t _nitercount, _accept_count, _E_reject_count, _conf_reject_count;
-    bool _success;
+    std::shared_ptr<pele::BasePotential> m_potential;
+    pele::Array<double> m_coords;
+    pele::Array<double> m_trial_coords;
+    actions_t m_actions;
+    accept_t m_accept_tests;
+    conf_t m_conf_tests;
+    conf_t m_late_conf_tests;
+    std::shared_ptr<TakeStep> m_take_step;
+    size_t m_nitercount;
+    size_t m_accept_count;
+    size_t m_E_reject_count;
+    size_t m_conf_reject_count;
+    bool m_success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
-    bool _print_progress;
+    bool m_print_progress;
 public:
     /*need to keep these public to make them accessible to tests and actions, be careful though!*/
-    size_t _niter, _neval;
-    double _stepsize, _temperature, _energy, _trial_energy;
-
-    MC(std::shared_ptr<pele::BasePotential> potential, pele::Array<double>& coords, double temperature, double stepsize);
-
+    size_t m_niter;
+    size_t m_neval;
+    double m_stepsize;
+    double m_temperature;
+    double m_energy;
+    double m_trial_energy;
+    MC(std::shared_ptr<pele::BasePotential> potential, pele::Array<double>& coords, const double temperature);
     virtual ~MC() {}
-
     void one_iteration();
-    void run(size_t max_iter);
-    void set_temperature(double T) { _temperature = T; }
-    double get_temperature(){return _temperature;}
-    void set_stepsize(double stepsize){ _stepsize = stepsize; }
-    void add_action(std::shared_ptr<Action> action) { _actions.push_back(action); }
+    void run(const size_t max_iter);
+    void set_temperature(const double T)
+    {
+        m_temperature = T;
+    }
+    double get_temperature() const
+    {
+        return m_temperature;
+    }
+    void set_stepsize(const double stepsize)
+    {
+        m_stepsize = stepsize;
+    }
+    void add_action(std::shared_ptr<Action> action)
+    {
+        m_actions.push_back(action);
+    }
     void add_accept_test(std::shared_ptr<AcceptTest> accept_test)
     {
-        _accept_tests.push_back(accept_test);
+        m_accept_tests.push_back(accept_test);
     }
     void add_conf_test(std::shared_ptr<ConfTest> conf_test)
     {
-        _conf_tests.push_back(conf_test);
+        m_conf_tests.push_back(conf_test);
     }
     void add_late_conf_test(std::shared_ptr<ConfTest> conf_test)
     {
-        _late_conf_tests.push_back(conf_test);
+        m_late_conf_tests.push_back(conf_test);
     }
     void set_takestep(std::shared_ptr<TakeStep> takestep)
     {
-        _take_step = takestep;
+        m_take_step = takestep;
     }
     void set_coordinates(pele::Array<double>& coords, double energy)
     {
-        _coords = coords.copy();
-        _energy = energy;
+        m_coords = coords.copy();
+        m_energy = energy;
     }
-    double get_energy() const { return _energy; }
+    double get_energy() const
+    {
+        return m_energy;
+    }
     //this function is necessary if for example some potential parameter has been varied
     void reset_energy()
     {
-        if(_niter > 0){
+        if(m_niter > 0){
             throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
         }
-        _energy = compute_energy(_coords);
+        m_energy = compute_energy(m_coords);
     }
-    double get_trial_energy() const { return _trial_energy; }
-    pele::Array<double> get_coords() const { return _coords.copy(); }
-    pele::Array<double> get_trial_coords() const { return _trial_coords.copy(); }
-    double get_norm_coords() const { return norm(_coords); }
-    size_t get_naccept() const { return _accept_count; };
-    size_t get_nreject() const { return _nitercount - _accept_count; };
-    double get_accepted_fraction() const { return ((double) _accept_count)/_nitercount; };
+    double get_trial_energy() const
+    {
+        return m_trial_energy;
+    }
+    pele::Array<double> get_coords() const
+    {
+        return m_coords.copy();
+    }
+    pele::Array<double> get_trial_coords() const
+    {
+        return m_trial_coords.copy();
+    }
+    double get_norm_coords() const
+    {
+        return norm(m_coords);
+    }
+    size_t get_naccept() const
+    {
+        return m_accept_count;
+    }
+    size_t get_nreject() const
+    {
+        return m_nitercount - m_accept_count;
+    }
+    double get_accepted_fraction() const
+    {
+        return static_cast<double>(m_accept_count) / static_cast<double>(m_nitercount);
+    }
     double get_conf_rejection_fraction() const
     {
-        return ((double)_conf_reject_count)/_nitercount;
+        return static_cast<double>(m_conf_reject_count) / static_cast<double>(m_nitercount);
     }
     double get_E_rejection_fraction() const
     {
-        return ((double)_E_reject_count)/_nitercount;
+        return static_cast<double>(m_E_reject_count) / static_cast<double>(m_nitercount);
     }
-    size_t get_iterations_count() const { return _nitercount; }
-    size_t get_neval() const {return _neval;};
-    double get_stepsize() const {return _stepsize;};
-    std::shared_ptr<pele::BasePotential> get_potential_ptr() { return _potential; }
-    bool take_step_specified() const { return (_steps.size() > 0); }
+    size_t get_iterations_count() const
+    {
+        return m_nitercount;
+    }
+    size_t get_neval() const
+    {
+        return m_neval;
+    }
+    double get_stepsize() const
+    {
+        return m_stepsize;
+    }
+    std::shared_ptr<pele::BasePotential> get_potential_ptr()
+    {
+        return m_potential;
+    }
+    bool take_step_specified() const
+    {
+        return (m_take_step != NULL);
+    }
     void check_input();
-    void set_print_progress(const bool input) { _print_progress=input; }
-    void set_print_progress() { set_print_progress(true); }
-
+    void set_print_progress(const bool input)
+    {
+        m_print_progress = input;
+    }
+    void set_print_progress()
+    {
+        set_print_progress(true);
+    }
+    bool get_success() const
+    {
+        return m_success;
+    }
 protected:
     inline double compute_energy(pele::Array<double> x)
     {
-        ++_neval;
-        return _potential->get_energy(x);
+        ++m_neval;
+        return m_potential->get_energy(x);
     }
     bool do_conf_tests(pele::Array<double> x);
     bool do_accept_tests(pele::Array<double> xtrial, double etrial, pele::Array<double> xold, double eold);

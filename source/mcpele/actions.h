@@ -15,31 +15,6 @@
 
 namespace mcpele{
 
-/*Adjust Step
- *     factor is a multiplicative factor by which the stepsize is adjusted
- *     niter determines the number of steps for which the action should take effect (generally
- *     we want to adjust the step size only at the beginning of a simulation)
- *     navg is the number of steps over which the acceptance is averaged
- *     factor must be 0<f<1, if rejected make step shorter, if accepted make step longer
-*/
-
-class AdjustStep : public Action {
-protected:
-    const double m_target;
-    const double m_factor;
-    double m_acceptedf;
-    const size_t m_niter;
-    const size_t m_navg;
-    size_t m_count;
-    size_t m_naccepted;
-    size_t m_nrejected;
-public:
-    AdjustStep(double target, double factor, size_t niter, size_t navg);
-    virtual ~AdjustStep() {}
-    virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
-};
-
-
 /*
  * Record energy histogram
 */
