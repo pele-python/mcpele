@@ -147,7 +147,8 @@ public:
     size_t get_neval() const { return m_neval; }
     double get_stepsize() const { return m_stepsize; }
     std::shared_ptr<pele::BasePotential> get_potential_ptr() { return m_potential; }
-    bool take_step_specified() const { return m_take_step != NULL && m_report_steps != 0; }
+    bool take_step_specified() const { return m_take_step != NULL; }
+    bool report_steps_specified() const { return get_report_steps() > 0; }
     void check_input();
     void set_print_progress(const bool input) { m_print_progress = input; }
     void set_print_progress() { set_print_progress(true); }
