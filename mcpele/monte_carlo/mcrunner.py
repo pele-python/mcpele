@@ -42,18 +42,18 @@ class Metropolis_MCrunner(_BaseMCRunner):
     """
     def __init__(self, potential, coords, temperature, stepsize, niter, 
                  hEmin=0, hEmax=100, hbinsize=0.01, radius=2.5,
-                 acceptance=0.5, adjustf=0.9, adjustf_niter = 1e4, adjustf_navg = 100, bdim=3):
+                 acceptance=0.5, adjustf=0.9, adjustf_niter=1e4, adjustf_navg=100, bdim=3):
         #construct base class
-        super(Metropolis_MCrunner,self).__init__(potential, coords, temperature,
-                                                  stepsize, niter)
-                               
+        super(Metropolis_MCrunner, self).__init__(potential, coords, temperature, niter)
+        self.set_report_steps(adjustf_niter)
+
         #construct test/action classes       
         i32max = np.iinfo(np.int32).max
         
         self.binsize = hbinsize
         self.histogram = RecordEnergyHistogram(hEmin, hEmax, self.binsize, adjustf_niter)
         #self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.step = RandomCoordsDisplacement(42, stepsize)
+        self.step = RandomCoordsDisplacement(42, stepsize, report_interval=adjustf_navg)
         #self.step = RandomCoordsDisplacement(np.random.randint(i32max))
         self.metropolis = MetropolisTest(44)
         #self.metropolis = MetropolisTest(np.random.randint(i32max))
@@ -64,7 +64,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.add_accept_test(self.metropolis)
         self.add_conf_test(self.conftest)
         self.add_action(self.histogram)
-        self.add_action(self.adjust_step)
+        #self.add_action(self.adjust_step)
         
     def set_control(self, T):
         """set temperature, canonical control parameter"""

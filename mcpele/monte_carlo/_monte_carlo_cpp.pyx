@@ -13,16 +13,14 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     
     # these are stored so that the memory is not freed
     cdef public _pele.BasePotential potential
-    cdef public size_t niter
-    cdef public double temperature
     cdef public start_coords
-
-    def __cinit__(self, pot, coords, temp, pstepsize, pniter, *args, **kwargs):
+    cdef public double temperature
+    cdef public size_t niter
+    def __init__(self, _pele.BasePotential pot, coords, double temp, size_t pniter):
         cdef np.ndarray[double, ndim=1] cstart_coords = np.array(coords, dtype=float)        
         self.potential = pot 
         self.start_coords = cstart_coords
         self.temperature = temp
-        self.stepsize = pstepsize
         self.niter = pniter
                 
         self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(self.potential.thisptr,
@@ -43,6 +41,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     
     def set_takestep(self, _Cdef_TakeStep takestep):
         self.thisptr.get().set_takestep(takestep.thisptr)
+        
+    def set_report_steps(self, size_t steps):
+        self.thisptr.get().set_report_steps(steps)
         
     def set_coordinates(self, coords, energy):
         cdef np.ndarray[double, ndim=1] ccoords = np.array(coords, dtype=float)
@@ -107,7 +108,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.thisptr.get().run(self.niter)
     
     def __reduce__(self):
-        return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.stepsize, self.niter))
+        return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.niter))
 
 class _BaseMCRunner(_Cdef_MC):
     """
@@ -122,9 +123,9 @@ class _BaseMCRunner(_Cdef_MC):
     *set_control *MUST* be overwritten in any derived class
     """
     __metaclass__ = abc.ABCMeta
-    
-    def __init__(self, potential, coords, temperature, stepsize, niter):
-        super(_BaseMCRunner,self).__init__(potential, coords, temperature, stepsize, niter)
+    #super(Metropolis_MCrunner, self).__init__(potential, coords, temperature, niter)
+    def __init__(self, potential, coords, temperature, niter):
+        super(_BaseMCRunner, self).__init__(potential, coords, temperature, niter)
         
         self.ndim = len(coords)
         self.result = Result()
@@ -160,3 +161,4 @@ class _BaseMCRunner(_Cdef_MC):
         status.energy = self.get_energy()
         status.neval = self.get_neval()
         return status
+    

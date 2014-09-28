@@ -37,7 +37,7 @@ class TestMetropolis(unittest.TestCase):
         self.mcrunner.run()
         mean, variance = self.mcrunner.dump_histogram("test_histogram.dat")
         data = np.genfromtxt("test_histogram.dat")
-        print data
+        #print data
         binenergy, hist, mean2, variance2 = self.mcrunner.get_histogram()
         self.assertListEqual(np.ndarray.tolist(binenergy), np.ndarray.tolist(data[:,0]))
         self.assertListEqual(np.ndarray.tolist(hist), np.ndarray.tolist(data[:,1]))

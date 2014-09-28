@@ -127,7 +127,11 @@ void MC::one_iteration()
 
     // perform the actions on the new configuration
     do_actions(m_coords, m_energy, m_success);
+    // adapt stepsize etc.
     if (get_iterations_count() <= m_report_steps) {
+        //std::cout << "reporting\n";
+        //std::cout << "m_report_steps: " << m_report_steps << "\n";
+        //std::cout << "get_iterations_count(): " << get_iterations_count() << "\n";
         m_take_step->report(this);
     }
 }
@@ -163,8 +167,8 @@ void MC::run(size_t max_iter)
     check_input();
     progress stat(max_iter);
     while(m_niter < max_iter) {
-        //std::cout << "done: " << double(_niter)/double(max_iter) <<  "\n";
-        //std::cout << "_niter: " << _niter <<  "\n";
+        //std::cout << "done: " << double(m_niter) / double(max_iter) <<  "\n";
+        //std::cout << "m_niter: " << m_niter <<  "\n";
         //std::cout << "max_iter: " << max_iter <<  "\n";
         this->one_iteration();
         if (m_print_progress) {
