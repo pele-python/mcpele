@@ -144,6 +144,12 @@ class TestMetropolis(unittest.TestCase):
             print cv, cv_true
             
             self.assertLess(abs(cv-cv_true),self.tolerance,'failed for temperature {}, cv = {}'.format(T,cv))
+            
+    def test_composite_moves(self):
+        self.bdim = 2
+        self.ndim = self.natoms*self.bdim
+        self.origin = np.zeros(self.ndim)
+        self.potential = Harmonic(self.origin, self.k, bdim=self.bdim, com=False)
 
 if __name__ == "__main__":
     logging.basicConfig(filename='Metropolis_mcrunner.log',level=logging.DEBUG)

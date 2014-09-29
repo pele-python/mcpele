@@ -13,6 +13,7 @@
 #include "mcpele/energy_window_test.h"
 #include "mcpele/record_energy_histogram.h"
 #include "mcpele/adaptive_takestep.h"
+#include "mcpele/take_step_pattern.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -252,4 +253,14 @@ TEST_F(TestMCMock, LateConfTest_Fails){
     EXPECT_EQ(mc->get_iterations_count(), size_t(10));
     EXPECT_EQ(mc->get_naccept(), size_t(0));
     EXPECT_EQ(mc->get_nreject(), size_t(10));
+}
+
+TEST_F(TestMCMock, PatternStep_Works){
+    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    std::shared_ptr<mcpele::TakeStep> step_pattern = std::make_shared<mcpele::TakeStepPattern>();
+    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts));
+    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 1);
+    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 2);
+    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 42);
+    mc->set_takestep(step_pattern);
 }
