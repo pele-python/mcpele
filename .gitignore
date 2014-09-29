@@ -3,4 +3,5 @@
 *.so
 *.pyc
 *.out
+*.log
 gtest*.zip
