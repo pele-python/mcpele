@@ -1,51 +1,6 @@
-#include <cassert>
-#include <algorithm>
+#include "particle_pair_swap.h"
 
-#include "takestep.h"
-
-namespace mcpele{
-
-RandomCoordsDisplacement::RandomCoordsDisplacement(const size_t rseed, const double stepsize)
-    : m_seed(rseed),
-      m_generator(rseed),
-      m_distribution(0.0, 1.0),
-      m_stepsize(stepsize)
-{
-    #ifdef DEBUG
-        std::cout<<"seed TakeStep:"<<_seed<< "\n";
-    #endif
-}
-
-void RandomCoordsDisplacement::displace(pele::Array<double>& coords, MC* mc)
-{
-    double rand;
-    for (size_t i = 0; i < coords.size(); ++i) {
-        rand = m_distribution(m_generator);
-        coords[i] += (0.5 - rand) * m_stepsize;
-    }
-}
-
-GaussianCoordsDisplacement::GaussianCoordsDisplacement(const size_t rseed, const double stepsize)
-    : m_seed(rseed),
-      m_mean(0.0),
-      m_stdev(1.0),
-      m_generator(rseed),
-      m_distribution(m_mean, m_stdev),
-      m_stepsize(stepsize)
-{
-    #ifdef DEBUG
-        std::cout<<"seed TakeStep:"<<_seed<< "\n";
-    #endif
-}
-
-void GaussianCoordsDisplacement::displace(pele::Array<double>& coords, MC* mc)
-{
-    //assert(coords.size() == _N);
-    for(size_t i = 0; i < coords.size(); ++i){
-        double randz = m_distribution(m_generator); //this is sample from N(0,1)
-        coords[i] += randz * m_stepsize; //here the stepsize plays the same role as the stdev. This is sampled from N(0,stepsize)
-    }
-}
+namespace mcpele {
 
 ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles, const size_t swap_every)
     : m_seed(seed),
@@ -87,6 +42,12 @@ void ParticlePairSwap::swap_coordinates(const size_t particle_a, const size_t pa
     double*const& xa = x + index_a;
     double*const& xb = x + index_b;
     std::swap_ranges(xa, xa + box_dimension, xb);
+}
+
+void ParticlePairSwap::set_generator_seed(const size_t inp)
+{
+    m_generator.seed(inp);
+    m_seed = inp;
 }
 
 } // namespace mcpele
