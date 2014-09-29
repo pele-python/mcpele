@@ -8,7 +8,7 @@
 
 #include "pele/harmonic.h"
 
-#include "mcpele/takestep.h"
+#include "mcpele/random_coords_displacement_adaptive.h"
 #include "mcpele/metropolis_test.h"
 #include "mcpele/energy_window_test.h"
 #include "mcpele/record_energy_histogram.h"

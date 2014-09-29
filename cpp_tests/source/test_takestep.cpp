@@ -4,10 +4,8 @@
 #include <vector>
 #include <gtest/gtest.h>
 
-#include "pele/array.h"
-
 #include "mcpele/mc.h"
-#include "mcpele/takestep.h"
+#include "mcpele/random_coords_displacement.h"
 
 using pele::Array;
 

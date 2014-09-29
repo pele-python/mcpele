@@ -2,7 +2,6 @@
 #define _MCPELE_ADAPTIVE_TAKESTEP_H__
 
 #include "mcpele/mc.h"
-#include "mcpele/takestep.h"
 
 namespace mcpele {
 

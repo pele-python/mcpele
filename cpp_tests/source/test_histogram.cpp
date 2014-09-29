@@ -7,7 +7,8 @@
 
 #include "pele/array.h"
 
-#include "mcpele/takestep.h"
+#include "mcpele/random_coords_displacement.h"
+#include "mcpele/gaussian_coords_displacement.h"
 #include "mcpele/histogram.h"
 
 using pele::Array;
