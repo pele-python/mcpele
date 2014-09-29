@@ -6,8 +6,7 @@
 #include <utility>
 #include <gtest/gtest.h>
 
-#include "mcpele/actions.h"
-#include "mcpele/mc.h"
+#include "mcpele/record_pair_dist_histogram.h"
 
 using pele::Array;
 

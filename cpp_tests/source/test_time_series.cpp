@@ -10,7 +10,9 @@
 #include "pele/hs_wca.h"
 #include "pele/lj.h"
 
-#include "mcpele/actions.h"
+#include "mcpele/record_energy_timeseries.h"
+#include "mcpele/record_displacement_per_particle_timeseries.h"
+#include "mcpele/record_lowest_evalue_timeseries.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 

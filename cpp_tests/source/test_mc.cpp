@@ -11,8 +11,7 @@
 #include "mcpele/takestep.h"
 #include "mcpele/metropolis_test.h"
 #include "mcpele/energy_window_test.h"
-#include "mcpele/actions.h"
-#include "mcpele/mc.h"
+#include "mcpele/record_energy_histogram.h"
 #include "mcpele/adaptive_takestep.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
