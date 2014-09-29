@@ -118,6 +118,11 @@ void MC::one_iteration()
         m_success = do_late_conf_tests(m_trial_coords);
     }
 
+    // adapt stepsize etc.
+    if (get_iterations_count() <= m_report_steps) {
+        m_take_step->report(m_coords, m_energy, m_trial_coords, m_trial_energy, m_success, this);
+    }
+
     // if the step is accepted, copy the coordinates and energy
     if (m_success) {
         m_coords.assign(m_trial_coords);
@@ -127,13 +132,6 @@ void MC::one_iteration()
 
     // perform the actions on the new configuration
     do_actions(m_coords, m_energy, m_success);
-    // adapt stepsize etc.
-    if (get_iterations_count() <= m_report_steps) {
-        //std::cout << "reporting\n";
-        //std::cout << "m_report_steps: " << m_report_steps << "\n";
-        //std::cout << "get_iterations_count(): " << get_iterations_count() << "\n";
-        m_take_step->report(this);
-    }
 }
 
 void MC::check_input(){

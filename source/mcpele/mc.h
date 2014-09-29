@@ -60,12 +60,14 @@ class TakeStep {
 public:
     virtual ~TakeStep() {}
     virtual void displace(pele::Array<double>& coords, MC* mc) = 0;
-    virtual void report(const MC* mc) {}
+    virtual void report(pele::Array<double>& old_coords,
+            const double old_energy, pele::Array<double>& new_coords,
+            const double new_energy, const bool success, MC* mc) {}
     virtual void increase_acceptance() {}
     virtual void decrease_acceptance() {}
 };
 
-/*
+/**
  * Monte Carlo
  * _coords and _trialcoords are arrays that store coordinates and trial coordinates respectively
  * _potential is on object of Pele::BasePotential type that defines the interaction potential
@@ -74,7 +76,6 @@ public:
  * _niter is the count of steps whithin a MCMC run, it is reset to zero at the end of the run
  * _nitercount is the cumulative number of MCMC steps taken by the class
  * _neval is the number of energy evaluations
- * _stepsize the is the stepsize to pass to takestep
  * _temperature is the temperature at which the simulation is performed
  * _energy is the current energy of the system
  * _success records whether the step has been accepted or rejected

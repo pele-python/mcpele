@@ -14,9 +14,4 @@ void TakeStepPattern::displace(pele::Array<double>& coords, MC* mc)
     ++m_step_pattern;
 }
 
-void TakeStepPattern::report(const MC* mc)
-{
-    get_step().report(mc);
-}
-
 } // namespace mcpele
