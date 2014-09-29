@@ -1,5 +1,5 @@
-#ifndef _MCPELE_CONF_TEST_H__
-#define _MCPELE_CONF_TEST_H__
+#ifndef _MCPELE_CHECK_SPHERICAL_CONTAINER_H__
+#define _MCPELE_CHECK_SPHERICAL_CONTAINER_H__
 
 #include <iostream>
 #include <cmath>
@@ -10,9 +10,10 @@
 #include "pele/array.h"
 #include "pele/optimizer.h"
 #include "pele/distance.h"
+
 #include "mc.h"
 
-namespace mcpele{
+namespace mcpele {
 
 class CheckSphericalContainer : public ConfTest {
 protected:
@@ -26,4 +27,4 @@ public:
 
 } // namespace mcpele
 
-#endif // #ifndef _MCPELE_CONF_TEST_H__
+#endif // #ifndef _MCPELE_CHECK_SPHERICAL_CONTAINER_H__

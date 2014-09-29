@@ -1,4 +1,4 @@
-#include "conf_test.h"
+#include "check_spherical_container.h"
 
 using std::runtime_error;
 using pele::Array;
