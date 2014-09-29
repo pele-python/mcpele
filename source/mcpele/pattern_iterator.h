@@ -5,6 +5,8 @@
 #include <utility>
 #include <stdexcept>
 
+#include "mc.h"
+
 namespace mcpele {
 
 template <class T>
@@ -13,7 +15,7 @@ public:
     typedef typename std::vector<std::pair<size_t, T> > vec_t;
 private:
     vec_t m_repetitions_indices;
-    vec_t::const_iterator m_current;
+    typename vec_t::const_iterator m_current;
     size_t m_current_count;
     bool m_initialized;
 public:
@@ -38,13 +40,13 @@ public:
         if (every_input < 1) {
             throw std::range_error("PatternIterator::add: illegal input");
         }
-        m_repetitions.push_back(std::make_pair(every_input, index_input));
+        m_repetitions_indices.push_back(std::make_pair(every_input, index_input));
         m_current = m_repetitions_indices.begin();
         if (!m_initialized) {
             m_initialized = true;
         }
     }
-    T get_step_idx() const ()
+    T get_step_idx() const
     {
         if (!m_initialized) {
             throw std::runtime_error("PatternIterator::get_step_idx: illegal access");

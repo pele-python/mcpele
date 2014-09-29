@@ -1,7 +1,6 @@
 #ifndef _MCPELE_TAKE_STEP_PATTERN_H__
 #define _MCPELE_TAKE_STEP_PATTERN_H__
 
-#include "mc.h"
 #include "pattern_iterator.h"
 
 namespace mcpele {
@@ -16,9 +15,8 @@ public:
     void displace(pele::Array<double>& coords, MC* mc);
     void report(pele::Array<double>& old_coords, const double old_energy,
             pele::Array<double>& new_coords, const double new_energy,
-            const bool success, MC* mc) { get_step().report(old_coords,
-                    old_energy, new_coords, new_energy, success, mc); }
-    std::shared_ptr<TakeStep> get_step() const { return m_steps.get_step_idx(); }
+            const bool success, MC* mc) { m_steps.get_step_idx()->report(
+                    old_coords, old_energy, new_coords, new_energy, success, mc); }
 };
 
 } // namespace mcpele

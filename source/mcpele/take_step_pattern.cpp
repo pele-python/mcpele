@@ -4,8 +4,8 @@ namespace mcpele {
 
 void TakeStepPattern::displace(pele::Array<double>& coords, MC* mc)
 {
-    get_step().displace(coords, mc);
-    ++m_step_pattern;
+    m_steps.get_step_idx()->displace(coords, mc);
+    ++m_steps;
 }
 
 } // namespace mcpele
