@@ -8,7 +8,7 @@ cdef extern from "mcpele/random_coords_displacement.h" namespace "mcpele":
         
 cdef extern from "mcpele/random_coords_displacement_adaptive.h" namespace "mcpele":
     cdef cppclass cppRandomCoordsDisplacementAdaptive "mcpele::RandomCoordsDisplacementAdaptive":
-        cppRandomCoordsDisplacementAdaptive(const size_t, const double, const double, const double, const double) except +
+        cppRandomCoordsDisplacementAdaptive(const size_t, const double) except +
         size_t get_seed() except +
         void set_generator_seed(const size_t) except +
     
@@ -26,4 +26,5 @@ cdef extern from "mcpele/particle_pair_swap.h" namespace "mcpele":
         
 cdef extern from "mcpele/adaptive_takestep.h" namespace "mcpele":
     cdef cppclass cppAdaptiveTakeStep "mcpele::AdaptiveTakeStep":
-        cppAdaptiveTakeStep(shared_ptr[cppTakeStep], const size_t) except +
+        cppAdaptiveTakeStep(shared_ptr[cppTakeStep], const size_t, const double,
+                            const double, const double) except +
