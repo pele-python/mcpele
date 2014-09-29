@@ -63,8 +63,6 @@ public:
     virtual void report(const MC* mc) {}
     virtual void increase_acceptance() {}
     virtual void decrease_acceptance() {}
-    virtual double get_min_acceptance_ratio() const { return 0.2; }
-    virtual double get_max_acceptance_ratio() const { return 0.5; }
 };
 
 /*
