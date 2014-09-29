@@ -2,11 +2,16 @@
 
 namespace mcpele {
 
-AdaptiveTakeStep::AdaptiveTakeStep(std::shared_ptr<TakeStep> ts, const size_t interval)
+AdaptiveTakeStep::AdaptiveTakeStep(std::shared_ptr<TakeStep> ts,
+        const size_t interval, const double factor,
+        const double min_acceptance_ratio, const double max_acceptance_ratio)
     : m_ts(ts),
       m_interval(interval),
       m_total_steps(0),
-      m_accepted_steps(0)
+      m_accepted_steps(0),
+      m_factor(factor),
+      m_min_acceptance_ratio(min_acceptance_ratio),
+      m_max_acceptance_ratio(max_acceptance_ratio)
 {}
 
 void AdaptiveTakeStep::report(pele::Array<double>& old_coords,
@@ -22,10 +27,10 @@ void AdaptiveTakeStep::report(pele::Array<double>& old_coords,
         m_accepted_steps = 0;
         m_total_steps = 0;
         if (acceptance_fraction < get_min_acceptance_ratio()) {
-            m_ts->increase_acceptance();
+            m_ts->increase_acceptance(m_factor);
         }
         else if (acceptance_fraction > get_max_acceptance_ratio()) {
-            m_ts->decrease_acceptance();
+            m_ts->decrease_acceptance(m_factor);
         }
     }
 }

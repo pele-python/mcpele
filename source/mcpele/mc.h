@@ -63,8 +63,8 @@ public:
     virtual void report(pele::Array<double>& old_coords,
             const double old_energy, pele::Array<double>& new_coords,
             const double new_energy, const bool success, MC* mc) {}
-    virtual void increase_acceptance() {}
-    virtual void decrease_acceptance() {}
+    virtual void increase_acceptance(const double factor) {}
+    virtual void decrease_acceptance(const double factor) {}
 };
 
 /**
