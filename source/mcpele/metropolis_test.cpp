@@ -1,9 +1,11 @@
-#include "accept_test.h"
+#include "metropolis_test.h"
 
-using std::runtime_error;
+#include <cmath>
+//#include <chrono>
+
 using pele::Array;
 
-namespace mcpele{
+namespace mcpele {
 
 MetropolisTest::MetropolisTest(const size_t rseed)
     : m_seed(rseed),
@@ -17,7 +19,7 @@ MetropolisTest::MetropolisTest(const size_t rseed)
 }
 
 bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
-        Array<double>& old_coords, double old_energy, double temperature, 
+        Array<double>& old_coords, double old_energy, double temperature,
         MC * mc)
 {
     double rand;
@@ -35,19 +37,4 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
     return success;
 }
 
-/*ENERGY WINDOW TEST
- * this test checks that the energy of the system stays within a certain energy window
- */
-EnergyWindowTest::EnergyWindowTest(const double min_energy, const double max_energy)
-    : m_min_energy(min_energy),
-      m_max_energy(max_energy)
-{}
-
-bool EnergyWindowTest::test(Array<double> &trial_coords, double trial_energy,
-    Array<double> & old_coords, double old_energy, double temperature, 
-    MC * mc)
-{
-    return ((trial_energy >= m_min_energy) and (trial_energy <= m_max_energy));
-}
-
-}//namespace mcpele
+} // namespace mcpele

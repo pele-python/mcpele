@@ -9,7 +9,8 @@
 #include "pele/harmonic.h"
 
 #include "mcpele/takestep.h"
-#include "mcpele/accept_test.h"
+#include "mcpele/metropolis_test.h"
+#include "mcpele/energy_window_test.h"
 #include "mcpele/actions.h"
 #include "mcpele/mc.h"
 #include "mcpele/adaptive_takestep.h"
