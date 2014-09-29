@@ -1,5 +1,5 @@
-#ifndef _MCPELE_PATTERN_ITERATOR_H__
-#define _MCPELE_PATTERN_ITERATOR_H__
+#ifndef _MCPELE_PATTERN_MANAGER_H__
+#define _MCPELE_PATTERN_MANAGER_H__
 
 #include <vector>
 #include <utility>
@@ -10,7 +10,7 @@
 namespace mcpele {
 
 template <class T>
-class PatternIterator {
+class PatternManager {
 public:
     typedef typename std::vector<std::pair<size_t, T> > vec_t;
 private:
@@ -19,11 +19,11 @@ private:
     size_t m_current_count;
     bool m_initialized;
 public:
-    virtual ~PatternIterator() {}
-    PatternIterator()
+    virtual ~PatternManager() {}
+    PatternManager()
         : m_initialized(false)
     {}
-    const PatternIterator& operator ++ ()
+    const PatternManager& operator ++ ()
     {
         if (m_current_count == 0) {
             ++m_current;
@@ -38,7 +38,7 @@ public:
     void add(const T index_input, const size_t every_input=1)
     {
         if (every_input < 1) {
-            throw std::range_error("PatternIterator::add: illegal input");
+            throw std::range_error("PatternManager::add: illegal input");
         }
         m_repetitions_indices.push_back(std::make_pair(every_input, index_input));
         m_current = m_repetitions_indices.begin();
@@ -46,10 +46,10 @@ public:
             m_initialized = true;
         }
     }
-    T get_step_idx() const
+    T get_step_index() const
     {
         if (!m_initialized) {
-            throw std::runtime_error("PatternIterator::get_step_idx: illegal access");
+            throw std::runtime_error("PatternManager::get_step_index: illegal access");
         }
         return m_current->second;
     }
@@ -57,4 +57,4 @@ public:
 
 } // namespace mcpele
 
-#endif // #ifndef _MCPELE_PATTERN_ITERATOR_H__
+#endif // #ifndef _MCPELE_PATTERN_MANAGER_H__

@@ -28,3 +28,8 @@ cdef extern from "mcpele/adaptive_takestep.h" namespace "mcpele":
     cdef cppclass cppAdaptiveTakeStep "mcpele::AdaptiveTakeStep":
         cppAdaptiveTakeStep(shared_ptr[cppTakeStep], const size_t, const double,
                             const double, const double) except +
+                            
+cdef extern from "mcpele/take_step_pattern.h" namespace "mcpele":
+    cdef cppclass cppTakeStepPattern "mcpele::TakeStepPattern":
+        cppTakeStepPattern() except +
+        void add_step(shared_ptr[cppTakeStep], const size_t)

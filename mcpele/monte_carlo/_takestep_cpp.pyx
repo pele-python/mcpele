@@ -86,3 +86,19 @@ class ParticlePairSwap(_Cdef_ParticlePairSwap):
     """
     Python interface for c++ ParticlePairSwap
     """
+    
+#
+# TakeStepPattern
+#
+
+cdef class _Cdef_TakeStepPattern(_Cdef_TakeStep):
+    """
+    Python interface for c++ TakeStepPattern
+    """
+    cdef cppTakeStepPattern* newptr
+    def __cinit__(self):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppTakeStepPattern())
+        self.newptr = <cppTakeStepPattern*> self.thisptr.get()
+    
+    cdef add_step(self, shared_ptr[cppTakeStep] step, const size_t every):
+        self.newptr.add_step(step, every)
