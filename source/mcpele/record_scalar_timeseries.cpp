@@ -1,4 +1,5 @@
 #include "record_scalar_timeseries.h"
+#include "moving_average.h"
 
 using pele::Array;
 
