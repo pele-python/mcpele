@@ -1,5 +1,5 @@
-#include "mc.h"
-#include "progress.h"
+#include "mcpele/mc.h"
+#include "mcpele/progress.h"
 
 using pele::Array;
 

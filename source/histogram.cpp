@@ -1,4 +1,4 @@
-#include "histogram.h"
+#include "mcpele/histogram.h"
 
 namespace mcpele{
 

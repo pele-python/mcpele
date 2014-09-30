@@ -1,4 +1,4 @@
-#include "metropolis_test.h"
+#include "mcpele/metropolis_test.h"
 
 #include <cmath>
 //#include <chrono>

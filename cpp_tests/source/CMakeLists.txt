@@ -21,7 +21,7 @@ include_directories(${mcpele_include})
 message("mcpele include directory ${mcpele_include}")
 
 # build the mcpele library
-FILE(GLOB mcpele_sources ${mcpele_include}/mcpele/*.cpp)
+FILE(GLOB mcpele_sources ${mcpele_include}/*.cpp)
 add_library(mcpele_lib ${mcpele_sources})
 
 # set the pele include directory
