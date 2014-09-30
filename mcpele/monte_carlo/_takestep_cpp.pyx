@@ -23,6 +23,9 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
         
+    def get_stepsize(self):
+        return self.newptr.get_stepsize()
+        
 class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
     """This class is the python interface for the c++ RandomCoordsDisplacement implementation.
     """
