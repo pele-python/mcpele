@@ -105,3 +105,8 @@ cdef class _Cdef_TakeStepPattern(_Cdef_TakeStep):
     
     cdef add_step(self, shared_ptr[cppTakeStep] step, const size_t nr_repetitions):
         self.newptr.add_step(step, nr_repetitions)
+
+class TakeStepPattern(_Cdef_TakeStepPattern):
+    """
+    Python interface for c++ TakeStepPattern
+    """
