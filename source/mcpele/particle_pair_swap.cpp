@@ -2,23 +2,19 @@
 
 namespace mcpele {
 
-ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles, const size_t swap_every)
+ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles)
     : m_seed(seed),
       m_generator(seed),
       m_distribution(0, nr_particles - 1),
-      m_nr_particles(nr_particles),
-      m_swap_every(swap_every)
+      m_nr_particles(nr_particles)
 {
-    if (nr_particles * swap_every == 0) {
+    if (nr_particles == 0) {
         throw std::runtime_error("ParticlePairSwap: illegal input");
     }
 }
 
 void ParticlePairSwap::displace(pele::Array<double>& coords, MC* mc)
 {
-    if (mc->get_iterations_count() % m_swap_every != 0) {
-        return;
-    }
     size_t particle_a = 42;
     size_t particle_b = 42;
     while (particle_a == particle_b) {

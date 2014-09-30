@@ -73,8 +73,8 @@ cdef class _Cdef_ParticlePairSwap(_Cdef_TakeStep):
         swap_every move.
     """
     cdef cppParticlePairSwap* newptr
-    def __cinit__(self, seed, nr_particles, swap_every):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppParticlePairSwap(seed, nr_particles, swap_every))
+    def __cinit__(self, seed, nr_particles):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppParticlePairSwap(seed, nr_particles))
         self.newptr = <cppParticlePairSwap*> self.thisptr.get()
 
     def get_seed(self):
@@ -103,5 +103,5 @@ cdef class _Cdef_TakeStepPattern(_Cdef_TakeStep):
         self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppTakeStepPattern())
         self.newptr = <cppTakeStepPattern*> self.thisptr.get()
     
-    cdef add_step(self, shared_ptr[cppTakeStep] step, const size_t every):
-        self.newptr.add_step(step, every)
+    cdef add_step(self, shared_ptr[cppTakeStep] step, const size_t nr_repetitions):
+        self.newptr.add_step(step, nr_repetitions)
