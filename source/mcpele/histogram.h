@@ -28,67 +28,74 @@ public:
     typedef double data_t;
     typedef size_t index_t;
 private:
-    data_t _mean;
-    data_t _mean2;
-    index_t _count;
+    data_t m_mean;
+    data_t m_mean2;
+    index_t m_count;
 public:
-    Moments():_mean(0), _mean2(0), _count(0) {}
+    Moments()
+        : m_mean(0),
+          m_mean2(0),
+          m_count(0)
+    {}
     void update(const data_t input)
     {
-        _mean = (_mean * _count + input) / (_count + 1);
-        _mean2 = (_mean2 * _count + (input * input)) / (_count + 1);
-        if (_count == std::numeric_limits<index_t>::max()) {
+        m_mean = (m_mean * m_count + input) / (m_count + 1);
+        m_mean2 = (m_mean2 * m_count + (input * input)) / (m_count + 1);
+        if (m_count == std::numeric_limits<index_t>::max()) {
             throw std::runtime_error("Moments: update: integer overflow");
         }
-        ++_count;
+        ++m_count;
     }
-
-    /*replace a data point with another one*/
-    void replace(data_t old_data, data_t new_data)
+    /**
+     * replace a data point with another one
+     */
+    void replace(const data_t old_data, const data_t new_data)
     {
-        _mean += (new_data-old_data)/_count;
-        _mean2 += (new_data*new_data - old_data*old_data)/_count;
+        m_mean += (new_data - old_data) / m_count;
+        m_mean2 += (new_data * new_data - old_data * old_data) / m_count;
     }
-
-    void operator() (const data_t input){ update(input); }
-    index_t count() const { return _count; }
-    data_t mean() const { return _mean; }
-    data_t variance() const{ return (_mean2 - _mean * _mean); }
+    void operator() (const data_t input) { update(input); }
+    index_t count() const { return m_count; }
+    data_t mean() const { return m_mean; }
+    data_t variance() const { return (m_mean2 - m_mean * m_mean); }
     data_t std() const { return sqrt(variance()); }
 };
 
 class Histogram{
 private:
-    double _max, _min, _bin, _eps;
-    int _N;
-    std::vector<double> _hist;
-    int _niter;
-    Moments moments;
+    double m_max;
+    double m_min;
+    double m_bin;
+    double m_eps;
+    int m_N;
+    std::vector<double> m_hist;
+    int m_niter;
+    Moments m_moments;
 public:
-    Histogram(double min, double max, double bin);
+    Histogram(const double min, const double max, const double bin);
     ~Histogram() {}
     void add_entry(double entry);
-    double max() const {return _max;}
-    double min() const {return _min;}
-    double bin() const {return _bin;}
-    size_t size() const {return _N;}
-    int entries() const {return _niter;}
-    double get_mean() const {return moments.mean();}
-    double get_variance() const {return moments.variance();}
-    std::vector<double>::iterator begin(){return _hist.begin();}
-    std::vector<double>::iterator end(){return _hist.end();}
-    double get_position(const size_t bin_index) const {return _min + (0.5 + bin_index) * _bin;}
-    std::vector<double> get_vecdata() const {return _hist;}
-    double get_entry(const size_t bin_index) const {return _hist.at(bin_index);}
+    double max() const { return m_max; }
+    double min() const { return m_min; }
+    double bin() const { return m_bin; }
+    size_t size() const { return m_N; }
+    int entries() const { return m_niter; }
+    double get_mean() const { return m_moments.mean(); }
+    double get_variance() const { return m_moments.variance(); }
+    std::vector<double>::iterator begin(){return m_hist.begin(); }
+    std::vector<double>::iterator end(){return m_hist.end(); }
+    double get_position(const size_t bin_index) const { return m_min + (0.5 + bin_index) * m_bin; }
+    std::vector<double> get_vecdata() const {return m_hist; }
+    double get_entry(const size_t bin_index) const { return m_hist.at(bin_index); }
     std::vector<double> get_vecdata_error() const;
-    void print_terminal(size_t ntot) const 
+    void print_terminal(const size_t ntot) const
     {
-        for(size_t i = 0; i < _hist.size(); ++i) {
+        for(size_t i = 0; i < m_hist.size(); ++i) {
             std::cout << i << "-" << (i + 1) << ": ";
-            std::cout << std::string(_hist[i] * 10000 / ntot, '*') <<  "\n";
+            std::cout << std::string(m_hist[i] * 10000 / ntot, '*') <<  "\n";
         }
     };
-    void resize(double E, int i);
+    void resize(const double E, const int i);
 };
 
 }//namespace mcpele

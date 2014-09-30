@@ -6,16 +6,16 @@
 namespace mcpele{
 
 
-class GetMeanRMSDisplacement{
+class GetDisplacementPerParticle{
 private:
     pele::Array<double> m_initial_coordinates;
     const size_t m_boxdimension;
     const size_t m_nr_particles;
 public:
-    virtual ~GetMeanRMSDisplacement(){}
-    GetMeanRMSDisplacement(pele::Array<double>, const size_t);
-    double compute_mean_rsm_displacement(pele::Array<double>);
-    double get_particle_rsm_displ(const size_t, pele::Array<double>);
+    virtual ~GetDisplacementPerParticle(){}
+    GetDisplacementPerParticle(pele::Array<double>, const size_t);
+    double compute_mean_particle_displacement(pele::Array<double>);
+    double get_particle_displ(const size_t, pele::Array<double>);
 };
 
 

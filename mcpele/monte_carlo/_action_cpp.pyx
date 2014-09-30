@@ -8,22 +8,6 @@ import numpy as np
 import sys
 
 #===============================================================================
-# Adjust step size
-#===============================================================================
-        
-cdef class _Cdef_AdjustStep(_Cdef_Action):
-    """This class is the python interface for the c++ pele::AdjustStep action class implementation
-    """
-    cdef cppAdjustStep* newptr
-    def __cinit__(self, target, factor, niter, navg):
-        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppAdjustStep(target, factor, niter, navg))
-        self.newptr = <cppAdjustStep*> self.thisptr.get()
-        
-class AdjustStep(_Cdef_AdjustStep):
-    """This class is the python interface for the c++ AdjustStep implementation.
-    """
-
-#===============================================================================
 # Record Energy Histogram
 #===============================================================================        
 
@@ -201,21 +185,21 @@ class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
     """
     
 #===============================================================================
-# RecordMeanRMSDisplacementTimeseries
+# RecordDisplacementPerParticleTimeseries
 #===============================================================================
         
-cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
-    """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries action class implementation
+cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
+    """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries action class implementation
     """
-    cdef cppRecordMeanRMSDisplacementTimeseries* newptr
+    cdef cppRecordDisplacementPerParticleTimeseries* newptr
     cdef initial
     def __cinit__(self, niter, record_every, initial, boxdimension):
         cdef np.ndarray[double, ndim=1] initialc = initial
         self.thisptr = shared_ptr[cppAction](<cppAction*> new 
-                 cppRecordMeanRMSDisplacementTimeseries(niter, record_every,
-                                                        _pele.Array[double](<double*> initialc.data, initialc.size),
-                                                        boxdimension))
-        self.newptr = <cppRecordMeanRMSDisplacementTimeseries*> self.thisptr.get()
+                 cppRecordDisplacementPerParticleTimeseries(niter, record_every,
+                                                            _pele.Array[double](<double*> initialc.data, initialc.size), 
+                                                            boxdimension))
+        self.newptr = <cppRecordDisplacementPerParticleTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -234,6 +218,6 @@ cdef class _Cdef_RecordMeanRMSDisplacementTimeseries(_Cdef_Action):
         """clears time series"""
         self.newptr.clear()
     
-class RecordMeanRMSDisplacementTimeseries(_Cdef_RecordMeanRMSDisplacementTimeseries):
-    """This class is the python interface for the c++ RecordMeanRMSDisplacementTimeseries implementation.
+class RecordDisplacementPerParticleTimeseries(_Cdef_RecordDisplacementPerParticleTimeseries):
+    """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries implementation.
     """

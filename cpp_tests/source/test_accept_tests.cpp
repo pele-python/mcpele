@@ -6,7 +6,7 @@
 
 #include "pele/array.h"
 
-#include "mcpele/accept_test.h"
+#include "mcpele/energy_window_test.h"
 
 TEST(EnergyWindow, Works){
     double emin = 1.;
