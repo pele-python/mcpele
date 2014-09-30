@@ -272,11 +272,11 @@ TEST_F(TestMCMock, LateConfTest_Fails){
 }
 
 TEST_F(TestMCMock, PatternStep_Works){
-    std::shared_ptr<TrivialPotential> pot = std::make_shared<TrivialPotential>();
-    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(pot, x0, 1);
-    std::shared_ptr<mcpele::TakeStepPattern> step_pattern = std::make_shared<mcpele::TakeStepPattern>();
-    std::shared_ptr<TrivialTakestepMessage> ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
-    std::shared_ptr<TrivialTakestepMessage> ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    auto step_pattern = std::make_shared<mcpele::TakeStepPattern>();
+    auto ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
+    auto ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
     step_pattern->add_step(ts0);
     step_pattern->add_step(ts1, 2);
     //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 1);
