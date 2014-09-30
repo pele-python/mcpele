@@ -6,6 +6,7 @@
 
 #include "mcpele/mc.h"
 #include "mcpele/random_coords_displacement.h"
+#include "mcpele/particle_pair_swap.h"
 
 using pele::Array;
 
@@ -29,7 +30,7 @@ public:
         ndof = 33;
         coor = Array<double>(ndof);
         for (size_t i = 0; i < ndof; ++i) {
-            coor[i] = 4242;
+            coor[i] = 4242 + i;
         }
         reference = coor.copy();
         stepsize = 0.1;
@@ -67,5 +68,31 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterationsReAllocate){
     }
     for (size_t i = 0; i < ndof; ++i){
         EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
+    }
+}
+
+TEST_F(TakeStepTest, PairSwapWorks){
+    const size_t box_dimension = 3;
+    const size_t nr_particles = ndof / box_dimension;
+    mcpele::ParticlePairSwap swap(42, nr_particles, 1);
+    auto coor1 = coor.copy();
+    auto coor2 = coor.copy();
+    const size_t a = 1;
+    const size_t b = 4;
+    swap.swap_coordinates(a, b, coor1);
+    for (size_t i = 0; i < ndof; ++i) {
+        if (i >= a * box_dimension && i < (a + 1) * box_dimension) {
+            EXPECT_DOUBLE_EQ(coor1[i], coor[(i + b * box_dimension) - a * box_dimension]);
+        }
+        else if (i >= b * box_dimension && i < (b + 1) * box_dimension) {
+            EXPECT_DOUBLE_EQ(coor1[i], coor[(i + a * box_dimension) - b * box_dimension]);
+        }
+        else {
+            EXPECT_DOUBLE_EQ(coor1[i], coor[i]);
+        }
+    }
+    swap.swap_coordinates(8, 8, coor2);
+    for (size_t i = 0; i < ndof; ++i) {
+        EXPECT_DOUBLE_EQ(coor2[i], coor[i]);
     }
 }
