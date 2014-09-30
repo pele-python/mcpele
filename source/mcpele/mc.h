@@ -125,6 +125,7 @@ public:
     void add_conf_test(std::shared_ptr<ConfTest> conf_test) { m_conf_tests.push_back(conf_test); }
     void add_late_conf_test(std::shared_ptr<ConfTest> conf_test) { m_late_conf_tests.push_back(conf_test); }
     void set_takestep(std::shared_ptr<TakeStep> takestep) { m_take_step = takestep; }
+    std::shared_ptr<TakeStep> get_takestep() const { return m_take_step; }
     void set_coordinates(pele::Array<double>& coords, double energy);
     double get_energy() const { return m_energy; }
     void reset_energy();
