@@ -275,9 +275,12 @@ TEST_F(TestMCMock, PatternStep_Works){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
     auto step_pattern = std::make_shared<mcpele::TakeStepPattern>();
-    auto ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
-    auto ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
-    auto ts2 = std::make_shared<TrivialTakestepMessage>("hello 02");
+    //auto ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
+    //auto ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
+    //auto ts2 = std::make_shared<TrivialTakestepMessage>("hello 02");
+    auto ts0 = std::make_shared<TrivialTakestep>();
+    auto ts1 = std::make_shared<TrivialTakestep>();
+    auto ts2 = std::make_shared<TrivialTakestep>();
     const size_t repetitions0 = 1;
     const size_t repetitions1 = 2;
     const size_t repetitions2 = 42;
@@ -300,5 +303,31 @@ TEST_F(TestMCMock, PatternStep_Works){
     for (size_t i = 0; i < actual_pattern.size(); ++i) {
         EXPECT_EQ(actual_pattern.at(i), expected_pattern.at(i));
     }
+}
+
+TEST_F(TestMCMock, AdaptiveTakeStep_WorksDown){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    mc->add_accept_test(std::make_shared<TrivialAcceptTest>(false));
+    mcpele::RandomCoordsDisplacementAdaptive* rs = new  mcpele::RandomCoordsDisplacementAdaptive(42, 1);
+    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAdaptive>(rs), 100, 0.8);
+    mc->set_takestep(astep);
+    const size_t nr_iterations = 1e3;
+    mc->set_report_steps(nr_iterations);
+    mc->run(nr_iterations);
+    EXPECT_DOUBLE_EQ(rs->get_stepsize(), pow(0.8, 10));
+}
+
+TEST_F(TestMCMock, AdaptiveTakeStep_WorksUp){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    mc->add_accept_test(std::make_shared<TrivialAcceptTest>(true));
+    mcpele::RandomCoordsDisplacementAdaptive* rs = new  mcpele::RandomCoordsDisplacementAdaptive(42, 1);
+    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAdaptive>(rs), 100, 0.8);
+    mc->set_takestep(astep);
+    const size_t nr_iterations = 1e3;
+    mc->set_report_steps(nr_iterations);
+    mc->run(nr_iterations);
+    EXPECT_DOUBLE_EQ(rs->get_stepsize(), 1/pow(0.8, 10));
 }
 

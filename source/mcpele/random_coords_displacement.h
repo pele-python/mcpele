@@ -26,6 +26,7 @@ public:
     size_t get_seed() const {return m_seed;}
     void set_generator_seed(const size_t inp) { m_generator.seed(inp); }
     double expected_mean() const { return 0; }
+    double get_stepsize() const { return m_stepsize; }
     /**
      * Reference: http://mathworld.wolfram.com/UniformDistribution.html
      */
