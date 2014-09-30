@@ -103,8 +103,8 @@ cdef class _Cdef_TakeStepPattern(_Cdef_TakeStep):
         self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppTakeStepPattern())
         self.newptr = <cppTakeStepPattern*> self.thisptr.get()
     
-    cdef add_step(self, shared_ptr[cppTakeStep] step, const size_t nr_repetitions):
-        self.newptr.add_step(step, nr_repetitions)
+    def add_step(self, _Cdef_TakeStep step, nr_repetitions):
+        self.newptr.add_step(step.thisptr, nr_repetitions)
 
 class TakeStepPattern(_Cdef_TakeStepPattern):
     """
