@@ -3,22 +3,25 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
-#include <gtest/gtest.h>
 #include <memory>
+#include <string>
+#include <gtest/gtest.h>
 
 #include "pele/harmonic.h"
 
-#include "mcpele/takestep.h"
-#include "mcpele/accept_test.h"
-#include "mcpele/actions.h"
-
-#include "mcpele/mc.h"
+#include "mcpele/random_coords_displacement_adaptive.h"
+#include "mcpele/metropolis_test.h"
+#include "mcpele/energy_window_test.h"
+#include "mcpele/record_energy_histogram.h"
+#include "mcpele/adaptive_takestep.h"
+#include "mcpele/take_step_pattern.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
 using std::shared_ptr;
 using mcpele::ConfTest;
 using mcpele::MC;
+using pele::Array;
 
 class TestMC: public ::testing::Test{
 public:
@@ -50,10 +53,10 @@ public:
 };
 
 TEST_F(TestMC, BasicFunctionalityAddingModulesStatic){
-    mcpele::MC mc(potential, x, 1, stepsize);
+    mcpele::MC mc(potential, x, 1);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc.get_potential_ptr().get())->get_k() );
-    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
+    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42, stepsize);
     EXPECT_TRUE( !mc.take_step_specified() );
     mc.set_takestep(sampler_uniform);
     EXPECT_TRUE( mc.take_step_specified() );
@@ -64,10 +67,10 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesStatic){
 }
 
 TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
-    mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
+    mcpele::MC* mc = new mcpele::MC(potential, x, 1);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
-    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
+    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42, stepsize);
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform);
     EXPECT_TRUE( mc->take_step_specified() );
@@ -80,37 +83,26 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
 
 TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     //max_iter *= 10;
-    mcpele::MC* mc = new mcpele::MC(potential, x, 1, stepsize);
+    mcpele::MC* mc = new mcpele::MC(potential, x, 1);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
     //std::cout << "initial step size: " << mc->get_stepsize() << std::endl;
-    shared_ptr<mcpele::TakeStep> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42);
+    std::shared_ptr<mcpele::TakeStep> sampler_uniform_adaptive = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::TakeStep>(new mcpele::RandomCoordsDisplacementAdaptive(42)), 50);
     EXPECT_TRUE( !mc->take_step_specified() );
-    mc->set_takestep(sampler_uniform);
+    mc->set_takestep(sampler_uniform_adaptive);
     EXPECT_TRUE( mc->take_step_specified() );
     shared_ptr<mcpele::AcceptTest> metropolis = std::make_shared<mcpele::MetropolisTest>(42);
     mc->add_accept_test(metropolis);
-    //AdjustStep(double target, double factor, size_t niter, size_t navg)
     const size_t adj_iter(max_iter/1e1);
-    shared_ptr<mcpele::Action> adjust_step = std::make_shared<mcpele::AdjustStep>(0.2, 0.5, adj_iter, adj_iter/1e1);
-    mc->add_action(adjust_step);
-    //(double min, double max, double bin, size_t eqsteps)
+    mc->set_report_steps(adj_iter);
     shared_ptr<mcpele::Action> record_histogram = std::make_shared<mcpele::RecordEnergyHistogram>(0,10,1,adj_iter);
     mc->add_action(record_histogram);
-    //mc->set_print_progress(true);
     mc->run(max_iter);
     EXPECT_TRUE( mc->get_iterations_count() == max_iter );
-    //std::cout << "mean energy: " << std::endl;
-    //std::cout << static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_mean() << std::endl;
-    //std::cout << sqrt(static_cast<mcpele::RecordEnergyHistogram*>(record_histogram)->get_variance()) << std::endl;
-    //std::cout << "prediced mean energy: " << std::endl;
-    //std::cout << 0.5*ndof << std::endl;
     const double computed_mean = std::static_pointer_cast<mcpele::RecordEnergyHistogram>(record_histogram)->get_mean();
     const double computed_std = sqrt(std::static_pointer_cast<mcpele::RecordEnergyHistogram>(record_histogram)->get_variance());
     const double expected_mean = 0.5*ndof;
     EXPECT_NEAR(computed_mean, expected_mean, computed_std);
-    //std::cout << "acc frac: " << mc->get_accepted_fraction() << std::endl;
-    //std::cout << "final step size: " << mc->get_stepsize() << std::endl;
     delete mc;
 }
 
@@ -151,9 +143,24 @@ struct TrivialTakestep : public mcpele::TakeStep{
     TrivialTakestep()
         : call_count(0)
     {}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL)
+    virtual void displace(Array<double> &coords, MC * mc=NULL)
     {
         call_count++;
+    }
+};
+
+struct TrivialTakestepMessage : public mcpele::TakeStep{
+    size_t call_count;
+    std::string message;
+    TrivialTakestepMessage(const std::string message_)
+        : call_count(0),
+          message(message_)
+    {}
+    virtual void displace(Array<double> &coords, MC * mc=NULL)
+    {
+        call_count++;
+        std::cout << message << "\n";
+        std::cout << "call_count: " << call_count << "\n";
     }
 };
 
@@ -198,7 +205,7 @@ public:
         at = new TrivialAcceptTest(true);
         ts = new TrivialTakestep();
         a = new TrivialAction();
-        mc = new mcpele::MC(pot, x0, 1, 1);
+        mc = new mcpele::MC(pot, x0, 1);
 
         mc->add_conf_test(std::shared_ptr<ConfTest>(ct));
         mc->set_takestep(std::shared_ptr<mcpele::TakeStep>(ts));
@@ -263,3 +270,64 @@ TEST_F(TestMCMock, LateConfTest_Fails){
     EXPECT_EQ(mc->get_naccept(), size_t(0));
     EXPECT_EQ(mc->get_nreject(), size_t(10));
 }
+
+TEST_F(TestMCMock, PatternStep_Works){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    auto step_pattern = std::make_shared<mcpele::TakeStepPattern>();
+    //auto ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
+    //auto ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
+    //auto ts2 = std::make_shared<TrivialTakestepMessage>("hello 02");
+    auto ts0 = std::make_shared<TrivialTakestep>();
+    auto ts1 = std::make_shared<TrivialTakestep>();
+    auto ts2 = std::make_shared<TrivialTakestep>();
+    const size_t repetitions0 = 1;
+    const size_t repetitions1 = 2;
+    const size_t repetitions2 = 42;
+    step_pattern->add_step(ts0);
+    step_pattern->add_step(ts1, repetitions1);
+    step_pattern->add_step(ts2, repetitions2);
+    mc->set_takestep(step_pattern);
+    mc->run(100);
+    std::vector<size_t> repetitions;
+    repetitions.push_back(repetitions0);
+    repetitions.push_back(repetitions1);
+    repetitions.push_back(repetitions2);
+    std::vector<size_t> expected_pattern(std::accumulate(repetitions.begin(), repetitions.end(), 0));
+    std::fill(expected_pattern.begin(), expected_pattern.begin() + repetitions0, 0);
+    std::fill(expected_pattern.begin() + repetitions0, expected_pattern.begin() + repetitions0 + repetitions1, 1);
+    std::fill(expected_pattern.begin() + repetitions0 + repetitions1, expected_pattern.end(), 2);
+    const auto actual_pattern = step_pattern->get_pattern();
+    EXPECT_EQ(actual_pattern.size(), expected_pattern.size());
+    EXPECT_EQ(actual_pattern.size(), std::accumulate(repetitions.begin(), repetitions.end(), 0u));
+    for (size_t i = 0; i < actual_pattern.size(); ++i) {
+        EXPECT_EQ(actual_pattern.at(i), expected_pattern.at(i));
+    }
+}
+
+TEST_F(TestMCMock, AdaptiveTakeStep_WorksDown){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    mc->add_accept_test(std::make_shared<TrivialAcceptTest>(false));
+    mcpele::RandomCoordsDisplacementAdaptive* rs = new  mcpele::RandomCoordsDisplacementAdaptive(42, 1);
+    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAdaptive>(rs), 100, 0.8);
+    mc->set_takestep(astep);
+    const size_t nr_iterations = 1e3;
+    mc->set_report_steps(nr_iterations);
+    mc->run(nr_iterations);
+    EXPECT_DOUBLE_EQ(rs->get_stepsize(), pow(0.8, 10));
+}
+
+TEST_F(TestMCMock, AdaptiveTakeStep_WorksUp){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    mc->add_accept_test(std::make_shared<TrivialAcceptTest>(true));
+    mcpele::RandomCoordsDisplacementAdaptive* rs = new  mcpele::RandomCoordsDisplacementAdaptive(42, 1);
+    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAdaptive>(rs), 100, 0.8);
+    mc->set_takestep(astep);
+    const size_t nr_iterations = 1e3;
+    mc->set_report_steps(nr_iterations);
+    mc->run(nr_iterations);
+    EXPECT_DOUBLE_EQ(rs->get_stepsize(), 1/pow(0.8, 10));
+}
+

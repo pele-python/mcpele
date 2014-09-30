@@ -59,7 +59,7 @@ cdef class _Cdef_Action(object):
 
 cdef extern from "mcpele/mc.h" namespace "mcpele":
     cdef cppclass cppMC "mcpele::MC":
-        cppMC(shared_ptr[_pele.cBasePotential], _pele.Array[double]&, double, double) except +
+        cppMC(shared_ptr[_pele.cBasePotential], _pele.Array[double]&, double) except +
         void one_iteration() except +
         void run(size_t) except +
         void set_temperature(double) except +
@@ -79,8 +79,8 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         double get_conf_rejection_fraction() except +
         double get_E_rejection_fraction() except +
         size_t get_neval() except +
-        double get_stepsize() except +
         double get_norm_coords() except +
+        void set_report_steps(const size_t) except +
 
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation

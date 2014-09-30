@@ -8,22 +8,6 @@ import numpy as np
 import sys
 
 #===============================================================================
-# Adjust step size
-#===============================================================================
-        
-cdef class _Cdef_AdjustStep(_Cdef_Action):
-    """This class is the python interface for the c++ pele::AdjustStep action class implementation
-    """
-    cdef cppAdjustStep* newptr
-    def __cinit__(self, target, factor, niter, navg):
-        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppAdjustStep(target, factor, niter, navg))
-        self.newptr = <cppAdjustStep*> self.thisptr.get()
-        
-class AdjustStep(_Cdef_AdjustStep):
-    """This class is the python interface for the c++ AdjustStep implementation.
-    """
-
-#===============================================================================
 # Record Energy Histogram
 #===============================================================================        
 
