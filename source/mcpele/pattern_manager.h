@@ -35,12 +35,12 @@ public:
         --m_current_count;
         return *this;
     }
-    void add(const T index_input, const size_t every_input=1)
+    void add(const T index_input, const size_t repetitions_input=1)
     {
-        if (every_input < 1) {
+        if (repetitions_input < 1) {
             throw std::range_error("PatternManager::add: illegal input");
         }
-        m_repetitions_indices.push_back(std::make_pair(every_input, index_input));
+        m_repetitions_indices.push_back(std::make_pair(repetitions_input, index_input));
         m_current = m_repetitions_indices.begin();
         if (!m_initialized) {
             m_initialized = true;
@@ -52,6 +52,21 @@ public:
             throw std::runtime_error("PatternManager::get_step_index: illegal access");
         }
         return m_current->second;
+    }
+    /**
+     * Return visualization of the step pattern.
+     * Steps are repeseted by integer labels, starting from 0, in the order of
+     * addition to the pattern.
+     */
+    std::vector<size_t> get_pattern() const
+    {
+        std::vector<size_t> result;
+        for (typename vec_t::const_iterator i = m_repetitions_indices.begin(); i != m_repetitions_indices.end(); ++i) {
+            const std::vector<size_t> tmp(i->first, static_cast<size_t>(i - m_repetitions_indices.begin()));
+            result.insert(result.end(), tmp.begin(), tmp.end());
+        }
+        result.swap(result);
+        return result;
     }
 };
 

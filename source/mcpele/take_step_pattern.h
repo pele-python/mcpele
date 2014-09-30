@@ -29,12 +29,13 @@ private:
 public:
     virtual ~TakeStepPattern() {}
     void add_step(std::shared_ptr<TakeStep> step_input,
-            const size_t every_input=1) { m_steps.add(step_input, every_input); }
+            const size_t repetitions_input=1) { m_steps.add(step_input, repetitions_input); }
     void displace(pele::Array<double>& coords, MC* mc);
     void report(pele::Array<double>& old_coords, const double old_energy,
             pele::Array<double>& new_coords, const double new_energy,
             const bool success, MC* mc) { m_steps.get_step_index()->report(
                     old_coords, old_energy, new_coords, new_energy, success, mc); }
+    std::vector<size_t> get_pattern() const { return m_steps.get_pattern(); }
 };
 
 } // namespace mcpele

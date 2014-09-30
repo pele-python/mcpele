@@ -277,11 +277,28 @@ TEST_F(TestMCMock, PatternStep_Works){
     auto step_pattern = std::make_shared<mcpele::TakeStepPattern>();
     auto ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
     auto ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
+    auto ts2 = std::make_shared<TrivialTakestepMessage>("hello 02");
+    const size_t repetitions0 = 1;
+    const size_t repetitions1 = 2;
+    const size_t repetitions2 = 42;
     step_pattern->add_step(ts0);
-    step_pattern->add_step(ts1, 2);
-    //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 1);
-    //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 2);
-    //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 42);
+    step_pattern->add_step(ts1, repetitions1);
+    step_pattern->add_step(ts2, repetitions2);
     mc->set_takestep(step_pattern);
     mc->run(100);
+    std::vector<size_t> repetitions;
+    repetitions.push_back(repetitions0);
+    repetitions.push_back(repetitions1);
+    repetitions.push_back(repetitions2);
+    std::vector<size_t> expected_pattern(std::accumulate(repetitions.begin(), repetitions.end(), 0));
+    std::fill(expected_pattern.begin(), expected_pattern.begin() + repetitions0, 0);
+    std::fill(expected_pattern.begin() + repetitions0, expected_pattern.begin() + repetitions0 + repetitions1, 1);
+    std::fill(expected_pattern.begin() + repetitions0 + repetitions1, expected_pattern.end(), 2);
+    const auto actual_pattern = step_pattern->get_pattern();
+    EXPECT_EQ(actual_pattern.size(), expected_pattern.size());
+    EXPECT_EQ(actual_pattern.size(), std::accumulate(repetitions.begin(), repetitions.end(), 0u));
+    for (size_t i = 0; i < actual_pattern.size(); ++i) {
+        EXPECT_EQ(actual_pattern.at(i), expected_pattern.at(i));
+    }
 }
+
