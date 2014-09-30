@@ -6,8 +6,9 @@
 #include <utility>
 #include <gtest/gtest.h>
 
-#include "mcpele/actions.h"
-#include "mcpele/mc.h"
+#include "mcpele/record_pair_dist_histogram.h"
+
+using pele::Array;
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -31,7 +32,7 @@ struct TrivialTakestep : public mcpele::TakeStep{
     TrivialTakestep()
         : call_count(0)
     {}
-    virtual void takestep(Array<double> &coords, double stepsize, MC * mc=NULL)
+    virtual void displace(Array<double> &coords, MC * mc)
     {
         call_count++;
     }
@@ -71,7 +72,7 @@ public:
 };
 
 TEST_F(TestPairDistHist, BasicFunctionality){
-    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, x, 1, stepsize);
+    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, x, 1);
     mc->set_takestep(step);
     const size_t eqsteps(max_iter/1e1);
     std::shared_ptr<mcpele::RecordPairDistHistogram<boxdim> > record_gr = std::make_shared<mcpele::RecordPairDistHistogram<boxdim> >(boxvector, nr_bins, eqsteps, 1);
