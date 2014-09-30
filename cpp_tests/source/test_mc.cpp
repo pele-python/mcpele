@@ -3,8 +3,9 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
-#include <gtest/gtest.h>
 #include <memory>
+#include <string>
+#include <gtest/gtest.h>
 
 #include "pele/harmonic.h"
 
@@ -148,6 +149,21 @@ struct TrivialTakestep : public mcpele::TakeStep{
     }
 };
 
+struct TrivialTakestepMessage : public mcpele::TakeStep{
+    size_t call_count;
+    std::string message;
+    TrivialTakestepMessage(const std::string message_)
+        : call_count(0),
+          message(message_)
+    {}
+    virtual void displace(Array<double> &coords, MC * mc=NULL)
+    {
+        call_count++;
+        std::cout << message << "\n";
+        std::cout << "call_count: " << call_count << "\n";
+    }
+};
+
 struct TrivialAction : public mcpele::Action{
     size_t call_count;
     TrivialAction()
@@ -256,11 +272,16 @@ TEST_F(TestMCMock, LateConfTest_Fails){
 }
 
 TEST_F(TestMCMock, PatternStep_Works){
+    std::shared_ptr<TrivialPotential> pot = std::make_shared<TrivialPotential>();
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(pot, x0, 1);
-    std::shared_ptr<mcpele::TakeStep> step_pattern = std::make_shared<mcpele::TakeStepPattern>();
-    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts));
-    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 1);
-    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 2);
-    static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 42);
+    std::shared_ptr<mcpele::TakeStepPattern> step_pattern = std::make_shared<mcpele::TakeStepPattern>();
+    std::shared_ptr<TrivialTakestepMessage> ts0 = std::make_shared<TrivialTakestepMessage>("hello 00");
+    std::shared_ptr<TrivialTakestepMessage> ts1 = std::make_shared<TrivialTakestepMessage>("hello 01");
+    step_pattern->add_step(ts0);
+    step_pattern->add_step(ts1, 2);
+    //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 1);
+    //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 2);
+    //static_cast<mcpele::TakeStepPattern*>(step_pattern.get())->add_step(std::shared_ptr<mcpele::TakeStep>(ts), 42);
     mc->set_takestep(step_pattern);
+    mc->run(100);
 }
