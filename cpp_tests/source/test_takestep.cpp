@@ -74,7 +74,7 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterationsReAllocate){
 TEST_F(TakeStepTest, PairSwapWorks){
     const size_t box_dimension = 3;
     const size_t nr_particles = ndof / box_dimension;
-    mcpele::ParticlePairSwap swap(42, nr_particles, 1);
+    mcpele::ParticlePairSwap swap(42, nr_particles);
     auto coor1 = coor.copy();
     auto coor2 = coor.copy();
     const size_t a = 1;
