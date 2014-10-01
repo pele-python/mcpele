@@ -159,13 +159,7 @@ TEST_F(AdaptiveTakeStepTest, UniformAdaptive_Works) {
     EXPECT_EQ(mc->get_iterations_count(), total_iterations);
     EXPECT_LE(initial_stepsize, uni->get_stepsize());
     EXPECT_DOUBLE_EQ(mc->get_nreject(), mc->get_E_rejection_fraction() * mc->get_iterations_count());
-    std::cout << "acc frac:" << mc->get_accepted_fraction() << "\n";
-    EXPECT_LE(mc->get_accepted_fraction(), max_acc);
     EXPECT_LE(eq_acc_ratio, max_acc);
     EXPECT_LE(min_acc, eq_acc_ratio);
 }
-
-
-
-
 
