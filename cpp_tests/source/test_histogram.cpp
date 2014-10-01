@@ -7,8 +7,11 @@
 
 #include "pele/array.h"
 
-#include "mcpele/takestep.h"
+#include "mcpele/random_coords_displacement.h"
+#include "mcpele/gaussian_coords_displacement.h"
 #include "mcpele/histogram.h"
+
+using pele::Array;
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -41,24 +44,24 @@ public:
 };
 
 TEST_F(TestHistogram, TestMoments){
-    mcpele::RandomCoordsDisplacement sampler_uniform(42);
-    mcpele::GaussianCoordsDisplacement sampler_gaussian(42);
-    mcpele::Histogram hist_uniform(-0.5*ss,0.5*ss,0.01);
-    mcpele::Histogram hist_gaussian(-5,5,0.1);
-    for (size_t step = 0; step < nsteps; ++step){
-    std::fill(displ_uniform.data(),displ_uniform.data()+ndof,0);
-    std::fill(displ_gaussian.data(),displ_gaussian.data()+ndof,0);
-    sampler_uniform.takestep(displ_uniform, ss, mc);
-    sampler_gaussian.takestep(displ_gaussian, ss, mc);
-    for (size_t dof = 0; dof < ndof; ++dof){
-        hist_uniform.add_entry(displ_uniform[dof]);
-        hist_gaussian.add_entry(displ_gaussian[dof]);
+    mcpele::RandomCoordsDisplacement sampler_uniform(42, ss);
+    mcpele::GaussianCoordsDisplacement sampler_gaussian(42, ss);
+    mcpele::Histogram hist_uniform(-0.5 * ss, 0.5 * ss, 0.01);
+    mcpele::Histogram hist_gaussian(-5, 5, 0.1);
+    for (size_t step = 0; step < nsteps; ++step) {
+        std::fill(displ_uniform.data(), displ_uniform.data() + ndof, 0);
+        std::fill(displ_gaussian.data(), displ_gaussian.data() + ndof, 0);
+        sampler_uniform.displace(displ_uniform, mc);
+        sampler_gaussian.displace(displ_gaussian, mc);
+        for (size_t dof = 0; dof < ndof; ++dof) {
+            hist_uniform.add_entry(displ_uniform[dof]);
+            hist_gaussian.add_entry(displ_gaussian[dof]);
+        }
     }
-    }
-    EXPECT_TRUE(static_cast<size_t>(hist_uniform.entries())==ntot);
-    EXPECT_TRUE(static_cast<size_t>(hist_gaussian.entries())==ntot);
-    EXPECT_NEAR_RELATIVE(hist_uniform.get_mean(),sampler_uniform.expected_mean(),2*ss/sqrt(ntot));
-    EXPECT_NEAR_RELATIVE(hist_gaussian.get_mean(),sampler_gaussian.expected_mean(),2*ss/sqrt(ntot));
-    EXPECT_NEAR_RELATIVE(hist_uniform.get_variance(),sampler_uniform.expected_variance(ss),2*ss/sqrt(ntot));
-    EXPECT_NEAR_RELATIVE(hist_gaussian.get_variance(),sampler_gaussian.expected_variance(ss),2*ss/sqrt(ntot));
+    EXPECT_EQ(static_cast<size_t>(hist_uniform.entries()), ntot);
+    EXPECT_EQ(static_cast<size_t>(hist_gaussian.entries()), ntot);
+    EXPECT_NEAR_RELATIVE(hist_uniform.get_mean(), sampler_uniform.expected_mean(), 2 * ss / sqrt(ntot));
+    EXPECT_NEAR_RELATIVE(hist_gaussian.get_mean(), sampler_gaussian.expected_mean(), 2 * ss / sqrt(ntot));
+    EXPECT_NEAR_RELATIVE(hist_uniform.get_variance(), sampler_uniform.expected_variance(ss), 2 * ss / sqrt(ntot));
+    EXPECT_NEAR_RELATIVE(hist_gaussian.get_variance(), sampler_gaussian.expected_variance(ss), 2 * ss / sqrt(ntot));
 }

@@ -96,7 +96,14 @@ Put whitespace between operators
     { 
         return property_listing<energy_t>(&Minimum::energy); 
     }
-
+    
+If in doubt about white space and operators, check out this list:
+http://legacy.python.org/dev/peps/pep-0008/#other-recommendations
+In particular:
+"If operators with different priorities are used, consider adding whitespace
+around the operators with the lowest priority(ies). Use your own judgment;
+however, never use more than one space, and always have the same amount of
+whitespace on both sides of a binary operator."
 
 for naming, we follow the python convention and use CamelCase for class names
 and lower_case_under_score for function and variable names.
