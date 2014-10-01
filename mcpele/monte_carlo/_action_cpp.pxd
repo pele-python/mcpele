@@ -49,4 +49,5 @@ cdef extern from "mcpele/record_displacement_per_particle_timeseries.h" namespac
             _pele.Array[double], const size_t) except +
         _pele.Array[double] get_time_series() except +
         void clear() except +
+        cbool moving_average_is_stable(const size_t, const double) except +
         

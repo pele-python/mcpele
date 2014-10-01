@@ -1,4 +1,4 @@
-#include "record_energy_histogram.h"
+#include "mcpele/record_energy_histogram.h"
 
 using pele::Array;
 

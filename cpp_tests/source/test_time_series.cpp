@@ -13,6 +13,7 @@
 #include "mcpele/record_energy_timeseries.h"
 #include "mcpele/record_displacement_per_particle_timeseries.h"
 #include "mcpele/record_lowest_evalue_timeseries.h"
+#include "mcpele/random_coords_displacement.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -30,7 +31,7 @@ struct TrivialTakestep : public mcpele::TakeStep{
 TEST(EnergyTimeseries, Basic){
     const size_t boxdim = 3;
     const size_t nparticles = 100;
-    const size_t ndof = nparticles*boxdim;
+    const size_t ndof = nparticles * boxdim;
     const size_t niter = 10000;
     const size_t record_every = 100;
     const double k = 400;
@@ -41,7 +42,7 @@ TEST(EnergyTimeseries, Basic){
     double etrue(0);
     for (size_t i = 0; i < ndof; ++i) {
         const auto delta = coords[i] - origin[i];
-        etrue += 0.5*k*delta*delta;
+        etrue += 0.5 * k * delta * delta;
     }
     EXPECT_DOUBLE_EQ(enumerical, etrue);
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1);
@@ -57,12 +58,12 @@ TEST(EnergyTimeseries, Basic){
     }
 }
 
-TEST(EVTimeseries, Works){
+TEST(EVTimeseries, Works) {
     typedef mcpele::RecordLowestEValueTimeseries series_t;
     //typedef mcpele::RecordEnergyTimeseries series_t;
     const size_t boxdim = 3;
     const size_t nparticles = 4;
-    const size_t ndof = nparticles*boxdim;
+    const size_t ndof = nparticles * boxdim;
     const size_t niter = 100;
     const size_t record_every = 10;
     const double k = 400;
@@ -70,9 +71,9 @@ TEST(EVTimeseries, Works){
     for (size_t i = 0; i < coords.size(); ++i){
         coords[i] += 0.1*i;
     }
-    pele::Array<double> origin(ndof,1);
+    pele::Array<double> origin(ndof, 1);
     for (size_t i = 0; i < origin.size(); ++i){
-        origin[i] -= 0.01*i;
+        origin[i] -= 0.01 * i;
     }
     std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
 
@@ -88,7 +89,7 @@ TEST(EVTimeseries, Works){
     double etrue(0);
     for (size_t i = 0; i < ndof; ++i) {
         const auto delta = coords[i] - origin[i];
-        etrue += 0.5*k*delta*delta;
+        etrue += 0.5 * k * delta * delta;
     }
     EXPECT_DOUBLE_EQ(enumerical, etrue);
     std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1);
@@ -105,7 +106,7 @@ TEST(EVTimeseries, Works){
     mc->run(niter);
     EXPECT_EQ(mc->get_iterations_count(), niter);
     pele::Array<double> series = ts->get_time_series();
-    EXPECT_EQ(series.size(), niter/record_every);
+    EXPECT_EQ(series.size(), niter / record_every);
     const double eigenvalue_reference = series[0];
     for (size_t i = 0; i < series.size(); ++i) {
         EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-10);
@@ -115,7 +116,7 @@ TEST(EVTimeseries, Works){
 TEST(ParticleDisplacementTimeseries, Works){
     const size_t boxdim = 3;
     const size_t nparticles = 100;
-    const size_t ndof = nparticles*boxdim;
+    const size_t ndof = nparticles * boxdim;
     const size_t niter = 10000;
     const size_t record_every = 100;
     pele::Array<double> coords(ndof,2);

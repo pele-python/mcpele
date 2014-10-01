@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "lowest_eigenvalue.h"
+#include "mcpele/lowest_eigenvalue.h"
 
 namespace mcpele{
 

@@ -50,6 +50,7 @@ public:
     index_t count() const { return m_count; }
     data_t mean() const { return m_mean; }
     data_t variance() const { return (m_mean2 - m_mean * m_mean); }
+    data_t std() const { return sqrt(variance()); }
 };
 
 class Histogram{
