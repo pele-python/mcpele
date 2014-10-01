@@ -1,7 +1,6 @@
-#include "energy_window_test.h"
-
 #include "pele/array.h"
-#include "mc.h"
+
+#include "mcpele/energy_window_test.h"
 
 using pele::Array;
 

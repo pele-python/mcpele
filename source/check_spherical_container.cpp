@@ -1,4 +1,4 @@
-#include "check_spherical_container.h"
+#include "mcpele/check_spherical_container.h"
 
 using std::runtime_error;
 using pele::Array;

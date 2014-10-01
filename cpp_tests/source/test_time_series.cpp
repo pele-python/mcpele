@@ -13,6 +13,7 @@
 #include "mcpele/record_energy_timeseries.h"
 #include "mcpele/record_displacement_per_particle_timeseries.h"
 #include "mcpele/record_lowest_evalue_timeseries.h"
+#include "mcpele/random_coords_displacement.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -138,4 +139,3 @@ TEST(ParticleDisplacementTimeseries, Works){
         EXPECT_NEAR_RELATIVE(series[i], sqrt(12), 1e-14);
     }
 }
-

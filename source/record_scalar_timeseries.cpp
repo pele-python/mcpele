@@ -1,4 +1,4 @@
-#include "record_scalar_timeseries.h"
+#include "mcpele/record_scalar_timeseries.h"
 
 using pele::Array;
 

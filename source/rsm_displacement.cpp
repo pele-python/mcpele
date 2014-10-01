@@ -1,8 +1,8 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "histogram.h"
-#include "rsm_displacement.h"
+#include "mcpele/histogram.h"
+#include "mcpele/rsm_displacement.h"
 
 namespace mcpele{
 
