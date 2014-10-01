@@ -65,14 +65,14 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             self.permutations_stream = open(r'{0}/rem_permutations'.format(base_directory),'w')
     
     def _close_flush(self):
-        self.histhistogram_mean_stream.flush()
-        self.histhistogram_mean_stream.close()
+        self.histogram_mean_stream.flush()
+        self.histogram_mean_stream.close()
         self.status_stream.flush()
         self.status_stream.close()
         if self.rank == 0:
             self.permutations_stream.flush()
             self.permutations_stream.close()
-    
+        
     def _master_print_temperatures(self):
         base_directory = self.base_directory
         if (self.rank == 0):

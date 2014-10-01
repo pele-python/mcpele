@@ -4,6 +4,7 @@ import numpy as np
 import random
 import os
 from mpi4py import MPI
+import copy
 
 """
 An optimal Parallel Tempering strategy should make sure that all MCMC walks take roughly the same amount of time. 
@@ -111,9 +112,12 @@ class _MPI_Parallel_Tempering(object):
             ptiter += 1
             #assure that data are not thrown away since last print
             if ptiter == self.max_ptiter:
+                old_max_ptiter = copy.copy(self.max_ptiter) 
                 self._print_data()
-                self._print_status()
-                self._close_flush()
+                #check that on printing of data max_ptiter hasn't changed due to convergence test
+                if self.max_ptiter == old_max_ptiter:
+                    self._print_status()
+                    self._close_flush()
         print 'process {0} terminated'.format(self.rank)
     
     def _scatter_data(self, in_send_array, adim, dtype='d'):
