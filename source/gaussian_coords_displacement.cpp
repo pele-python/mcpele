@@ -1,4 +1,4 @@
-#include "gaussian_coords_displacement.h"
+#include "mcpele/gaussian_coords_displacement.h"
 
 namespace mcpele {
 

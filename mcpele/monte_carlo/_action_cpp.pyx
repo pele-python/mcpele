@@ -217,7 +217,7 @@ cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
     def clear(self):
         """clears time series"""
         self.newptr.clear()
-    
+
 class RecordDisplacementPerParticleTimeseries(_Cdef_RecordDisplacementPerParticleTimeseries):
     """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries implementation.
     """

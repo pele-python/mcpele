@@ -1,5 +1,5 @@
-#include "record_scalar_timeseries.h"
-#include "moving_average.h"
+#include "mcpele/record_scalar_timeseries.h"
+#include "mcpele/moving_average.h"
 
 using pele::Array;
 

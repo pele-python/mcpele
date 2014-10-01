@@ -1,4 +1,4 @@
-#include "random_coords_displacement.h"
+#include "mcpele/random_coords_displacement.h"
 
 namespace mcpele {
 
