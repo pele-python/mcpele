@@ -110,3 +110,23 @@ class TakeStepPattern(_Cdef_TakeStepPattern):
     """
     Python interface for c++ TakeStepPattern
     """
+    
+#
+# TakeStepProbabilities
+#
+
+cdef class _Cdef_TakeStepProbabilities(_Cdef_TakeStep):
+    """
+    Python interface for c++ TakeStepProbabilities
+    """
+    cdef cppTakeStepProbabilities* newptr
+    def __cinit__(self, seed):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppTakeStepProbabilities(seed))
+        self.newptr = <cppTakeStepProbabilities*> self.thisptr.get()
+    def add_step(self, _Cdef_TakeStep step, weight):
+        self.newptr.add_step(step.thisptr, weight)
+        
+class TakeStepProbabilities(_Cdef_TakeStepProbabilities):
+    """
+    Python interface for c++ TakeStepProbabilities
+    """

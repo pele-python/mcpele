@@ -34,3 +34,8 @@ cdef extern from "mcpele/take_step_pattern.h" namespace "mcpele":
     cdef cppclass cppTakeStepPattern "mcpele::TakeStepPattern":
         cppTakeStepPattern() except +
         void add_step(shared_ptr[cppTakeStep], const size_t)
+        
+cdef extern from "mcpele/take_step_probabilities.h" namespace "mcpele":
+    cdef cppclass cppTakeStepProbabilities "mcpele::TakeStepProbabilities":
+        cppTakeStepProbabilities(const size_t) except +
+        void add_step(shared_ptr[cppTakeStep], const size_t)
