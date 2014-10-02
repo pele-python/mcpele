@@ -70,7 +70,7 @@ TEST_F(TestHistogram, TestBinning){
     mcpele::GaussianCoordsDisplacement sampler(42, ss);
     const double min = -42;
     const double max = 42;
-    const double bin = 0.1;
+    const double bin = 2;
     mcpele::Histogram hist(min, max, bin);
     for (size_t step = 0; step < nsteps; ++step) {
         std::fill(displ_gaussian.data(), displ_gaussian.data() + ndof, 0);
@@ -83,5 +83,13 @@ TEST_F(TestHistogram, TestBinning){
     EXPECT_LE(min, hist.min());
     EXPECT_LE(max, hist.max());
     EXPECT_DOUBLE_EQ(hist.bin(), bin);
-    EXPECT_DOUBLE_EQ(std::accumulate(hist.begin(), hist.end(), 0), hist.entries());
+    EXPECT_DOUBLE_EQ(hist.entries(), nsteps * ndof);
+    EXPECT_DOUBLE_EQ(std::accumulate(hist.begin(), hist.end(), double(0)), hist.entries());
+    const std::vector<double> vecdata = hist.get_vecdata();
+    EXPECT_EQ(vecdata.size(), hist.size());
+    EXPECT_DOUBLE_EQ(std::accumulate(vecdata.begin(), vecdata.end(), double(0)), hist.entries());
+    const std::vector<double> vecdata_normalized = hist.get_vecdata_normalized();
+    EXPECT_EQ(vecdata_normalized.size(), hist.size());
+    EXPECT_DOUBLE_EQ(std::accumulate(vecdata_normalized.begin(), vecdata_normalized.end(), double(0)) * bin, 1);
+
 }
