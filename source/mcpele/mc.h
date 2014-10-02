@@ -106,7 +106,6 @@ public:
     /*need to keep these public to make them accessible to tests and actions, be careful though!*/
     size_t m_niter;
     size_t m_neval;
-    double m_stepsize;
     double m_temperature;
     double m_energy;
     double m_trial_energy;
@@ -121,12 +120,12 @@ public:
     double get_temperature() const { return m_temperature; }
     void set_report_steps(const size_t report_steps) { m_report_steps = report_steps; }
     size_t get_report_steps() const { return m_report_steps; }
-    void set_stepsize(const double stepsize) { m_stepsize = stepsize; }
     void add_action(std::shared_ptr<Action> action) { m_actions.push_back(action); }
     void add_accept_test(std::shared_ptr<AcceptTest> accept_test) { m_accept_tests.push_back(accept_test); }
     void add_conf_test(std::shared_ptr<ConfTest> conf_test) { m_conf_tests.push_back(conf_test); }
     void add_late_conf_test(std::shared_ptr<ConfTest> conf_test) { m_late_conf_tests.push_back(conf_test); }
     void set_takestep(std::shared_ptr<TakeStep> takestep) { m_take_step = takestep; }
+    std::shared_ptr<TakeStep> get_takestep() const { return m_take_step; }
     void set_coordinates(pele::Array<double>& coords, double energy);
     double get_energy() const { return m_energy; }
     void reset_energy();
@@ -144,7 +143,6 @@ public:
             static_cast<double>(m_nitercount); }
     size_t get_iterations_count() const { return m_nitercount; }
     size_t get_neval() const { return m_neval; }
-    double get_stepsize() const { return m_stepsize; }
     std::shared_ptr<pele::BasePotential> get_potential_ptr() { return m_potential; }
     bool take_step_specified() const { return m_take_step != NULL; }
     bool report_steps_specified() const { return get_report_steps() > 0; }

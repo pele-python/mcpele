@@ -31,6 +31,8 @@ public:
      * Reference: http://mathworld.wolfram.com/NormalDistribution.html
      */
     double expected_variance(const double ss) const { return ss * ss; }
+    double get_stepsize() const { return m_stepsize; }
+    void set_stepsize(const double input) { m_stepsize = input; }
 };
 
 } // namespace mcpele
