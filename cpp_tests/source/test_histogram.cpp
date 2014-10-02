@@ -65,3 +65,23 @@ TEST_F(TestHistogram, TestMoments){
     EXPECT_NEAR_RELATIVE(hist_uniform.get_variance(), sampler_uniform.expected_variance(ss), 2 * ss / sqrt(ntot));
     EXPECT_NEAR_RELATIVE(hist_gaussian.get_variance(), sampler_gaussian.expected_variance(ss), 2 * ss / sqrt(ntot));
 }
+
+TEST_F(TestHistogram, TestBinning){
+    mcpele::GaussianCoordsDisplacement sampler(42, ss);
+    const double min = -42;
+    const double max = 42;
+    const double bin = 0.1;
+    mcpele::Histogram hist(min, max, bin);
+    for (size_t step = 0; step < nsteps; ++step) {
+        std::fill(displ_gaussian.data(), displ_gaussian.data() + ndof, 0);
+        sampler.displace(displ_gaussian, mc);
+        for (size_t dof = 0; dof < ndof; ++dof) {
+            hist.add_entry(displ_gaussian[dof]);
+        }
+    }
+    EXPECT_EQ(static_cast<size_t>(hist.entries()), ntot);
+    EXPECT_LE(min, hist.min());
+    EXPECT_LE(max, hist.max());
+    EXPECT_DOUBLE_EQ(hist.bin(), bin);
+    EXPECT_DOUBLE_EQ(std::accumulate(hist.begin(), hist.end(), 0), hist.entries());
+}
