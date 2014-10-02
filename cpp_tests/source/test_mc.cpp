@@ -324,7 +324,7 @@ TEST_F(TestMCMock, ProbabilityTakeStep_BasicWorks){
     step->add_step(ts1, weight1);
     step->add_step(ts2, weight2);
     mc->set_takestep(step);
-    mc->run(1e3);
+    mc->run(1e2);
     const auto sw = step->get_weights();
     for (size_t i = 0; i < sw.size(); ++i) {
         EXPECT_DOUBLE_EQ(sw.at(i), weights.at(i));
