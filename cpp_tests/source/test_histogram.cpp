@@ -91,5 +91,13 @@ TEST_F(TestHistogram, TestBinning){
     const std::vector<double> vecdata_normalized = hist.get_vecdata_normalized();
     EXPECT_EQ(vecdata_normalized.size(), hist.size());
     EXPECT_DOUBLE_EQ(std::accumulate(vecdata_normalized.begin(), vecdata_normalized.end(), double(0)) * bin, 1);
-
+    const std::vector<double> error = hist.get_vecdata_error();
+    for (size_t ii = 0; ii < hist.size(); ++ii) {
+        const double xi = hist.get_position(ii);
+        const double true_i = exp(-pow((xi - sampler.expected_mean()), 2) / (2 * sampler.expected_variance(ss))) / sqrt(M_PI * 2 * sampler.expected_variance(ss));
+        const double EPS = 1e-12;
+        if (vecdata_normalized.at(ii) > EPS) {
+            EXPECT_NEAR(vecdata_normalized.at(ii), true_i, 2 * error.at(ii));
+        }
+    }
 }
