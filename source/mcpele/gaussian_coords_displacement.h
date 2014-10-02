@@ -20,6 +20,7 @@ protected:
     std::mt19937_64 m_generator;
     std::normal_distribution<double> m_distribution;
     double m_stepsize;
+    size_t m_count;
 public:
     GaussianCoordsDisplacement(const size_t rseed, const double stepsize);
     virtual ~GaussianCoordsDisplacement() {}
@@ -33,6 +34,7 @@ public:
     double expected_variance(const double ss) const { return ss * ss; }
     double get_stepsize() const { return m_stepsize; }
     void set_stepsize(const double input) { m_stepsize = input; }
+    size_t get_count() const { return m_count; }
 };
 
 } // namespace mcpele

@@ -49,6 +49,9 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
     def set_generator_seed(self, input):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
+        
+    def get_count(self):
+        return self.newptr.get_count()
     
 class GaussianCoordsDisplacement(_Cdef_GaussianCoordsDisplacement):
     """This class is the python interface for the c++ RandomCoordsDisplacement implementation.
