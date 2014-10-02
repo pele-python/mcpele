@@ -179,6 +179,10 @@ struct TrivialAction : public mcpele::Action{
 
 struct TrivialPotential : public pele::BasePotential{
     size_t call_count;
+    virtual ~TrivialPotential() {}
+    TrivialPotential()
+        : call_count(0)
+    {}
     virtual double get_energy(Array<double> coords)
     {
         call_count++;

@@ -100,6 +100,50 @@ TEST_F(TakeStepTest, PairSwapWorks){
     }
 }
 
+struct TrivialTakestep : public mcpele::TakeStep{
+    size_t call_count;
+    virtual ~TrivialTakestep() {}
+    TrivialTakestep()
+        : call_count(0)
+    {}
+    virtual void displace(Array<double> &coords, MC * mc=NULL)
+    {
+        call_count++;
+    }
+};
+
+struct TrivialPotential : public pele::BasePotential{
+    size_t call_count;
+    virtual ~TrivialPotential() {}
+    TrivialPotential()
+        : call_count(0)
+    {}
+    virtual double get_energy(Array<double> coords)
+    {
+        call_count++;
+        return 0.;
+    }
+};
+
+TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
+    auto ts0 = std::make_shared<TrivialTakestep>();
+    auto ts1 = std::make_shared<TrivialTakestep>();
+    auto ts2 = std::make_shared<TrivialTakestep>();
+    const size_t weight0 = 1;
+    const size_t weight1 = 2;
+    const size_t weight2 = 42;
+    step->add_step(ts0, weight0);
+    step->add_step(ts1, weight1);
+    step->add_step(ts2, weight2);
+    mc->set_takestep(step);
+    const size_t total_iterations = 1e4;
+    mc->run(total_iterations);
+
+}
+
 class AdaptiveTakeStepTest: public ::testing::Test{
 public:
     size_t seed;
