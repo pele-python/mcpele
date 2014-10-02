@@ -13,10 +13,9 @@ private:
     std::mt19937_64 m_generator;
     std::uniform_int_distribution<size_t> m_distribution;
     const size_t m_nr_particles;
-    const size_t m_swap_every;
 public:
     virtual ~ParticlePairSwap() {}
-    ParticlePairSwap(const size_t seed, const size_t nr_particles, const size_t swap_every);
+    ParticlePairSwap(const size_t seed, const size_t nr_particles);
     void displace(pele::Array<double>& coords, MC* mc);
     void swap_coordinates(const size_t particle_a, const size_t particle_b, pele::Array<double>& coords);
     size_t get_seed() const { return m_seed; }

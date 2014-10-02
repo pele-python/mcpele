@@ -4,9 +4,12 @@
 #include <vector>
 #include <gtest/gtest.h>
 
-#include "mcpele/mc.h"
-#include "mcpele/random_coords_displacement.h"
+#include "pele/harmonic.h"
+
+#include "mcpele/random_coords_displacement_adaptive.h"
 #include "mcpele/particle_pair_swap.h"
+#include "mcpele/metropolis_test.h"
+#include "mcpele/adaptive_takestep.h"
 
 using pele::Array;
 
@@ -74,7 +77,7 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterationsReAllocate){
 TEST_F(TakeStepTest, PairSwapWorks){
     const size_t box_dimension = 3;
     const size_t nr_particles = ndof / box_dimension;
-    mcpele::ParticlePairSwap swap(42, nr_particles, 1);
+    mcpele::ParticlePairSwap swap(42, nr_particles);
     auto coor1 = coor.copy();
     auto coor2 = coor.copy();
     const size_t a = 1;
@@ -96,3 +99,67 @@ TEST_F(TakeStepTest, PairSwapWorks){
         EXPECT_DOUBLE_EQ(coor2[i], coor[i]);
     }
 }
+
+class AdaptiveTakeStepTest: public ::testing::Test{
+public:
+    size_t seed;
+    size_t nr_particles;
+    size_t box_dimension;
+    size_t ndof;
+    Array<double> coords;
+    Array<double> reference;
+    double stepsize;
+    size_t niterations;
+    double k;
+    std::shared_ptr<pele::Harmonic> potential;
+    double temperature;
+    std::shared_ptr<mcpele::MC> mc;
+    std::shared_ptr<mcpele::MetropolisTest> mrt2;
+    virtual void SetUp(){
+        seed = 42;
+        box_dimension = 3;
+        nr_particles = 10;
+        ndof = box_dimension * nr_particles;
+        coords = Array<double>(ndof);
+        for (size_t i = 0; i < ndof; ++i) {
+            coords[i] = 4242 + i;
+        }
+        reference = coords.copy();
+        stepsize = 0.1;
+        niterations = 10000;
+        k = 100;
+        potential = std::make_shared<pele::Harmonic>(coords, k, box_dimension);
+        temperature = 1;
+        mc = std::make_shared<mcpele::MC>(potential, coords, temperature);
+        mrt2 = std::make_shared<mcpele::MetropolisTest>(42);
+        mc->add_accept_test(mrt2);
+    }
+};
+
+TEST_F(AdaptiveTakeStepTest, UniformAdaptive_Works) {
+    const double initial_stepsize = 1e-2;
+    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementAdaptive>(42, initial_stepsize);
+    const size_t total_iterations(2e5);
+    const size_t equilibration_report_iterations(total_iterations / 2);
+    mc->set_report_steps(equilibration_report_iterations);
+    const size_t interval(equilibration_report_iterations / 1e2);
+    const double factor(0.9);
+    const double min_acc(0.2);
+    const double max_acc(0.3);
+    auto uni_adaptive = std::make_shared<mcpele::AdaptiveTakeStep>(uni, interval, factor, min_acc, max_acc);
+    mc->set_takestep(uni_adaptive);
+    mc->run(equilibration_report_iterations);
+    const size_t total_eq = total_iterations - equilibration_report_iterations;
+    size_t eq_acc = 0;
+    for (size_t i = 0; i < total_eq; ++i) {
+        mc->one_iteration();
+        eq_acc += mc->get_success();
+    }
+    const double eq_acc_ratio = static_cast<double>(eq_acc) / static_cast<double>(total_eq);
+    EXPECT_EQ(mc->get_iterations_count(), total_iterations);
+    EXPECT_LE(initial_stepsize, uni->get_stepsize());
+    EXPECT_DOUBLE_EQ(mc->get_nreject(), mc->get_E_rejection_fraction() * mc->get_iterations_count());
+    EXPECT_LE(eq_acc_ratio, max_acc);
+    EXPECT_LE(min_acc, eq_acc_ratio);
+}
+

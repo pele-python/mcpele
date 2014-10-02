@@ -11,6 +11,7 @@ cdef extern from "mcpele/random_coords_displacement_adaptive.h" namespace "mcpel
         cppRandomCoordsDisplacementAdaptive(const size_t, const double) except +
         size_t get_seed() except +
         void set_generator_seed(const size_t) except +
+        double get_stepsize() except +
     
 cdef extern from "mcpele/gaussian_coords_displacement.h" namespace "mcpele":
     cdef cppclass cppGaussianCoordsDisplacement "mcpele::GaussianCoordsDisplacement":
@@ -20,7 +21,7 @@ cdef extern from "mcpele/gaussian_coords_displacement.h" namespace "mcpele":
         
 cdef extern from "mcpele/particle_pair_swap.h" namespace "mcpele":
     cdef cppclass cppParticlePairSwap "mcpele::ParticlePairSwap":
-        cppParticlePairSwap(size_t, size_t, size_t) except +
+        cppParticlePairSwap(size_t, size_t) except +
         size_t get_seed() except +
         void set_generator_seed(const size_t) except +
         
