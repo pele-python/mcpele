@@ -93,5 +93,23 @@ std::vector<double> Histogram::get_vecdata_error() const
     return result;
 }
 
+std::vector<double> Histogram::get_vecdata_normalized() const
+{
+    std::vector<double> result(m_hist.size(), 0);
+    for (size_t i = 0; i < m_hist.size(); ++i) {
+        const double this_fraction = static_cast<double>(m_hist.at(i)) / static_cast<double>(m_niter);
+        result.at(i) = this_fraction / m_bin;
+    }
+    return result;
+}
+
+void Histogram::print_terminal(const size_t ntot) const
+{
+    for(size_t i = 0; i < m_hist.size(); ++i) {
+        std::cout << i << "-" << (i + 1) << ": ";
+        std::cout << std::string(m_hist[i] * 10000 / ntot, '*') <<  "\n";
+    }
+}
+
 
 }//namespace mcpele

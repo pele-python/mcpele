@@ -71,6 +71,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
             self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
             self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
         self.ndim = ndim
+        
     def get_hist_r(self):
         """return array of r values for g(r) measurement"""
         cdef _pele.Array[double] histi
@@ -84,6 +85,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         for i in xrange(histi.size()):
             hist[i] = histdata[i]      
         return hist
+    
     def get_hist_gr(self, number_density, nr_particles):
         """return array of g(r) values for g(r) measurement"""
         cdef _pele.Array[double] histi
@@ -97,6 +99,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         for i in xrange(histi.size()):
             hist[i] = histdata[i]      
         return hist
+    
     def get_eqsteps(self):
         if self.ndim == 2:
             return self.newptr2.get_eqsteps()

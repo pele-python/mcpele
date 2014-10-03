@@ -4,6 +4,7 @@ import numpy as np
 import random
 import os
 from mpi4py import MPI
+import copy
 
 """
 An optimal Parallel Tempering strategy should make sure that all MCMC walks take roughly the same amount of time. 
@@ -19,7 +20,7 @@ class _MPI_Parallel_Tempering(object):
     """
     __metaclass__  = abc.ABCMeta
     
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, base_directory=None, verbose=False):
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
         self.nproc = self.comm.Get_size() #total number of processors (replicas)
@@ -30,6 +31,7 @@ class _MPI_Parallel_Tempering(object):
         self.ex_outstream = open("exchanges", "w")
         self.verbose = verbose
         self.ptiter = 0
+        self.print_status = print_status
         self.skip = skip #might want to skip the first few swaps to allow for equilibration
         self.pfreq = pfreq
         self.no_exchange_int = -12345 #this NEGATIVE number in exchange pattern means that no exchange should be attempted
@@ -61,9 +63,17 @@ class _MPI_Parallel_Tempering(object):
         """
     
     @abc.abstractmethod
-    def _print(self):
+    def _print_data(self):
         """this function is responsible for printing and/or dumping the data, let it be printing the histograms or else"""
     
+    @abc.abstractmethod
+    def _print_status(self):
+        """this function is responsible for printing and/or dumping the status, let it be printing the histograms or else"""
+    
+    @abc.abstractmethod
+    def _close_flush(self):
+        """this function is responsible for printing and/or dumping the all streams at the end of the calculation"""
+        
     def one_iteration(self):
         """Perform one parallel tempering iteration, this consists of the following steps:
         *set the coordinates#now scatter the exchange pattern so that everybody knows who their buddy is
@@ -82,7 +92,10 @@ class _MPI_Parallel_Tempering(object):
         if self.ptiter >= self.skip:
             self._attempt_exchange()
             #print and increase parallel tempering count
-            self._print()
+            if (self.ptiter % self.pfreq == 0):
+                self._print_data()
+            if self.print_status:
+                self._print_status()
         self.ptiter += 1
          
             
@@ -97,9 +110,17 @@ class _MPI_Parallel_Tempering(object):
                 print "processor {0} iteration {1}".format(self.rank,ptiter)
             self.one_iteration()
             ptiter += 1
+            #assure that data are not thrown away since last print
+            if ptiter == self.max_ptiter:
+                old_max_ptiter = copy.copy(self.max_ptiter) 
+                self._print_data()
+                #check that on printing of data max_ptiter hasn't changed due to convergence test
+                if self.max_ptiter == old_max_ptiter:
+                    self._print_status()
+                    self._close_flush()
         print 'process {0} terminated'.format(self.rank)
     
-    def _scatter_data(self, in_send_array, adim):
+    def _scatter_data(self, in_send_array, adim, dtype='d'):
         """
         function to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)
         note that arrays of doubles are scattered 
@@ -108,17 +129,17 @@ class _MPI_Parallel_Tempering(object):
             # process 0 is the root, it has data to scatter
             assert(len(in_send_array) == adim)
             assert(adim % self.nproc == 0) 
-            send_array = np.array(in_send_array,dtype='d')
+            send_array = np.array(in_send_array,dtype=dtype)
         else:
             # processes other than root do not send
             assert(adim % self.nproc == 0) 
             send_array = None
         
-        recv_array = np.empty(adim/self.nproc,dtype='d')
+        recv_array = np.empty(adim/self.nproc,dtype=dtype)
         self.comm.Scatter(send_array, recv_array, root=0) 
         return recv_array 
     
-    def _scatter_single_value(self, send_array):
+    def _scatter_single_value(self, send_array, dtype='d'):
         """
         returns a single value from a scattered array for each replica (e.g. Temperature or swap partner)
         this implies that send array must be of the same length as the number of processors
@@ -126,29 +147,31 @@ class _MPI_Parallel_Tempering(object):
         if (self.rank == 0):
             assert(len(send_array) == self.nproc)
         
-        T = self._scatter_data(send_array, self.nproc)
+        T = self._scatter_data(send_array, self.nproc, dtype=dtype)
         assert(len(T) == 1)
         return T[0]
     
-    def _broadcast_data(self, in_data, adim):
+    def _broadcast_data(self, in_data, adim, dtype='d'):
         """
         identical data are broadcasted from root to all other processes
         """
         if(self.rank == 0):
-            bcast_data = in_data
+            bcast_data = np.array(in_data, dtype=dtype)
+            assert(len(bcast_data)==adim)
         else:
-            bcast_data = np.empty(adim,dtype='d')
-        bcast_data = self.comm.Bcast(bcast_data, root=0)
+            bcast_data = np.empty(adim, dtype=dtype)
+        self.comm.Bcast(bcast_data, root=0)
         return bcast_data
     
-    def _gather_data(self, in_send_array):
+    def _gather_data(self, in_send_array, dtype='d'):
         """
         function to gather data in equal ordered chunks from replicas (it relies on the rank of the replica)
         note that gather assumes that all the subprocess are sending the same amount of data to root, to send
         variable amounts of data must use the MPI_gatherv directive 
         """
+        in_send_array = np.array(in_send_array, dtype=dtype)
         if (self.rank == 0):
-            recv_array = np.zeros(len(in_send_array) * self.nproc,dtype='d')
+            recv_array = np.empty(len(in_send_array) * self.nproc, dtype=dtype)
         else:
             recv_array = None
         

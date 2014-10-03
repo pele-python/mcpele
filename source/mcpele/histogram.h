@@ -46,6 +46,14 @@ public:
         }
         ++m_count;
     }
+    /**
+     * replace a data point with another one
+     */
+    void replace(const data_t old_data, const data_t new_data)
+    {
+        m_mean += (new_data - old_data) / m_count;
+        m_mean2 += (new_data * new_data - old_data * old_data) / m_count;
+    }
     void operator() (const data_t input) { update(input); }
     index_t count() const { return m_count; }
     data_t mean() const { return m_mean; }
@@ -80,13 +88,8 @@ public:
     std::vector<double> get_vecdata() const {return m_hist; }
     double get_entry(const size_t bin_index) const { return m_hist.at(bin_index); }
     std::vector<double> get_vecdata_error() const;
-    void print_terminal(const size_t ntot) const
-    {
-        for(size_t i = 0; i < m_hist.size(); ++i) {
-            std::cout << i << "-" << (i + 1) << ": ";
-            std::cout << std::string(m_hist[i] * 10000 / ntot, '*') <<  "\n";
-        }
-    };
+    std::vector<double> get_vecdata_normalized() const;
+    void print_terminal(const size_t ntot) const;
     void resize(const double E, const int i);
 };
 
