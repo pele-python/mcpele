@@ -112,7 +112,7 @@ class _MPI_Parallel_Tempering(object):
             ptiter += 1
             #assure that data are not thrown away since last print
             if ptiter == self.max_ptiter:
-                old_max_ptiter = copy.copy(self.max_ptiter) 
+                old_max_ptiter = self.max_ptiter 
                 self._print_data()
                 #check that on printing of data max_ptiter hasn't changed due to convergence test
                 if self.max_ptiter == old_max_ptiter:

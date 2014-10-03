@@ -49,7 +49,6 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     
     def _print_status(self):
         self._all_print_status()
-        self._master_print_permutations()
     
     def _print_initialise(self):
         base_directory = self.base_directory
@@ -101,6 +100,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             for p in self.permutation_pattern:
                 f.write('{0}\t'.format(p))
             f.write('\n')
+            f.flush()
    
     def _all_dump_histogram(self):
         """for this to work the directory must have been initialised in _print_initialise"""
@@ -198,6 +198,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
                         self.permutation_pattern[i] = buddy+1 #to conform to fortran notation
                     else:
                         self.permutation_pattern[i] = i+1 #to conform to fortran notation
+                self._master_print_permutations()
         else:
             exchange_pattern = None
         
