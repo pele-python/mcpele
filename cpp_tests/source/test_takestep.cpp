@@ -45,7 +45,7 @@ public:
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_OneIteration){
     //one iteration gives expected variation
-    mcpele::RandomCoordsDisplacement displ(seed, stepsize);
+    mcpele::RandomCoordsDisplacementAll displ(seed, stepsize);
     displ.displace(coor, mc);
     for (size_t i = 0; i < ndof; ++i){
         EXPECT_NEAR( reference[i], coor[i], stepsize*0.5 );
@@ -54,7 +54,7 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_OneIteration){
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
-    mcpele::RandomCoordsDisplacement displ(seed, stepsize);
+    mcpele::RandomCoordsDisplacementAll displ(seed, stepsize);
     for (size_t i = 0; i < niterations; ++i){
     displ.displace(coor, mc);
     }
@@ -65,7 +65,7 @@ TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterations){
 
 TEST_F(TakeStepTest, BasicFunctionalityAveragingErasing_NIterationsReAllocate){
     // n iterations give expected vairation even if step generator is deleted and re-allocated
-    mcpele::RandomCoordsDisplacement displ(seed, stepsize); // this constructor re-seeds the rng
+    mcpele::RandomCoordsDisplacementAll displ(seed, stepsize); // this constructor re-seeds the rng
     for (size_t i = 0; i < niterations; ++i){
         displ.displace(coor, mc);
     }
@@ -138,7 +138,7 @@ public:
 
 TEST_F(AdaptiveTakeStepTest, UniformAdaptive_Works) {
     const double initial_stepsize = 1e-2;
-    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementAdaptive>(42, initial_stepsize);
+    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementAllAdaptive>(42, initial_stepsize);
     const size_t total_iterations(2e5);
     const size_t equilibration_report_iterations(total_iterations / 2);
     mc->set_report_steps(equilibration_report_iterations);
