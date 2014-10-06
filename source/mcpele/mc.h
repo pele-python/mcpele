@@ -150,6 +150,10 @@ public:
     void set_print_progress(const bool input) { m_print_progress = input; }
     void set_print_progress() { set_print_progress(true); }
     bool get_success() const { return m_success; }
+    /**
+     * this will trigger premature exit from the MC run loop
+     */
+    void abort() { m_niter = std::numeric_limits<size_t>::max(); }
 protected:
     inline double compute_energy(pele::Array<double> x)
     {

@@ -53,6 +53,9 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
     def get_count(self):
         return self.newptr.get_count()
     
+    def get_stepsize(self):
+        return self.newptr.get_stepsize()
+    
 class GaussianCoordsDisplacement(_Cdef_GaussianCoordsDisplacement):
     """This class is the python interface for the c++ RandomCoordsDisplacement implementation.
     """

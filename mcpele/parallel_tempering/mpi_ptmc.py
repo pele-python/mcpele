@@ -36,18 +36,19 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     neighbours with geometrically distributed temperatures.
     *pfreq: printing frequency
     """
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, base_directory=None, verbose=False, suppress_histogram=True):
-        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, base_directory=base_directory, verbose=verbose)
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False, suppress_histogram=True):
+        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, print_status=print_status, base_directory=base_directory, verbose=verbose)
         self.exchange_dic = {1:'right',-1:'left'}
         self.exchange_choice = random.choice(self.exchange_dic.keys()) 
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nproc,dtype='int32') #this is useful to print exchange permutations
         self.suppress_histogram = suppress_histogram
         
-    def _print(self):
+    def _print_data(self):
         self._all_dump_histogram()
+    
+    def _print_status(self):
         self._all_print_status()
-        self._master_print_permutations()
     
     def _print_initialise(self):
         base_directory = self.base_directory
@@ -62,6 +63,15 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         if self.rank == 0:
             self.permutations_stream = open(r'{0}/rem_permutations'.format(base_directory),'w')
     
+    def _close_flush(self):
+        self.histogram_mean_stream.flush()
+        self.histogram_mean_stream.close()
+        self.status_stream.flush()
+        self.status_stream.close()
+        if self.rank == 0:
+            self.permutations_stream.flush()
+            self.permutations_stream.close()
+        
     def _master_print_temperatures(self):
         base_directory = self.base_directory
         if (self.rank == 0):
@@ -90,19 +100,19 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             for p in self.permutation_pattern:
                 f.write('{0}\t'.format(p))
             f.write('\n')
+            f.flush()
    
     def _all_dump_histogram(self):
         """for this to work the directory must have been initialised in _print_initialise"""
         base_directory = self.base_directory
-        if (self.ptiter % self.pfreq == 0):
-            directory = "{0}/{1}".format(base_directory,self.rank)
-            iteration = self.mcrunner.get_iterations_count()
-            fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
-            if not self.suppress_histogram:
-                mean, variance = self.mcrunner.dump_histogram(fname)
-            else:
-                mean, variance = self.mcrunner.histogram.get_mean_variance()
-            self.histogram_mean_stream.write('{:<15}\t{:>15.15e}\t{:>15.15e}\n'.format(iteration,mean,variance))
+        directory = "{0}/{1}".format(base_directory,self.rank)
+        iteration = self.mcrunner.get_iterations_count()
+        fname = "{0}/Visits.his.{1}".format(directory,float(iteration))
+        if not self.suppress_histogram:
+            mean, variance = self.mcrunner.dump_histogram(fname)
+        else:
+            mean, variance = self.mcrunner.histogram.get_mean_variance()
+        self.histogram_mean_stream.write('{:<15}\t{:>15.15e}\t{:>15.15e}\n'.format(iteration,mean,variance))
             
     
     def _all_print_status(self):
@@ -188,6 +198,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
                         self.permutation_pattern[i] = buddy+1 #to conform to fortran notation
                     else:
                         self.permutation_pattern[i] = i+1 #to conform to fortran notation
+                self._master_print_permutations()
         else:
             exchange_pattern = None
         
