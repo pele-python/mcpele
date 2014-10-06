@@ -55,7 +55,7 @@ public:
     }
     /**
      * Return visualization of the step pattern.
-     * Steps are repeseted by integer labels, starting from 0, in the order of
+     * Steps are represented by integer labels, starting from 0, in the order of
      * addition to the pattern.
      */
     std::vector<size_t> get_pattern() const

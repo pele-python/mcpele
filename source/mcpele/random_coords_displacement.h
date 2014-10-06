@@ -20,7 +20,7 @@ protected:
     std::uniform_real_distribution<double> m_real_distribution;
     double m_stepsize;
 public:
-    RandomCoordsDisplacement(const size_t rseed, const double stepsize);
+    RandomCoordsDisplacement(const size_t rseed, const double stepsize=1);
     virtual ~RandomCoordsDisplacement() {}
     virtual void displace(pele::Array<double>& coords, MC* mc) =0;
     size_t get_seed() const {return m_seed;}
@@ -31,11 +31,13 @@ public:
      * Reference: http://mathworld.wolfram.com/UniformDistribution.html
      */
     double expected_variance(const double ss) const { return ss * ss / static_cast<double>(12); }
+    void increase_acceptance(const double factor) { m_stepsize *= factor; }
+    void decrease_acceptance(const double factor) { m_stepsize /= factor; }
 };
 
 class RandomCoordsDisplacementAll : public RandomCoordsDisplacement {
 public:
-    RandomCoordsDisplacementAll(const size_t rseed, const double stepsize);
+    RandomCoordsDisplacementAll(const size_t rseed, const double stepsize=1);
     virtual ~RandomCoordsDisplacementAll() {}
     virtual void displace(pele::Array<double>& coords, MC* mc);
 };
@@ -44,7 +46,7 @@ class RandomCoordsDisplacementSingle : public RandomCoordsDisplacement {
     size_t m_nparticles, m_ndim, m_rand_particle;
     std::uniform_int_distribution<size_t> m_int_distribution;
 public:
-    RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize);
+    RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize=1);
     virtual ~RandomCoordsDisplacementSingle() {}
     virtual void displace(pele::Array<double>& coords, MC* mc);
     size_t get_rand_particle(){return m_rand_particle;} //dangerous function, should be used only for testing purposes

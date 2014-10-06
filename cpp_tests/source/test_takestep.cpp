@@ -6,7 +6,7 @@
 
 #include "pele/harmonic.h"
 
-#include "mcpele/random_coords_displacement_adaptive.h"
+#include "mcpele/random_coords_displacement.h"
 #include "mcpele/particle_pair_swap.h"
 #include "mcpele/metropolis_test.h"
 #include "mcpele/adaptive_takestep.h"
@@ -78,7 +78,7 @@ TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_OneIteration){
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionality_OneParticleMoves){
-    //one iteration gives expected variation
+    //test that only 1 particle moves
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
 
     displ.displace(coor, mc);
@@ -98,7 +98,7 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_OneParticleMoves){
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesMove){
-    //one iteration gives expected variation
+    //test that all particles move
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
 
     for(size_t i=0; i<1000;++i){
@@ -111,7 +111,7 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesMove){
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesSampledUniformly){
-    //one iteration gives expected variation
+    //test that particles are sampled uniformly
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
     mcpele::Histogram hist_uniform_single(0, nparticles-1, 1);
     size_t ntot = 5000;
@@ -199,7 +199,7 @@ public:
 
 TEST_F(AdaptiveTakeStepTest, Global_UniformAdaptive_Works) {
     const double initial_stepsize = 1e-2;
-    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementAllAdaptive>(42, initial_stepsize);
+    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementAll>(42, initial_stepsize);
     const size_t total_iterations(2e5);
     const size_t equilibration_report_iterations(total_iterations / 2);
     mc->set_report_steps(equilibration_report_iterations);
@@ -226,7 +226,7 @@ TEST_F(AdaptiveTakeStepTest, Global_UniformAdaptive_Works) {
 
 TEST_F(AdaptiveTakeStepTest, Single_UniformAdaptive_Works) {
     const double initial_stepsize = 1e-2;
-    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementSingleAdaptive>(42, nr_particles, box_dimension, initial_stepsize);
+    auto uni = std::make_shared<mcpele::RandomCoordsDisplacementSingle>(42, nr_particles, box_dimension, initial_stepsize);
     const size_t total_iterations(2e5);
     const size_t equilibration_report_iterations(total_iterations / 2);
     mc->set_report_steps(equilibration_report_iterations);
