@@ -41,12 +41,13 @@ public:
 };
 
 class RandomCoordsDisplacementSingle : public RandomCoordsDisplacement {
-    size_t m_nparticles, m_ndim;
+    size_t m_nparticles, m_ndim, m_rand_particle;
     std::uniform_int_distribution<size_t> m_int_distribution;
 public:
     RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize);
     virtual ~RandomCoordsDisplacementSingle() {}
     virtual void displace(pele::Array<double>& coords, MC* mc);
+    size_t get_rand_particle(){return m_rand_particle;} //dangerous function, should be used only for testing purposes
 };
 
 } // namespace mcpele
