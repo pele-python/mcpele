@@ -9,7 +9,7 @@
 
 #include "pele/harmonic.h"
 
-#include "mcpele/random_coords_displacement_adaptive.h"
+#include "mcpele/random_coords_displacement.h"
 #include "mcpele/metropolis_test.h"
 #include "mcpele/energy_window_test.h"
 #include "mcpele/record_energy_histogram.h"
@@ -56,7 +56,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesStatic){
     mcpele::MC mc(potential, x, 1);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc.get_potential_ptr().get())->get_k() );
-    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42, stepsize);
+    shared_ptr<mcpele::RandomCoordsDisplacementAll> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacementAll>(42, stepsize);
     EXPECT_TRUE( !mc.take_step_specified() );
     mc.set_takestep(sampler_uniform);
     EXPECT_TRUE( mc.take_step_specified() );
@@ -70,7 +70,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic){
     mcpele::MC* mc = new mcpele::MC(potential, x, 1);
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == reinterpret_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
-    shared_ptr<mcpele::RandomCoordsDisplacement> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacement>(42, stepsize);
+    shared_ptr<mcpele::RandomCoordsDisplacementAll> sampler_uniform = std::make_shared<mcpele::RandomCoordsDisplacementAll>(42, stepsize);
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform);
     EXPECT_TRUE( mc->take_step_specified() );
@@ -87,7 +87,7 @@ TEST_F(TestMC, BasicFunctionalityPolyHarmonic){
     EXPECT_TRUE( k == potential->get_k() );
     EXPECT_TRUE( k == static_cast<pele::Harmonic*>(mc->get_potential_ptr().get())->get_k() );
     //std::cout << "initial step size: " << mc->get_stepsize() << std::endl;
-    std::shared_ptr<mcpele::TakeStep> sampler_uniform_adaptive = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::TakeStep>(new mcpele::RandomCoordsDisplacementAdaptive(42)), 50);
+    std::shared_ptr<mcpele::TakeStep> sampler_uniform_adaptive = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::TakeStep>(new mcpele::RandomCoordsDisplacementAll(42)), 50);
     EXPECT_TRUE( !mc->take_step_specified() );
     mc->set_takestep(sampler_uniform_adaptive);
     EXPECT_TRUE( mc->take_step_specified() );
@@ -309,8 +309,8 @@ TEST_F(TestMCMock, AdaptiveTakeStep_WorksDown){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
     mc->add_accept_test(std::make_shared<TrivialAcceptTest>(false));
-    mcpele::RandomCoordsDisplacementAdaptive* rs = new  mcpele::RandomCoordsDisplacementAdaptive(42, 1);
-    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAdaptive>(rs), 100, 0.8);
+    mcpele::RandomCoordsDisplacementAll* rs = new  mcpele::RandomCoordsDisplacementAll(42, 1);
+    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAll>(rs), 100, 0.8);
     mc->set_takestep(astep);
     const size_t nr_iterations = 1e3;
     mc->set_report_steps(nr_iterations);
@@ -322,8 +322,8 @@ TEST_F(TestMCMock, AdaptiveTakeStep_WorksUp){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
     mc->add_accept_test(std::make_shared<TrivialAcceptTest>(true));
-    mcpele::RandomCoordsDisplacementAdaptive* rs = new  mcpele::RandomCoordsDisplacementAdaptive(42, 1);
-    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAdaptive>(rs), 100, 0.8);
+    mcpele::RandomCoordsDisplacementAll* rs = new  mcpele::RandomCoordsDisplacementAll(42, 1);
+    auto astep = std::make_shared<mcpele::AdaptiveTakeStep>(std::shared_ptr<mcpele::RandomCoordsDisplacementAll>(rs), 100, 0.8);
     mc->set_takestep(astep);
     const size_t nr_iterations = 1e3;
     mc->set_report_steps(nr_iterations);

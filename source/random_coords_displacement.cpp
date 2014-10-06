@@ -2,10 +2,12 @@
 
 namespace mcpele {
 
+/*RandomCoordsDisplacement*/
+
 RandomCoordsDisplacement::RandomCoordsDisplacement(const size_t rseed, const double stepsize)
     : m_seed(rseed),
       m_generator(rseed),
-      m_distribution(0.0, 1.0),
+      m_real_distribution(0.0, 1.0),
       m_stepsize(stepsize)
 {
     #ifdef DEBUG
@@ -13,11 +15,34 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(const size_t rseed, const dou
     #endif
 }
 
-void RandomCoordsDisplacement::displace(pele::Array<double>& coords, MC* mc)
+/*RandomCoordsDisplacementAll*/
+
+RandomCoordsDisplacementAll::RandomCoordsDisplacementAll(const size_t rseed, const double stepsize)
+    : RandomCoordsDisplacement(rseed, stepsize){}
+
+void RandomCoordsDisplacementAll::displace(pele::Array<double>& coords, MC* mc)
 {
-    double rand;
     for (size_t i = 0; i < coords.size(); ++i) {
-        rand = m_distribution(m_generator);
+        double rand = m_real_distribution(m_generator);
+        coords[i] += (0.5 - rand) * m_stepsize;
+    }
+}
+
+/*RandomCoordsDisplacementSingle*/
+
+RandomCoordsDisplacementSingle::RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize)
+    : RandomCoordsDisplacement(rseed, stepsize),
+      m_nparticles(nparticles),
+      m_ndim(ndim),
+      m_rand_particle(0),
+      m_int_distribution(0, m_nparticles-1){}
+
+void RandomCoordsDisplacementSingle::displace(pele::Array<double>& coords, MC* mc)
+{
+    m_rand_particle = m_int_distribution(m_generator);
+    size_t rand_particle_dof = m_rand_particle * m_ndim;
+    for (size_t i = rand_particle_dof; i < rand_particle_dof + m_ndim; ++i) {
+        double rand = m_real_distribution(m_generator);
         coords[i] += (0.5 - rand) * m_stepsize;
     }
 }
