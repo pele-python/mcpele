@@ -60,11 +60,14 @@ class TakeStep {
 public:
     virtual ~TakeStep() {}
     virtual void displace(pele::Array<double>& coords, MC* mc) = 0;
-    virtual void report(pele::Array<double>& old_coords,
-            const double old_energy, pele::Array<double>& new_coords,
-            const double new_energy, const bool success, MC* mc) {}
-    virtual void increase_acceptance(const double factor) {}
-    virtual void decrease_acceptance(const double factor) {}
+    virtual void report(__attribute__((unused)) pele::Array<double>& old_coords,
+            __attribute__((unused)) const double old_energy,
+            __attribute__((unused)) pele::Array<double>& new_coords,
+            __attribute__((unused)) const double new_energy,
+            __attribute__((unused)) const bool success,
+            __attribute__((unused)) MC* mc) {}
+    virtual void increase_acceptance(__attribute__((unused)) const double factor) {}
+    virtual void decrease_acceptance(__attribute__((unused)) const double factor) {}
 };
 
 /**
