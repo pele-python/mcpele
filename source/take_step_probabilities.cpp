@@ -12,7 +12,7 @@ void TakeStepProbabilities::add_step(std::shared_ptr<TakeStep> step_input, const
     m_weights.push_back(weight_input);
     m_steps.swap(m_steps);
     m_weights.swap(m_weights);
-    m_distribution = std::make_shared<std::discrete_distribution<size_t> >(m_weights.begin(), m_weights.end());
+    m_distribution = std::discrete_distribution<size_t>(m_weights.begin(), m_weights.end());
 }
 
 void TakeStepProbabilities::displace(pele::Array<double>& coords, MC* mc)
@@ -20,7 +20,7 @@ void TakeStepProbabilities::displace(pele::Array<double>& coords, MC* mc)
     if (m_steps.size() == 0) {
         throw std::runtime_error("TakeStepProbabilities::displace: no step specified");
     }
-    m_current_step = (*m_distribution.get())(m_generator);
+    m_current_step = m_distribution(m_generator);
     m_steps.at(m_current_step)->displace(coords, mc);
 }
 

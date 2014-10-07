@@ -21,7 +21,7 @@ class TakeStepProbabilities : public TakeStep {
 private:
     std::vector<std::shared_ptr<TakeStep> > m_steps;
     std::vector<double> m_weights;
-    std::shared_ptr<std::discrete_distribution<size_t> > m_distribution;
+    std::discrete_distribution<size_t> m_distribution;
     std::mt19937_64 m_generator;
     size_t m_current_step;
 public:
