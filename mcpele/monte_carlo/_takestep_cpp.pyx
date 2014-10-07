@@ -9,11 +9,16 @@ import sys
 
 cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
+    single: true if single particle moves
     """
-    cdef cppRandomCoordsDisplacementAdaptive* newptr
-    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacementAdaptive(rseed, stepsize)), report_interval, factor, min_acc_ratio, max_acc_ratio))
-        self.newptr = <cppRandomCoordsDisplacementAdaptive*> self.thisptr.get()
+    cdef cppRandomCoordsDisplacement* newptr
+    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5, single=False, nparticles=0, bdim=0):
+        if not single:
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacementAll(rseed, stepsize)), report_interval, factor, min_acc_ratio, max_acc_ratio))
+        else:
+            assert(bdim > 0 and nparticles > 0)
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacementSingle(rseed, nparticles, bdim, stepsize)), report_interval, factor, min_acc_ratio, max_acc_ratio))
+        self.newptr = <cppRandomCoordsDisplacement*> self.thisptr.get()
     
     def get_seed(self):
         cdef res = self.newptr.get_seed()

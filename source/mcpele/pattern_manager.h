@@ -14,9 +14,9 @@ class PatternManager {
 public:
     typedef typename std::vector<std::pair<size_t, T> > vec_t;
 private:
-    vec_t m_repetitions_indices;
-    typename vec_t::const_iterator m_current;
-    size_t m_current_count;
+    vec_t m_step_repetitions;
+    typename vec_t::const_iterator m_current_step_iter;
+    size_t m_current_step_count;
     bool m_initialized;
 public:
     virtual ~PatternManager() {}
@@ -25,14 +25,14 @@ public:
     {}
     const PatternManager& operator ++ ()
     {
-        if (m_current_count == 0) {
-            ++m_current;
-            if (m_current == m_repetitions_indices.end()) {
-                m_current = m_repetitions_indices.begin();
+        if (m_current_step_count == 0) {
+            ++m_current_step_iter;
+            if (m_current_step_iter == m_step_repetitions.end()) {
+                m_current_step_iter = m_step_repetitions.begin();
             }
-            m_current_count = m_current->first;
+            m_current_step_count = m_current_step_iter->first;
         }
-        --m_current_count;
+        --m_current_step_count;
         return *this;
     }
     void add(const T index_input, const size_t repetitions_input=1)
@@ -40,29 +40,29 @@ public:
         if (repetitions_input < 1) {
             throw std::range_error("PatternManager::add: illegal input");
         }
-        m_repetitions_indices.push_back(std::make_pair(repetitions_input, index_input));
-        m_current = m_repetitions_indices.begin();
+        m_step_repetitions.push_back(std::make_pair(repetitions_input, index_input));
+        m_current_step_iter = m_step_repetitions.begin();
         if (!m_initialized) {
             m_initialized = true;
         }
     }
-    T get_step_index() const
+    T get_step_ptr() const
     {
         if (!m_initialized) {
             throw std::runtime_error("PatternManager::get_step_index: illegal access");
         }
-        return m_current->second;
+        return m_current_step_iter->second;
     }
     /**
      * Return visualization of the step pattern.
-     * Steps are repeseted by integer labels, starting from 0, in the order of
+     * Steps are represented by integer labels, starting from 0, in the order of
      * addition to the pattern.
      */
     std::vector<size_t> get_pattern() const
     {
         std::vector<size_t> result;
-        for (typename vec_t::const_iterator i = m_repetitions_indices.begin(); i != m_repetitions_indices.end(); ++i) {
-            const std::vector<size_t> tmp(i->first, static_cast<size_t>(i - m_repetitions_indices.begin()));
+        for (typename vec_t::const_iterator i = m_step_repetitions.begin(); i != m_step_repetitions.end(); ++i) {
+            const std::vector<size_t> tmp(i->first, static_cast<size_t>(i - m_step_repetitions.begin()));
             result.insert(result.end(), tmp.begin(), tmp.end());
         }
         result.swap(result);
