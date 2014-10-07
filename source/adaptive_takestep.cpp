@@ -14,9 +14,8 @@ AdaptiveTakeStep::AdaptiveTakeStep(std::shared_ptr<TakeStep> ts,
       m_max_acceptance_ratio(max_acceptance_ratio)
 {}
 
-void AdaptiveTakeStep::report(__attribute__((unused)) pele::Array<double>& old_coords,
-        __attribute__((unused)) const double old_energy, __attribute__((unused)) pele::Array<double>& new_coords,
-        __attribute__((unused)) const double new_energy, const bool success, MC* mc)
+void AdaptiveTakeStep::report(pele::Array<double>&, const double,
+        pele::Array<double>&, const double, const bool success, MC* mc)
 {
     ++m_total_steps;
     if (success) {
