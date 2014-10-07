@@ -23,7 +23,7 @@ private:
     std::vector<double> m_weights;
     std::discrete_distribution<size_t> m_distribution;
     std::mt19937_64 m_generator;
-    size_t m_current_step;
+    size_t m_current_index;
 public:
     virtual ~TakeStepProbabilities() {}
     TakeStepProbabilities(const size_t seed);
