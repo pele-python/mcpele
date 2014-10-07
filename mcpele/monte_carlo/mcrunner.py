@@ -54,8 +54,10 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.binsize = hbinsize
         self.histogram = RecordEnergyHistogram(hEmin, hEmax, self.binsize, adjustf_niter)
         #self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.step = RandomCoordsDisplacement(42, stepsize, report_interval=adjustf_navg, single=single, 
-                                             nparticles=int(len(coords)/bdim), bdim=bdim)
+        self.set_report_steps(adjustf_niter)
+        self.step = RandomCoordsDisplacement(42, stepsize, report_interval=adjustf_navg, 
+                                             factor=adjustf, min_acc_ratio=acceptance, max_acc_ratio=acceptance,
+                                             single=single, nparticles=int(len(coords)/bdim), bdim=bdim)
         #self.step = RandomCoordsDisplacement(np.random.randint(i32max))
         self.metropolis = MetropolisTest(44)
         #self.metropolis = MetropolisTest(np.random.randint(i32max))
@@ -72,6 +74,9 @@ class Metropolis_MCrunner(_BaseMCRunner):
         """set temperature, canonical control parameter"""
         self.temperature = T
         self.set_temperature(T)
+    
+    def get_stepsize(self):
+        return self.step.get_stepsize()
     
     def dump_histogram(self, fname):
         """write histogram to fname"""

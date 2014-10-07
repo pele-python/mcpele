@@ -14,12 +14,17 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     cdef cppRandomCoordsDisplacement* newptr
     def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5, single=False, nparticles=0, bdim=0):
         if not single:
-            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacementAll(rseed, stepsize)), report_interval, factor, min_acc_ratio, max_acc_ratio))
+            self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementAll(rseed, stepsize)
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> 
+                   new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr), 
+                                           report_interval, factor, min_acc_ratio, max_acc_ratio))
         else:
             assert(bdim > 0 and nparticles > 0)
-            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacementSingle(rseed, nparticles, bdim, stepsize)), report_interval, factor, min_acc_ratio, max_acc_ratio))
-        self.newptr = <cppRandomCoordsDisplacement*> self.thisptr.get()
-    
+            self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementSingle(rseed, nparticles, bdim, stepsize)
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> 
+                   new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr), 
+                                           report_interval, factor, min_acc_ratio, max_acc_ratio))
+        
     def get_seed(self):
         cdef res = self.newptr.get_seed()
         return res
