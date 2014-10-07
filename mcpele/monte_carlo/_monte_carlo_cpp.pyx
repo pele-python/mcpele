@@ -136,6 +136,10 @@ class _BaseMCRunner(_Cdef_MC):
         self.result.message = []
     
     @abc.abstractmethod
+    def get_stepsize(self):
+        """return stepsize"""
+        
+    @abc.abstractmethod
     def set_control(self, c):
         """set control parameter, this could be temperature or some other control parameter like stiffness of the harmonic potential"""
     
