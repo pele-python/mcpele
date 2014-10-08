@@ -40,11 +40,3 @@ function(make_cython_lib cython_cxx_source)
   set_target_properties(${library_name} PROPERTIES PREFIX "")
   message("making library ${library_name} from source ${cython_cxx_source}")
 endfunction(make_cython_lib)
-
-#set(action_source ${CMAKE_SOURCE_DIR}/mcpele/monte_carlo/_action_cpp.cxx)
-##add_library(_action_cpp SHARED ${action_source} ${pele_sources} ${mcpele_sources} ${PYTHON_LIBS})
-#add_library(_action_cpp SHARED ${action_source})
-#target_link_libraries(_action_cpp mcpele_lib)
-#set_target_properties(_action_cpp PROPERTIES PREFIX "")
-
-make_cython_lib(${CMAKE_SOURCE_DIR}/mcpele/monte_carlo/_action_cpp.cxx)
