@@ -12,7 +12,11 @@ AdaptiveTakeStep::AdaptiveTakeStep(std::shared_ptr<TakeStep> ts,
       m_factor(factor),
       m_min_acceptance_ratio(min_acceptance_ratio),
       m_max_acceptance_ratio(max_acceptance_ratio)
-{}
+{
+    if (factor <= 0 || factor >= 1) {
+        throw std::runtime_error("AdaptiveTakeStep::AdaptiveTakeStep: input factor has illegal value");
+    }
+}
 
 void AdaptiveTakeStep::report(pele::Array<double>& old_coords,
         const double old_energy, pele::Array<double>& new_coords,
