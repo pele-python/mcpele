@@ -4,9 +4,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 
-#include "pele/array.h"
-
-#include "mcpele/conf_test.h"
+#include "mcpele/check_spherical_container.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -19,7 +17,7 @@ TEST(CheckSphericalContainer, Works){
 
     mcpele::CheckSphericalContainer check(r, ndim);
     x[0] = r - eps;
-    EXPECT_TRUE(check.test(x, mcvoid));
+    EXPECT_TRUE(check.conf_test(x, mcvoid));
     x[0] = r + eps;
-    EXPECT_FALSE(check.test(x, mcvoid));
+    EXPECT_FALSE(check.conf_test(x, mcvoid));
 }

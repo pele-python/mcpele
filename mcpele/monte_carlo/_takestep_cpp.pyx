@@ -9,12 +9,22 @@ import sys
 
 cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
+    single: true if single particle moves
     """
     cdef cppRandomCoordsDisplacement* newptr
-    def __cinit__(self, rseed):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppRandomCoordsDisplacement(rseed))
-        self.newptr = <cppRandomCoordsDisplacement*> self.thisptr.get()
-    
+    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5, single=False, nparticles=0, bdim=0):
+        if not single:
+            self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementAll(rseed, stepsize)
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> 
+                   new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr), 
+                                           report_interval, factor, min_acc_ratio, max_acc_ratio))
+        else:
+            assert(bdim > 0 and nparticles > 0)
+            self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementSingle(rseed, nparticles, bdim, stepsize)
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> 
+                   new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr), 
+                                           report_interval, factor, min_acc_ratio, max_acc_ratio))
+        
     def get_seed(self):
         cdef res = self.newptr.get_seed()
         return res
@@ -22,6 +32,9 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     def set_generator_seed(self, input):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
+        
+    def get_stepsize(self):
+        return self.newptr.get_stepsize()
         
 class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
     """This class is the python interface for the c++ RandomCoordsDisplacement implementation.
@@ -35,8 +48,8 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
     """This class is the python interface for the c++ pele::RandomCoordsDisplacement take step class implementation
     """
     cdef cppGaussianCoordsDisplacement* newptr
-    def __cinit__(self, rseed):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed))
+    def __cinit__(self, rseed, stepsize):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed, stepsize))
         self.newptr = <cppGaussianCoordsDisplacement*> self.thisptr.get()
     
     def get_seed(self):
@@ -47,6 +60,66 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
     
+    def get_stepsize(self):
+        return self.newptr.get_stepsize()
+    
 class GaussianCoordsDisplacement(_Cdef_GaussianCoordsDisplacement):
     """This class is the python interface for the c++ RandomCoordsDisplacement implementation.
+    """
+    
+#
+# ParticlePairSwap
+#
+
+cdef class _Cdef_ParticlePairSwap(_Cdef_TakeStep):
+    """
+    Python interface for c++ ParticlePairSwap
+    
+    Parameters
+    ----------
+    seed : pos integer
+        Seed for random number generator.
+    nr_particles : pos integer
+        Number of particles.
+    swap_every : pos integer
+        Spacing for swapping attempts: particle pair swap is attemted every
+        swap_every move.
+    """
+    cdef cppParticlePairSwap* newptr
+    def __cinit__(self, seed, nr_particles):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppParticlePairSwap(seed, nr_particles))
+        self.newptr = <cppParticlePairSwap*> self.thisptr.get()
+
+    def get_seed(self):
+        cdef res = self.newptr.get_seed()
+        return res
+    
+    def set_generator_seed(self, input):
+        cdef inp = input
+        self.newptr.set_generator_seed(inp)
+
+class ParticlePairSwap(_Cdef_ParticlePairSwap):
+    """
+    Python interface for c++ ParticlePairSwap
+    """
+    
+#
+# TakeStepPattern
+#
+
+cdef class _Cdef_TakeStepPattern(_Cdef_TakeStep):
+    """
+    Python interface for c++ TakeStepPattern
+    """
+    cdef cppTakeStepPattern* newptr
+    def __cinit__(self):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppTakeStepPattern())
+        self.newptr = <cppTakeStepPattern*> self.thisptr.get()
+    
+    def add_step(self, _Cdef_TakeStep step, nr_repetitions):
+        self.newptr.add_step(step.thisptr, nr_repetitions)
+
+class TakeStepPattern(_Cdef_TakeStepPattern):
+    """
+    Python interface for c++ TakeStepPattern
     """

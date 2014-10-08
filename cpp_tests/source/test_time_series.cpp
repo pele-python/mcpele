@@ -10,7 +10,9 @@
 #include "pele/hs_wca.h"
 #include "pele/lj.h"
 
-#include "mcpele/actions.h"
+#include "mcpele/record_energy_timeseries.h"
+#include "mcpele/record_displacement_per_particle_timeseries.h"
+#include "mcpele/record_lowest_evalue_timeseries.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -19,7 +21,7 @@ struct TrivialTakestep : public mcpele::TakeStep{
     TrivialTakestep()
         : call_count(0)
     {}
-    virtual void takestep(pele::Array<double> &coords, double stepsize, mcpele::MC * mc=NULL)
+    virtual void displace(pele::Array<double> &coords, mcpele::MC * mc=NULL)
     {
         call_count++;
     }
@@ -28,11 +30,10 @@ struct TrivialTakestep : public mcpele::TakeStep{
 TEST(EnergyTimeseries, Basic){
     const size_t boxdim = 3;
     const size_t nparticles = 100;
-    const size_t ndof = nparticles*boxdim;
+    const size_t ndof = nparticles * boxdim;
     const size_t niter = 10000;
     const size_t record_every = 100;
     const double k = 400;
-    const double stepsize = 1e-2;
     pele::Array<double> coords(ndof,2);
     pele::Array<double> origin(ndof,0);
     std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
@@ -40,10 +41,10 @@ TEST(EnergyTimeseries, Basic){
     double etrue(0);
     for (size_t i = 0; i < ndof; ++i) {
         const auto delta = coords[i] - origin[i];
-        etrue += 0.5*k*delta*delta;
+        etrue += 0.5 * k * delta * delta;
     }
     EXPECT_DOUBLE_EQ(enumerical, etrue);
-    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
+    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1);
     mcpele::RecordEnergyTimeseries* ts = new mcpele::RecordEnergyTimeseries(niter, record_every);
     mc->add_action(std::shared_ptr<mcpele::RecordEnergyTimeseries>(ts));
     mc->set_takestep(std::make_shared<TrivialTakestep>());
@@ -56,30 +57,29 @@ TEST(EnergyTimeseries, Basic){
     }
 }
 
-TEST(EVTimeseries, Works){
+TEST(EVTimeseries, Works) {
     typedef mcpele::RecordLowestEValueTimeseries series_t;
     //typedef mcpele::RecordEnergyTimeseries series_t;
     const size_t boxdim = 3;
     const size_t nparticles = 4;
-    const size_t ndof = nparticles*boxdim;
+    const size_t ndof = nparticles * boxdim;
     const size_t niter = 100;
     const size_t record_every = 10;
     const double k = 400;
-    const double stepsize = 1e-2;
     pele::Array<double> coords(ndof,2);
     for (size_t i = 0; i < coords.size(); ++i){
         coords[i] += 0.1*i;
     }
-    pele::Array<double> origin(ndof,1);
+    pele::Array<double> origin(ndof, 1);
     for (size_t i = 0; i < origin.size(); ++i){
-        origin[i] -= 0.01*i;
+        origin[i] -= 0.01 * i;
     }
     std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
 
     const double eps = 1;
     const double sca = 1;
     pele::Array<double> radii(nparticles,1);
-    std::shared_ptr<pele::HS_WCA> landscape_potential = std::make_shared<pele::HS_WCA>(eps, sca, radii);
+    std::shared_ptr<pele::HS_WCA<3> > landscape_potential = std::make_shared<pele::HS_WCA<3> >(eps, sca, radii);
 
     //pele::Harmonic* landscape_potential = new pele::Harmonic(origin, k, boxdim);
     //pele::LJ* landscape_potential = new pele::LJ(1, 1);
@@ -88,10 +88,10 @@ TEST(EVTimeseries, Works){
     double etrue(0);
     for (size_t i = 0; i < ndof; ++i) {
         const auto delta = coords[i] - origin[i];
-        etrue += 0.5*k*delta*delta;
+        etrue += 0.5 * k * delta * delta;
     }
     EXPECT_DOUBLE_EQ(enumerical, etrue);
-    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
+    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1);
 
     const size_t lbfgsniter = 30;
     pele::Array<double> ranvec = origin.copy();
@@ -105,29 +105,28 @@ TEST(EVTimeseries, Works){
     mc->run(niter);
     EXPECT_EQ(mc->get_iterations_count(), niter);
     pele::Array<double> series = ts->get_time_series();
-    EXPECT_EQ(series.size(), niter/record_every);
+    EXPECT_EQ(series.size(), niter / record_every);
     const double eigenvalue_reference = series[0];
     for (size_t i = 0; i < series.size(); ++i) {
         EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-10);
     }
 }
 
-TEST(MRSMTimeseries, Works){
+TEST(ParticleDisplacementTimeseries, Works){
     const size_t boxdim = 3;
     const size_t nparticles = 100;
-    const size_t ndof = nparticles*boxdim;
+    const size_t ndof = nparticles * boxdim;
     const size_t niter = 10000;
     const size_t record_every = 100;
-    const double stepsize = 1e-2;
     pele::Array<double> coords(ndof,2);
     pele::Array<double> origin(ndof,0);
 
     const double k = 400;
     std::shared_ptr<pele::Harmonic> potential = std::make_shared<pele::Harmonic>(origin, k, boxdim);
-    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1, stepsize);
+    std::shared_ptr<mcpele::MC> mc = std::make_shared<mcpele::MC>(potential, coords, 1);
 
-    mcpele::RecordMeanRMSDisplacementTimeseries* ts = new mcpele::RecordMeanRMSDisplacementTimeseries(niter, record_every, origin, boxdim);
-    mc->add_action(std::shared_ptr<mcpele::RecordMeanRMSDisplacementTimeseries>(ts));
+    mcpele::RecordDisplacementPerParticleTimeseries* ts = new mcpele::RecordDisplacementPerParticleTimeseries(niter, record_every, origin, boxdim);
+    mc->add_action(std::shared_ptr<mcpele::RecordDisplacementPerParticleTimeseries>(ts));
     mc->set_takestep(std::make_shared<TrivialTakestep>());
 
     mc->run(niter);

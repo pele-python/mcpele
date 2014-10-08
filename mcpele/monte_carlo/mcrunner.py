@@ -1,7 +1,10 @@
 import numpy as np
 from mcpele.monte_carlo import _BaseMCRunner, RandomCoordsDisplacement, MetropolisTest 
-from mcpele.monte_carlo import CheckSphericalContainer, AdjustStep, RecordEnergyHistogram
-import pylab as plt
+from mcpele.monte_carlo import CheckSphericalContainer, RecordEnergyHistogram
+try:
+    import matplotlib.pyplot as plt
+except ImportError as err:
+    print err
 
 """
 pele::MCrunner
@@ -39,18 +42,22 @@ class Metropolis_MCrunner(_BaseMCRunner):
     """
     def __init__(self, potential, coords, temperature, stepsize, niter, 
                  hEmin=0, hEmax=100, hbinsize=0.01, radius=2.5,
-                 acceptance=0.5, adjustf=0.9, adjustf_niter = 1e4, adjustf_navg = 100, bdim=3):
+                 acceptance=0.5, adjustf=0.9, adjustf_niter=1e4, adjustf_navg=100, bdim=3, 
+                 single=False):
         #construct base class
-        super(Metropolis_MCrunner,self).__init__(potential, coords, temperature,
-                                                  stepsize, niter)
-                               
+        super(Metropolis_MCrunner, self).__init__(potential, coords, temperature, niter)
+        self.set_report_steps(adjustf_niter)
+
         #construct test/action classes       
         i32max = np.iinfo(np.int32).max
         
         self.binsize = hbinsize
-        self.histogram = RecordEnergyHistogram(hEmin,hEmax,self.binsize, adjustf_niter)
-        self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.step = RandomCoordsDisplacement(42)
+        self.histogram = RecordEnergyHistogram(hEmin, hEmax, self.binsize, adjustf_niter)
+        #self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
+        self.set_report_steps(adjustf_niter)
+        self.step = RandomCoordsDisplacement(42, stepsize, report_interval=adjustf_navg, 
+                                             factor=adjustf, min_acc_ratio=acceptance, max_acc_ratio=acceptance,
+                                             single=single, nparticles=int(len(coords)/bdim), bdim=bdim)
         #self.step = RandomCoordsDisplacement(np.random.randint(i32max))
         self.metropolis = MetropolisTest(44)
         #self.metropolis = MetropolisTest(np.random.randint(i32max))
@@ -61,12 +68,15 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.add_accept_test(self.metropolis)
         self.add_conf_test(self.conftest)
         self.add_action(self.histogram)
-        self.add_action(self.adjust_step)
+        #self.add_action(self.adjust_step)
         
     def set_control(self, T):
         """set temperature, canonical control parameter"""
         self.temperature = T
         self.set_temperature(T)
+    
+    def get_stepsize(self):
+        return self.step.get_stepsize()
     
     def dump_histogram(self, fname):
         """write histogram to fname"""

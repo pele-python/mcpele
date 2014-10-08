@@ -10,12 +10,12 @@ namespace mcpele{
 
 class FindLowestEigenvalue{
 private:
-    std::shared_ptr<pele::LowestEigPotential> _lowesteigpot;
-    pele::Array<double> _ranvec;
-    pele::LBFGS _lbfgs;
+    std::shared_ptr<pele::LowestEigPotential> m_lowesteigpot;
+    pele::Array<double> m_ranvec;
+    pele::LBFGS m_lbfgs;
 public:
     FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
-            pele::Array<double> ranvec, const size_t lbfgsniter);
+            const pele::Array<double> ranvec, const size_t lbfgsniter);
     double compute_lowest_eigenvalue(pele::Array<double> coords);
 };
 
