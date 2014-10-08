@@ -6,6 +6,7 @@ import shutil
 import argparse
 
 import numpy as np
+from distutils import sysconfig
 from numpy.distutils.core import setup
 from numpy.distutils.core import Extension
 from numpy.distutils.command.build_ext import build_ext as old_build_ext
@@ -118,19 +119,6 @@ setup(name='mcpele',
 # build the c++ files
 #
 
-include_sources_mcpele = ["source/" + f for f in os.listdir("source/") 
-                   if f.endswith(".cpp")]
-include_dirs = [numpy_include, "source"]
-
-include_sources_pele = [pelepath+"/source/" + f for f in os.listdir(pelepath+"/source") 
-                   if f.endswith(".cpp")]
-
-depends_mcpele = [os.path.join("source/mcpele", f) for f in os.listdir("source/mcpele/") 
-           if f.endswith(".cpp") or f.endswith(".h") or f.endswith(".hpp")]
-
-depends_pele = [os.path.join(pelepath+"/source/pele", f) for f in os.listdir(pelepath+"/source/pele") 
-                if f.endswith(".cpp") or f.endswith(".h") or f.endswith(".hpp")]
-
 # note: on my computer (ubuntu 12.04 gcc version 4.6.3), when compiled with the
 # flag -march=native I run into problems.  Everything seems to run ok, but when
 # I run it through valgrind, valgrind complains about an unrecognized
@@ -138,9 +126,6 @@ depends_pele = [os.path.join(pelepath+"/source/pele", f) for f in os.listdir(pel
 # better to be on the safe side and not use -march=native
 #extra_compile_args = ['-I/home/sm958/Work/pele/source','-std=c++0x',"-Wall", "-Wextra", "-O3", '-funroll-loops']
 # uncomment the next line to add extra optimization options
-
-include_pele_source = '-I'+ pelepath + '/source'
-extra_compile_args = [include_pele_source,'-std=c++0x',"-Wall", '-Wextra','-pedantic','-O3'] #,'-DDEBUG'
 
 # note: to compile with debug on and to override extra_compile_args use, e.g.
 # OPT="-g -O2 -march=native" python setup.py ...
@@ -155,20 +140,28 @@ cxx_files = ["mcpele/monte_carlo/_pele_mc.cxx",
              "mcpele/monte_carlo/_action_cpp.cxx",
              ]
 
-# create file CMakeLists.txt from CMakeLists.txt.in specifying which libraries to build 
+# create file CMakeLists.txt from CMakeLists.txt.in 
 with open("CMakeLists.txt.in", "r") as fin:
     cmake_txt = fin.read()
+# We first tell cmake where the include directories are 
+cmake_txt = cmake_txt.replace("__PELE_INCLUDE__", pelepath + "/source")
+# note: the code to find python_includes was taken from the python-config executable
+python_includes = [sysconfig.get_python_inc(), 
+                   sysconfig.get_python_inc(plat_specific=True)]
+cmake_txt = cmake_txt.replace("__PYTHON_INCLUDE__", " ".join(python_includes))
+cmake_txt = cmake_txt.replace("__NUMPY_INCLUDE__", " ".join(numpy_include))
+# Now we tell cmake which librarires to build 
 with open("CMakeLists.txt", "w") as fout:
     fout.write(cmake_txt)
     fout.write("\n")
     for fname in cxx_files:
         fout.write("make_cython_lib(${CMAKE_SOURCE_DIR}/%s)\n" % fname)
 
-if not os.path.isdir(cmake_build_dir):
-    os.makedirs(cmake_build_dir)
 
 
 def run_cmake():
+    if not os.path.isdir(cmake_build_dir):
+        os.makedirs(cmake_build_dir)
     print "\nrunning cmake in directory", cmake_build_dir
     cwd = os.path.abspath(os.path.dirname(__file__))
     p = subprocess.call(["cmake", cwd], cwd=cmake_build_dir)
@@ -207,6 +200,9 @@ class build_ext_precompiled(old_build_ext):
         print "copying", pre_compiled_library, "to", ext_path
         shutil.copy2(pre_compiled_library, ext_path)
 
+# Construct extension modules for all the cxx files
+# The `name` of the extension is, as usual, the python path (e.g. pele.optimize._lbfgs_cpp).
+# The `source` of the extension is the location of the .so file
 cxx_modules = []
 for fname in cxx_files:
     name = fname.replace(".cxx", "")
@@ -218,9 +214,6 @@ for fname in cxx_files:
 
 setup(cmdclass=dict(build_ext=build_ext_precompiled),
       ext_modules=cxx_modules)
-include_sources_all = include_sources_mcpele + include_sources_pele
-
-depends_all = depends_mcpele + depends_pele
 
 
 
