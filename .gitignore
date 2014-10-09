@@ -9,3 +9,5 @@ build/
 cpp_tests/build/
 cpp_tests/gtest/
 cythonize.dat
+CMakeLists.txt
+mcpele/version.py
