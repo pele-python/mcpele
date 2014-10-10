@@ -1,10 +1,8 @@
-import glob
 import os
 import sys
 import subprocess
 import shutil
 import argparse
-import fileinput
 
 import numpy as np
 from distutils import sysconfig
