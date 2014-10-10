@@ -33,6 +33,8 @@ if jargs.j is None:
     cmake_parallel_args = []
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
+
+#extra compiler args
 cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3"]
     
 
