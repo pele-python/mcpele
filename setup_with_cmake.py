@@ -4,6 +4,7 @@ import sys
 import subprocess
 import shutil
 import argparse
+import fileinput
 
 import numpy as np
 from distutils import sysconfig
@@ -34,6 +35,7 @@ if jargs.j is None:
     cmake_parallel_args = []
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
+cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3"]
     
 
 #
@@ -150,6 +152,7 @@ python_includes = [sysconfig.get_python_inc(),
                    sysconfig.get_python_inc(plat_specific=True)]
 cmake_txt = cmake_txt.replace("__PYTHON_INCLUDE__", " ".join(python_includes))
 cmake_txt = cmake_txt.replace("__NUMPY_INCLUDE__", " ".join(numpy_include))
+cmake_txt = cmake_txt.replace("__COMPILER_EXTRA_ARGS__", '\"{}\"'.format(" ".join(cmake_compiler_extra_args)))
 # Now we tell cmake which librarires to build 
 with open("CMakeLists.txt", "w") as fout:
     fout.write(cmake_txt)
@@ -157,14 +160,26 @@ with open("CMakeLists.txt", "w") as fout:
     for fname in cxx_files:
         fout.write("make_cython_lib(${CMAKE_SOURCE_DIR}/%s)\n" % fname)
 
+def set_compiler_env(compiler_id):
+    env = os.environ.copy()
+    if compiler_id == "GNU":
+        env["CC"] = "gcc"
+        env["CXX"] = "g++"
+    elif compiler_id == "INTEL":
+        env["CC"] = "icc"
+        env["CXX"] = "icpc"
+    else:
+        raise Exception("compiler_id not known")
+    return env
 
-
-def run_cmake():
+def run_cmake(compiler_id="INTEL"):
     if not os.path.isdir(cmake_build_dir):
         os.makedirs(cmake_build_dir)
     print "\nrunning cmake in directory", cmake_build_dir
     cwd = os.path.abspath(os.path.dirname(__file__))
-    p = subprocess.call(["cmake", cwd], cwd=cmake_build_dir)
+    env = set_compiler_env(compiler_id)
+    
+    p = subprocess.call(["cmake", cwd], cwd=cmake_build_dir, env=env)
     if p != 0:
         raise Exception("running cmake failed")
     print "\nbuilding files in cmake directory"
