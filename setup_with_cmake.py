@@ -170,7 +170,7 @@ def set_compiler_env(compiler_id):
         raise Exception("compiler_id not known")
     return env
 
-def run_cmake(compiler_id="INTEL"):
+def run_cmake(compiler_id="GNU"):
     if not os.path.isdir(cmake_build_dir):
         os.makedirs(cmake_build_dir)
     print "\nrunning cmake in directory", cmake_build_dir
