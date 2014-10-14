@@ -162,10 +162,10 @@ with open("CMakeLists.txt", "w") as fout:
 
 def set_compiler_env(compiler_id):
     env = os.environ.copy()
-    if compiler_id == "GNU":
+    if compiler_id.lower() in ("gnu", "gcc", "g++"):
         env["CC"] = "gcc"
         env["CXX"] = "g++"
-    elif compiler_id == "INTEL":
+    elif compiler_id.lower() in ("intel", "icc", "icpc"):
         env["CC"] = "icc"
         env["CXX"] = "icpc"
     else:
