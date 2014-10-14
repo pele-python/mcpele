@@ -18,9 +18,8 @@ AdaptiveTakeStep::AdaptiveTakeStep(std::shared_ptr<TakeStep> ts,
     }
 }
 
-void AdaptiveTakeStep::report(pele::Array<double>& old_coords,
-        const double old_energy, pele::Array<double>& new_coords,
-        const double new_energy, const bool success, MC* mc)
+void AdaptiveTakeStep::report(pele::Array<double>&, const double,
+        pele::Array<double>&, const double, const bool success, MC* mc)
 {
     ++m_total_steps;
     if (success) {
