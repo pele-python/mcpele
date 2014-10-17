@@ -11,9 +11,8 @@ EnergyWindowTest::EnergyWindowTest(const double min_energy, const double max_ene
       m_max_energy(max_energy)
 {}
 
-bool EnergyWindowTest::test(Array<double> &trial_coords, double trial_energy,
-    Array<double> & old_coords, double old_energy, double temperature,
-    MC * mc)
+bool EnergyWindowTest::test(Array<double>&, double trial_energy,
+        Array<double>&, double, double, MC*)
 {
     return ((trial_energy >= m_min_energy) and (trial_energy <= m_max_energy));
 }
