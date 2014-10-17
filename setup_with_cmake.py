@@ -24,8 +24,10 @@ except:
     sys.exit()
 
 # extract the -j flag and pass save it for running make on the CMake makefile
+# extract -c flag to set compiler
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("-j", type=int, default=4)
+parser.add_argument("-c", type=str, default="gnu")
 jargs, remaining_args = parser.parse_known_args(sys.argv)
 sys.argv = remaining_args
 print jargs, remaining_args
@@ -33,6 +35,9 @@ if jargs.j is None:
     cmake_parallel_args = []
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
+
+#record compiler choice
+idcompiler = jargs.c
 
 #extra compiler args
 cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3"]
@@ -190,7 +195,7 @@ def run_cmake(compiler_id="GNU"):
         raise Exception("building libraries with CMake Makefile failed")
     print "finished building the extension modules with cmake\n"
 
-run_cmake()
+run_cmake(compiler_id=idcompiler)
     
 
 # Now that the cython libraries are built, we have to make sure they are copied to
