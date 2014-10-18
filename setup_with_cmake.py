@@ -1,4 +1,3 @@
-import glob
 import os
 import sys
 import subprocess
@@ -15,7 +14,7 @@ import pele
 
 ## Numpy header files 
 numpy_lib = os.path.split(np.__file__)[0] 
-numpy_include = os.path.join(numpy_lib, 'core/include') 
+numpy_include = os.path.join(numpy_lib, 'core/include')
 
 ##find pele path
 try:
@@ -25,8 +24,10 @@ except:
     sys.exit()
 
 # extract the -j flag and pass save it for running make on the CMake makefile
+# extract -c flag to set compiler
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("-j", type=int, default=4)
+parser.add_argument("-c", type=str, default="gnu")
 jargs, remaining_args = parser.parse_known_args(sys.argv)
 sys.argv = remaining_args
 print jargs, remaining_args
@@ -34,6 +35,12 @@ if jargs.j is None:
     cmake_parallel_args = []
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
+
+#record compiler choice
+idcompiler = jargs.c
+
+#extra compiler args
+cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3"]
     
 
 #
@@ -149,7 +156,10 @@ cmake_txt = cmake_txt.replace("__PELE_INCLUDE__", pelepath + "/source")
 python_includes = [sysconfig.get_python_inc(), 
                    sysconfig.get_python_inc(plat_specific=True)]
 cmake_txt = cmake_txt.replace("__PYTHON_INCLUDE__", " ".join(python_includes))
+if isinstance(numpy_include, basestring):
+    numpy_include = [numpy_include]
 cmake_txt = cmake_txt.replace("__NUMPY_INCLUDE__", " ".join(numpy_include))
+cmake_txt = cmake_txt.replace("__COMPILER_EXTRA_ARGS__", '\"{}\"'.format(" ".join(cmake_compiler_extra_args)))
 # Now we tell cmake which librarires to build 
 with open("CMakeLists.txt", "w") as fout:
     fout.write(cmake_txt)
@@ -157,14 +167,26 @@ with open("CMakeLists.txt", "w") as fout:
     for fname in cxx_files:
         fout.write("make_cython_lib(${CMAKE_SOURCE_DIR}/%s)\n" % fname)
 
+def set_compiler_env(compiler_id):
+    env = os.environ.copy()
+    if compiler_id.lower() in ("gnu", "gcc", "g++"):
+        env["CC"] = "gcc"
+        env["CXX"] = "g++"
+    elif compiler_id.lower() in ("intel", "icc", "icpc"):
+        env["CC"] = "icc"
+        env["CXX"] = "icpc"
+    else:
+        raise Exception("compiler_id not known")
+    return env
 
-
-def run_cmake():
+def run_cmake(compiler_id="GNU"):
     if not os.path.isdir(cmake_build_dir):
         os.makedirs(cmake_build_dir)
     print "\nrunning cmake in directory", cmake_build_dir
     cwd = os.path.abspath(os.path.dirname(__file__))
-    p = subprocess.call(["cmake", cwd], cwd=cmake_build_dir)
+    env = set_compiler_env(compiler_id)
+    
+    p = subprocess.call(["cmake", cwd], cwd=cmake_build_dir, env=env)
     if p != 0:
         raise Exception("running cmake failed")
     print "\nbuilding files in cmake directory"
@@ -175,7 +197,7 @@ def run_cmake():
         raise Exception("building libraries with CMake Makefile failed")
     print "finished building the extension modules with cmake\n"
 
-run_cmake()
+run_cmake(compiler_id=idcompiler)
     
 
 # Now that the cython libraries are built, we have to make sure they are copied to
