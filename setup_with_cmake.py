@@ -14,7 +14,7 @@ import pele
 
 ## Numpy header files 
 numpy_lib = os.path.split(np.__file__)[0] 
-numpy_include = os.path.join(numpy_lib, 'core/include') 
+numpy_include = os.path.join(numpy_lib, 'core/include')
 
 ##find pele path
 try:
@@ -156,6 +156,8 @@ cmake_txt = cmake_txt.replace("__PELE_INCLUDE__", pelepath + "/source")
 python_includes = [sysconfig.get_python_inc(), 
                    sysconfig.get_python_inc(plat_specific=True)]
 cmake_txt = cmake_txt.replace("__PYTHON_INCLUDE__", " ".join(python_includes))
+if isinstance(numpy_include, basestring):
+    numpy_include = [numpy_include]
 cmake_txt = cmake_txt.replace("__NUMPY_INCLUDE__", " ".join(numpy_include))
 cmake_txt = cmake_txt.replace("__COMPILER_EXTRA_ARGS__", '\"{}\"'.format(" ".join(cmake_compiler_extra_args)))
 # Now we tell cmake which librarires to build 
