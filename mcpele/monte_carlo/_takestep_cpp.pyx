@@ -12,7 +12,9 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     single: true if single particle moves
     """
     cdef cppRandomCoordsDisplacement* newptr
-    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5, single=False, nparticles=0, bdim=0):
+    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9,
+                  min_acc_ratio=0.2, max_acc_ratio=0.5, single=False,
+                  nparticles=0, bdim=0):
         if not single:
             self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementAll(rseed, stepsize)
             self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> 
@@ -32,6 +34,9 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     def set_generator_seed(self, input):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
+        
+    def get_count(self):
+        return self.newptr.get_count()
         
     def get_stepsize(self):
         return self.newptr.get_stepsize()
@@ -59,6 +64,9 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
     def set_generator_seed(self, input):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
+        
+    def get_count(self):
+        return self.newptr.get_count()
     
     def get_stepsize(self):
         return self.newptr.get_stepsize()
@@ -122,4 +130,24 @@ cdef class _Cdef_TakeStepPattern(_Cdef_TakeStep):
 class TakeStepPattern(_Cdef_TakeStepPattern):
     """
     Python interface for c++ TakeStepPattern
+    """
+    
+#
+# TakeStepProbabilities
+#
+
+cdef class _Cdef_TakeStepProbabilities(_Cdef_TakeStep):
+    """
+    Python interface for c++ TakeStepProbabilities
+    """
+    cdef cppTakeStepProbabilities* newptr
+    def __cinit__(self, seed):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppTakeStepProbabilities(seed))
+        self.newptr = <cppTakeStepProbabilities*> self.thisptr.get()
+    def add_step(self, _Cdef_TakeStep step, weight):
+        self.newptr.add_step(step.thisptr, weight)
+        
+class TakeStepProbabilities(_Cdef_TakeStepProbabilities):
+    """
+    Python interface for c++ TakeStepProbabilities
     """

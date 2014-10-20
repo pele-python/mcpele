@@ -15,6 +15,7 @@
 #include "mcpele/record_energy_histogram.h"
 #include "mcpele/adaptive_takestep.h"
 #include "mcpele/take_step_pattern.h"
+#include "mcpele/take_step_probabilities.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -178,6 +179,10 @@ struct TrivialAction : public mcpele::Action{
 
 struct TrivialPotential : public pele::BasePotential{
     size_t call_count;
+    virtual ~TrivialPotential() {}
+    TrivialPotential()
+        : call_count(0)
+    {}
     virtual double get_energy(Array<double> coords)
     {
         call_count++;
@@ -302,6 +307,31 @@ TEST_F(TestMCMock, PatternStep_Works){
     EXPECT_EQ(actual_pattern.size(), std::accumulate(repetitions.begin(), repetitions.end(), 0u));
     for (size_t i = 0; i < actual_pattern.size(); ++i) {
         EXPECT_EQ(actual_pattern.at(i), expected_pattern.at(i));
+    }
+}
+
+TEST_F(TestMCMock, ProbabilityTakeStep_BasicWorks){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, x0, 1);
+    auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
+    auto ts0 = std::make_shared<TrivialTakestep>();
+    auto ts1 = std::make_shared<TrivialTakestep>();
+    auto ts2 = std::make_shared<TrivialTakestep>();
+    const size_t weight0 = 1;
+    const size_t weight1 = 2;
+    const size_t weight2 = 42;
+    std::vector<double> weights;
+    weights.push_back(weight0);
+    weights.push_back(weight1);
+    weights.push_back(weight2);
+    step->add_step(ts0, weight0);
+    step->add_step(ts1, weight1);
+    step->add_step(ts2, weight2);
+    mc->set_takestep(step);
+    mc->run(1e2);
+    const auto sw = step->get_weights();
+    for (size_t i = 0; i < sw.size(); ++i) {
+        EXPECT_DOUBLE_EQ(sw.at(i), weights.at(i));
     }
 }
 

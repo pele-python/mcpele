@@ -10,9 +10,12 @@
 #include "mcpele/particle_pair_swap.h"
 #include "mcpele/metropolis_test.h"
 #include "mcpele/adaptive_takestep.h"
+#include "mcpele/take_step_probabilities.h"
 #include "mcpele/histogram.h"
 
 using pele::Array;
+using mcpele::MC;
+using mcpele::TakeStep;
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -159,6 +162,57 @@ TEST_F(TakeStepTest, PairSwapWorks){
     for (size_t i = 0; i < ndof; ++i) {
         EXPECT_DOUBLE_EQ(coor2[i], coor[i]);
     }
+}
+
+struct TrivialTakestep : public mcpele::TakeStep{
+    size_t call_count;
+    virtual ~TrivialTakestep() {}
+    TrivialTakestep()
+        : call_count(0)
+    {}
+    virtual void displace(Array<double> &coords, MC * mc=NULL)
+    {
+        call_count++;
+    }
+    size_t get_call_count() const { return call_count; }
+};
+
+struct TrivialPotential : public pele::BasePotential{
+    size_t call_count;
+    virtual ~TrivialPotential() {}
+    TrivialPotential()
+        : call_count(0)
+    {}
+    virtual double get_energy(Array<double> coords)
+    {
+        call_count++;
+        return 0.;
+    }
+};
+
+TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
+    auto pot = std::make_shared<TrivialPotential>();
+    auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
+    auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
+    auto ts0 = std::make_shared<TrivialTakestep>();
+    auto ts1 = std::make_shared<TrivialTakestep>();
+    auto ts2 = std::make_shared<TrivialTakestep>();
+    const size_t weight0 = 1;
+    const size_t weight1 = 2;
+    const size_t weight2 = 42;
+    step->add_step(ts0, weight0);
+    step->add_step(ts1, weight1);
+    step->add_step(ts2, weight2);
+    mc->set_takestep(step);
+    const size_t total_iterations = 1e4;
+    mc->run(total_iterations);
+    const double total_input_weight = weight0 + weight1 + weight2;
+    const double freq0 = weight0 / total_input_weight;
+    const double freq1 = weight1 / total_input_weight;
+    const double freq2 = weight2 / total_input_weight;
+    EXPECT_NEAR(freq0, static_cast<double>(ts0->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq1, static_cast<double>(ts1->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq2, static_cast<double>(ts2->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
 }
 
 class AdaptiveTakeStepTest: public ::testing::Test{
