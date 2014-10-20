@@ -3,7 +3,8 @@ import numpy as np
 from pele.potentials import Harmonic
 from mcpele.monte_carlo import _BaseMCRunner, GaussianCoordsDisplacement
 from mcpele.monte_carlo import TakeStepProbabilities, TakeStepPattern
-from mcpele.monte_carlo import RandomCoordsDisplacement
+from mcpele.monte_carlo import RandomCoordsDisplacement, MetropolisTest
+from mcpele.monte_carlo import RecordEnergyHistogram
 import unittest
 
 class MC(_BaseMCRunner):
@@ -57,10 +58,10 @@ class TestTakeStepProbabilityHarmoinc(unittest.TestCase):
         self.origin = np.zeros(self.nr_dof)
         self.potential = Harmonic(self.origin, self.k, bdim=self.box_dimension, com=True)
         self.temp = 1
-        self.nr_steps = 1e4
+        self.nr_steps = 6e4
         self.mc = MC(self.potential, self.origin, self.temp, self.nr_steps)
-        self.take_step_A = RandomCoordsDisplacement(42, 1, single=True, nparticles=self.nr_particles, bdim=self.box_dimension)
-        self.take_step_B = RandomCoordsDisplacement(44, 0.1, single=True, nparticles=self.nr_particles, bdim=self.box_dimension)
+        self.take_step_A = RandomCoordsDisplacement(42, 4, single=True, nparticles=self.nr_particles, bdim=self.box_dimension, min_acc_ratio=0.2, max_acc_ratio=0.2)
+        self.take_step_B = RandomCoordsDisplacement(44, 0.1, single=True, nparticles=self.nr_particles, bdim=self.box_dimension, min_acc_ratio=0.2, max_acc_ratio=0.2)
         self.step = TakeStepProbabilities(46)
         self.weight_A = 22
         self.weight_B = 78
@@ -69,11 +70,20 @@ class TestTakeStepProbabilityHarmoinc(unittest.TestCase):
         self.mc.set_takestep(self.step)
         self.frequency_step_A = self.weight_A / (self.weight_A + self.weight_B)
         self.frequency_step_B = self.weight_B / (self.weight_A + self.weight_B)
+        self.metropolis = MetropolisTest(50)
+        self.mc.add_accept_test(self.metropolis)
+        self.hist_min = 0
+        self.hist_max = 1e4
+        self.eq_steps = self.nr_steps / 2
+        self.mc.set_report_steps(self.eq_steps)
+        self.measure_energy = RecordEnergyHistogram(self.hist_min, self.hist_max, (self.hist_max - self.hist_min)/14, self.eq_steps)
+        self.mc.add_action(self.measure_energy)
     
     def test_basic_harmonic(self):
         self.mc.run()
         self.assertAlmostEqual(self.frequency_step_A, self.take_step_A.get_count() / self.nr_steps, delta=1e-2)
         self.assertAlmostEqual(self.frequency_step_B, self.take_step_B.get_count() / self.nr_steps, delta=1e-2)
+        self.assertAlmostEqual(self.take_step_A.get_stepsize(), self.take_step_B.get_stepsize(), delta=1e-2)
     
 if __name__ == "__main__":
     unittest.main()
