@@ -19,6 +19,7 @@ protected:
     std::mt19937_64 m_generator;
     std::uniform_real_distribution<double> m_real_distribution;
     double m_stepsize;
+    size_t m_count;
 public:
     RandomCoordsDisplacement(const size_t rseed, const double stepsize=1);
     virtual ~RandomCoordsDisplacement() {}
@@ -33,6 +34,7 @@ public:
     double expected_variance(const double ss) const { return ss * ss / static_cast<double>(12); }
     void increase_acceptance(const double factor) { m_stepsize *= factor; }
     void decrease_acceptance(const double factor) { m_stepsize /= factor; }
+    size_t get_count() const { return m_count; }
 };
 
 class RandomCoordsDisplacementAll : public RandomCoordsDisplacement {

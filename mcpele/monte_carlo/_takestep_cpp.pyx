@@ -35,6 +35,9 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
         
+    def get_count(self):
+        return self.newptr.get_count()
+        
     def get_stepsize(self):
         return self.newptr.get_stepsize()
         
