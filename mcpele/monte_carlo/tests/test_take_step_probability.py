@@ -78,12 +78,15 @@ class TestTakeStepProbabilityHarmoinc(unittest.TestCase):
         self.mc.set_report_steps(self.eq_steps)
         self.measure_energy = RecordEnergyHistogram(self.hist_min, self.hist_max, (self.hist_max - self.hist_min)/14, self.eq_steps)
         self.mc.add_action(self.measure_energy)
+        self.true_energy = self.box_dimension * (self.nr_particles - 1) / 2
     
     def test_basic_harmonic(self):
         self.mc.run()
         self.assertAlmostEqual(self.frequency_step_A, self.take_step_A.get_count() / self.nr_steps, delta=1e-2)
         self.assertAlmostEqual(self.frequency_step_B, self.take_step_B.get_count() / self.nr_steps, delta=1e-2)
         self.assertAlmostEqual(self.take_step_A.get_stepsize(), self.take_step_B.get_stepsize(), delta=1e-2)
+        mean_energy, var_energy = self.measure_energy.get_mean_variance()
+        self.assertAlmostEqual(mean_energy, self.true_energy, delta=3e-1)
     
 if __name__ == "__main__":
     unittest.main()
