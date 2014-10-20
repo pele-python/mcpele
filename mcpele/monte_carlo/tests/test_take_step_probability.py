@@ -1,7 +1,9 @@
 from __future__ import division
 import numpy as np
 from pele.potentials import Harmonic
-from mcpele.monte_carlo import _BaseMCRunner, GaussianCoordsDisplacement, TakeStepProbabilities, TakeStepPattern
+from mcpele.monte_carlo import _BaseMCRunner, GaussianCoordsDisplacement
+from mcpele.monte_carlo import TakeStepProbabilities, TakeStepPattern
+from mcpele.monte_carlo import RandomCoordsDisplacement
 import unittest
 
 class MC(_BaseMCRunner):
@@ -42,6 +44,8 @@ class TestTakeStepProbability(unittest.TestCase):
         self.assertAlmostEqual(freqB, self.tsB.get_count() / self.nr_steps, delta=1e-2)
         self.assertAlmostEqual(freqA, self.tsA_pattern.get_count() / self.nr_steps, delta=1e-2)
         self.assertAlmostEqual(freqB, self.tsB_pattern.get_count() / self.nr_steps, delta=1e-2)
+    def test_basic_harmonic(self):
+        self.tsA = 
     
 if __name__ == "__main__":
     unittest.main()

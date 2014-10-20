@@ -12,7 +12,9 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
     single: true if single particle moves
     """
     cdef cppRandomCoordsDisplacement* newptr
-    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9, min_acc_ratio=0.2, max_acc_ratio=0.5, single=False, nparticles=0, bdim=0):
+    def __cinit__(self, rseed, stepsize, report_interval=100, factor=0.9,
+                  min_acc_ratio=0.2, max_acc_ratio=0.5, single=False,
+                  nparticles=0, bdim=0):
         if not single:
             self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementAll(rseed, stepsize)
             self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> 
