@@ -2,6 +2,7 @@
 # in particular, the following strings will be set by python
 set(numpy_include __NUMPY_INCLUDE__)
 set(PYTHON_INCLUDE_DIRS __PYTHON_INCLUDE__)
+set(PYTHON_LDFLAGS "__PYTHON_LDFLAGS__")
 set(pele_include __PELE_INCLUDE__)
 
 message("python include dirs: ${PYTHON_INCLUDE_DIRS}")

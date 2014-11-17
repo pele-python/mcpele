@@ -157,6 +157,21 @@ cxx_files = ["mcpele/monte_carlo/_pele_mc.cxx",
              "mcpele/monte_carlo/_action_cpp.cxx",
              ]
 
+def get_ldflags(opt="--ldflags"):
+    """return the ldflags.  This was taken directly from python-config"""
+    getvar = sysconfig.get_config_var
+    pyver = sysconfig.get_config_var('VERSION')
+    libs = getvar('LIBS').split() + getvar('SYSLIBS').split()
+    libs.append('-lpython'+pyver)
+    # add the prefix/lib/pythonX.Y/config dir, but only if there is no
+    # shared library in prefix/lib/.
+    if opt == '--ldflags':
+        if not getvar('Py_ENABLE_SHARED'):
+            libs.insert(0, '-L' + getvar('LIBPL'))
+        if not getvar('PYTHONFRAMEWORK'):
+            libs.extend(getvar('LINKFORSHARED').split())
+    return ' '.join(libs)
+
 # create file CMakeLists.txt from CMakeLists.txt.in 
 with open("CMakeLists.txt.in", "r") as fin:
     cmake_txt = fin.read()
@@ -169,6 +184,7 @@ cmake_txt = cmake_txt.replace("__PYTHON_INCLUDE__", " ".join(python_includes))
 if isinstance(numpy_include, basestring):
     numpy_include = [numpy_include]
 cmake_txt = cmake_txt.replace("__NUMPY_INCLUDE__", " ".join(numpy_include))
+cmake_txt = cmake_txt.replace("__PYTHON_LDFLAGS__", get_ldflags())
 cmake_txt = cmake_txt.replace("__COMPILER_EXTRA_ARGS__", '\"{}\"'.format(" ".join(cmake_compiler_extra_args)))
 # Now we tell cmake which librarires to build 
 with open("CMakeLists.txt", "w") as fout:
