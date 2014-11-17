@@ -28,17 +28,26 @@ except:
 # extract -c flag to set compiler
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("-j", type=int, default=4)
-parser.add_argument("-c", type=str, default="gnu")
+parser.add_argument("-c", "--compiler", type=str, default=None)
 jargs, remaining_args = parser.parse_known_args(sys.argv)
+
+# record c compiler choice. use unix (gcc) by default  
+# Add it back into remaining_args so distutils can see it also
+idcompiler = None
+if not jargs.compiler or jargs.compiler in ("unix", "gnu", "gcc"):
+    idcompiler = "unix"
+    remaining_args += ["-c", idcompiler]
+elif jargs.compiler in ("intel", "icc", "icpc"):
+    idcompiler = "intel"
+    remaining_args += ["-c", idcompiler]
+
+# set the remaining args back as sys.argv
 sys.argv = remaining_args
 print jargs, remaining_args
 if jargs.j is None:
     cmake_parallel_args = []
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
-
-#record compiler choice
-idcompiler = jargs.c
 
 #extra compiler args
 cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3"]
@@ -169,11 +178,16 @@ with open("CMakeLists.txt", "w") as fout:
         fout.write("make_cython_lib(${CMAKE_SOURCE_DIR}/%s)\n" % fname)
 
 def set_compiler_env(compiler_id):
+    """
+    set environment variables for the C and C++ compiler:
+    set CC and CXX paths to `which` output because cmake
+    does not alway choose the right compiler
+    """
     env = os.environ.copy()
-    if compiler_id.lower() in ("gnu", "gcc", "g++"):
+    if compiler_id.lower() in ("unix"):
         env["CC"] = subprocess.check_output(["which", "gcc"]).rstrip('\n')
         env["CXX"] = subprocess.check_output(["which", "g++"]).rstrip('\n')
-    elif compiler_id.lower() in ("intel", "icc", "icpc"):
+    elif compiler_id.lower() in ("intel"):
         env["CC"] = subprocess.check_output(["which", "icc"]).rstrip('\n')
         env["CXX"] = subprocess.check_output(["which", "icpc"]).rstrip('\n')
     else:
@@ -182,7 +196,7 @@ def set_compiler_env(compiler_id):
     cmake_compiler_args =shlex.split("-D CMAKE_C_COMPILER={} -D CMAKE_CXX_COMPILER={}".format(env["CC"],env["CXX"]))
     return env, cmake_compiler_args
 
-def run_cmake(compiler_id="GNU"):
+def run_cmake(compiler_id="unix"):
     if not os.path.isdir(cmake_build_dir):
         os.makedirs(cmake_build_dir)
     print "\nrunning cmake in directory", cmake_build_dir
