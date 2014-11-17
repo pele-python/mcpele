@@ -22,7 +22,6 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.start_coords = cstart_coords
         self.temperature = temp
         self.niter = pniter
-                
         self.thisptr = shared_ptr[cppMC]( <cppMC*>new cppMC(self.potential.thisptr,
                                                             _pele.Array[double](<double*> cstart_coords.data, cstart_coords.size),
                                                             self.temperature) )

@@ -13,7 +13,6 @@ include_directories(${pele_include})
 
 cmake_minimum_required(VERSION 2.8)
 
-
 enable_language(CXX)
 SET(CMAKE_CXX_FLAGS __COMPILER_EXTRA_ARGS__)
 
@@ -27,7 +26,7 @@ message("mcpele include directory: ${mcpele_include}")
 # build the mcpele library
 FILE(GLOB pele_sources ${pele_include}/*.cpp)
 FILE(GLOB mcpele_sources ${mcpele_include}/*.cpp)
-add_library(mcpele_lib SHARED ${pele_sources} ${mcpele_sources})
+add_library(mcpele_lib SHARED ${mcpele_sources} ${pele_sources})
 
 function(make_cython_lib cython_cxx_source)
   get_filename_component(library_name ${cython_cxx_source} NAME)
