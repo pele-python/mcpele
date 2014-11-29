@@ -1,8 +1,8 @@
 .. image:: https://travis-ci.org/pele-python/mcpele.svg?branch=master)
     :target: https://travis-ci.org/pele-python/mcpele
 
-.. image:: https://coveralls.io/repos/pele-python/pele/badge.png?branch=master 
-    :target: https://coveralls.io/r/pele-python/pele?branch=master
+.. image:: https://coveralls.io/repos/pele-python/mcpele/badge.png?branch=master 
+    :target: https://coveralls.io/r/pele-python/mcpele?branch=master
 
 mcpele : Monte Carlo Python Energy Landscape Explorer
 +++++++++++++++++++++++++++++++++++++++++++++++++++++
