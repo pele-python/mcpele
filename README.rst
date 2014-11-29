@@ -1,0 +1,120 @@
+.. image:: https://travis-ci.org/pele-python/mcpele.svg?branch=master)
+    :target: https://travis-ci.org/pele-python/mcpele
+
+.. image:: https://coveralls.io/repos/pele-python/pele/badge.png?branch=master 
+    :target: https://coveralls.io/r/pele-python/pele?branch=master
+
+mcpele : Monte Carlo Python Energy Landscape Explorer
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Flexible and efficient Monte Carlo general purpose framework 
+and MPI/mpi4py based Replica Exchange Method, built on the `pele`_ 
+foundations. mcpele provides a seamless integration of the
+tools for energy landscape exploration built in pele. 
+The package also acts as a plugin for the `Nested Sampling`_ project.
+
+Through its c++ interface, mcpele makes Monte Carlo simulations available to 
+researchers with little programming experience, without having to compromise
+on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo 
+simulation eliminating the need for frequent code rewriting that experienced 
+Monte Carlo developers tipically go through, thus reducing the time required for
+the implementation of an idea and the occurrence of bugs.
+
+Source code: https://github.com/pele-python/mcpele
+
+Documentation: coming soon
+
+.. figure:: diagram_fluid.png
+
+  Figure 1: Diagramatic representation of the mcpele framework. On the right
+  is a hard spheres fluid equilibrated by uniform sampling in a cubic box with
+  periodic boundary conditions.
+
+mcpele has been authored by Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
+The project is publicly available under the GNU general public licence.
+
+Description
+===========
+mcpele is a general purpose framework for Monte Carlo simulations that integrates
+the c/c++ backend of the `pele`_ project through a python interface, including a number 
+of potential energy functions, cell lists for n-dimensional spaces with and without 
+periodic boundary conditions, tools for energy minimization and structure alignement.
+
+Because mcpele is thought for large distributed parallel equilibrium simulations, it
+provides a MPI/mpi4py implementation of the Replica Exchange Method (also known as Parallel
+Tempering). 
+
+Furthermore the library can act as a plug-in for the `Nested Sampling`_ project,
+since Monte Carlo walks need to be run at each iteration.
+
+All of mcpele runs in its c++ backend but the Monte Carlo routines are assembled
+through its Python interface. The basic abstract structure of mcpele is summarised 
+by the diagram in figure 1. The following methods are already implemented in mcpele: 
+
+- **TakeStep**:
+    - *RandomCoordsDisplacement*: Uniform random coordinates displacement (single particle and global)
+    - *GaussianCoordsDisplacement*: Gaussian random coordinates displacement (single particle and global)
+    - *ParticlePairSwap*: swap pairs of particles
+    - *TakeStepPattern*: combines multiple moves and executes them deterministically with some frequency
+    - *TakeStepProbabilities*: combines multiple moves and executes them probabilistically with some frequency
+- **ConfTest**:
+    - *CheckSphericalContainer*: checks that each particle is within some radius from the origin
+- **AcceptTest**:
+    - *MetropolisTest*: metropolis acceptance criterion
+    - *EnergyWindowTest*: accept if energy is within some window
+- **Action**:
+    - *RecordEnergyHistogram*: stores entries in a resizable histogram and computes the moments of the distribution on the fly
+    - *RecordPairDistHistogram*: records radial distribution function (accummulates each configuration into the same g(r) histogram)
+    - *RecordEnergyTimeSeries*: records a time series of the energy
+    - *RecordLowestEValueTimeSeries*: records a time series of the lowest eigenvalue from inherent structure
+    - *RecordDisplacementPerParticleTimeSeries*: records mean square displacement for each particle
+
+Get started: build your first MC runner class 
+=============================================
+
+.. figure:: dark_example_code.png
+
+INSTALLATION
+============
+
+Required packages
+-----------------
+
+for compilation:
+
+1. c++ compiler (must support c++11, GCC > 4.6 or similar)
+
+python packages:
+
+1. numpy: 
+     We use numpy everywhere for doing numerical work.
+
+#. `pele`_:
+    python energy landscape explorer for potential, minimizers etc.
+
+#. matplotlib:
+     For making plots (e.g. disconnectivity graphs)
+
+#. mpi4py: 
+     for replica exchange Monte Carlo
+     
+non-python packages:
+
+1. cmake: optional
+    to compile using cmake (much faster)
+
+All the above packages can be installed via the python package manager pip (or
+easy_install), with the exception of pele.  However, some of the packages (numpy, scipy) 
+have additional dependencies and it can be more convenient to use the linux package manager
+(apt, yum, ...).
+
+Tests
+=====
+Pele has a suite of unit tests.  They can be run using the nose testing
+framework (which can be installed using pip).  The tests are run from the top
+directory with this command::
+
+  nosetests mcpele
+
+.. _pele: <https://github.com/pele-python/pele>
+.. _Nested Sampling: <https://github.com/js850/nested_sampling>

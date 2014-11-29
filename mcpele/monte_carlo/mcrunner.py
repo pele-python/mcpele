@@ -41,34 +41,35 @@ class Metropolis_MCrunner(_BaseMCRunner):
      * has a separate rng engine, therefore it's best if each receives a different randomly sampled seed
     """
     def __init__(self, potential, coords, temperature, stepsize, niter, 
-                 hEmin=0, hEmax=100, hbinsize=0.01, radius=2.5,
-                 acceptance=0.5, adjustf=0.9, adjustf_niter=1e4, adjustf_navg=100, bdim=3, 
-                 single=False):
+                 hEmin=0, hEmax=100, hbinsize=0.01, radius=2.5, acceptance=0.5, 
+                 adjustf=0.9, adjustf_niter=1e4, adjustf_navg=100, bdim=3, 
+                 single=False, seeds=None):
         #construct base class
         super(Metropolis_MCrunner, self).__init__(potential, coords, temperature, niter)
-        self.set_report_steps(adjustf_niter)
 
-        #construct test/action classes       
-        i32max = np.iinfo(np.int32).max
-        
-        self.binsize = hbinsize
-        self.histogram = RecordEnergyHistogram(hEmin, hEmax, self.binsize, adjustf_niter)
-        #self.adjust_step = AdjustStep(acceptance, adjustf, adjustf_niter, adjustf_navg)
-        self.set_report_steps(adjustf_niter)
-        self.step = RandomCoordsDisplacement(42, stepsize, report_interval=adjustf_navg, 
+        #get/set seeds
+        if not seeds:
+            i32max = np.iinfo(np.int32).max
+            seeds = dict(takestep=np.random.randint(i32max),
+                         metropolis=np.random.randint(i32max))
+        self.seeds=seeds
+        #construct takestep: random step
+        self.step = RandomCoordsDisplacement(self.seeds['takestep'], stepsize, report_interval=adjustf_navg, 
                                              factor=adjustf, min_acc_ratio=acceptance, max_acc_ratio=acceptance,
                                              single=single, nparticles=int(len(coords)/bdim), bdim=bdim)
-        #self.step = RandomCoordsDisplacement(np.random.randint(i32max))
-        self.metropolis = MetropolisTest(44)
-        #self.metropolis = MetropolisTest(np.random.randint(i32max))
+        #construct early configuration test: check within spherical container
         self.conftest = CheckSphericalContainer(radius, bdim)
-        
+        #construct accept test: Metropolis
+        self.metropolis = MetropolisTest(self.seeds['metropolis'])
+        #construct action: energy histogram
+        self.binsize = hbinsize
+        self.histogram = RecordEnergyHistogram(hEmin, hEmax, self.binsize, adjustf_niter)
         #set up pele:MC
         self.set_takestep(self.step)
+        self.set_report_steps(adjustf_niter) #set number of iterations for which steps are adapted
         self.add_accept_test(self.metropolis)
         self.add_conf_test(self.conftest)
         self.add_action(self.histogram)
-        #self.add_action(self.adjust_step)
         
     def set_control(self, T):
         """set temperature, canonical control parameter"""
@@ -189,13 +190,14 @@ if __name__ == "__main__":
     
     #Parallel Tempering
     temperature=0.2
-    niter=1e7
+    niter=1e4
     stepsize=0.5
     test = Metropolis_MCrunner(pot, start_coords,  temperature, stepsize, niter, 
                                hEmin=-140, adjustf = 0.9, adjustf_niter = 5000, radius=3)
     start=time.time()
     test.run()
     end=time.time()
+    test.show_histogram()
     print end-start
     
     
