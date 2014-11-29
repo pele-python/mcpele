@@ -1,4 +1,4 @@
-.. image:: https://travis-ci.org/pele-python/mcpele.svg?branch=master)
+.. image:: https://travis-ci.org/pele-python/mcpele.svg?branch=master
     :target: https://travis-ci.org/pele-python/mcpele
 
 .. image:: https://coveralls.io/repos/pele-python/mcpele/badge.png?branch=master 
