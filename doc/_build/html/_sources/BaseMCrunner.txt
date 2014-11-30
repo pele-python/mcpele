@@ -1,5 +1,0 @@
-Base MCRunner
-=============
-
-.. autoclass:: _BaseMCRunner
-   :members:
