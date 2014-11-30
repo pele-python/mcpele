@@ -1,0 +1,1 @@
+/usr/bin/g++  -fPIC -std=c++0x -Wall -Wextra -pedantic -O3   -shared -Wl,-soname,_monte_carlo_cpp.so -o _monte_carlo_cpp.so CMakeFiles/_monte_carlo_cpp.dir/mcpele/monte_carlo/_monte_carlo_cpp.cxx.o libmcpele_lib.so -Wl,-rpath,/home/stefano/Work/mcpele/build/cmake 

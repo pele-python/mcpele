@@ -24,9 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="MPI Parallel Tempering" href="MPI_Parallel_Tempering.html" />
-    <link rel="prev" title="Acceptance Tests" href="AcceptTest.html" /> 
+    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,12 +36,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="MPI_Parallel_Tempering.html" title="MPI Parallel Tempering"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="AcceptTest.html" title="Acceptance Tests"
-             accesskey="P">previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -55,6 +47,125 @@
             
   <div class="section" id="actions">
 <h1>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mcpele.monte_carlo.RecordEnergyHistogram">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordEnergyHistogram</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyHistogram</span></tt></p>
+<p>This class is the python interface for the c++ RecordEnergyHistogram implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_bounds_val</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_histogram</span></tt></td>
+<td>return a histogram array</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_mean_variance</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">print_terminal</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.RecordEnergyTimeseries">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordEnergyTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyTimeseries</span></tt></p>
+<p>This class is the python interface for the c++ RecordEnergyTimeseries implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></td>
+<td>clears time series</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></td>
+<td>return a energy time series array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.RecordPairDistHistogram">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordPairDistHistogram</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordPairDistHistogram</span></tt></p>
+<p>This class is the python interface for the c++ RecordPairDistHistogram implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_eqsteps</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_gr</span></tt></td>
+<td>return array of g(r) values for g(r) measurement</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_r</span></tt></td>
+<td>return array of r values for g(r) measurement</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordLowestEValueTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordLowestEValueTimeseries</span></tt></p>
+<p>This class is the python interface for the c++ RecordLowestEValueTimeseries implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></td>
+<td>clears time series</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></td>
+<td>return a lowest eigenvalue time series array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordDisplacementPerParticleTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordDisplacementPerParticleTimeseries</span></tt></p>
+<p>This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></td>
+<td>clears time series</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></td>
+<td>return a mean rsm time series array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 
 
@@ -63,12 +174,6 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="AcceptTest.html"
-                        title="previous chapter">Acceptance Tests</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="MPI_Parallel_Tempering.html"
-                        title="next chapter">MPI Parallel Tempering</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -95,12 +200,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="MPI_Parallel_Tempering.html" title="MPI Parallel Tempering"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="AcceptTest.html" title="Acceptance Tests"
-             >previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>

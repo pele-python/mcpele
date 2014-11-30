@@ -24,9 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="Configuration Tests" href="ConfTest.html" />
-    <link rel="prev" title="Base MCRunner" href="BaseMCRunner.html" /> 
+    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,12 +36,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="ConfTest.html" title="Configuration Tests"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="BaseMCRunner.html" title="Base MCRunner"
-             accesskey="P">previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -55,6 +47,122 @@
             
   <div class="section" id="take-step">
 <h1>Take Step<a class="headerlink" href="#take-step" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mcpele.monte_carlo.RandomCoordsDisplacement">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RandomCoordsDisplacement</tt><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_RandomCoordsDisplacement</span></tt></p>
+<p>This class is the python interface for the c++ RandomCoordsDisplacement implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_count</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_stepsize</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.GaussianCoordsDisplacement">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">GaussianCoordsDisplacement</tt><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_GaussianCoordsDisplacement</span></tt></p>
+<p>This class is the python interface for the c++ RandomCoordsDisplacement implementation.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_count</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_stepsize</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.ParticlePairSwap">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">ParticlePairSwap</tt><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_ParticlePairSwap</span></tt></p>
+<p>Python interface for c++ ParticlePairSwap</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.TakeStepPattern">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">TakeStepPattern</tt><a class="headerlink" href="#mcpele.monte_carlo.TakeStepPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_TakeStepPattern</span></tt></p>
+<p>Python interface for c++ TakeStepPattern</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_step</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="mcpele.monte_carlo.TakeStepProbabilities">
+<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">TakeStepProbabilities</tt><a class="headerlink" href="#mcpele.monte_carlo.TakeStepProbabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_TakeStepProbabilities</span></tt></p>
+<p>Python interface for c++ TakeStepProbabilities</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_step</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 
 
@@ -63,12 +171,6 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="BaseMCRunner.html"
-                        title="previous chapter">Base MCRunner</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="ConfTest.html"
-                        title="next chapter">Configuration Tests</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -95,12 +197,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="ConfTest.html" title="Configuration Tests"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="BaseMCRunner.html" title="Base MCRunner"
-             >previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
