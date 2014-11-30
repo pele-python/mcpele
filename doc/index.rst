@@ -20,8 +20,8 @@ Through its c++ interface, mcpele makes Monte Carlo simulations available to
 researchers with little programming experience, without having to compromise
 on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo 
 simulation eliminating the need for frequent code rewriting that experienced 
-Monte Carlo developers tipically go through, thus reducing the time required for
-the implementation of an idea and the occurrence of bugs.
+Monte Carlo developers typically go through, thus reducing the time required for
+the implementation of an idea and reducing the occurrence of bugs.
 
 .. figure:: diagram_fluid.png
 
