@@ -122,8 +122,18 @@ one can combine multiple ones. *AcceptTests*, *ConfTests* and *Actions* can be a
 a probabilistic sequence: at each iteration only one type of step is taken and *report*
 acts only on that particular step. For instance one might want to combine particles
 swaps with random translation but would like the swaps to occur only once every *1000* steps.
-Finally potentials can be combined through the `CombinedPotential <https://github.com/pele-python/pele/blob/95995f8c1449fa6a0160e5f142337a1a0b8fc250/source/pele/combine_potentials.h>`_ 
-class.    
+Finally potentials can be combined through the `CombinedPotential <https://github.com/pele-python/pele/blob/95995f8c1449fa6a0160e5f142337a1a0b8fc250/source/pele/combine_potentials.h>`_ class.
+
+Run a Monte Carlo random walk
+-----------------------------
+
+.. figure:: dark_example_run.png
+
+We have built our first MCrunner, so let us try running it. All it takes is loading some
+initial coordinates, constructing the potential we want to use, in this case the pele::Lennard-Jones
+potential, and then set parameters such as temperature, number of iterations, initial stepsize and a 
+few more keyword arguments. Then we call the *run()* function and we get c++ performance
+from a few lines of a pure Python interface. Finally we might want to *show* or *dump* the histogram.  
 
 INSTALLATION
 ============
