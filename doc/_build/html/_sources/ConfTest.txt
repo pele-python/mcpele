@@ -1,0 +1,5 @@
+
+Configuration Tests
+===================
+
+.. automodule:: pele.monte_carlo
