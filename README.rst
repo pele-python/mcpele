@@ -17,8 +17,8 @@ Through its c++ interface, mcpele makes Monte Carlo simulations available to
 researchers with little programming experience, without having to compromise
 on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo 
 simulation eliminating the need for frequent code rewriting that experienced 
-Monte Carlo developers tipically go through, thus reducing the time required for
-the implementation of an idea and the occurrence of bugs.
+Monte Carlo developers typically go through, thus reducing the time required for
+the implementation of an idea and the reducing the occurrence of bugs.
 
 Source code: https://github.com/pele-python/mcpele
 
@@ -30,7 +30,7 @@ Documentation: coming soon
   is a hard spheres fluid equilibrated by uniform sampling in a cubic box with
   periodic boundary conditions.
 
-mcpele has been authored by Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
+mcpele is authored by Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
 The project is publicly available under the GNU general public licence.
 
 Description
@@ -38,11 +38,11 @@ Description
 mcpele is a general purpose framework for Monte Carlo simulations that integrates
 the c/c++ backend of the `pele`_ project through a python interface, including a number 
 of potential energy functions, cell lists for n-dimensional spaces with and without 
-periodic boundary conditions, tools for energy minimization and structure alignement.
+periodic boundary conditions, tools for energy minimization and structure alignment.
 
-Because mcpele is thought for large distributed parallel equilibrium simulations, it
-provides a MPI/mpi4py implementation of the Replica Exchange Method (also known as Parallel
-Tempering). 
+Because mcpele is designed for large distributed parallel equilibrium simulations, it
+provides a MPI/mpi4py implementation of the Replica Exchange Method known as Parallel
+Tempering. 
 
 Furthermore the library can act as a plug-in for the `Nested Sampling`_ project,
 since Monte Carlo walks need to be run at each iteration.
@@ -65,7 +65,7 @@ The following methods are already implemented in mcpele:
     - *EnergyWindowTest*: accept if energy is within some window
 - **Action**:
     - *RecordEnergyHistogram*: stores entries in a resizable histogram and computes the moments of the distribution on the fly
-    - *RecordPairDistHistogram*: records radial distribution function (accummulates each configuration into the same g(r) histogram)
+    - *RecordPairDistHistogram*: records radial distribution function (accumulates each configuration into the same `g(r)` histogram)
     - *RecordEnergyTimeSeries*: records a time series of the energy
     - *RecordLowestEValueTimeSeries*: records a time series of the lowest eigenvalue from inherent structure
     - *RecordDisplacementPerParticleTimeSeries*: records mean square displacement for each particle
