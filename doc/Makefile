@@ -188,7 +188,8 @@ gh-pages:
 	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -fv -t ../ *.png *.rst _build sphintext
+	mv -fv -t ../ *.png *.rst _build sphinxext
+	rm -rf conf.py _static _templates
 	cd ../ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
