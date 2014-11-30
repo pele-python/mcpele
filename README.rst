@@ -171,7 +171,7 @@ have additional dependencies and it can be more convenient to use the linux pack
 
 Tests
 =====
-Pele has a suite of unit tests.  They can be run using the nose testing
+mcpele has a suite of unit tests.  They can be run using the nose testing
 framework (which can be installed using pip).  The tests are run from the top
 directory with this command::
 
