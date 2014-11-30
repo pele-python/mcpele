@@ -7,7 +7,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
-GH_PAGES_SOURCES = mcpele doc source cythonize.py setup_with_cmake.py CMakeLists.txt.in
+GH_PAGES_SOURCES = mcpele source cythonize.py setup_with_cmake.py CMakeLists.txt.in
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -183,7 +183,7 @@ gh-pages:
 	git checkout gh-pages
 	cd ../
 	rm -rf _build _sources _static
-	git checkout master $(GH_PAGES_SOURCES)
+	git checkout master $(GH_PAGES_SOURCES) doc
 	git reset HEAD
 	python setup_with_cmake.py build_ext -i
 	cd doc
@@ -191,6 +191,7 @@ gh-pages:
 	mv -fv _build/html/* ../
 	mv -rfv * ../
 	cd ../
+	mv Makefile doc/
 	rm -rf $(GH_PAGES_SOURCES)
 	git add -A
 	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
