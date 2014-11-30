@@ -188,7 +188,7 @@ gh-pages:
 	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -rv * ../
+	mv -rv * ../ || true
 	cd ../ &&\
 	mv Makefile doc/ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
