@@ -1,0 +1,1 @@
+/usr/bin/g++  -fPIC -std=c++0x -Wall -Wextra -pedantic -O3   -shared -Wl,-soname,_pele_mc.so -o _pele_mc.so CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o libmcpele_lib.so -Wl,-rpath,/home/stefano/Work/mcpele/build/cmake 

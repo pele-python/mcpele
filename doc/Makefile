@@ -182,15 +182,15 @@ pseudoxml:
 gh-pages:
 	git checkout gh-pages
 	cd ../ &&\
-	rm -rf _build _sources _static &&\
+	rm -rf build _build _sources _static _images _modules _templates sphinxext &&\
 	git checkout master $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -rfv * ../
+	mv -fv -t ../ *.png *.rst _build sphinxext
+	rm -rf conf.py _static _templates
 	cd ../ &&\
-	mv Makefile doc/ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
 	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
