@@ -185,10 +185,10 @@ gh-pages:
 	rm -rf _build _sources _static &&\
 	git checkout master $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
-	python setup_with_cmake.py build_ext -i &&\
+	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -rfv * ../
+	mv -rv * ../
 	cd ../ &&\
 	mv Makefile doc/ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
