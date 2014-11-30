@@ -13,4 +13,3 @@ MPI Parallel Tempering
    :members:
    :undoc-members:
    :show-inheritance:
-   
