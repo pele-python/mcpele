@@ -18,11 +18,11 @@ researchers with little programming experience, without having to compromise
 on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo 
 simulation eliminating the need for frequent code rewriting that experienced 
 Monte Carlo developers typically go through, thus reducing the time required for
-the implementation of an idea and the reducing the occurrence of bugs.
+the implementation of an idea and reducing the occurrence of bugs.
 
 Source code: https://github.com/pele-python/mcpele
 
-Documentation: coming soon
+Documentation: http://pele-python.github.io/mcpele/
 
 .. figure:: diagram_fluid.png
 
