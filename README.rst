@@ -8,10 +8,10 @@ mcpele : Monte Carlo Python Energy Landscape Explorer
 +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Flexible and efficient Monte Carlo general purpose framework 
-and MPI/mpi4py based Replica Exchange Method, built on the `pele`_ 
+and MPI/mpi4py based Replica Exchange Method, built on the `pele <https://github.com/pele-python/pele>`_ 
 foundations. mcpele provides a seamless integration of the
 tools for energy landscape exploration built in pele. 
-The package also acts as a plugin for the `Nested Sampling`_ project.
+The package also acts as a plugin for the `Nested Sampling  <https://github.com/js850/nested_sampling>`_ project.
 
 Through its c++ interface, mcpele makes Monte Carlo simulations available to 
 researchers with little programming experience, without having to compromise
@@ -115,6 +115,3 @@ framework (which can be installed using pip).  The tests are run from the top
 directory with this command::
 
   nosetests mcpele
-
-.. _pele: <https://github.com/pele-python/pele>
-.. _Nested Sampling: <https://github.com/js850/nested_sampling>
