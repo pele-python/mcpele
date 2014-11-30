@@ -182,13 +182,13 @@ pseudoxml:
 gh-pages:
 	git checkout gh-pages
 	cd ../ &&\
-	rm -rf _build _sources _static &&\
+	rm -rf build _build _sources _static _images _modules _templates sphintext &&\
 	git checkout master $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -rv * ../ || true
+	mv -rv * ../
 	cd ../ &&\
 	mv Makefile doc/ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
