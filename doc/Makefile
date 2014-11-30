@@ -1,13 +1,13 @@
 # Makefile for Sphinx documentation
 # detail on automatically pushing the documentation to gh-pages here http://blog.nikhilism.com/2012/08/automatic-github-pages-generation-from.html
-#
+# add .nojekill for gh-pages to look good
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
-GH_PAGES_SOURCES = mcpele doc Makefile
+GH_PAGES_SOURCES = mcpele source cythonize.py setup_with_cmake.py CMakeLists.txt.in
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -180,18 +180,17 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 gh-pages:
-	cd ../
 	git checkout gh-pages
-	rm -rf _build _sources _static
-	git checkout master $(GH_PAGES_SOURCES)
-	git reset HEAD
-	cd doc
+	cd ../ &&\
+	rm -rf _build _sources _static &&\
+	git checkout master $(GH_PAGES_SOURCES) doc &&\
+	git reset HEAD &&\
+	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -rfv _build ../
-	mv -rfv _sources ../
-	mv -rfv _static ../
-	cd ../
-	rm -rf $(GH_PAGES_SOURCES)
-	git add -A
-	git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
+	mv -rfv * ../
+	cd ../ &&\
+	mv Makefile doc/ &&\
+	rm -rf $(GH_PAGES_SOURCES) &&\
+	git add -A && \
+	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
