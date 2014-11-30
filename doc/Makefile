@@ -188,9 +188,8 @@ gh-pages:
 	python setup_with_cmake.py build_ext -i
 	make html
 	mv -fv _build/html/* ../
-	mv -rv * ../
+	mv -fv -t ../ *.png *.rst _build sphintext
 	cd ../ &&\
-	mv Makefile doc/ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
 	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
