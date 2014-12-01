@@ -112,7 +112,8 @@ class _MPI_Parallel_Tempering(object):
             ptiter += 1
             #assure that data are not thrown away since last print
             if ptiter == self.max_ptiter:
-                old_max_ptiter = self.max_ptiter 
+                old_max_ptiter = self.max_ptiter
+                #here we should call a convergence test, instead of doing so through print_data(hack) 
                 self._print_data()
                 #check that on printing of data max_ptiter hasn't changed due to convergence test
                 if self.max_ptiter == old_max_ptiter:
@@ -178,7 +179,7 @@ class _MPI_Parallel_Tempering(object):
         self.comm.Gather(in_send_array, recv_array, root=0)
         
         if (self.rank != 0):
-            assert(recv_array == None)
+            assert(recv_array is None)
         
         return recv_array
     
