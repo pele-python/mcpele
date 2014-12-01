@@ -1,0 +1,1 @@
+.. automodule:: mcpele.parallel_tempering
