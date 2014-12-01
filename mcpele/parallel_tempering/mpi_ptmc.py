@@ -76,7 +76,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         base_directory = self.base_directory
         if (self.rank == 0):
             fname = "{0}/temperatures".format(base_directory)
-            np.savetxt(fname, self.Tarray, delimiter='\t')
+            np.savetxt(fname, self.Tarray, delimiter='\t', fmt='%1.16f')
     
     def _all_print_parameters(self):
         base_directory = self.base_directory
