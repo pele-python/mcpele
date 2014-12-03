@@ -23,10 +23,11 @@ class TestMetropolisGlobal(unittest.TestCase):
         self.bdim = 3
         self.ndim = self.natoms * self.bdim
         self.origin = np.zeros(self.ndim)
+        self.seeds = dict(takestep=42, metropolis=44)
         self.potential = Harmonic(self.origin, self.k, bdim=self.bdim, com=False)
         self.mcrunner = Metropolis_MCrunner(self.potential, self.origin, 1, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
-                                           bdim=self.bdim, single=False)
+                                           bdim=self.bdim, single=False, seeds=self.seeds)
     
     def test_set_control(self):
         self.mcrunner.set_control(10)
@@ -51,7 +52,7 @@ class TestMetropolisGlobal(unittest.TestCase):
         potential = Harmonic(self.origin, self.k, bdim=self.bdim, com=True)
         mcrunner = Metropolis_MCrunner(potential, self.origin, 1, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
-                                           bdim=self.bdim)
+                                           bdim=self.bdim, seeds=self.seeds)
         mcrunner.run()
                         
         print "3D com"
@@ -59,7 +60,7 @@ class TestMetropolisGlobal(unittest.TestCase):
                         
             mcrunner = Metropolis_MCrunner(potential, self.origin, T, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
-                                           bdim=self.bdim)
+                                           bdim=self.bdim, seeds=self.seeds)
             #MCMC 
             mcrunner.run()
             #collect the results
@@ -83,7 +84,7 @@ class TestMetropolisGlobal(unittest.TestCase):
                         
             mcrunner = Metropolis_MCrunner(potential, self.origin, T, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
-                                           bdim=self.bdim)
+                                           bdim=self.bdim, seeds=self.seeds)
             #MCMC 
             mcrunner.run()
             #collect the results
@@ -108,7 +109,7 @@ class TestMetropolisGlobal(unittest.TestCase):
                         
             mcrunner = Metropolis_MCrunner(potential, self.origin, T, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
-                                           bdim=self.bdim)
+                                           bdim=self.bdim, seeds=self.seeds)
             #MCMC 
             mcrunner.run()
             #collect the results
@@ -132,7 +133,7 @@ class TestMetropolisGlobal(unittest.TestCase):
                         
             mcrunner = Metropolis_MCrunner(self.potential, self.origin, T, self.stepsize, self.niter, hEmax = 100, 
                                            adjustf = self.adjustf, adjustf_niter = self.adjust_niter, radius=self.radius, 
-                                           bdim=self.bdim)
+                                           bdim=self.bdim, seeds=self.seeds)
             #MCMC 
             mcrunner.run()
             #collect the results
