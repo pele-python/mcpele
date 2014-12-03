@@ -19,7 +19,7 @@ class TestMetropolisGlobal(unittest.TestCase):
         self.adjustf = 0.9
         self.adjust_niter = 0.3 * self.niter
         self.radius = 1e10
-        self.tolerance = 1e-1
+        self.tolerance = 2e-1
         self.bdim = 3
         self.ndim = self.natoms * self.bdim
         self.origin = np.zeros(self.ndim)
@@ -165,7 +165,7 @@ class TestMetropolisSingle(unittest.TestCase):
         self.adjustf = 0.9
         self.adjust_niter = 0.3 * self.niter
         self.radius = 1e10
-        self.tolerance = 1e-1
+        self.tolerance = 2e-1
         self.bdim = 3
         self.ndim = self.natoms * self.bdim
         self.origin = np.zeros(self.ndim)
