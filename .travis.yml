@@ -1,6 +1,6 @@
 language: python
 python:
-    - "2.7"
+    - 2.7
 
 env:
   - MPI=openmpi
@@ -18,10 +18,11 @@ before_install:
   # and https://github.com/Jorge-C/ordination/blob/master/.travis.yml
   - pwd
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libatlas-dev libatlas-base-dev liblapack-dev gfortran python-qt4
+  - sudo apt-get install -qq libatlas-dev libatlas-base-dev liblapack-dev gfortran python-qt4 lcov
+  - gem install coveralls-lcov
   - test $MPI == openmpi && MPIPACKAGES='openmpi-bin openmpi-dev'          || true
   - sudo apt-get install -qq $MPIPACKAGES
-  - wget http://repo.continuum.io/miniconda/Miniconda-3.4.2-Linux-x86_64.sh -O miniconda.sh
+  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   - ./miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
@@ -37,37 +38,51 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
+
 install:
-  - conda create --yes -n pelenv python=$TRAVIS_PYTHON_VERSION nose pip cython numpy scipy matplotlib qt pyqt
+  - conda create --yes -n pelenv python=$TRAVIS_PYTHON_VERSION nose pip cython numpy scipy matplotlib qt pyqt sqlalchemy networkx
   - source activate pelenv
-  - pip install networkx sqlalchemy hungarian pyro4 brewer2mpl pyopengl mpi4py coverage coveralls
+  - pip install munkres hungarian pyro4 brewer2mpl pyopengl coverage coveralls coveralls-merge mpi4py 
+  # download and install pele
   - pwd
   - cd $HOME/build/pele-python
   - git clone https://github.com/pele-python/pele.git
   - cd pele
-  - python setup.py build_ext -i --fcompiler=gfortran
+  - python setup_with_cmake.py build_ext -i --fcompiler=gfortran
   - export PYTHONPATH="$PWD:$PYTHONPATH"
+  # build and install mcpele
   - cd ../mcpele
   - python setup.py build --fcompiler=gfortran
   - python setup.py install
   - cp .coveragerc $HOME
+  - pwd
+  - sourcedir=$PWD
   # build the c++ tests
   - cd cpp_tests
   - cpp_test_dir=$PWD
   - ./get_gtest.sh
-  - mkdir build && cd build
-  - cmake ../source
+  - cppbuild=$PWD/build
+  - mkdir $cppbuild && cd $cppbuild
+  - cmake ../source -DCMAKE_BUILD_TYPE=Coverage
   - make
 
 script:
   # avoid running in the checkout directory so nose finds built modules..
-  - cd $HOME
+  - rundir=$HOME
+  - cd $rundir
   - nosetests --with-coverage mcpele
   # do the c++ tests
-  - $cpp_test_dir/build/test_main
+  - cd $cppbuild
+  - ./test_main
 
 after_success:
+  # generate the cpp coverage report
+  - cd $cppbuild
+  - lcov --capture --directory . -b . --output-file coverage.info
+  # remove unwanted directories from the coverage report
+  - lcov --remove coverage.info 'tests/*' '/usr/*' '/pele/*' --output-file coverage.info.cleaned
+  - coveralls-lcov -v -n coverage.info.cleaned > coverage.c.json
   # need to be in source directory to call coverage
-  - cd $HOME/build/pele-python/mcpele # not sure if this is necessary
-  - cp $HOME/.coverage .
-  - coveralls
+  - cd $sourcedir # not sure if this is necessary
+  - cp $rundir/.coverage .
+  - coveralls-merge $cppbuild/coverage.c.json
