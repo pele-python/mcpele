@@ -68,7 +68,7 @@ script:
   # avoid running in the checkout directory so nose finds built modules..
   - rundir=$HOME
   - cd $rundir
-  - nosetests --with-coverage mcpele
+  - nosetests -v --with-coverage mcpele
   # do the c++ tests
   - cd $cppbuild
   - ./test_main
