@@ -237,6 +237,18 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     const double freq0 = weight0 / total_input_weight;
     const double freq1 = weight1 / total_input_weight;
     const double freq2 = weight2 / total_input_weight;
+    const std::vector<size_t> pattern = step->get_pattern();
+    std::vector<size_t>::const_iterator i = pattern.begin();
+    std::vector<size_t> weights = {weight0, weight1, weight2};
+    for (size_t w = 0; w < weights.size(); ++w) {
+       for (size_t b = 0; b < weights.at(w); ++b) {
+           EXPECT_EQ(*i++, w);
+       } 
+    }
+    std::cout << "ts0->get_call_count(): " << ts0->get_call_count() << "\n";
+    std::cout << "ts1->get_call_count(): " << ts1->get_call_count() << "\n";
+    std::cout << "ts2->get_call_count(): " << ts2->get_call_count() << "\n";
+    std::cout << "total_iterations: " << total_iterations << "\n";
     EXPECT_NEAR(freq0, static_cast<double>(ts0->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
     EXPECT_NEAR(freq1, static_cast<double>(ts1->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
     EXPECT_NEAR(freq2, static_cast<double>(ts2->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
