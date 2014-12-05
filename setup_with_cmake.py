@@ -13,11 +13,14 @@ from numpy.distutils.command.build_ext import build_ext as old_build_ext
 
 import pele
 
-## Numpy header files 
+# Numpy header files 
 numpy_lib = os.path.split(np.__file__)[0] 
 numpy_include = os.path.join(numpy_lib, 'core/include')
 
-##find pele path
+# find pele path
+# note: this is used both for the c++ source files and for the cython pxd files,
+# neither of which are "installed".  This should really point to the source directory.
+# So this will only work if pele was built in-place
 try:
     pelepath = os.path.dirname(pele.__file__)[:-5]
 except:
