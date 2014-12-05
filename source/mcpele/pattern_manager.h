@@ -31,6 +31,7 @@ public:
                 m_current_step_iter = m_step_repetitions.begin();
             }
             m_current_step_count = m_current_step_iter->first;
+            assert(m_current_step_count);
         }
         --m_current_step_count;
         return *this;
@@ -66,6 +67,26 @@ public:
             result.insert(result.end(), tmp.begin(), tmp.end());
         }
         result.swap(result);
+        return result;
+    }
+    std::vector<size_t> get_pattern_direct()
+    {
+        size_t pattern_length = 0;
+        for (typename vec_t::const_iterator i = m_step_repetitions.begin(); i != m_step_repetitions.end(); ++i) {
+            pattern_length += i->first;
+        }
+        std::vector<size_t> result;
+        T current_token = get_step_ptr();
+        size_t current_label = 0;
+        for (size_t i = 0; i < pattern_length; ++i, ++*this) {
+            if (get_step_ptr() == current_token) {
+                result.push_back(current_label);
+            }
+            else {
+                current_token = get_step_ptr();
+                result.push_back(++current_label);
+            }
+        }
         return result;
     }
 };
