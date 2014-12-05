@@ -227,6 +227,7 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     const size_t weight0 = 1;
     const size_t weight1 = 2;
     const size_t weight2 = 42;
+    std::vector<size_t> weights = {weight0, weight1, weight2};
     step->add_step(ts0, weight0);
     step->add_step(ts1, weight1);
     step->add_step(ts2, weight2);
@@ -239,8 +240,12 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     const double freq2 = weight2 / total_input_weight;
     const std::vector<size_t> pattern = step->get_pattern();
     const std::vector<size_t> pattern_direct = step->get_pattern_direct();
+    EXPECT_EQ(pattern.size(), pattern_direct.size());
+    EXPECT_EQ(0u, pattern.front());
+    EXPECT_EQ(0u, pattern_direct.front());
+    EXPECT_EQ(weights.size() - 1, pattern.back());
+    EXPECT_EQ(weights.size() - 1, pattern_direct.back());
     std::vector<size_t>::const_iterator i = pattern.begin();
-    std::vector<size_t> weights = {weight0, weight1, weight2};
     for (size_t w = 0; w < weights.size(); ++w) {
        for (size_t b = 0; b < weights.at(w); ++b) {
            EXPECT_EQ(*i++, w);
