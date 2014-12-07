@@ -1,30 +1,74 @@
 from __future__ import division
 import numpy as np
+from scipy.special import gamma
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+from pele.potentials import HS_WCA
 from mcpele.monte_carlo import _BaseMCRunner
 from mcpele.monte_carlo import RandomCoordsDisplacement
 from mcpele.monte_carlo import RecordPairDistHistogram
+from mcpele.monte_carlo import MetropolisTest
 
 class MC(_BaseMCRunner):
     def set_control(self, temp):
         self.set_temperature(temp)
 
 class ComputeGR():
-    def __init__(self, boxdim=2, nr_particles=100, phi=0.4, nr_steps=1e6):
+    def __init__(self, boxdim=2, nr_particles=100, hard_phi=0.4, nr_steps=1e6, epsilon=1, alpha=0.1):
+        # Settings.
+        np.random.seed(42)
+        # Input parameters.
         self.boxdim = boxdim
         self.nr_particles = nr_particles
-        self.phi = phi
-        self.origin = np.zeros(self.nr_partilcles * self.boxdim)
-        self.potential = Harmonic(self.origin, 42, bdim=self.boxdim, com=False)
+        self.hard_phi = hard_phi
         self.nr_steps = nr_steps
-        self.mc = MC(self.potential, self.origin, 1, self.nr_steps)
-        self.step = RandomCoordsDisplacement(42, 1, single=True)
+        self.epsilon = epsilon
+        self.alpha = alpha
+        # Derived quantities.
+        self.hard_radii = np.ones(self.nr_particles)
+        def volume_nball(radius, n):
+            return np.power(np.pi, n / 2) * np.power(radius, n) / gamma(n / 2 + 1)
+        self.box_length = np.power(np.sum(np.asarray([volume_nball(r, self.boxdim) for r in self.hard_radii])) / self.hard_phi, 1 / self.boxdim)
+        self.nr_dof = self.boxdim * self.nr_particles
+        self.x = np.random.uniform(-0.5 * self.box_length, 0.5 * self.box_length, self.nr_dof)
+        self.box_vector = np.ones(self.boxdim) * self.box_length
+        # Potential and MC rules.
+        self.rcut = 2 * (1 + alpha) * np.amax(self.hard_radii)
+        self.potential = HS_WCA(use_periodic=True, use_cell_lists=True, ndim=self.boxdim, eps=self.epsilon, sca=self.alpha, radii=self.hard_radii, boxvec=self.box_vector, rcut=self.rcut)
+        self.temperature = 1
+        self.mc = MC(self.potential, self.x, self.temperature, self.nr_steps)
+        self.step = RandomCoordsDisplacement(42, 0.1, single=True, nparticles=1, bdim=self.boxdim)
         self.mc.set_takestep(self.step)
-        #self.test = 
-        #self.add_config_test(self.test)
-        self.eqsteps = self.nr_steps / 2
+        self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
-        self.gr = RecordPairDistHistogram(self.boxvec, 500, self.eqsteps)
+        self.gr = RecordPairDistHistogram(self.box_vector, 100, self.eq_steps, self.nr_particles)
         self.mc.add_action(self.gr)
+        self.test = MetropolisTest(44)
+        self.mc.add_accept_test(self.test)
     def run(self):
         self.mc.set_print_progress()
         self.mc.run()
+    def show_result(self):
+        r = self.gr.get_hist_r()
+        number_density = self.nr_particles / np.prod(self.box_vector)
+        gr = self.gr.get_hist_gr(number_density, self.nr_particles)
+        def save_pdf(plt, file_name):
+            pdf = PdfPages(file_name)
+            plt.savefig(pdf, format="pdf")
+            pdf.close()
+            plt.close()
+        plt.plot(r, gr)
+        print len(r)
+        print r
+        print len(gr)
+        print gr
+        plt.xlabel(r"Distance $r$")
+        plt.ylabel(r"Radial distr. function $g(r)$")
+        plt.show()
+        save_pdf(plt, "sfHS_WCA_gr.pdf")
+        
+        
+if __name__ == "__main__":
+    simulation = ComputeGR()
+    simulation.run()
+    simulation.show_result()

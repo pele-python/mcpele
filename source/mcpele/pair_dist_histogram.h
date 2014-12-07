@@ -70,8 +70,8 @@ public:
     }
     std::vector<double> get_vecdata_r() const
     {
-        std::vector<double> result(m_hist.size());
-        for (size_t i = 0; i < m_hist.size(); ++i) {
+        std::vector<double> result(m_nr_bins);
+        for (size_t i = 0; i < m_nr_bins; ++i) {
             const double r = m_hist.get_position(i);
             result.at(i) = r;
         }
@@ -79,8 +79,8 @@ public:
     }
     std::vector<double> get_vecdata_gr(const double number_density, const size_t nr_particles) const
     {
-        std::vector<double> result(m_hist.size());
-        for (size_t i = 0; i < m_hist.size(); ++i) {
+        std::vector<double> result(m_nr_bins);
+        for (size_t i = 0; i < m_nr_bins; ++i) {
             const double r = m_hist.get_position(i);
             const double delta_r = m_hist.bin();
             const double shell_volume_r = volume_nball(r + 0.5 * delta_r, BOXDIM) - volume_nball(r - 0.5 * delta_r, BOXDIM);
