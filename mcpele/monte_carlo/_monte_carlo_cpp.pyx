@@ -59,6 +59,9 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         
     def reset_energy(self):
         self.thisptr.get().reset_energy()
+        
+    def set_print_progress(self):
+        self.thisptr.get().set_print_progress()
     
     def get_energy(self):
         energy = self.thisptr.get().get_energy()
