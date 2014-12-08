@@ -49,14 +49,9 @@ public:
     }
     void add_distance(const size_t i, const size_t j, const double* coor)
     {
-        double* rij = new double[BOXDIM];
+        double rij[BOXDIM];
         m_distance.get_rij(rij, coor + i * BOXDIM, coor + j * BOXDIM);
-        double r2 = 0;
-        for (size_t k = 0; k < BOXDIM; ++k) {
-            r2 += rij[k] * rij[k];
-        }
-        delete[] rij;
-        const double r = sqrt(r2);
+        const double r = sqrt(std::inner_product(rij, rij + BOXDIM, rij, double(0)));
         if (r > m_max_dist) {
             // here, g(r) measurement is resticted to a disc domain of radius
             // m_max_dist in distance space; could be done differently
