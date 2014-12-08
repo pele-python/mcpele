@@ -3,7 +3,7 @@
 
 using pele::Array;
 
-namespace mcpele{
+namespace mcpele {
 
 MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, const double temperature)
     : m_potential(potential),
@@ -134,7 +134,8 @@ void MC::one_iteration()
     do_actions(m_coords, m_energy, m_success);
 }
 
-void MC::check_input(){
+void MC::check_input()
+{
     if (!take_step_specified()) {
         throw std::runtime_error("MC::check_input: takestep not set");
     }
@@ -158,7 +159,7 @@ void MC::set_coordinates(pele::Array<double>& coords, double energy)
 //this function is necessary if for example some potential parameter has been varied
 void MC::reset_energy()
 {
-    if(m_niter > 0){
+    if(m_niter > 0) {
         throw std::runtime_error("MC::reset_energy after first iteration is forbidden");
     }
     m_energy = compute_energy(m_coords);
@@ -169,9 +170,6 @@ void MC::run(size_t max_iter)
     check_input();
     progress stat(max_iter);
     while(m_niter < max_iter) {
-        //std::cout << "done: " << double(m_niter) / double(max_iter) <<  "\n";
-        //std::cout << "m_niter: " << m_niter <<  "\n";
-        //std::cout << "max_iter: " << max_iter <<  "\n";
         this->one_iteration();
         if (m_print_progress) {
             stat.next(m_niter);
@@ -180,4 +178,4 @@ void MC::run(size_t max_iter)
     m_niter = 0;
 }
 
-}//namespace mcpele
+} // namespace mcpele
