@@ -62,6 +62,12 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         
     def set_print_progress(self):
         self.thisptr.get().set_print_progress()
+        
+    def enable_input_warnings(self):
+        self.thisptr.get().enable_input_warnings()
+        
+    def disable_input_warnings(self):
+        self.thisptr.get().disable_input_warnings()
     
     def get_energy(self):
         energy = self.thisptr.get().get_energy()

@@ -59,6 +59,8 @@ class ComputeGR():
         self.mc.add_accept_test(self.test)
     def run(self):
         self.mc.set_print_progress()
+        if not self.verbose:
+            self.mc.disable_input_warnings()
         self.mc.run()
         if self.verbose:
             print ("adapted MC stepsize")
@@ -81,10 +83,10 @@ class ComputeGR():
 if __name__ == "__main__":
     box_dimension = 2
     nr_particles = 100
-    hard_volume_fraction = 0.5
+    hard_volume_fraction = 0.4
     nr_steps = 1e6
     alpha = 1e-1
-    verbose = True
+    verbose = False
     simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha, verbose=verbose)
     simulation.run()
     simulation.show_result()

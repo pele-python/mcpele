@@ -19,7 +19,8 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, co
       m_niter(0),
       m_neval(0),
       m_temperature(temperature),
-      m_report_steps(0)
+      m_report_steps(0),
+      m_enable_input_warnings(true)
 {
     m_energy = compute_energy(m_coords);
     m_trial_energy = m_energy;
@@ -139,14 +140,16 @@ void MC::check_input()
     if (!take_step_specified()) {
         throw std::runtime_error("MC::check_input: takestep not set");
     }
-    if (m_conf_tests.size()==0 && m_late_conf_tests.size()==0) {
+    if (m_enable_input_warnings) {
+        if (m_conf_tests.size()==0 && m_late_conf_tests.size()==0) {
         std::cout << "warning: no conf tests set" <<"\n";
-    }
-    if (m_actions.size()==0) {
-        std::cout << "warning: no actions set" <<  "\n";
-    }
-    if (m_accept_tests.size()==0) {
-        std::cout << "warning: no accept tests set" <<  "\n";
+        }
+        if (m_actions.size()==0) {
+            std::cout << "warning: no actions set" <<  "\n";
+        }
+        if (m_accept_tests.size()==0) {
+            std::cout << "warning: no accept tests set" <<  "\n";
+        }
     }
 }
 
