@@ -77,7 +77,7 @@ bool MC::do_late_conf_tests(Array<double> x)
 
 void MC::do_actions(Array<double> x, double energy, bool success)
 {
-    for (auto & action : m_actions){
+    for (auto & action : m_actions) {
         action->action(x, energy, success, this);
     }
 }
@@ -135,14 +135,18 @@ void MC::one_iteration()
 }
 
 void MC::check_input(){
-    //std::cout << "_conf_tests.size(): " << _conf_tests.size() <<  "\n"; //debug
-    //std::cout << "_late_conf_tests.size(): " << _late_conf_tests.size() <<  "\n"; //debug
-    //std::cout << "_actions.size(): " << _actions.size() <<  "\n"; //debug
-    //std::cout << "_accept_tests.size(): " << _accept_tests.size() <<  "\n"; //debug
-    if (!take_step_specified()) throw std::runtime_error("MC::check_input: takestep not set");
-    if (m_conf_tests.size()==0 && m_late_conf_tests.size()==0) std::cout << "warning: no conf tests set" <<"\n";
-    if (m_actions.size()==0) std::cout << "warning: no actions set" <<  "\n";
-    if (m_accept_tests.size()==0) std::cout << "warning: no accept tests set" <<  "\n";
+    if (!take_step_specified()) {
+        throw std::runtime_error("MC::check_input: takestep not set");
+    }
+    if (m_conf_tests.size()==0 && m_late_conf_tests.size()==0) {
+        std::cout << "warning: no conf tests set" <<"\n";
+    }
+    if (m_actions.size()==0) {
+        std::cout << "warning: no actions set" <<  "\n";
+    }
+    if (m_accept_tests.size()==0) {
+        std::cout << "warning: no accept tests set" <<  "\n";
+    }
 }
 
 void MC::set_coordinates(pele::Array<double>& coords, double energy)

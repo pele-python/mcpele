@@ -47,7 +47,7 @@ class ComputeGR():
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
-        self.gr = RecordPairDistHistogram(self.box_vector, 100, self.eq_steps, 5 * self.nr_particles)
+        self.gr = RecordPairDistHistogram(self.box_vector, 200, self.eq_steps, self.nr_particles)
         self.mc.add_action(self.gr)
         self.test = MetropolisTest(44)
         self.mc.add_accept_test(self.test)
@@ -76,9 +76,10 @@ class ComputeGR():
         
 if __name__ == "__main__":
     box_dimension = 2
-    nr_particles = 50
+    nr_particles = 20
     hard_volume_fraction = 0.4
-    nr_steps=1e8
-    simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps)
+    nr_steps = 1e8
+    alpha = 1e-1
+    simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha)
     simulation.run()
     simulation.show_result()
