@@ -2,8 +2,9 @@
 #define _MCPELE_PAIR_DIST_HISTOGRAM_H
 
 #include <algorithm>
-#include <stdexcept>
+#include <cassert>
 #include <cmath>
+#include <stdexcept>
 #include <utility>
 
 #include "pele/distance.h"
@@ -65,6 +66,7 @@ public:
     }
     std::vector<double> get_vecdata_r() const
     {
+        assert(m_nr_bins == m_hist.size());
         std::vector<double> result(m_nr_bins);
         for (size_t i = 0; i < m_nr_bins; ++i) {
             const double r = m_hist.get_position(i);
@@ -74,6 +76,7 @@ public:
     }
     std::vector<double> get_vecdata_gr(const double number_density, const size_t nr_particles) const
     {
+        assert(m_nr_bins == m_hist.size());
         std::vector<double> result(m_nr_bins);
         for (size_t i = 0; i < m_nr_bins; ++i) {
             const double r = m_hist.get_position(i);
