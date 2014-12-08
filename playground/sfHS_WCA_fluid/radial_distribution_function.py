@@ -39,11 +39,13 @@ class ComputeGR():
         self.x = np.random.uniform(-0.5 * self.box_length, 0.5 * self.box_length, self.nr_dof)
         optimizer = LBFGS_CPP(self.x, self.potential)
         optimizer.run()
+        if not optimizer.get_result().success:
+            print ("warning: minimization has not converged")
         self.x = optimizer.get_result().coords.copy()
         # Potential and MC rules.
         self.temperature = 1
         self.mc = MC(self.potential, self.x, self.temperature, self.nr_steps)
-        self.step = RandomCoordsDisplacement(42, 0.1, single=True, nparticles=1, bdim=self.boxdim)
+        self.step = RandomCoordsDisplacement(42, 3, single=True, nparticles=1, bdim=self.boxdim)
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
@@ -76,9 +78,9 @@ class ComputeGR():
         
 if __name__ == "__main__":
     box_dimension = 2
-    nr_particles = 20
-    hard_volume_fraction = 0.4
-    nr_steps = 1e8
+    nr_particles = 200
+    hard_volume_fraction = 0.6
+    nr_steps = 1e6  
     alpha = 1e-1
     simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha)
     simulation.run()
