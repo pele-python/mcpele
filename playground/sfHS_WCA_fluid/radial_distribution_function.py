@@ -4,6 +4,7 @@ from scipy.special import gamma
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from pele.potentials import HS_WCA
+from pele.optimize import LBFGS_CPP
 from mcpele.monte_carlo import _BaseMCRunner
 from mcpele.monte_carlo import RandomCoordsDisplacement
 from mcpele.monte_carlo import RecordPairDistHistogram
@@ -29,19 +30,24 @@ class ComputeGR():
         def volume_nball(radius, n):
             return np.power(np.pi, n / 2) * np.power(radius, n) / gamma(n / 2 + 1)
         self.box_length = np.power(np.sum(np.asarray([volume_nball(r, self.boxdim) for r in self.hard_radii])) / self.hard_phi, 1 / self.boxdim)
-        self.nr_dof = self.boxdim * self.nr_particles
-        self.x = np.random.uniform(-0.5 * self.box_length, 0.5 * self.box_length, self.nr_dof)
         self.box_vector = np.ones(self.boxdim) * self.box_length
-        # Potential and MC rules.
+        # HS-WCA potential.
         self.rcut = 2 * (1 + alpha) * np.amax(self.hard_radii)
         self.potential = HS_WCA(use_periodic=True, use_cell_lists=True, ndim=self.boxdim, eps=self.epsilon, sca=self.alpha, radii=self.hard_radii, boxvec=self.box_vector, rcut=self.rcut)
+        # Initial configuration by minimization.
+        self.nr_dof = self.boxdim * self.nr_particles
+        self.x = np.random.uniform(-0.5 * self.box_length, 0.5 * self.box_length, self.nr_dof)
+        optimizer = LBFGS_CPP(self.x, self.potential)
+        optimizer.run()
+        self.x = optimizer.get_result().coords.copy()
+        # Potential and MC rules.
         self.temperature = 1
         self.mc = MC(self.potential, self.x, self.temperature, self.nr_steps)
         self.step = RandomCoordsDisplacement(42, 0.1, single=True, nparticles=1, bdim=self.boxdim)
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
-        self.gr = RecordPairDistHistogram(self.box_vector, 100, self.eq_steps, self.nr_particles)
+        self.gr = RecordPairDistHistogram(self.box_vector, 100, self.eq_steps, 5 * self.nr_particles)
         self.mc.add_action(self.gr)
         self.test = MetropolisTest(44)
         self.mc.add_accept_test(self.test)
@@ -69,6 +75,10 @@ class ComputeGR():
         
         
 if __name__ == "__main__":
-    simulation = ComputeGR()
+    box_dimension = 2
+    nr_particles = 50
+    hard_volume_fraction = 0.4
+    nr_steps=1e8
+    simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps)
     simulation.run()
     simulation.show_result()
