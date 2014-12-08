@@ -2,7 +2,6 @@ from __future__ import division
 import numpy as np
 from scipy.special import gamma
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
 from pele.potentials import HS_WCA
 from pele.optimize import LBFGS_CPP
 from mcpele.monte_carlo import _BaseMCRunner
@@ -53,7 +52,7 @@ class ComputeGR():
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
-        self.gr = RecordPairDistHistogram(self.box_vector, 100, self.eq_steps, self.nr_particles)
+        self.gr = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles)
         self.mc.add_action(self.gr)
         self.test = MetropolisTest(44)
         self.mc.add_accept_test(self.test)
@@ -69,23 +68,17 @@ class ComputeGR():
         r = self.gr.get_hist_r()
         number_density = self.nr_particles / np.prod(self.box_vector)
         gr = self.gr.get_hist_gr(number_density, self.nr_particles)
-        def save_pdf(plt, file_name):
-            pdf = PdfPages(file_name)
-            plt.savefig(pdf, format="pdf")
-            pdf.close()
-            plt.close()
-        plt.plot(r, gr)
+        plt.plot(r, gr, "o-")
         plt.xlabel(r"Distance $r$")
         plt.ylabel(r"Radial distr. function $g(r)$")
         plt.show()
-        save_pdf(plt, "sfHS_WCA_gr.pdf")
         
 if __name__ == "__main__":
     box_dimension = 2
     nr_particles = 100
     hard_volume_fraction = 0.4
     nr_steps = 1e6
-    alpha = 1e-1
+    alpha = 1e-5
     verbose = False
     simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha, verbose=verbose)
     simulation.run()
