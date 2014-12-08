@@ -15,7 +15,7 @@ class MC(_BaseMCRunner):
         self.set_temperature(temp)
 
 class ComputeGR():
-    def __init__(self, boxdim=2, nr_particles=100, hard_phi=0.4, nr_steps=1e6, epsilon=1, alpha=0.1):
+    def __init__(self, boxdim=2, nr_particles=100, hard_phi=0.4, nr_steps=1e6, epsilon=1, alpha=0.1, verbose=False):
         # Settings.
         np.random.seed(42)
         # Input parameters.
@@ -25,6 +25,7 @@ class ComputeGR():
         self.nr_steps = nr_steps
         self.epsilon = epsilon
         self.alpha = alpha
+        self.verbose = verbose
         # Derived quantities.
         self.hard_radii = np.ones(self.nr_particles)
         def volume_nball(radius, n):
@@ -45,17 +46,23 @@ class ComputeGR():
         # Potential and MC rules.
         self.temperature = 1
         self.mc = MC(self.potential, self.x, self.temperature, self.nr_steps)
-        self.step = RandomCoordsDisplacement(42, 3, single=True, nparticles=1, bdim=self.boxdim)
+        self.step = RandomCoordsDisplacement(42, 1, single=True, nparticles=1, bdim=self.boxdim)
+        if self.verbose:
+            print ("initial MC stepsize")
+            print self.step.get_stepsize()
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
-        self.gr = RecordPairDistHistogram(self.box_vector, 200, self.eq_steps, self.nr_particles)
+        self.gr = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles)
         self.mc.add_action(self.gr)
         self.test = MetropolisTest(44)
         self.mc.add_accept_test(self.test)
     def run(self):
         self.mc.set_print_progress()
         self.mc.run()
+        if self.verbose:
+            print ("adapted MC stepsize")
+            print self.step.get_stepsize()
     def show_result(self):
         r = self.gr.get_hist_r()
         number_density = self.nr_particles / np.prod(self.box_vector)
@@ -66,22 +73,18 @@ class ComputeGR():
             pdf.close()
             plt.close()
         plt.plot(r, gr)
-        print len(r)
-        print r
-        print len(gr)
-        print gr
         plt.xlabel(r"Distance $r$")
         plt.ylabel(r"Radial distr. function $g(r)$")
         plt.show()
         save_pdf(plt, "sfHS_WCA_gr.pdf")
         
-        
 if __name__ == "__main__":
     box_dimension = 2
     nr_particles = 200
-    hard_volume_fraction = 0.6
+    hard_volume_fraction = 0.4
     nr_steps = 1e6  
     alpha = 1e-1
-    simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha)
+    verbose = False
+    simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha, verbose=verbose)
     simulation.run()
     simulation.show_result()
