@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Base MPI Parallel Tempering &mdash; mcpele 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="base-mpi-parallel-tempering">
+<h1>Base MPI Parallel Tempering<a class="headerlink" href="#base-mpi-parallel-tempering" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering">
+<em class="property">class </em><tt class="descclassname">mcpele.parallel_tempering.</tt><tt class="descname">_MPI_Parallel_Tempering</tt><big>(</big><em>mcrunner</em>, <em>Tmax</em>, <em>Tmin</em>, <em>max_ptiter</em>, <em>pfreq=1</em>, <em>skip=0</em>, <em>print_status=True</em>, <em>base_directory=None</em>, <em>verbose=False</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L9"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract class for MPI Parallel Tempering calculations</p>
+<p><a class="reference internal" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering" title="mcpele.parallel_tempering._MPI_Parallel_Tempering"><tt class="xref py py-class docutils literal"><span class="pre">_MPI_Parallel_Tempering</span></tt></a> implements all the basic MPI routines. The initialisation
+function and the method to find the swap pattern need to implemented in a specific child method.</p>
+<p>The replica exchange method (REM) or parallel tempering (PT) is a Monte Carlo scheme that targets 
+the slow equilibration of systems characterised by large barriers in their free energy landscape.
+In REM <span class="math">\(n\)</span> replicas of the system are simulated simultaneously in the canonical (NVT) ensemble. 
+These systems differ in temperature and, while the high temperature replicas explore the high energy 
+regions of phase space, easily crossing large free energy barriers, the low temperature replicas 
+explore the low lying regions of the energy landscape. In the hierarchical picture of the energy landscape, 
+in which intra-funnel equilibration is fast and inter-funnel is slow, the high temperature replicas explore the 
+energy landscape hopping between funnels, while the low temperature replicas explore individual funnels 
+accurately. The idea of REM is to introduce moves that swap configurations between the different replicas, 
+thus making the high energy regions available to the low temperature simulations and <em>vice versa</em>. It 
+is not hard to see why this makes the exploration of configurational space more efficient, thus accelerating 
+equilibration.</p>
+<p>The acceptance rule for parallel tempering is</p>
+<div class="math">
+\[P( x_i \Rightarrow x_j) = min \{ 1, \exp [- (\beta_j - \beta_i) (E_i - E_j)] \}\]</div>
+<p>The choice of temperature scale is very important for efficient equilibration to occur. From the acceptance rule
+we see that the acceptance will be suppressed exponentially by large differences in energy between the two 
+configurations, just as for the Metropolis algorithm, but also by large differences in temperature. Thus, we 
+must keep this product of differences as small as possible, to allow for efficient swapping. As a rule of thumb this 
+can be achieved by using a scale of geometrically increasing temperatures.</p>
+<p>It is important to note that REM is a truly equilibrium Monte Carlo method: the microscopic equilibrium of each ensemble 
+is not disturbed by the swaps, hence the ensemble averages for each replica are just as valid as for ordinary Monte Carlo 
+simulations (unlike simulated annealing, for which ensemble averages are not well defined). In addition, ensemble averages 
+for the extended ensemble can be obtained by histogram reweighting technique. We also highlight the fact that REM moves are 
+very cheap to perform since they do not require additional energy evaluations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An optimal Parallel Tempering strategy should make sure that all MCMC walks take roughly the same amount of time. 
+Besides this fundamental consideration, note that root (rank=0) is not an evil master but rather an enlightened 
+dictator that leads by example: root is responsible to assign jobs and control parameters (e.g. temperature) to 
+the slaves but it also performs MCMC walks along with them. For this reason it might be optimal to give root a 
+set of control parameters for which the simulation is leaner so that it can start doing its own things while the 
+slaves finish their work.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mcrunner</strong> : <tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt></p>
+<blockquote>
+<div><p>object of <tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt> that performs
+the MCMC walks</p>
+</div></blockquote>
+<p><strong>Tmax</strong> : double</p>
+<blockquote>
+<div><p>maximum temperature to simulate (or equivalent control parameters)</p>
+</div></blockquote>
+<p><strong>Tmin</strong> : double</p>
+<blockquote>
+<div><p>minimum temperature to simulate (or equivalent control parameters)</p>
+</div></blockquote>
+<p><strong>max_ptiter</strong> : int</p>
+<blockquote>
+<div><p>maximum number of Parallel Tempering iterations</p>
+</div></blockquote>
+<p><strong>pfreq</strong> : int</p>
+<blockquote>
+<div><p>frequency with which histogram and other information is dumped
+to a file</p>
+</div></blockquote>
+<p><strong>skip</strong> : int</p>
+<blockquote>
+<div><p>number of parallel tempering iteration for which swaps should
+not be performed. Swaps should be avoided for instance while
+adjusting the step size</p>
+</div></blockquote>
+<p><strong>print_status</strong> : bool</p>
+<blockquote>
+<div><p>choose whether to print MCrunner status at each iteration</p>
+</div></blockquote>
+<p><strong>base_directory</strong> : string</p>
+<blockquote>
+<div><p>path to base directory where to save output</p>
+</div></blockquote>
+<p><strong>verbose</strong> : bool</p>
+<blockquote class="last">
+<div><p>print verbose output to terminal</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>mcrunner</td>
+<td>(<tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt>) object of <tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt> that performs the MCMC walks</td>
+</tr>
+<tr class="row-even"><td>nproc</td>
+<td>(int) number of parallel cores</td>
+</tr>
+<tr class="row-odd"><td>rank</td>
+<td>(int) MPI rank (identifier of the particular core), master has rank=0</td>
+</tr>
+<tr class="row-even"><td>Tmax</td>
+<td>(double) maximum temperature to simulate (or equivalent control parameters)</td>
+</tr>
+<tr class="row-odd"><td>Tmin</td>
+<td>(double) minimum temperature to simulate (or equivalent control parameters)</td>
+</tr>
+<tr class="row-even"><td>max_ptiter</td>
+<td>(int) maximum number of Parallel Tempering iterations</td>
+</tr>
+<tr class="row-odd"><td>ptiter</td>
+<td>(int) count of current parallel tempering iteration</td>
+</tr>
+<tr class="row-even"><td>pfreq</td>
+<td>(int) frequency with which histogram and other information is dumped to a file</td>
+</tr>
+<tr class="row-odd"><td>no_exchange_int</td>
+<td>(neg int) this NEGATIVE number in <tt class="xref py py-func docutils literal"><span class="pre">exchange_pattern()</span></tt> means that no exchange should be attempted</td>
+</tr>
+<tr class="row-even"><td>skip</td>
+<td>(int) number of parallel tempering iteration for which swaps should not be performed. Swaps should be avoided for instance while adjusting the step size</td>
+</tr>
+<tr class="row-odd"><td>swap_accepted_count</td>
+<td>(int) count of accepted swaps</td>
+</tr>
+<tr class="row-even"><td>swap_rejected_count</td>
+<td>(int) count of rejected swaps</td>
+</tr>
+<tr class="row-odd"><td>nodelist</td>
+<td>(list) list of ranks (should be integers from 0 to <tt class="docutils literal"><span class="pre">nprocs</span></tt>)</td>
+</tr>
+<tr class="row-even"><td>base_directory</td>
+<td>(string) path to base directory where to save output</td>
+</tr>
+<tr class="row-odd"><td>ex_outstream</td>
+<td>(stream) stream to output exchanges informations</td>
+</tr>
+<tr class="row-even"><td>initialised</td>
+<td>(bool) records whether PT has been initialised</td>
+</tr>
+<tr class="row-odd"><td>print_status</td>
+<td>(bool) choose whether to print MCrunner status at each iteration</td>
+</tr>
+<tr class="row-even"><td>verbose</td>
+<td>(bool) print verbose output to terminal</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering.one_iteration" title="mcpele.parallel_tempering._MPI_Parallel_Tempering.one_iteration"><tt class="xref py py-obj docutils literal"><span class="pre">one_iteration</span></tt></a>()</td>
+<td>Perform one parallel tempering iteration</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering.run" title="mcpele.parallel_tempering._MPI_Parallel_Tempering.run"><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></a>()</td>
+<td>Run multiple single iterations, plus initialisation if MPI_PT has not been initialised yet</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._attempt_exchange">
+<tt class="descname">_attempt_exchange</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L415"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._attempt_exchange" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function brings together all the functions necessary to attempt a configuration swap</p>
+<p>This function is structures as follows:</p>
+<ul class="simple">
+<li>root gathers the energies from the slaves</li>
+<li>root decides who will swap with whom</li>
+<li>root to each processor the rank of its chosen partner (buddy)</li>
+<li>processors exchange configuration and energy</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._broadcast_data">
+<tt class="descname">_broadcast_data</tt><big>(</big><em>in_data</em>, <em>adim</em>, <em>dtype='d'</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L289"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._broadcast_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identical arrays are broadcasted from root to all other processes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>in_data</strong> : numpy.array</p>
+<blockquote>
+<div><p>incoming array (from the master) to be broadcasted</p>
+</div></blockquote>
+<p><strong>adim</strong> : int</p>
+<blockquote>
+<div><p>size of the in_data array</p>
+</div></blockquote>
+<p><strong>dtype</strong> : dtype</p>
+<blockquote>
+<div><p>type of the elements of the array</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bcast_data</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>array of length <tt class="docutils literal"><span class="pre">adim</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._close_flush">
+<tt class="descname">_close_flush</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L175"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._close_flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method responsible for printing and/or dumping the all streams at the end of the calculation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._exchange_pairs">
+<tt class="descname">_exchange_pairs</tt><big>(</big><em>exchange_buddy</em>, <em>data</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L388"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._exchange_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return data from the pair exchange, otherwise return the data unaltered.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">the replica sends to exchange_partner and receives from it, 
+replacing source with self.rank would cause a deadlock</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>exchange_buddy</strong> : int</p>
+<blockquote>
+<div><p>rank of processor with which to swap</p>
+</div></blockquote>
+<p><strong>data</strong> : numpy.array</p>
+<blockquote>
+<div><p>array of data to exchage</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>data</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>the send data buffer is replaced with the receive data</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._find_exchange_buddy">
+<tt class="descname">_find_exchange_buddy</tt><big>(</big><em>Earray</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L147"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._find_exchange_buddy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method to determines the exchange pattern, it needs to be overwritten.</p>
+<p>An exchange pattern array is constructed, filled with <tt class="docutils literal"><span class="pre">self.no_exchange_int</span></tt> which
+signifies that no exchange should be attempted. This value is replaced with the
+<tt class="docutils literal"><span class="pre">rank</span></tt> of the processor with which to perform the swap if the swap attempt is successful.
+The exchange partner is then scattered to the other processors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>Earray</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>array of energies (one from each core)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._gather_data">
+<tt class="descname">_gather_data</tt><big>(</big><em>in_send_array</em>, <em>dtype='d'</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L315"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._gather_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to gather data in equal ordered chunks from replicas (it relies on the rank of the replica)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">gather assumes that all the subprocess are sending the same amount of data to root, to send
+variable amounts of data must use the MPI_gatherv directive</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>in_send_array</strong> : numpy.array</p>
+<blockquote>
+<div><p>incoming array (from each process) to be sent to master</p>
+</div></blockquote>
+<p><strong>dtype</strong> : dtype</p>
+<blockquote>
+<div><p>type of the elements of the array</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>recv_array</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>array of length <tt class="docutils literal"><span class="pre">len(in_send_array))</span> <span class="pre">*</span> <span class="pre">nproc</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._gather_energies">
+<tt class="descname">_gather_energies</tt><big>(</big><em>E</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L346"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._gather_energies" title="Permalink to this definition">¶</a></dt>
+<dd><p>gather energy of configurations from all processors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>E</strong> : double</p>
+<blockquote>
+<div><p>energy of each processor respectively</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>recv_Earray</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>array of length <tt class="docutils literal"><span class="pre">nproc</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._initialise">
+<tt class="descname">_initialise</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L162"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._initialise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform all the tasks required prior to starting the computation including initialising the output files</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._point_to_point_exchange_replace">
+<tt class="descname">_point_to_point_exchange_replace</tt><big>(</big><em>dest</em>, <em>source</em>, <em>data</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L364"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._point_to_point_exchange_replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>swap data between two processors</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the message sent buffer is replaced with the received message</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dest</strong> : int</p>
+<blockquote>
+<div><p>rank of processor with which to swap</p>
+</div></blockquote>
+<p><strong>source</strong> : int</p>
+<blockquote>
+<div><p>rank of processor with which to swap</p>
+</div></blockquote>
+<p><strong>data</strong> : numpy.array</p>
+<blockquote>
+<div><p>array of data to exchage</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>data</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>the send data buffer is replaced with the receive data</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._print_data">
+<tt class="descname">_print_data</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L167"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._print_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method responsible for printing and/or dumping the data, let it be printing the histograms or else</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._print_status">
+<tt class="descname">_print_status</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L171"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._print_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method responsible for printing and/or dumping the status, let it be printing the histograms or else</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._scatter_data">
+<tt class="descname">_scatter_data</tt><big>(</big><em>in_send_array</em>, <em>adim</em>, <em>dtype='d'</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L229"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._scatter_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)</p>
+<p>In simple terms it requires that <tt class="docutils literal"><span class="pre">adim</span> <span class="pre">%</span> <span class="pre">nproc</span> <span class="pre">=</span> <span class="pre">0</span></tt>. 
+If root scatters an array of size <tt class="docutils literal"><span class="pre">nproc</span></tt> then each core 
+will receive the rank-th element of the array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>in_send_array</strong> : numpy.array</p>
+<blockquote>
+<div><p>incoming array (from the master) to be scattered</p>
+</div></blockquote>
+<p><strong>adim</strong> : int</p>
+<blockquote>
+<div><p>size of the in_send_array</p>
+</div></blockquote>
+<p><strong>dtype</strong> : dtype</p>
+<blockquote>
+<div><p>type of the elements of the array</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>recv_array</strong> : numpy.array</p>
+<blockquote class="last">
+<div><p>array of length <tt class="docutils literal"><span class="pre">adim/nproc</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering._scatter_single_value">
+<tt class="descname">_scatter_single_value</tt><big>(</big><em>send_array</em>, <em>dtype='d'</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L265"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering._scatter_single_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a single value from a scattered array for each replica (e.g. Temperature or swap partner)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">send array must be of the same length as the number of processors</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>send_array</strong> : numpy.array</p>
+<blockquote>
+<div><p>incoming array (from the master) to be scattered</p>
+</div></blockquote>
+<p><strong>dtype</strong> : dtype</p>
+<blockquote>
+<div><p>type of the elements of the array</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">dtype</p>
+<blockquote class="last">
+<div><p>temperature or swap partner or else</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering.one_iteration">
+<tt class="descname">one_iteration</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L179"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering.one_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform one parallel tempering iteration</p>
+<p>Each PT iteration consists of the following steps:</p>
+<ul class="simple">
+<li>set the coordinates</li>
+<li>run the MCrunner for a predefined number of steps</li>
+<li>collect the results (energy and new coordinates)</li>
+<li>attempt an exchange</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering._MPI_Parallel_Tempering.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L207"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering._MPI_Parallel_Tempering.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run multiple single iterations, plus initialisation if MPI_PT has not been initialised yet</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
