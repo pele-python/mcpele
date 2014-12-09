@@ -269,7 +269,7 @@ class _BaseMCRunner(_Cdef_MC):
     
     Parameters
     ----------
-    potential : pele::BasePotential 
+    potential : pele:BasePotential 
         the potential (or cost function) return energy, gradient and hessian
         information given a set of coordinates
     coords : numpy.array
@@ -282,7 +282,7 @@ class _BaseMCRunner(_Cdef_MC):
     potential : pele:BasePotential
         the potential (or cost function) return energy, gradient and hessian
         information given a set of coordinates
-    start_coords: numpy.array
+    start_coords : numpy.array
         initial coordinates array
     temperature : double
         temperature or equivalent control parameter
