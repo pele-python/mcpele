@@ -51,11 +51,87 @@
 <h1>MPI Parallel Tempering<a class="headerlink" href="#mpi-parallel-tempering" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mcpele.parallel_tempering.MPI_PT_RLhandshake">
-<em class="property">class </em><tt class="descclassname">mcpele.parallel_tempering.</tt><tt class="descname">MPI_PT_RLhandshake</tt><big>(</big><em>mcrunner</em>, <em>Tmax</em>, <em>Tmin</em>, <em>max_ptiter=10</em>, <em>pfreq=1</em>, <em>skip=0</em>, <em>print_status=True</em>, <em>base_directory=None</em>, <em>verbose=False</em>, <em>suppress_histogram=True</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/mpi_ptmc.py#L33"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering.MPI_PT_RLhandshake" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mcpele.parallel_tempering.</tt><tt class="descname">MPI_PT_RLhandshake</tt><big>(</big><em>mcrunner</em>, <em>Tmax</em>, <em>Tmin</em>, <em>max_ptiter=10</em>, <em>pfreq=1</em>, <em>skip=0</em>, <em>print_status=True</em>, <em>base_directory=None</em>, <em>verbose=False</em>, <em>suppress_histogram=True</em><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/mpi_ptmc.py#L25"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering.MPI_PT_RLhandshake" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.parallel_tempering._base_mpi_ptmc._MPI_Parallel_Tempering</span></tt></p>
-<p>This class performs parallel tempering by a right-left handshake: alternates swaps with right and left 
-neighbours with geometrically distributed temperatures.
-<a href="#id1"><span class="problematic" id="id2">*</span></a>pfreq: printing frequency</p>
+<p>Perform Parallel Tempering by a right-left handshake</p>
+<p>This class performs parallel tempering alternating swaps with right and left neighbours 
+with geometrically distributed temperatures.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mcrunner</strong> : <tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt></p>
+<blockquote>
+<div><p>object of <tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt> that performs
+the MCMC walks</p>
+</div></blockquote>
+<p><strong>Tmax</strong> : double</p>
+<blockquote>
+<div><p>maximum temperature to simulate (or equivalent control parameters)</p>
+</div></blockquote>
+<p><strong>Tmin</strong> : double</p>
+<blockquote>
+<div><p>minimum temperature to simulate (or equivalent control parameters)</p>
+</div></blockquote>
+<p><strong>max_ptiter</strong> : int</p>
+<blockquote>
+<div><p>maximum number of Parallel Tempering iterations</p>
+</div></blockquote>
+<p><strong>pfreq</strong> : int</p>
+<blockquote>
+<div><p>frequency with which histogram and other information is dumped
+to a file</p>
+</div></blockquote>
+<p><strong>skip</strong> : int</p>
+<blockquote>
+<div><p>number of parallel tempering iteration for which swaps should
+not be performed. Swaps should be avoided for instance while
+adjusting the step size</p>
+</div></blockquote>
+<p><strong>print_status</strong> : bool</p>
+<blockquote>
+<div><p>choose whether to print MCrunner status at each iteration</p>
+</div></blockquote>
+<p><strong>base_directory</strong> : string</p>
+<blockquote>
+<div><p>path to base directory where to save output</p>
+</div></blockquote>
+<p><strong>verbose</strong> : bool</p>
+<blockquote>
+<div><p>print verbose output to terminal</p>
+</div></blockquote>
+<p><strong>suppress_histogram</strong> : bool</p>
+<blockquote class="last">
+<div><p>suppress histogram output</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>exchange_dic</td>
+<td>(dictionary) assign -1 to left and 1 to right</td>
+</tr>
+<tr class="row-even"><td>exchange_choice</td>
+<td>(int) current swap choice (alternating) initialised randomlly to be 1 or -1</td>
+</tr>
+<tr class="row-odd"><td>anyswap</td>
+<td>(bool) set to True is any of the attempted swaps have been succesfull</td>
+</tr>
+<tr class="row-even"><td>permutation_pattern</td>
+<td>(numpy.array) record pattern of exchanges, used to print the exchange permutations</td>
+</tr>
+<tr class="row-odd"><td>suppress_histgoram</td>
+<td>(bool) suppress the output of the histogram</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
