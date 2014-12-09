@@ -250,7 +250,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.thisptr.get().one_iteration()
     
     def run(self):
-        """perform ``niter`` iteration of the MC loop"""
+        """perform ``niter`` iterations of the MC loop"""
         self.thisptr.get().run(self.niter)
     
     def abort(self):
