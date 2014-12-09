@@ -31,14 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stefano/Work/mcpele
+CMAKE_SOURCE_DIR = /home/sm958/Work/mcpele
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stefano/Work/mcpele/build/cmake
+CMAKE_BINARY_DIR = /home/sm958/Work/mcpele/build/cmake
 
 # Include any dependencies generated for this target.
 include CMakeFiles/_pele_mc.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/_pele_mc.dir/flags.make
 
 CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o: CMakeFiles/_pele_mc.dir/flags.make
 CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o: ../../mcpele/monte_carlo/_pele_mc.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stefano/Work/mcpele/build/cmake/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/sm958/Work/mcpele/build/cmake/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o -c /home/stefano/Work/mcpele/mcpele/monte_carlo/_pele_mc.cxx
+	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o -c /home/sm958/Work/mcpele/mcpele/monte_carlo/_pele_mc.cxx
 
 CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/stefano/Work/mcpele/mcpele/monte_carlo/_pele_mc.cxx > CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.i
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/sm958/Work/mcpele/mcpele/monte_carlo/_pele_mc.cxx > CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.i
 
 CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/stefano/Work/mcpele/mcpele/monte_carlo/_pele_mc.cxx -o CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.s
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/sm958/Work/mcpele/mcpele/monte_carlo/_pele_mc.cxx -o CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.s
 
 CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o.requires:
 .PHONY : CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o.requires
@@ -80,8 +80,8 @@ _pele_mc_OBJECTS = \
 _pele_mc_EXTERNAL_OBJECTS =
 
 _pele_mc.so: CMakeFiles/_pele_mc.dir/mcpele/monte_carlo/_pele_mc.cxx.o
-_pele_mc.so: CMakeFiles/_pele_mc.dir/build.make
 _pele_mc.so: libmcpele_lib.so
+_pele_mc.so: CMakeFiles/_pele_mc.dir/build.make
 _pele_mc.so: CMakeFiles/_pele_mc.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library _pele_mc.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/_pele_mc.dir/link.txt --verbose=$(VERBOSE)
@@ -98,6 +98,6 @@ CMakeFiles/_pele_mc.dir/clean:
 .PHONY : CMakeFiles/_pele_mc.dir/clean
 
 CMakeFiles/_pele_mc.dir/depend:
-	cd /home/stefano/Work/mcpele/build/cmake && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stefano/Work/mcpele /home/stefano/Work/mcpele /home/stefano/Work/mcpele/build/cmake /home/stefano/Work/mcpele/build/cmake /home/stefano/Work/mcpele/build/cmake/CMakeFiles/_pele_mc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sm958/Work/mcpele/build/cmake && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sm958/Work/mcpele /home/sm958/Work/mcpele /home/sm958/Work/mcpele/build/cmake /home/sm958/Work/mcpele/build/cmake /home/sm958/Work/mcpele/build/cmake/CMakeFiles/_pele_mc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/_pele_mc.dir/depend
 

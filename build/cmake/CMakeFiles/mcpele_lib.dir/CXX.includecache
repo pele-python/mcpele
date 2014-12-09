@@ -20,45 +20,45 @@ pele/array.h
 pele/base_potential.h
 ../../source/mcpele/pele/base_potential.h
 
-/home/stefano/Work/mcpele/source/adaptive_takestep.cpp
+/home/sm958/Work/mcpele/source/adaptive_takestep.cpp
 mcpele/adaptive_takestep.h
-/home/stefano/Work/mcpele/source/mcpele/adaptive_takestep.h
+/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h
 
-/home/stefano/Work/mcpele/source/check_spherical_container.cpp
+/home/sm958/Work/mcpele/source/check_spherical_container.cpp
 mcpele/check_spherical_container.h
-/home/stefano/Work/mcpele/source/mcpele/check_spherical_container.h
+/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h
 
-/home/stefano/Work/mcpele/source/energy_window_test.cpp
+/home/sm958/Work/mcpele/source/energy_window_test.cpp
 pele/array.h
-/home/stefano/Work/mcpele/source/pele/array.h
+/home/sm958/Work/mcpele/source/pele/array.h
 mcpele/energy_window_test.h
-/home/stefano/Work/mcpele/source/mcpele/energy_window_test.h
+/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h
 
-/home/stefano/Work/mcpele/source/gaussian_coords_displacement.cpp
+/home/sm958/Work/mcpele/source/gaussian_coords_displacement.cpp
 mcpele/gaussian_coords_displacement.h
-/home/stefano/Work/mcpele/source/mcpele/gaussian_coords_displacement.h
+/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h
 
-/home/stefano/Work/mcpele/source/histogram.cpp
+/home/sm958/Work/mcpele/source/histogram.cpp
 mcpele/histogram.h
-/home/stefano/Work/mcpele/source/mcpele/histogram.h
+/home/sm958/Work/mcpele/source/mcpele/histogram.h
 
-/home/stefano/Work/mcpele/source/lowest_eigenvalue.cpp
+/home/sm958/Work/mcpele/source/lowest_eigenvalue.cpp
 cmath
 -
 mcpele/lowest_eigenvalue.h
-/home/stefano/Work/mcpele/source/mcpele/lowest_eigenvalue.h
+/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h
 
-/home/stefano/Work/mcpele/source/mc.cpp
+/home/sm958/Work/mcpele/source/mc.cpp
 mcpele/mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 mcpele/progress.h
-/home/stefano/Work/mcpele/source/mcpele/progress.h
+/home/sm958/Work/mcpele/source/mcpele/progress.h
 
-/home/stefano/Work/mcpele/source/mcpele/adaptive_takestep.h
+/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h
 mcpele/mc.h
-/home/stefano/Work/mcpele/source/mcpele/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/check_spherical_container.h
+/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h
 iostream
 -
 cmath
@@ -70,27 +70,27 @@ random
 chrono
 -
 pele/array.h
-/home/stefano/Work/mcpele/source/mcpele/pele/array.h
+/home/sm958/Work/mcpele/source/mcpele/pele/array.h
 pele/optimizer.h
-/home/stefano/Work/mcpele/source/mcpele/pele/optimizer.h
+/home/sm958/Work/mcpele/source/mcpele/pele/optimizer.h
 pele/distance.h
-/home/stefano/Work/mcpele/source/mcpele/pele/distance.h
+/home/sm958/Work/mcpele/source/mcpele/pele/distance.h
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/energy_window_test.h
+/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h
 pele/array.h
-/home/stefano/Work/mcpele/source/mcpele/pele/array.h
+/home/sm958/Work/mcpele/source/mcpele/pele/array.h
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/gaussian_coords_displacement.h
+/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h
 random
 -
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/histogram.h
+/home/sm958/Work/mcpele/source/mcpele/histogram.h
 cmath
 -
 algorithm
@@ -102,17 +102,17 @@ iostream
 limits
 -
 pele/array.h
-/home/stefano/Work/mcpele/source/mcpele/pele/array.h
+/home/sm958/Work/mcpele/source/mcpele/pele/array.h
 
-/home/stefano/Work/mcpele/source/mcpele/lowest_eigenvalue.h
+/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h
 pele/base_potential.h
-/home/stefano/Work/mcpele/source/mcpele/pele/base_potential.h
+/home/sm958/Work/mcpele/source/mcpele/pele/base_potential.h
 pele/lbfgs.h
-/home/stefano/Work/mcpele/source/mcpele/pele/lbfgs.h
+/home/sm958/Work/mcpele/source/mcpele/pele/lbfgs.h
 pele/lowest_eig_potential.h
-/home/stefano/Work/mcpele/source/mcpele/pele/lowest_eig_potential.h
+/home/sm958/Work/mcpele/source/mcpele/pele/lowest_eig_potential.h
 
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 cmath
 -
 algorithm
@@ -122,33 +122,33 @@ memory
 stdexcept
 -
 pele/array.h
-/home/stefano/Work/mcpele/source/mcpele/pele/array.h
+/home/sm958/Work/mcpele/source/mcpele/pele/array.h
 pele/base_potential.h
-/home/stefano/Work/mcpele/source/mcpele/pele/base_potential.h
+/home/sm958/Work/mcpele/source/mcpele/pele/base_potential.h
 
-/home/stefano/Work/mcpele/source/mcpele/metropolis_test.h
+/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h
 random
 -
 pele/array.h
-/home/stefano/Work/mcpele/source/mcpele/pele/array.h
+/home/sm958/Work/mcpele/source/mcpele/pele/array.h
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/moving_average.h
+/home/sm958/Work/mcpele/source/mcpele/moving_average.h
 vector
 -
 algorithm
 -
 histogram.h
-/home/stefano/Work/mcpele/source/mcpele/histogram.h
+/home/sm958/Work/mcpele/source/mcpele/histogram.h
 
-/home/stefano/Work/mcpele/source/mcpele/particle_pair_swap.h
+/home/sm958/Work/mcpele/source/mcpele/particle_pair_swap.h
 random
 -
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/pattern_manager.h
+/home/sm958/Work/mcpele/source/mcpele/pattern_manager.h
 vector
 -
 utility
@@ -156,9 +156,9 @@ utility
 stdexcept
 -
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/progress.h
+/home/sm958/Work/mcpele/source/mcpele/progress.h
 ctime
 -
 utility
@@ -170,99 +170,99 @@ string
 algorithm
 -
 
-/home/stefano/Work/mcpele/source/mcpele/random_coords_displacement.h
+/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h
 random
 -
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/record_energy_histogram.h
+/home/sm958/Work/mcpele/source/mcpele/record_energy_histogram.h
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 histogram.h
-/home/stefano/Work/mcpele/source/mcpele/histogram.h
+/home/sm958/Work/mcpele/source/mcpele/histogram.h
 
-/home/stefano/Work/mcpele/source/mcpele/record_scalar_timeseries.h
+/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/mcpele/rsm_displacement.h
+/home/sm958/Work/mcpele/source/mcpele/rsm_displacement.h
 pele/array.h
-/home/stefano/Work/mcpele/source/mcpele/pele/array.h
+/home/sm958/Work/mcpele/source/mcpele/pele/array.h
 
-/home/stefano/Work/mcpele/source/mcpele/take_step_pattern.h
+/home/sm958/Work/mcpele/source/mcpele/take_step_pattern.h
 pattern_manager.h
-/home/stefano/Work/mcpele/source/mcpele/pattern_manager.h
+/home/sm958/Work/mcpele/source/mcpele/pattern_manager.h
 
-/home/stefano/Work/mcpele/source/mcpele/take_step_probabilities.h
+/home/sm958/Work/mcpele/source/mcpele/take_step_probabilities.h
 vector
 -
 random
 -
 mc.h
-/home/stefano/Work/mcpele/source/mcpele/mc.h
+/home/sm958/Work/mcpele/source/mcpele/mc.h
 
-/home/stefano/Work/mcpele/source/metropolis_test.cpp
+/home/sm958/Work/mcpele/source/metropolis_test.cpp
 mcpele/metropolis_test.h
-/home/stefano/Work/mcpele/source/mcpele/metropolis_test.h
+/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h
 cmath
 -
 
-/home/stefano/Work/mcpele/source/particle_pair_swap.cpp
+/home/sm958/Work/mcpele/source/particle_pair_swap.cpp
 mcpele/particle_pair_swap.h
-/home/stefano/Work/mcpele/source/mcpele/particle_pair_swap.h
+/home/sm958/Work/mcpele/source/mcpele/particle_pair_swap.h
 
-/home/stefano/Work/mcpele/source/random_coords_displacement.cpp
+/home/sm958/Work/mcpele/source/random_coords_displacement.cpp
 mcpele/random_coords_displacement.h
-/home/stefano/Work/mcpele/source/mcpele/random_coords_displacement.h
+/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h
 
-/home/stefano/Work/mcpele/source/record_energy_histogram.cpp
+/home/sm958/Work/mcpele/source/record_energy_histogram.cpp
 mcpele/record_energy_histogram.h
-/home/stefano/Work/mcpele/source/mcpele/record_energy_histogram.h
+/home/sm958/Work/mcpele/source/mcpele/record_energy_histogram.h
 
-/home/stefano/Work/mcpele/source/record_scalar_timeseries.cpp
+/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp
 mcpele/record_scalar_timeseries.h
-/home/stefano/Work/mcpele/source/mcpele/record_scalar_timeseries.h
+/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h
 mcpele/moving_average.h
-/home/stefano/Work/mcpele/source/mcpele/moving_average.h
+/home/sm958/Work/mcpele/source/mcpele/moving_average.h
 
-/home/stefano/Work/mcpele/source/rsm_displacement.cpp
+/home/sm958/Work/mcpele/source/rsm_displacement.cpp
 cmath
 -
 stdexcept
 -
 mcpele/histogram.h
-/home/stefano/Work/mcpele/source/mcpele/histogram.h
+/home/sm958/Work/mcpele/source/mcpele/histogram.h
 mcpele/rsm_displacement.h
-/home/stefano/Work/mcpele/source/mcpele/rsm_displacement.h
+/home/sm958/Work/mcpele/source/mcpele/rsm_displacement.h
 
-/home/stefano/Work/mcpele/source/take_step_pattern.cpp
+/home/sm958/Work/mcpele/source/take_step_pattern.cpp
 mcpele/take_step_pattern.h
-/home/stefano/Work/mcpele/source/mcpele/take_step_pattern.h
+/home/sm958/Work/mcpele/source/mcpele/take_step_pattern.h
 
-/home/stefano/Work/mcpele/source/take_step_probabilities.cpp
+/home/sm958/Work/mcpele/source/take_step_probabilities.cpp
 mcpele/take_step_probabilities.h
-/home/stefano/Work/mcpele/source/mcpele/take_step_probabilities.h
+/home/sm958/Work/mcpele/source/mcpele/take_step_probabilities.h
 
-/home/stefano/Work/pele/source/aatopology.cpp
+/home/sm958/Work/pele/source/aatopology.cpp
 pele/rotations.h
-/home/stefano/Work/pele/source/pele/rotations.h
+/home/sm958/Work/pele/source/pele/rotations.h
 pele/aatopology.h
-/home/stefano/Work/pele/source/pele/aatopology.h
+/home/sm958/Work/pele/source/pele/aatopology.h
 pele/vecn.h
-/home/stefano/Work/pele/source/pele/vecn.h
+/home/sm958/Work/pele/source/pele/vecn.h
 
-/home/stefano/Work/pele/source/lbfgs.cpp
+/home/sm958/Work/pele/source/lbfgs.cpp
 pele/lbfgs.h
-/home/stefano/Work/pele/source/pele/lbfgs.h
+/home/sm958/Work/pele/source/pele/lbfgs.h
 memory
 -
 
-/home/stefano/Work/pele/source/modified_fire.cpp
+/home/sm958/Work/pele/source/modified_fire.cpp
 pele/modified_fire.h
-/home/stefano/Work/pele/source/pele/modified_fire.h
+/home/sm958/Work/pele/source/pele/modified_fire.h
 
-/home/stefano/Work/pele/source/pele/aatopology.h
+/home/sm958/Work/pele/source/pele/aatopology.h
 string
 -
 list
@@ -272,19 +272,21 @@ cmath
 stdexcept
 -
 pele/array.h
-/home/stefano/Work/pele/source/pele/pele/array.h
+/home/sm958/Work/pele/source/pele/pele/array.h
 pele/rotations.h
-/home/stefano/Work/pele/source/pele/pele/rotations.h
+/home/sm958/Work/pele/source/pele/pele/rotations.h
 pele/base_potential.h
-/home/stefano/Work/pele/source/pele/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/pele/base_potential.h
 pele/vecn.h
-/home/stefano/Work/pele/source/pele/pele/vecn.h
+/home/sm958/Work/pele/source/pele/pele/vecn.h
 pele/lowest_eig_potential.h
-/home/stefano/Work/pele/source/pele/pele/lowest_eig_potential.h
+/home/sm958/Work/pele/source/pele/pele/lowest_eig_potential.h
 pele/matrix.h
-/home/stefano/Work/pele/source/pele/pele/matrix.h
+/home/sm958/Work/pele/source/pele/pele/matrix.h
+pele/distance.h
+/home/sm958/Work/pele/source/pele/pele/distance.h
 
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 algorithm
 -
 cassert
@@ -302,7 +304,7 @@ stdexcept
 vector
 -
 
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 assert.h
 -
 vector
@@ -312,9 +314,9 @@ stdexcept
 iostream
 -
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 
-/home/stefano/Work/pele/source/pele/distance.h
+/home/sm958/Work/pele/source/pele/distance.h
 cmath
 -
 stdexcept
@@ -322,25 +324,25 @@ stdexcept
 type_traits
 -
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 
-/home/stefano/Work/pele/source/pele/lbfgs.h
+/home/sm958/Work/pele/source/pele/lbfgs.h
 vector
 -
 memory
 -
 base_potential.h
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 optimizer.h
-/home/stefano/Work/pele/source/pele/optimizer.h
+/home/sm958/Work/pele/source/pele/optimizer.h
 
-/home/stefano/Work/pele/source/pele/lowest_eig_potential.h
+/home/sm958/Work/pele/source/pele/lowest_eig_potential.h
 base_potential.h
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 algorithm
 -
 vector
@@ -350,21 +352,21 @@ cmath
 memory
 -
 
-/home/stefano/Work/pele/source/pele/matrix.h
+/home/sm958/Work/pele/source/pele/matrix.h
 
-/home/stefano/Work/pele/source/pele/modified_fire.h
+/home/sm958/Work/pele/source/pele/modified_fire.h
 base_potential.h
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 optimizer.h
-/home/stefano/Work/pele/source/pele/optimizer.h
+/home/sm958/Work/pele/source/pele/optimizer.h
 
-/home/stefano/Work/pele/source/pele/optimizer.h
+/home/sm958/Work/pele/source/pele/optimizer.h
 base_potential.h
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 vector
 -
 math.h
@@ -378,13 +380,13 @@ iomanip
 memory
 -
 
-/home/stefano/Work/pele/source/pele/rotations.h
+/home/sm958/Work/pele/source/pele/rotations.h
 pele/array.h
-/home/stefano/Work/pele/source/pele/pele/array.h
+/home/sm958/Work/pele/source/pele/pele/array.h
 pele/vecn.h
-/home/stefano/Work/pele/source/pele/pele/vecn.h
+/home/sm958/Work/pele/source/pele/pele/vecn.h
 
-/home/stefano/Work/pele/source/pele/vecn.h
+/home/sm958/Work/pele/source/pele/vecn.h
 cmath
 -
 stdlib.h
@@ -400,9 +402,9 @@ string
 sstream
 -
 
-/home/stefano/Work/pele/source/rotations.cpp
+/home/sm958/Work/pele/source/rotations.cpp
 pele/rotations.h
-/home/stefano/Work/pele/source/pele/rotations.h
+/home/sm958/Work/pele/source/pele/rotations.h
 pele/vecn.h
-/home/stefano/Work/pele/source/pele/vecn.h
+/home/sm958/Work/pele/source/pele/vecn.h
 

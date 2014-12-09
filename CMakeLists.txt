@@ -1,9 +1,9 @@
 # this file is mean to be parsed by python before being a proper CMakeLists.txt file
 # in particular, the following strings will be set by python
-set(numpy_include /usr/lib/python2.7/dist-packages/numpy/core/include)
+set(numpy_include /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include)
 set(PYTHON_INCLUDE_DIRS /usr/include/python2.7 /usr/include/python2.7)
-set(PYTHON_LDFLAGS "-lpthread -ldl -lutil -lm -lpython2.7 -Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions")
-set(pele_include /home/stefano/Work/pele/source)
+set(PYTHON_LDFLAGS "-L/usr/lib/python2.7/config -lpthread -ldl -lutil -lm -lpython2.7 -Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions")
+set(pele_include /home/sm958/Work/pele/source)
 
 message("python include dirs: ${PYTHON_INCLUDE_DIRS}")
 message("numpy include dirs: ${numpy_include}")

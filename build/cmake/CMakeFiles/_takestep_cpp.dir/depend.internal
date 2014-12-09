@@ -10,10 +10,10 @@ CMakeFiles/_takestep_cpp.dir/mcpele/monte_carlo/_takestep_cpp.cxx.o
  ../../source/mcpele/random_coords_displacement.h
  ../../source/mcpele/take_step_pattern.h
  ../../source/mcpele/take_step_probabilities.h
- /home/stefano/Work/mcpele/mcpele/monte_carlo/_takestep_cpp.cxx
- /home/stefano/Work/pele/source/pele/array.h
- /home/stefano/Work/pele/source/pele/base_potential.h
- /home/stefano/Work/pele/source/pele/combine_potentials.h
+ /home/sm958/Work/mcpele/mcpele/monte_carlo/_takestep_cpp.cxx
+ /home/sm958/Work/pele/source/pele/array.h
+ /home/sm958/Work/pele/source/pele/base_potential.h
+ /home/sm958/Work/pele/source/pele/combine_potentials.h
  /usr/include/python2.7/Python.h
  /usr/include/python2.7/abstract.h
  /usr/include/python2.7/boolobject.h
@@ -77,21 +77,21 @@ CMakeFiles/_takestep_cpp.dir/mcpele/monte_carlo/_takestep_cpp.cxx.o
  /usr/include/python2.7/unicodeobject.h
  /usr/include/python2.7/warnings.h
  /usr/include/python2.7/weakrefobject.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/__multiarray_api.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/__ufunc_api.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/_neighborhood_iterator_imp.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/_numpyconfig.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/arrayobject.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarrayobject.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarraytypes.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/noprefix.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_common.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_cpu.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_endian.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_interrupt.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_math.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/numpyconfig.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/old_defines.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ufuncobject.h
- /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/utils.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/__multiarray_api.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/__ufunc_api.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/_neighborhood_iterator_imp.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/_numpyconfig.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/arrayobject.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarrayobject.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarraytypes.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/noprefix.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_1_7_deprecated_api.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_common.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_cpu.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_endian.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_interrupt.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_math.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/numpyconfig.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/old_defines.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ufuncobject.h
+ /usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/utils.h

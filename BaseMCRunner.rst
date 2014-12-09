@@ -5,5 +5,6 @@ Base MCRunner
 
 .. autoclass:: _BaseMCRunner
    :members:
+   :inherited-members:
    :undoc-members:
    :show-inheritance:

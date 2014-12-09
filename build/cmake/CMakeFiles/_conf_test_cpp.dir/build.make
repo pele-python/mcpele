@@ -31,14 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stefano/Work/mcpele
+CMAKE_SOURCE_DIR = /home/sm958/Work/mcpele
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stefano/Work/mcpele/build/cmake
+CMAKE_BINARY_DIR = /home/sm958/Work/mcpele/build/cmake
 
 # Include any dependencies generated for this target.
 include CMakeFiles/_conf_test_cpp.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/_conf_test_cpp.dir/flags.make
 
 CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o: CMakeFiles/_conf_test_cpp.dir/flags.make
 CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o: ../../mcpele/monte_carlo/_conf_test_cpp.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stefano/Work/mcpele/build/cmake/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/sm958/Work/mcpele/build/cmake/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o -c /home/stefano/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx
+	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o -c /home/sm958/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx
 
 CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/stefano/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx > CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.i
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/sm958/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx > CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.i
 
 CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/stefano/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx -o CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.s
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/sm958/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx -o CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.s
 
 CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o.requires:
 .PHONY : CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o.requires
@@ -80,8 +80,8 @@ _conf_test_cpp_OBJECTS = \
 _conf_test_cpp_EXTERNAL_OBJECTS =
 
 _conf_test_cpp.so: CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o
-_conf_test_cpp.so: CMakeFiles/_conf_test_cpp.dir/build.make
 _conf_test_cpp.so: libmcpele_lib.so
+_conf_test_cpp.so: CMakeFiles/_conf_test_cpp.dir/build.make
 _conf_test_cpp.so: CMakeFiles/_conf_test_cpp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library _conf_test_cpp.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/_conf_test_cpp.dir/link.txt --verbose=$(VERBOSE)
@@ -98,6 +98,6 @@ CMakeFiles/_conf_test_cpp.dir/clean:
 .PHONY : CMakeFiles/_conf_test_cpp.dir/clean
 
 CMakeFiles/_conf_test_cpp.dir/depend:
-	cd /home/stefano/Work/mcpele/build/cmake && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stefano/Work/mcpele /home/stefano/Work/mcpele /home/stefano/Work/mcpele/build/cmake /home/stefano/Work/mcpele/build/cmake /home/stefano/Work/mcpele/build/cmake/CMakeFiles/_conf_test_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sm958/Work/mcpele/build/cmake && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sm958/Work/mcpele /home/sm958/Work/mcpele /home/sm958/Work/mcpele/build/cmake /home/sm958/Work/mcpele/build/cmake /home/sm958/Work/mcpele/build/cmake/CMakeFiles/_conf_test_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/_conf_test_cpp.dir/depend
 

@@ -35,22 +35,22 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stefano/Work/mcpele
+CMAKE_SOURCE_DIR = /home/sm958/Work/mcpele
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stefano/Work/mcpele/build/cmake
+CMAKE_BINARY_DIR = /home/sm958/Work/mcpele/build/cmake
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
-	/usr/bin/cmake -i .
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stefano/Work/mcpele/build/cmake/CMakeFiles /home/stefano/Work/mcpele/build/cmake/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sm958/Work/mcpele/build/cmake/CMakeFiles /home/sm958/Work/mcpele/build/cmake/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stefano/Work/mcpele/build/cmake/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sm958/Work/mcpele/build/cmake/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -189,101 +189,101 @@ mcpele_lib/fast:
 	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/build
 .PHONY : mcpele_lib/fast
 
-home/stefano/Work/pele/source/aatopology.o: home/stefano/Work/pele/source/aatopology.cpp.o
-.PHONY : home/stefano/Work/pele/source/aatopology.o
+home/sm958/Work/pele/source/aatopology.o: home/sm958/Work/pele/source/aatopology.cpp.o
+.PHONY : home/sm958/Work/pele/source/aatopology.o
 
 # target to build an object file
-home/stefano/Work/pele/source/aatopology.cpp.o:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/aatopology.cpp.o
-.PHONY : home/stefano/Work/pele/source/aatopology.cpp.o
+home/sm958/Work/pele/source/aatopology.cpp.o:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/aatopology.cpp.o
+.PHONY : home/sm958/Work/pele/source/aatopology.cpp.o
 
-home/stefano/Work/pele/source/aatopology.i: home/stefano/Work/pele/source/aatopology.cpp.i
-.PHONY : home/stefano/Work/pele/source/aatopology.i
+home/sm958/Work/pele/source/aatopology.i: home/sm958/Work/pele/source/aatopology.cpp.i
+.PHONY : home/sm958/Work/pele/source/aatopology.i
 
 # target to preprocess a source file
-home/stefano/Work/pele/source/aatopology.cpp.i:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/aatopology.cpp.i
-.PHONY : home/stefano/Work/pele/source/aatopology.cpp.i
+home/sm958/Work/pele/source/aatopology.cpp.i:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/aatopology.cpp.i
+.PHONY : home/sm958/Work/pele/source/aatopology.cpp.i
 
-home/stefano/Work/pele/source/aatopology.s: home/stefano/Work/pele/source/aatopology.cpp.s
-.PHONY : home/stefano/Work/pele/source/aatopology.s
+home/sm958/Work/pele/source/aatopology.s: home/sm958/Work/pele/source/aatopology.cpp.s
+.PHONY : home/sm958/Work/pele/source/aatopology.s
 
 # target to generate assembly for a file
-home/stefano/Work/pele/source/aatopology.cpp.s:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/aatopology.cpp.s
-.PHONY : home/stefano/Work/pele/source/aatopology.cpp.s
+home/sm958/Work/pele/source/aatopology.cpp.s:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/aatopology.cpp.s
+.PHONY : home/sm958/Work/pele/source/aatopology.cpp.s
 
-home/stefano/Work/pele/source/lbfgs.o: home/stefano/Work/pele/source/lbfgs.cpp.o
-.PHONY : home/stefano/Work/pele/source/lbfgs.o
+home/sm958/Work/pele/source/lbfgs.o: home/sm958/Work/pele/source/lbfgs.cpp.o
+.PHONY : home/sm958/Work/pele/source/lbfgs.o
 
 # target to build an object file
-home/stefano/Work/pele/source/lbfgs.cpp.o:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/lbfgs.cpp.o
-.PHONY : home/stefano/Work/pele/source/lbfgs.cpp.o
+home/sm958/Work/pele/source/lbfgs.cpp.o:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/lbfgs.cpp.o
+.PHONY : home/sm958/Work/pele/source/lbfgs.cpp.o
 
-home/stefano/Work/pele/source/lbfgs.i: home/stefano/Work/pele/source/lbfgs.cpp.i
-.PHONY : home/stefano/Work/pele/source/lbfgs.i
+home/sm958/Work/pele/source/lbfgs.i: home/sm958/Work/pele/source/lbfgs.cpp.i
+.PHONY : home/sm958/Work/pele/source/lbfgs.i
 
 # target to preprocess a source file
-home/stefano/Work/pele/source/lbfgs.cpp.i:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/lbfgs.cpp.i
-.PHONY : home/stefano/Work/pele/source/lbfgs.cpp.i
+home/sm958/Work/pele/source/lbfgs.cpp.i:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/lbfgs.cpp.i
+.PHONY : home/sm958/Work/pele/source/lbfgs.cpp.i
 
-home/stefano/Work/pele/source/lbfgs.s: home/stefano/Work/pele/source/lbfgs.cpp.s
-.PHONY : home/stefano/Work/pele/source/lbfgs.s
+home/sm958/Work/pele/source/lbfgs.s: home/sm958/Work/pele/source/lbfgs.cpp.s
+.PHONY : home/sm958/Work/pele/source/lbfgs.s
 
 # target to generate assembly for a file
-home/stefano/Work/pele/source/lbfgs.cpp.s:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/lbfgs.cpp.s
-.PHONY : home/stefano/Work/pele/source/lbfgs.cpp.s
+home/sm958/Work/pele/source/lbfgs.cpp.s:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/lbfgs.cpp.s
+.PHONY : home/sm958/Work/pele/source/lbfgs.cpp.s
 
-home/stefano/Work/pele/source/modified_fire.o: home/stefano/Work/pele/source/modified_fire.cpp.o
-.PHONY : home/stefano/Work/pele/source/modified_fire.o
+home/sm958/Work/pele/source/modified_fire.o: home/sm958/Work/pele/source/modified_fire.cpp.o
+.PHONY : home/sm958/Work/pele/source/modified_fire.o
 
 # target to build an object file
-home/stefano/Work/pele/source/modified_fire.cpp.o:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/modified_fire.cpp.o
-.PHONY : home/stefano/Work/pele/source/modified_fire.cpp.o
+home/sm958/Work/pele/source/modified_fire.cpp.o:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/modified_fire.cpp.o
+.PHONY : home/sm958/Work/pele/source/modified_fire.cpp.o
 
-home/stefano/Work/pele/source/modified_fire.i: home/stefano/Work/pele/source/modified_fire.cpp.i
-.PHONY : home/stefano/Work/pele/source/modified_fire.i
+home/sm958/Work/pele/source/modified_fire.i: home/sm958/Work/pele/source/modified_fire.cpp.i
+.PHONY : home/sm958/Work/pele/source/modified_fire.i
 
 # target to preprocess a source file
-home/stefano/Work/pele/source/modified_fire.cpp.i:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/modified_fire.cpp.i
-.PHONY : home/stefano/Work/pele/source/modified_fire.cpp.i
+home/sm958/Work/pele/source/modified_fire.cpp.i:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/modified_fire.cpp.i
+.PHONY : home/sm958/Work/pele/source/modified_fire.cpp.i
 
-home/stefano/Work/pele/source/modified_fire.s: home/stefano/Work/pele/source/modified_fire.cpp.s
-.PHONY : home/stefano/Work/pele/source/modified_fire.s
+home/sm958/Work/pele/source/modified_fire.s: home/sm958/Work/pele/source/modified_fire.cpp.s
+.PHONY : home/sm958/Work/pele/source/modified_fire.s
 
 # target to generate assembly for a file
-home/stefano/Work/pele/source/modified_fire.cpp.s:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/modified_fire.cpp.s
-.PHONY : home/stefano/Work/pele/source/modified_fire.cpp.s
+home/sm958/Work/pele/source/modified_fire.cpp.s:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/modified_fire.cpp.s
+.PHONY : home/sm958/Work/pele/source/modified_fire.cpp.s
 
-home/stefano/Work/pele/source/rotations.o: home/stefano/Work/pele/source/rotations.cpp.o
-.PHONY : home/stefano/Work/pele/source/rotations.o
+home/sm958/Work/pele/source/rotations.o: home/sm958/Work/pele/source/rotations.cpp.o
+.PHONY : home/sm958/Work/pele/source/rotations.o
 
 # target to build an object file
-home/stefano/Work/pele/source/rotations.cpp.o:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/rotations.cpp.o
-.PHONY : home/stefano/Work/pele/source/rotations.cpp.o
+home/sm958/Work/pele/source/rotations.cpp.o:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/rotations.cpp.o
+.PHONY : home/sm958/Work/pele/source/rotations.cpp.o
 
-home/stefano/Work/pele/source/rotations.i: home/stefano/Work/pele/source/rotations.cpp.i
-.PHONY : home/stefano/Work/pele/source/rotations.i
+home/sm958/Work/pele/source/rotations.i: home/sm958/Work/pele/source/rotations.cpp.i
+.PHONY : home/sm958/Work/pele/source/rotations.i
 
 # target to preprocess a source file
-home/stefano/Work/pele/source/rotations.cpp.i:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/rotations.cpp.i
-.PHONY : home/stefano/Work/pele/source/rotations.cpp.i
+home/sm958/Work/pele/source/rotations.cpp.i:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/rotations.cpp.i
+.PHONY : home/sm958/Work/pele/source/rotations.cpp.i
 
-home/stefano/Work/pele/source/rotations.s: home/stefano/Work/pele/source/rotations.cpp.s
-.PHONY : home/stefano/Work/pele/source/rotations.s
+home/sm958/Work/pele/source/rotations.s: home/sm958/Work/pele/source/rotations.cpp.s
+.PHONY : home/sm958/Work/pele/source/rotations.s
 
 # target to generate assembly for a file
-home/stefano/Work/pele/source/rotations.cpp.s:
-	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/stefano/Work/pele/source/rotations.cpp.s
-.PHONY : home/stefano/Work/pele/source/rotations.cpp.s
+home/sm958/Work/pele/source/rotations.cpp.s:
+	$(MAKE) -f CMakeFiles/mcpele_lib.dir/build.make CMakeFiles/mcpele_lib.dir/home/sm958/Work/pele/source/rotations.cpp.s
+.PHONY : home/sm958/Work/pele/source/rotations.cpp.s
 
 mcpele/monte_carlo/_accept_test_cpp.o: mcpele/monte_carlo/_accept_test_cpp.cxx.o
 .PHONY : mcpele/monte_carlo/_accept_test_cpp.o
@@ -804,18 +804,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... mcpele_lib"
 	@echo "... rebuild_cache"
-	@echo "... home/stefano/Work/pele/source/aatopology.o"
-	@echo "... home/stefano/Work/pele/source/aatopology.i"
-	@echo "... home/stefano/Work/pele/source/aatopology.s"
-	@echo "... home/stefano/Work/pele/source/lbfgs.o"
-	@echo "... home/stefano/Work/pele/source/lbfgs.i"
-	@echo "... home/stefano/Work/pele/source/lbfgs.s"
-	@echo "... home/stefano/Work/pele/source/modified_fire.o"
-	@echo "... home/stefano/Work/pele/source/modified_fire.i"
-	@echo "... home/stefano/Work/pele/source/modified_fire.s"
-	@echo "... home/stefano/Work/pele/source/rotations.o"
-	@echo "... home/stefano/Work/pele/source/rotations.i"
-	@echo "... home/stefano/Work/pele/source/rotations.s"
+	@echo "... home/sm958/Work/pele/source/aatopology.o"
+	@echo "... home/sm958/Work/pele/source/aatopology.i"
+	@echo "... home/sm958/Work/pele/source/aatopology.s"
+	@echo "... home/sm958/Work/pele/source/lbfgs.o"
+	@echo "... home/sm958/Work/pele/source/lbfgs.i"
+	@echo "... home/sm958/Work/pele/source/lbfgs.s"
+	@echo "... home/sm958/Work/pele/source/modified_fire.o"
+	@echo "... home/sm958/Work/pele/source/modified_fire.i"
+	@echo "... home/sm958/Work/pele/source/modified_fire.s"
+	@echo "... home/sm958/Work/pele/source/rotations.o"
+	@echo "... home/sm958/Work/pele/source/rotations.i"
+	@echo "... home/sm958/Work/pele/source/rotations.s"
 	@echo "... mcpele/monte_carlo/_accept_test_cpp.o"
 	@echo "... mcpele/monte_carlo/_accept_test_cpp.i"
 	@echo "... mcpele/monte_carlo/_accept_test_cpp.s"

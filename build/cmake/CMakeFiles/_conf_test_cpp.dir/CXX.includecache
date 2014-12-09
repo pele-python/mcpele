@@ -40,45 +40,45 @@ pele/array.h
 pele/base_potential.h
 ../../source/mcpele/pele/base_potential.h
 
-/home/stefano/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx
+/home/sm958/Work/mcpele/mcpele/monte_carlo/_conf_test_cpp.cxx
 pyconfig.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/pyconfig.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/pyconfig.h
 Python.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/Python.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/Python.h
 stddef.h
 -
 math.h
 -
 string.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/string.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/string.h
 stdio.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/stdio.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/stdio.h
 stdlib.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/stdlib.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/stdlib.h
 numpy/arrayobject.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/numpy/arrayobject.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/numpy/arrayobject.h
 numpy/ufuncobject.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/numpy/ufuncobject.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/numpy/ufuncobject.h
 memory
 -
 ios
-/home/stefano/Work/mcpele/mcpele/monte_carlo/ios
+/home/sm958/Work/mcpele/mcpele/monte_carlo/ios
 new
-/home/stefano/Work/mcpele/mcpele/monte_carlo/new
+/home/sm958/Work/mcpele/mcpele/monte_carlo/new
 stdexcept
-/home/stefano/Work/mcpele/mcpele/monte_carlo/stdexcept
+/home/sm958/Work/mcpele/mcpele/monte_carlo/stdexcept
 typeinfo
-/home/stefano/Work/mcpele/mcpele/monte_carlo/typeinfo
+/home/sm958/Work/mcpele/mcpele/monte_carlo/typeinfo
 pele/array.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/pele/array.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/pele/array.h
 pele/base_potential.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/pele/base_potential.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/pele/base_potential.h
 pele/combine_potentials.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/pele/combine_potentials.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/pele/combine_potentials.h
 mcpele/mc.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/mcpele/mc.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/mcpele/mc.h
 mcpele/check_spherical_container.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/mcpele/check_spherical_container.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/mcpele/check_spherical_container.h
 omp.h
 -
 complex
@@ -96,21 +96,21 @@ ios
 new
 -
 longintrepr.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/longintrepr.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/longintrepr.h
 longintrepr.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/longintrepr.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/longintrepr.h
 longintrepr.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/longintrepr.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/longintrepr.h
 compile.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/compile.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/compile.h
 frameobject.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/frameobject.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/frameobject.h
 traceback.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/traceback.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/traceback.h
 longintrepr.h
-/home/stefano/Work/mcpele/mcpele/monte_carlo/longintrepr.h
+/home/sm958/Work/mcpele/mcpele/monte_carlo/longintrepr.h
 
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 algorithm
 -
 cassert
@@ -128,7 +128,7 @@ stdexcept
 vector
 -
 
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 assert.h
 -
 vector
@@ -138,17 +138,17 @@ stdexcept
 iostream
 -
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 
-/home/stefano/Work/pele/source/pele/combine_potentials.h
+/home/sm958/Work/pele/source/pele/combine_potentials.h
 list
 -
 memory
 -
 base_potential.h
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 
-/home/stefano/Work/pele/source/pele/distance.h
+/home/sm958/Work/pele/source/pele/distance.h
 cmath
 -
 stdexcept
@@ -156,13 +156,13 @@ stdexcept
 type_traits
 -
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 
-/home/stefano/Work/pele/source/pele/optimizer.h
+/home/sm958/Work/pele/source/pele/optimizer.h
 base_potential.h
-/home/stefano/Work/pele/source/pele/base_potential.h
+/home/sm958/Work/pele/source/pele/base_potential.h
 array.h
-/home/stefano/Work/pele/source/pele/array.h
+/home/sm958/Work/pele/source/pele/array.h
 vector
 -
 math.h
@@ -401,64 +401,6 @@ pymem.h
 /usr/include/python2.7/pycapsule.h
 
 /usr/include/python2.7/pyconfig.h
-x86_64-linux-gnu/python2.7/pyconfig.h
--
-x86_64-linux-gnux32/python2.7/pyconfig.h
--
-i386-linux-gnu/python2.7/pyconfig.h
--
-aarch64-linux-gnu/python2.7/pyconfig.h
--
-alpha-linux-gnu/python2.7/pyconfig.h
--
-arm-linux-gnueabihf/python2.7/pyconfig.h
--
-arm-linux-gnueabi/python2.7/pyconfig.h
--
-hppa-linux-gnu/python2.7/pyconfig.h
--
-ia64-linux-gnu/python2.7/pyconfig.h
--
-m68k-linux-gnu/python2.7/pyconfig.h
--
-mipsel-linux-gnu/python2.7/pyconfig.h
--
-mips64el-linux-gnuabin32/python2.7/pyconfig.h
--
-mips64el-linux-gnuabi64/python2.7/pyconfig.h
--
-mips-linux-gnu/python2.7/pyconfig.h
--
-mips64-linux-gnuabin32/python2.7/pyconfig.h
--
-mips64-linux-gnuabi64/python2.7/pyconfig.h
--
-or1k-linux-gnu/python2.7/pyconfig.h
--
-powerpc-linux-gnuspe/python2.7/pyconfig.h
--
-powerpc64le-linux-gnu/python2.7/pyconfig.h
--
-powerpc64-linux-gnu/python2.7/pyconfig.h
--
-powerpc-linux-gnu/python2.7/pyconfig.h
--
-s390x-linux-gnu/python2.7/pyconfig.h
--
-s390-linux-gnu/python2.7/pyconfig.h
--
-sh4-linux-gnu/python2.7/pyconfig.h
--
-sparc64-linux-gnu/python2.7/pyconfig.h
--
-sparc-linux-gnu/python2.7/pyconfig.h
--
-x86_64-kfreebsd-gnu/python2.7/pyconfig.h
--
-i386-kfreebsd-gnu/python2.7/pyconfig.h
--
-i386-gnu/python2.7/pyconfig.h
--
 
 /usr/include/python2.7/pyctype.h
 
@@ -572,81 +514,79 @@ wctype.h
 
 /usr/include/python2.7/weakrefobject.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/__multiarray_api.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/__multiarray_api.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/__ufunc_api.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/__ufunc_api.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/_neighborhood_iterator_imp.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/_neighborhood_iterator_imp.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/_numpyconfig.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/_numpyconfig.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/arrayobject.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/arrayobject.h
 ndarrayobject.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarrayobject.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarrayobject.h
 npy_interrupt.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_interrupt.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_interrupt.h
 noprefix.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/noprefix.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/noprefix.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarrayobject.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarrayobject.h
 ndarraytypes.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarraytypes.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarraytypes.h
 __multiarray_api.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/__multiarray_api.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/__multiarray_api.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarraytypes.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarraytypes.h
 npy_common.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_common.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_common.h
 npy_endian.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_endian.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_endian.h
 npy_cpu.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_cpu.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_cpu.h
 utils.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/utils.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/utils.h
 _neighborhood_iterator_imp.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/_neighborhood_iterator_imp.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/_neighborhood_iterator_imp.h
 npy_1_7_deprecated_api.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_1_7_deprecated_api.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/noprefix.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/noprefix.h
 ndarrayobject.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ndarrayobject.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ndarrayobject.h
 npy_interrupt.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_interrupt.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_interrupt.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_1_7_deprecated_api.h
 old_defines.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/old_defines.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/old_defines.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_common.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_common.h
 numpyconfig.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/numpyconfig.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/numpyconfig.h
 npy_config.h
--
-io.h
 -
 inttypes.h
 -
 limits.h
 -
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_cpu.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_cpu.h
 numpyconfig.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/numpyconfig.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/numpyconfig.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_endian.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_endian.h
 endian.h
 -
 npy_cpu.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_cpu.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_cpu.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_interrupt.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_interrupt.h
 setjmp.h
 -
 signal.h
 -
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/npy_math.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/npy_math.h
 math.h
 -
 sunmath.h
@@ -656,19 +596,19 @@ npy_config.h
 numpy/npy_common.h
 -
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/numpyconfig.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/numpyconfig.h
 _numpyconfig.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/_numpyconfig.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/_numpyconfig.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/old_defines.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/old_defines.h
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/ufuncobject.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/ufuncobject.h
 numpy/npy_math.h
 -
 arrayobject.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/arrayobject.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/arrayobject.h
 __ufunc_api.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/__ufunc_api.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/__ufunc_api.h
 sys/param.h
 -
 machine/fpu.h
@@ -680,11 +620,11 @@ ieeefp.h
 fenv.h
 -
 numpy/fenv/fenv.h
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/numpy/fenv/fenv.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/numpy/fenv/fenv.h
 float.h
 -
 fpxcp.h
 -
 
-/usr/lib/python2.7/dist-packages/numpy/core/include/numpy/utils.h
+/usr/local/lib/python2.7/dist-packages/numpy-1.8.0-py2.7-linux-x86_64.egg/numpy/core/include/numpy/utils.h
 
