@@ -89,7 +89,7 @@ public:
     double get_entry(const size_t bin_index) const { return m_hist.at(bin_index); }
     std::vector<double> get_vecdata_error() const;
     std::vector<double> get_vecdata_normalized() const;
-    void print_terminal(const size_t ntot) const;
+    void print_terminal() const;
     void resize(const double E, const int i);
 };
 

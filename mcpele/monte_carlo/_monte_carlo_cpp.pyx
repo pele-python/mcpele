@@ -267,6 +267,18 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
 class _BaseMCRunner(_Cdef_MC):
     """Abstract base class for MC runners, all MC runners should derive from this base class.
     
+    .. note :: The design of this class relies on a number of implementation choices made for the
+               pele::MC cpp class. This is not limiting by any means, developers can easily modify
+               this class to write a base class that uses a different basic MC class. 
+               Using the pele::MC class is however recommended.
+              
+    .. warning :: the cython wrapper to the pele::MC class **demands** that the first 4 parameters
+                  of all inheriting classes constructors be positional as in the parent class.
+                  Hence pay particular attention to the first 4 positional arguments when
+                  constructing a MCrunner class! A workaround could be a pure Python class
+                  that has a member of type :class:`_BaseMCrunner`, then what you do with the
+                  constructor will not matter as long as the member is constructed correctly
+    
     Parameters
     ----------
     potential : pele:BasePotential 
@@ -292,18 +304,6 @@ class _BaseMCRunner(_Cdef_MC):
         number of degrees of freedom (which is ``len(coords)``)
     res : pele:Result container
         dictionary-like container for the results
-    
-    .. note:: The design of this class relies on a number of implementation choices made for the
-              pele::MC cpp class. This is not limiting by any means, developers can easily modify
-              this class to write a base class that uses a different basic MC class. 
-              Using the pele::MC class is however recommended.
-              
-    .. warning:: the cython wrapper to the pele::MC class **demands** that the first 4 parameters
-                 of all inheriting classes constructors be positional as in the parent class.
-                 Hence pay particular attention to the first 4 positional arguments when
-                 constructing a MCrunner class! A workaround could be a pure Python class
-                 that has a member of type :class:`_BaseMCrunner`, then what you do with the
-                 constructor will not matter as long as the member is constructed correctly
     """
     __metaclass__ = abc.ABCMeta
     #super(Metropolis_MCrunner, self).__init__(potential, coords, temperature, niter)

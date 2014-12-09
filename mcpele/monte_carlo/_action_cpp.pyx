@@ -12,8 +12,6 @@ import sys
 #===============================================================================        
 
 cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
-    """This class is the python interface for the c++ pele::RecordEnergyHistogram acceptance test class implementation
-    """
     cdef cppRecordEnergyHistogram* newptr
     def __cinit__(self, min, max, bin, eqsteps):
         self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordEnergyHistogram(min, max, bin, eqsteps))
@@ -22,7 +20,13 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def get_histogram(self):
-        """return a histogram array"""
+        """returns the histogram array
+        
+        Returns
+        -------
+        numpy.array
+            energy histogram
+        """
         cdef _pele.Array[double] histi = self.newptr.get_histogram()
         cdef double *histdata = histi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
@@ -32,29 +36,63 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
               
         return hist
         
-    def print_terminal(self, ntot):
-        self.newptr.print_terminal(ntot)
+    def print_terminal(self):
+        """draws histogram on the terminal
+        """
+        self.newptr.print_terminal()
     
     def get_bounds_val(self):
+        """get energy boundaries of the histogram
+        
+        Returns
+        -------
+        Emax : double
+            maximum energy of the histogram
+        Emin : double
+            minimum energy of the histogram
+        """
         Emin = self.newptr.get_min()
         Emax = self.newptr.get_max()
         return Emin, Emax
     
     def get_mean_variance(self):
+        """get mean and variance of the histogram
+        
+        Returns
+        -------
+        mean : double
+            first moment of the distribution
+        variance : double
+            second central moment of the distribution
+        """
         mean = self.newptr.get_mean()
         variance = self.newptr.get_variance()
         return mean, variance
         
 class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
-    """This class is the python interface for the c++ RecordEnergyHistogram implementation.
+    """Bins energies into a resizable histogram
+    
+    This class is the Python interface for the c++ RecordEnergyHistogram implementation.
+    
+    .. warning :: class:`RecordEnergyHistogram` should only start recording
+                  entries when the system is equilibrated, set the number of steps
+                  to skip with the ``eqsteps`` parameter.
+    Parameters
+    ----------
+    min : double
+        guess for the minimum energy expected
+    max : double
+        guess for the maximum energy expected
+    bin : double
+        choice for the bin size
+    eqsteps: int
+        number of iterations to skip before starting to record entries
     """
 
 #===============================================================================
 # Record Pair Distances Histogram
 #===============================================================================
 cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
-    """This class is the python interface for the c++ mcpele::RecordPairDistHistogram implementation
-    """
     cdef cppRecordPairDistHistogram[INT2]* newptr2
     cdef cppRecordPairDistHistogram[INT3]* newptr3
     def __cinit__(self, boxvec, nr_bins, eqsteps, record_every):
@@ -73,7 +111,13 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         self.ndim = ndim
         
     def get_hist_r(self):
-        """return array of r values for g(r) measurement"""
+        """get array of :math:`r` values for :math:`g(r)` measurement
+        
+        Returns
+        -------
+        numpy.array
+            array of :math:`r` values for :math:`g(r)` histogram
+        """
         cdef _pele.Array[double] histi
         if self.ndim == 2:
             histi = self.newptr2.get_hist_r()
@@ -87,7 +131,13 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         return hist
     
     def get_hist_gr(self, number_density, nr_particles):
-        """return array of g(r) values for g(r) measurement"""
+        """get array of :math:`g(r)` values for :math:`g(r)` measurement
+        
+        Returns
+        -------
+        numpy.array
+            array of array of :math:`g(r)` values for :math:`g(r)`
+        """
         cdef _pele.Array[double] histi
         if self.ndim == 2:
             histi = self.newptr2.get_hist_gr(number_density, nr_particles)
@@ -101,6 +151,13 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         return hist
     
     def get_eqsteps(self):
+        """get number of equilibration steps
+        
+        Returns
+        -------
+        int
+            number of equilibration steps
+        """
         if self.ndim == 2:
             return self.newptr2.get_eqsteps()
         elif self.ndim == 3:
@@ -109,7 +166,28 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
             raise Exception("_Cdef_RecordPairDistHistogram: boxdim fail")
 
 class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
-    """This class is the python interface for the c++ RecordPairDistHistogram implementation.
+    """Record a pair distribution function histogram
+    
+    This class is the Python interface for the c++ mcpele::RecordPairDistHistogram implementation.
+    The pair correlation function (or radial distribution function) describes how the density of a
+    system of particles varies as a function of distance from a reference particle. In simplest terms 
+    it is a measure of the probability of finding a particle at a distance of :math:`r` away from a given 
+    reference particle.
+    
+    Every time the action is called, it accumulates the present configuration into the same :math:`g(r)` histogram.
+    The action function calls ``add_configuration`` which accumulates the current configuration into the :math:`g(r)` 
+    histogram. The :math:`g(r)` histogram can be read out at any point after that.
+     
+    Parameters
+    ----------
+    boxvec : numpy.array
+        array of box side lengths
+    nr_bins : int
+        number of bins for the :math:`g(r)` histogram
+    eqsteps : int
+        number of equilibration steps to be excluded from :math:`g(r)` computation
+    record_every : int
+        after ``eqsteps`` steps have been done, record every ``record_everyth`` steps
     """
     
 #===============================================================================
@@ -117,8 +195,6 @@ class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
 #===============================================================================
         
 cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
-    """This class is the python interface for the c++ bv::RecordEnergyTimeseries action class implementation
-    """
     cdef cppRecordEnergyTimeseries* newptr
     def __cinit__(self, niter, record_every):
         self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordEnergyTimeseries(niter, record_every))
@@ -127,7 +203,13 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def get_time_series(self):
-        """return a energy time series array"""
+        """get a energy time series array
+        
+        Returns
+        -------
+        numpy.array
+            array containing the energy time series
+        """
         cdef _pele.Array[double] seriesi = self.newptr.get_time_series()
         cdef double *seriesdata = seriesi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] series = np.zeros(seriesi.size())
@@ -138,11 +220,24 @@ cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
         return series
     
     def clear(self):
-        """clears time series"""
+        """clear time series container
+        
+        deletes the entries in the c++ container
+        """
         self.newptr.clear()
     
 class RecordEnergyTimeseries(_Cdef_RecordEnergyTimeseries):
-    """This class is the python interface for the c++ RecordEnergyTimeseries implementation.
+    """Record a time series of the energy
+    
+    This class is the Python interface for the c++ bv::RecordEnergyTimeseries 
+    :class:`Action` class implementation.
+    
+    Parameters
+    ----------
+    niter: int, Deprecated
+        expected number of steps (to preallocate)
+    record_every : int
+        interval every which the energy is recorded
     """
     
 #===============================================================================
@@ -150,8 +245,6 @@ class RecordEnergyTimeseries(_Cdef_RecordEnergyTimeseries):
 #===============================================================================
         
 cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
-    """This class is the python interface for the c++ RecordLowestEValueTimeseries action class implementation
-    """
     cdef cppRecordLowestEValueTimeseries* newptr
     cdef ranvec
     def __cinit__(self, niter, record_every, _pele.BasePotential landscape_potential, boxdimension,
@@ -166,7 +259,13 @@ cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def get_time_series(self):
-        """return a lowest eigenvalue time series array"""
+        """get the lowest eigenvalue time series array
+        
+        Returns
+        -------
+        numpy.array:
+            array time series of the lowest eigenvalue
+        """
         cdef _pele.Array[double] seriesi = self.newptr.get_time_series()
         cdef double *seriesdata = seriesi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] series = np.zeros(seriesi.size())
@@ -177,11 +276,37 @@ cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
         return series
     
     def clear(self):
-        """clears time series"""
+        """clear time series container
+        
+        deletes the entries in the c++ container
+        """
         self.newptr.clear()
     
 class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
-    """This class is the python interface for the c++ RecordLowestEValueTimeseries implementation.
+    """Record lowest eigenvalue of the inherent structure
+    
+    This class is the Python interface for the c++ RecordLowestEValueTimeseries :class:`Action` 
+    class implementation.
+    The structure is quenched to a minimum energy configuration (its inherent structure) and
+    the lowest eigenvalue is computed by the Rayleight-Ritz method for lowest eigenvalue (which
+    computationally cheaper than the diagonalisation of the Hessian). The zero modes are
+    orthogonalised through the Gram-Schmidt orthogonalisation procedure.
+    
+    Parameters
+    ----------
+    niter: int, Deprecated
+        expected number of steps (to preallocate)
+    record_every : int
+        interval every which the energy is recorded
+    landscape_potential : pele:BasePotential
+        potential associated with particles (so the underlying potential energy surface)
+    boxdimension: int
+        dimensionality of the space (dimensionality of box)
+    ranvec : numpy.array
+        random vector of length equal to the number of degrees of freedom [len(coords)],
+        required by the Gram-Schmidt orthogonalisation procedure
+    lbfgsniter : int
+        maximum number of steps for the LBFG-S minimisation of the Rayleigh quotient
     """
     
 #===============================================================================
@@ -189,12 +314,10 @@ class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
 #===============================================================================
         
 cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
-    """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries action class implementation
-    """
     cdef cppRecordDisplacementPerParticleTimeseries* newptr
-    cdef initial
-    def __cinit__(self, niter, record_every, initial, boxdimension):
-        cdef np.ndarray[double, ndim=1] initialc = initial
+    cdef initial_coords
+    def __cinit__(self, niter, record_every, initial_coords, boxdimension):
+        cdef np.ndarray[double, ndim=1] initialc = initial_coords
         self.thisptr = shared_ptr[cppAction](<cppAction*> new 
                  cppRecordDisplacementPerParticleTimeseries(niter, record_every,
                                                             _pele.Array[double](<double*> initialc.data, initialc.size), 
@@ -204,7 +327,13 @@ cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def get_time_series(self):
-        """return a mean rsm time series array"""
+        """return a the root mean square displacement time series array
+        
+        Returns
+        -------
+        np.array
+            root mean square displacement array
+        """
         cdef _pele.Array[double] seriesi = self.newptr.get_time_series()
         cdef double *seriesdata = seriesi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] series = np.zeros(seriesi.size())
@@ -215,9 +344,26 @@ cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
         return series
     
     def clear(self):
-        """clears time series"""
+        """clear time series container
+        
+        deletes the entries in the c++ container
+        """
         self.newptr.clear()
 
 class RecordDisplacementPerParticleTimeseries(_Cdef_RecordDisplacementPerParticleTimeseries):
-    """This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries implementation.
+    """Record time series of the average root mean square displacement per particle at each step
+    
+    This class is the Python interface for the c++ RecordDisplacementPerParticleTimeseries 
+    :class:`Action` class implementation.
+    
+    Parameters
+    ----------
+    niter: int, Deprecated
+        expected number of steps (to preallocate)
+    record_every : int
+        interval every which the energy is recorded
+    initial_coords : numpy.array
+        initial system coordinates, used to compute rms distance
+    boxdimension: int
+        dimensionality of the space (dimensionality of box)
     """
