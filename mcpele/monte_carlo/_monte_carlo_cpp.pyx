@@ -114,16 +114,34 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         return (_Cdef_MC,(self.potential, self.start_coords, self.temperature, self.niter))
 
 class _BaseMCRunner(_Cdef_MC):
-    """
-    Abstract method for MC runners, all MC runners should derive from this base class.
-    The design of this class relies on a number of implementation choices made for the
-    pele::MC cpp class. This is not limiting by any means, developers can easily modify
-    this class to write a base class that uses a different basic MC class. 
-    Using the pele::MC class is however recommended. 
-    *potential should be constructed outside of this class and passed
-    *coords are the initial coordinates
-    *niter is the total number of MC iterations
-    *set_control *MUST* be overwritten in any derived class
+    """Abstract base class for MC runners, all MC runners should derive from this base class.
+    
+    Parameters
+    ----------
+    potential : pele::BasePotential 
+        the potential (or cost function) return energy, gradient and hessian
+        information given a set of coordinates
+    coords : numpy.array
+        these are the initial coordinates for the system
+    niter : int
+        total number of MC iterations to perform
+       
+    Attributes
+    ----------
+    
+    
+    
+    .. note:: The design of this class relies on a number of implementation choices made for the
+              pele::MC cpp class. This is not limiting by any means, developers can easily modify
+              this class to write a base class that uses a different basic MC class. 
+              Using the pele::MC class is however recommended.
+              
+    .. warning:: the cython wrapper to the pele::MC class **demands** that the first 4 parameters
+                 of all inheriting classes constructors be positional as in the parent class.
+                 Hence pay particular attention to the first 4 positional arguments when
+                 constructing a MCrunner class! A workaround could be a pure python class
+                 that has a member of type :class:`_BaseMCrunner`, then what you do with the
+                 constructor will not matter as long as the member is constructed correctly
     """
     __metaclass__ = abc.ABCMeta
     #super(Metropolis_MCrunner, self).__init__(potential, coords, temperature, niter)
@@ -136,26 +154,52 @@ class _BaseMCRunner(_Cdef_MC):
     
     @abc.abstractmethod
     def set_control(self, c):
-        """set control parameter, this could be temperature or some other control parameter like stiffness of the harmonic potential"""
+        """
+        sets the temperature or whichever control parameter that takes
+        the role of the temperature, such as the stifness of an harmonic
+        sprint to which the system is coupled. This abstract method **must** 
+        be overwritten in any derived class.
+        """
     
     def get_config(self):
-        """Return the coordinates of the current configuration and its associated energy"""
+        """
+        Return the coordinates of the current configuration and its associated energy
+        """
         coords = self.get_coords()
         energy = self.get_energy()
         return coords, energy
     
     def set_config(self, coords, energy):
-        """set current configuration and its energy"""
+        """sets current configuration and its energy
+        
+        Parameters
+        ----------
+        coords : numpy.array
+            these are the initial coordinates for the system
+        energy : double
+            energy of coords
+        """
         self.set_coordinates(coords, energy)
     
     def get_results(self):
-        """Must return a result object, generally must contain at least final configuration and energy"""
+        """Must return a result object, generally must contain at least final configuration and energy
+        
+        Returns
+        -------
+        res : pele::Result container
+            tuple containing typically coords and energy
+            accessible via: 
+            
+            * res.coords
+            * res.energy
+        """
         res = self.result
         res.coords = self.get_coords()
         res.energy = self.get_energy()
         return res
     
     def get_status(self):
+        """Returns typical information about the status of the Monte Carlo walker"""
         status = Result()
         status.iteration = self.get_iterations_count()
         status.acc_frac = self.get_accepted_fraction()
