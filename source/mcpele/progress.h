@@ -48,15 +48,17 @@ public:
 
     progress(const index_t totalin)
         : m_inverse_of_total_iterations(1.0/static_cast<float_t>(totalin)),
-        m_total_iterations(totalin),
-        m_curr(0),
-        m_prev(0),
-        m_start_time(clock())
+          m_total_iterations(totalin),
+          m_curr(0),
+          m_prev(0),
+          m_start_time(clock())
     {}
+    
+    index_t get_current_percentage() const { return m_curr; }
 
     void next(const index_t idx, std::ostream& stm = std::cout)
     {
-        m_curr = static_cast<index_t>(static_cast<float_t>(idx) * m_inverse_of_total_iterations * 100);
+        m_curr = std::round((static_cast<float_t>(idx) / static_cast<float_t>(m_total_iterations)) * float_t(100));
         if (m_curr != m_prev) {
             print_time_percentage(idx - 1, stm);
             if (m_curr == 100) {
