@@ -7,14 +7,6 @@ from mpi4py import MPI
 from mcpele.parallel_tempering import _MPI_Parallel_Tempering
 import time
 
-"""
-An optimal Parallel Tempering strategy should make sure that all MCMC walks take roughly the same amount of time. 
-Besides this fundamental consideration, note that root (rank=0) is not an evil master but rather an enlightened dictator that leads by
-example: root is responsible to assign jobs and control parameters (e.g. temperature) to the slaves but it also performs MCMC walks along 
-with them. For this reason it might be optimal to give root a set of control parameters for which the simulation is leaner so that it 
-can start doing its own things while the slaves finish their work.  
-"""
-
 def trymakedir(path):
     """this function deals with common race conditions"""
     while True:
@@ -31,10 +23,53 @@ def trymakedir(path):
             break
 
 class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
-    """
-    This class performs parallel tempering by a right-left handshake: alternates swaps with right and left 
-    neighbours with geometrically distributed temperatures.
-    *pfreq: printing frequency
+    """Perform Parallel Tempering by a right-left handshake
+    
+    This class performs parallel tempering alternating swaps with right and left neighbours 
+    with geometrically distributed temperatures.
+    
+    Parameters
+    ----------
+    mcrunner : :class:`_BaseMCrunner`
+        object of :class:`_BaseMCrunner` that performs
+        the MCMC walks
+    Tmax : double
+        maximum temperature to simulate (or equivalent control parameters)
+    Tmin : double
+        minimum temperature to simulate (or equivalent control parameters)
+    max_ptiter : int
+        maximum number of Parallel Tempering iterations
+    pfreq : int
+        frequency with which histogram and other information is dumped
+        to a file
+    skip : int
+        number of parallel tempering iteration for which swaps should
+        not be performed. Swaps should be avoided for instance while
+        adjusting the step size
+    print_status : bool
+        choose whether to print MCrunner status at each iteration
+    base_directory : string
+        path to base directory where to save output
+    verbose : bool
+        print verbose output to terminal
+    suppress_histogram : bool
+        suppress histogram output
+    
+    Attributes
+    ----------
+    exchange_dic : dictionary
+        assign -1 to left and 1 to right
+    exchange_choice : int
+        current swap choice (alternating)
+        initialised randomlly to be 1 or -1
+    anyswap : bool
+        set to True is any of the attempted swaps
+        have been succesfull
+    permutation_pattern : numpy.array
+        record pattern of exchanges, used to print
+        the exchange permutations
+    suppress_histgoram : bool
+        suppress the output of the histogram
     """
     def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False, suppress_histogram=True):
         super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, print_status=print_status, base_directory=base_directory, verbose=verbose)
