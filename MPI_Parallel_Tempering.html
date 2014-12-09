@@ -102,14 +102,30 @@ neighbours with geometrically distributed temperatures.
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">one_iteration</span></tt>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.parallel_tempering.MPI_PT_RLhandshake.one_iteration" title="mcpele.parallel_tempering.MPI_PT_RLhandshake.one_iteration"><tt class="xref py py-obj docutils literal"><span class="pre">one_iteration</span></tt></a>()</td>
 <td>Perform one parallel tempering iteration, this consists of the following steps:</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt>()</td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.parallel_tempering.MPI_PT_RLhandshake.run" title="mcpele.parallel_tempering.MPI_PT_RLhandshake.run"><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></a>()</td>
 <td>Run consists of multiple single iterations, plus initialisation if MPI_PT has not been initialised yet</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.parallel_tempering.MPI_PT_RLhandshake.one_iteration">
+<tt class="descname">one_iteration</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L77"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering.MPI_PT_RLhandshake.one_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform one parallel tempering iteration, this consists of the following steps:
+<a href="#id11"><span class="problematic" id="id12">*</span></a>set the coordinates#now scatter the exchange pattern so that everybody knows who their buddy is
+<a href="#id13"><span class="problematic" id="id14">*</span></a>run the MCrunner for a predefined number of steps
+<a href="#id15"><span class="problematic" id="id16">*</span></a>collect the results (energy and new coordinates)
+<a href="#id17"><span class="problematic" id="id18">*</span></a>attempt an exchange</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.parallel_tempering.MPI_PT_RLhandshake.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference external" href="http://github.com/pele-python/pele/blob/master/mcpele/parallel_tempering/_base_mpi_ptmc.py#L102"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mcpele.parallel_tempering.MPI_PT_RLhandshake.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run consists of multiple single iterations, plus initialisation if MPI_PT has not been initialised yet</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

@@ -57,7 +57,13 @@
 <dt id="mcpele.monte_carlo.MetropolisTest">
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">MetropolisTest</tt><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._accept_test_cpp._Cdef_Metropolis</span></tt></p>
-<p>This class is the python interface for the c++ Metropolis implementation.</p>
+<p>Metropolis acceptance criterion</p>
+<p>This class is the Python interface for the c++ pele::MetropolisTest 
+acceptance test class implementation. The Metropolis acceptance criterion
+accepts each move with probability</p>
+<div class="math">
+\[P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \}\]</div>
+<p>where <span class="math">\(\beta\)</span> is the reciprocal of the temperature.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -65,14 +71,50 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.MetropolisTest.get_seed" title="mcpele.monte_carlo.MetropolisTest.get_seed"><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></a></td>
+<td>return random number generator seed</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.MetropolisTest.set_generator_seed" title="mcpele.monte_carlo.MetropolisTest.set_generator_seed"><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></a></td>
+<td>sets the random number generator seed</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.monte_carlo.MetropolisTest.get_seed">
+<tt class="descname">get_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest.get_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>return random number generator seed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<blockquote class="last">
+<div><p>random number generator seed</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.MetropolisTest.set_generator_seed">
+<tt class="descname">set_generator_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest.set_generator_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the random number generator seed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
+<blockquote class="last">
+<div><p>random number generator seed</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>

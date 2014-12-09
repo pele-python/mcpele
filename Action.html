@@ -53,7 +53,24 @@
 <dt id="mcpele.monte_carlo.RecordEnergyHistogram">
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordEnergyHistogram</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyHistogram</span></tt></p>
-<p>This class is the python interface for the c++ RecordEnergyHistogram implementation.</p>
+<p>Bins energies into a resizable histogram</p>
+<p>This class is the Python interface for the c++ RecordEnergyHistogram implementation.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">class:<cite>RecordEnergyHistogram</cite> should only start recording
+entries when the system is equilibrated, set the number of steps
+to skip with the <tt class="docutils literal"><span class="pre">eqsteps</span></tt> parameter.</p>
+</div>
+<dl class="docutils">
+<dt>min <span class="classifier-delimiter">:</span> <span class="classifier">double</span></dt>
+<dd>guess for the minimum energy expected</dd>
+<dt>max <span class="classifier-delimiter">:</span> <span class="classifier">double</span></dt>
+<dd>guess for the maximum energy expected</dd>
+<dt>bin <span class="classifier-delimiter">:</span> <span class="classifier">double</span></dt>
+<dd>choice for the bin size</dd>
+<dt>eqsteps: int</dt>
+<dd>number of iterations to skip before starting to record entries</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -61,27 +78,113 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_bounds_val</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val" title="mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val"><tt class="xref py py-obj docutils literal"><span class="pre">get_bounds_val</span></tt></a></td>
+<td>get energy boundaries of the histogram</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_histogram</span></tt></td>
-<td>return a histogram array</td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_histogram" title="mcpele.monte_carlo.RecordEnergyHistogram.get_histogram"><tt class="xref py py-obj docutils literal"><span class="pre">get_histogram</span></tt></a></td>
+<td>returns the histogram array</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_mean_variance</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance" title="mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance"><tt class="xref py py-obj docutils literal"><span class="pre">get_mean_variance</span></tt></a></td>
+<td>get mean and variance of the histogram</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">print_terminal</span></tt></td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.print_terminal" title="mcpele.monte_carlo.RecordEnergyHistogram.print_terminal"><tt class="xref py py-obj docutils literal"><span class="pre">print_terminal</span></tt></a></td>
+<td>draws histogram on the terminal</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val">
+<tt class="descname">get_bounds_val</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>get energy boundaries of the histogram</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>Emax</strong> : double</p>
+<blockquote>
+<div><p>maximum energy of the histogram</p>
+</div></blockquote>
+<p><strong>Emin</strong> : double</p>
+<blockquote class="last">
+<div><p>minimum energy of the histogram</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordEnergyHistogram.get_histogram">
+<tt class="descname">get_histogram</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_histogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the histogram array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<blockquote class="last">
+<div><p>energy histogram</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance">
+<tt class="descname">get_mean_variance</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>get mean and variance of the histogram</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mean</strong> : double</p>
+<blockquote>
+<div><p>first moment of the distribution</p>
+</div></blockquote>
+<p><strong>variance</strong> : double</p>
+<blockquote class="last">
+<div><p>second central moment of the distribution</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordEnergyHistogram.print_terminal">
+<tt class="descname">print_terminal</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.print_terminal" title="Permalink to this definition">¶</a></dt>
+<dd><p>draws histogram on the terminal</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordEnergyTimeseries">
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordEnergyTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyTimeseries</span></tt></p>
-<p>This class is the python interface for the c++ RecordEnergyTimeseries implementation.</p>
+<p>Record a time series of the energy</p>
+<p>This class is the Python interface for the c++ bv::RecordEnergyTimeseries 
+<tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> class implementation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
+<blockquote>
+<div><p>expected number of steps (to preallocate)</p>
+</div></blockquote>
+<p><strong>record_every</strong> : int</p>
+<blockquote class="last">
+<div><p>interval every which the energy is recorded</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -89,21 +192,78 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></td>
-<td>clears time series</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyTimeseries.clear" title="mcpele.monte_carlo.RecordEnergyTimeseries.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
+<td>clear time series container</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></td>
-<td>return a energy time series array</td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series" title="mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series"><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></a></td>
+<td>get a energy time series array</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordEnergyTimeseries.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>clear time series container</p>
+<p>deletes the entries in the c++ container</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series">
+<tt class="descname">get_time_series</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a energy time series array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<blockquote class="last">
+<div><p>array containing the energy time series</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordPairDistHistogram">
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordPairDistHistogram</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordPairDistHistogram</span></tt></p>
-<p>This class is the python interface for the c++ RecordPairDistHistogram implementation.</p>
+<p>Record a pair distribution function histogram</p>
+<p>This class is the Python interface for the c++ mcpele::RecordPairDistHistogram implementation.
+The pair correlation function (or radial distribution function) describes how the density of a
+system of particles varies as a function of distance from a reference particle. In simplest terms 
+it is a measure of the probability of finding a particle at a distance of <span class="math">\(r\)</span> away from a given 
+reference particle.</p>
+<p>Every time the action is called, it accumulates the present configuration into the same <span class="math">\(g(r)\)</span> histogram.
+The action function calls <tt class="docutils literal"><span class="pre">add_configuration</span></tt> which accumulates the current configuration into the <span class="math">\(g(r)\)</span> 
+histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at any point after that.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>boxvec</strong> : numpy.array</p>
+<blockquote>
+<div><p>array of box side lengths</p>
+</div></blockquote>
+<p><strong>nr_bins</strong> : int</p>
+<blockquote>
+<div><p>number of bins for the <span class="math">\(g(r)\)</span> histogram</p>
+</div></blockquote>
+<p><strong>eqsteps</strong> : int</p>
+<blockquote>
+<div><p>number of equilibration steps to be excluded from <span class="math">\(g(r)\)</span> computation</p>
+</div></blockquote>
+<p><strong>record_every</strong> : int</p>
+<blockquote class="last">
+<div><p>after <tt class="docutils literal"><span class="pre">eqsteps</span></tt> steps have been done, record every <tt class="docutils literal"><span class="pre">record_everyth</span></tt> steps</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -111,24 +271,117 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_eqsteps</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps" title="mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps"><tt class="xref py py-obj docutils literal"><span class="pre">get_eqsteps</span></tt></a></td>
+<td>get number of equilibration steps</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_gr</span></tt></td>
-<td>return array of g(r) values for g(r) measurement</td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr" title="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr"><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_gr</span></tt></a></td>
+<td>get array of <span class="math">\(g(r)\)</span> values for <span class="math">\(g(r)\)</span> measurement</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_r</span></tt></td>
-<td>return array of r values for g(r) measurement</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r" title="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r"><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_r</span></tt></a></td>
+<td>get array of <span class="math">\(r\)</span> values for <span class="math">\(g(r)\)</span> measurement</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps">
+<tt class="descname">get_eqsteps</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps" title="Permalink to this definition">¶</a></dt>
+<dd><p>get number of equilibration steps</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<blockquote class="last">
+<div><p>number of equilibration steps</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr">
+<tt class="descname">get_hist_gr</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr" title="Permalink to this definition">¶</a></dt>
+<dd><p>get array of <span class="math">\(g(r)\)</span> values for <span class="math">\(g(r)\)</span> measurement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<blockquote class="last">
+<div><p>array of array of <span class="math">\(g(r)\)</span> values for <span class="math">\(g(r)\)</span></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r">
+<tt class="descname">get_hist_r</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r" title="Permalink to this definition">¶</a></dt>
+<dd><p>get array of <span class="math">\(r\)</span> values for <span class="math">\(g(r)\)</span> measurement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<blockquote class="last">
+<div><p>array of <span class="math">\(r\)</span> values for <span class="math">\(g(r)\)</span> histogram</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries">
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordLowestEValueTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordLowestEValueTimeseries</span></tt></p>
-<p>This class is the python interface for the c++ RecordLowestEValueTimeseries implementation.</p>
+<p>Record lowest eigenvalue of the inherent structure</p>
+<p>This class is the Python interface for the c++ RecordLowestEValueTimeseries <tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> 
+class implementation.
+The structure is quenched to a minimum energy configuration (its inherent structure) and
+the lowest eigenvalue is computed by the Rayleight-Ritz method for lowest eigenvalue (which
+computationally cheaper than the diagonalisation of the Hessian). The zero modes are
+orthogonalised through the Gram-Schmidt orthogonalisation procedure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
+<blockquote>
+<div><p>expected number of steps (to preallocate)</p>
+</div></blockquote>
+<p><strong>record_every</strong> : int</p>
+<blockquote>
+<div><p>interval every which the energy is recorded</p>
+</div></blockquote>
+<p><strong>landscape_potential</strong> : pele:BasePotential</p>
+<blockquote>
+<div><p>potential associated with particles (so the underlying potential energy surface)</p>
+</div></blockquote>
+<p><strong>boxdimension: int</strong></p>
+<blockquote>
+<div><p>dimensionality of the space (dimensionality of box)</p>
+</div></blockquote>
+<p><strong>ranvec</strong> : numpy.array</p>
+<blockquote>
+<div><p>random vector of length equal to the number of degrees of freedom [len(coords)],
+required by the Gram-Schmidt orthogonalisation procedure</p>
+</div></blockquote>
+<p><strong>lbfgsniter</strong> : int</p>
+<blockquote class="last">
+<div><p>maximum number of steps for the LBFG-S minimisation of the Rayleigh quotient</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -136,21 +389,72 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></td>
-<td>clears time series</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.clear" title="mcpele.monte_carlo.RecordLowestEValueTimeseries.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
+<td>clear time series container</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></td>
-<td>return a lowest eigenvalue time series array</td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series" title="mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series"><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></a></td>
+<td>get the lowest eigenvalue time series array</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>clear time series container</p>
+<p>deletes the entries in the c++ container</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series">
+<tt class="descname">get_time_series</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the lowest eigenvalue time series array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array:</p>
+<blockquote class="last">
+<div><p>array time series of the lowest eigenvalue</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries">
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordDisplacementPerParticleTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordDisplacementPerParticleTimeseries</span></tt></p>
-<p>This class is the python interface for the c++ RecordDisplacementPerParticleTimeseries implementation.</p>
+<p>Record time series of the average root mean square displacement per particle at each step</p>
+<p>This class is the Python interface for the c++ RecordDisplacementPerParticleTimeseries 
+<tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> class implementation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
+<blockquote>
+<div><p>expected number of steps (to preallocate)</p>
+</div></blockquote>
+<p><strong>record_every</strong> : int</p>
+<blockquote>
+<div><p>interval every which the energy is recorded</p>
+</div></blockquote>
+<p><strong>initial_coords</strong> : numpy.array</p>
+<blockquote>
+<div><p>initial system coordinates, used to compute rms distance</p>
+</div></blockquote>
+<p><strong>boxdimension: int</strong></p>
+<blockquote class="last">
+<div><p>dimensionality of the space (dimensionality of box)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -158,14 +462,39 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></td>
-<td>clears time series</td>
+<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear" title="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
+<td>clear time series container</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></td>
-<td>return a mean rsm time series array</td>
+<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series" title="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series"><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></a></td>
+<td>return a the root mean square displacement time series array</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>clear time series container</p>
+<p>deletes the entries in the c++ container</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series">
+<tt class="descname">get_time_series</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a the root mean square displacement time series array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">np.array</p>
+<blockquote class="last">
+<div><p>root mean square displacement array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
