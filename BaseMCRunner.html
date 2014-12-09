@@ -62,7 +62,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>potential</strong> : pele::BasePotential</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>potential</strong> : pele:BasePotential</p>
 <blockquote>
 <div><p>the potential (or cost function) return energy, gradient and hessian
 information given a set of coordinates</p>
@@ -89,8 +89,8 @@ information given a set of coordinates</p>
 <tr class="row-odd"><td>potential</td>
 <td>(pele:BasePotential) the potential (or cost function) return energy, gradient and hessian information given a set of coordinates</td>
 </tr>
-<tr class="row-even"><td>start_coords: numpy.array</td>
-<td>initial coordinates array</td>
+<tr class="row-even"><td>start_coords</td>
+<td>(numpy.array) initial coordinates array</td>
 </tr>
 <tr class="row-odd"><td>temperature</td>
 <td>(double) temperature or equivalent control parameter</td>
@@ -185,7 +185,7 @@ information given a set of coordinates</p>
 <td>recomputes and resets the energy of the system</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></a></td>
-<td>perform <tt class="docutils literal"><span class="pre">niter</span></tt> iteration of the MC loop</td>
+<td>perform <tt class="docutils literal"><span class="pre">niter</span></tt> iterations of the MC loop</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_config" title="mcpele.monte_carlo._BaseMCRunner.set_config"><tt class="xref py py-obj docutils literal"><span class="pre">set_config</span></tt></a></td>
 <td>sets current configuration and its energy</td>
@@ -536,7 +536,7 @@ coords and energy accessible via:</p>
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.run">
 <tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform <tt class="docutils literal"><span class="pre">niter</span></tt> iteration of the MC loop</p>
+<dd><p>perform <tt class="docutils literal"><span class="pre">niter</span></tt> iterations of the MC loop</p>
 </dd></dl>
 
 <dl class="method">
