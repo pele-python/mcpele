@@ -183,10 +183,12 @@ pseudoxml:
 gh-pages:
 	git checkout gh-pages
 	cd ../ &&\
-	rm -rf build _build _sources _static _images _modules _templates sphinxext &&\
-	git checkout doxygen $(GH_PAGES_SOURCES) doc &&\
+	rm -rf build _build _sources _static _images _modules _templates sphinxext doxygen &&\
+	git checkout $(BRANCH) $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i &&\
+	cd source && doxygen Doxyfile && cd ../ &&\
+	mv -fv source/doc/html ./doxygen &&\
 	cd doc &&\
 	make html &&\
 	mv -fv _build/html/* ../ &&\
@@ -195,4 +197,4 @@ gh-pages:
 	cd ../ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
-	git commit -m "Generated gh-pages for `git log doxygen -1 --pretty=short --abbrev-commit`" && git push origin gh-pages && git checkout doxygen;
+	git commit -m "Generated gh-pages for `git log $(BRANCH) -1 --pretty=short --abbrev-commit`" && git push origin gh-pages && git checkout $(BRANCH);
