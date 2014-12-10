@@ -10,7 +10,6 @@ namespace mcpele {
  */
 class RecordScalarTimeseries : public Action{
 private:
-    const size_t m_niter;
     const size_t m_record_every;
     std::vector<double> m_time_series;
     void m_record_scalar_value(const double input)

@@ -6,8 +6,7 @@ using pele::Array;
 namespace mcpele {
 
 RecordScalarTimeseries::RecordScalarTimeseries(const size_t niter, const size_t record_every)
-    : m_niter(niter),
-      m_record_every(record_every)
+    : m_record_every(record_every)
 {
     if (record_every == 0) {
         throw std::runtime_error("RecordScalarTimeseries: record_every expected to be at least 1");
