@@ -9,7 +9,7 @@
 
 #include "pele/array.h"
 
-namespace mcpele{
+namespace mcpele {
 
 /*Dynamic histogram class that expand if energies outside of the initial bounds are found.
  * Being generous on the initial bounds saves a lot of time in reallocation of memory, at
@@ -93,6 +93,7 @@ public:
     void resize(const double E, const int i);
 };
 
-}//namespace mcpele
+} // namespace mcpele
 
-#endif
+#endif // #ifndef _MCPELE_HISTOGRAM_H
+

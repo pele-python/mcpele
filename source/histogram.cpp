@@ -26,8 +26,9 @@ void Histogram::add_entry(double E)
         m_hist[i] += 1;
         ++m_niter;
     }
-    else
+    else {
         this->resize(E, i);
+    }
 
     /*THIS IS A TEST*/
     /*int renorm = 0;
@@ -67,7 +68,7 @@ void Histogram::resize(const double E, const int i)
         ++m_niter;
         m_min = floor((E / m_bin)) * m_bin; //round to nearest increment
         m_N = round((m_max - m_min) / m_bin); //was round
-        if ( (int) m_hist.size() != m_N) {
+        if (static_cast<int>(m_hist.size()) != m_N) {
             std::cout<<" E "<< E << "\n niter " << m_niter << "\n size " << m_hist.size() << "\n min " << m_min << "\n max " << m_max << "\n i " << i << "\n N " << m_N << "\n";
             assert(static_cast<int>(m_hist.size()) == m_N);
             exit (EXIT_FAILURE);
@@ -75,7 +76,7 @@ void Histogram::resize(const double E, const int i)
         std::cout<< "resized below at niter " << m_niter << "\n";
     }
     else {
-        std::cerr << "histogram encountered unexpected condition" << "\n";
+        std::cerr << "histogram encountered unexpected condition\n";
         std::cout << " E " << E << "\n niter " << m_niter << "\n min " << m_min << "\n max " << m_max << "\n i " << i << "\n N " << m_N << "\n";
     }
 }

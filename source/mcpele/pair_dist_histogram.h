@@ -2,8 +2,9 @@
 #define _MCPELE_PAIR_DIST_HISTOGRAM_H
 
 #include <algorithm>
-#include <stdexcept>
+#include <cassert>
 #include <cmath>
+#include <stdexcept>
 #include <utility>
 
 #include "pele/distance.h"
@@ -49,14 +50,9 @@ public:
     }
     void add_distance(const size_t i, const size_t j, const double* coor)
     {
-        double* rij = new double[BOXDIM];
+        double rij[BOXDIM];
         m_distance.get_rij(rij, coor + i * BOXDIM, coor + j * BOXDIM);
-        double r2 = 0;
-        for (size_t k = 0; k < BOXDIM; ++k) {
-            r2 += rij[k] * rij[k];
-        }
-        delete[] rij;
-        const double r = sqrt(r2);
+        const double r = sqrt(std::inner_product(rij, rij + BOXDIM, rij, double(0)));
         if (r > m_max_dist) {
             // here, g(r) measurement is resticted to a disc domain of radius
             // m_max_dist in distance space; could be done differently
@@ -70,8 +66,8 @@ public:
     }
     std::vector<double> get_vecdata_r() const
     {
-        std::vector<double> result(m_hist.size());
-        for (size_t i = 0; i < m_hist.size(); ++i) {
+        std::vector<double> result(m_nr_bins);
+        for (size_t i = 0; i < m_nr_bins; ++i) {
             const double r = m_hist.get_position(i);
             result.at(i) = r;
         }
@@ -79,8 +75,8 @@ public:
     }
     std::vector<double> get_vecdata_gr(const double number_density, const size_t nr_particles) const
     {
-        std::vector<double> result(m_hist.size());
-        for (size_t i = 0; i < m_hist.size(); ++i) {
+        std::vector<double> result(m_nr_bins);
+        for (size_t i = 0; i < m_nr_bins; ++i) {
             const double r = m_hist.get_position(i);
             const double delta_r = m_hist.bin();
             const double shell_volume_r = volume_nball(r + 0.5 * delta_r, BOXDIM) - volume_nball(r - 0.5 * delta_r, BOXDIM);

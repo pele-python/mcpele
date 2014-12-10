@@ -110,6 +110,7 @@ public:
     double m_trial_energy;
 private:
     size_t m_report_steps;
+    bool m_enable_input_warnings;
 public:
     MC(std::shared_ptr<pele::BasePotential> potential, pele::Array<double>& coords, const double temperature);
     virtual ~MC() {}
@@ -153,6 +154,8 @@ public:
      * this will trigger premature exit from the MC run loop
      */
     void abort() { m_niter = std::numeric_limits<size_t>::max(); }
+    void enable_input_warnings() { m_enable_input_warnings = true; }
+    void disable_input_warnings() { m_enable_input_warnings = false; }
 protected:
     inline double compute_energy(pele::Array<double> x)
     {
