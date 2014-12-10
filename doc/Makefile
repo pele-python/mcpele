@@ -187,6 +187,7 @@ gh-pages:
 	git checkout doxygen $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i
+	cd `pwd`
 	make html
 	mv -fv _build/html/* ../
 	mv -fv -t ../ *.png *.rst _build sphinxext
