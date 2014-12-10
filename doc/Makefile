@@ -181,7 +181,7 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 gh-pages:
-	git checkout gh-pages
+	git checkout gh-pages;
 	cd ../ &&\
 	rm -rf build _build _sources _static _images _modules _templates sphinxext doxygen &&\
 	git checkout $(BRANCH) $(GH_PAGES_SOURCES) doc &&\
