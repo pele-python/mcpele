@@ -183,7 +183,7 @@ pseudoxml:
 gh-pages:
 	git checkout gh-pages
 	cd ../ &&\
-	rm -rf build _build _sources _static _images _modules _templates sphinxext &&\
+	rm -rf build _build _sources _static _images _modules _templates sphinxext doxygen &&\
 	git checkout $(BRANCH) $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i &&\
@@ -193,6 +193,7 @@ gh-pages:
 	mv -fv _build/html/* ../
 	mv -fv -t ../ *.png *.rst _build sphinxext
 	rm -rf conf.py _static _templates
+	mv -fv ../source/doc/html doxygen
 	cd ../ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \

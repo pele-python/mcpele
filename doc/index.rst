@@ -42,9 +42,6 @@ Tutorials
 Reference
 ---------
 
-Python
-------
-
 .. toctree::
    :maxdepth: 2
 	
@@ -80,13 +77,7 @@ Python
     
    MPI_Parallel_Tempering
 
-C++
----
-
-.. toctree::
-   :maxdepth: 2
-    
-   cppAcceptTest
+* `C++ Class Index <./doxygen/classes.html>`_
 
 Modules
 +++++++
