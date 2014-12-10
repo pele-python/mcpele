@@ -187,14 +187,11 @@ gh-pages:
 	git checkout $(BRANCH) $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i &&\
-	cd source &&\
-	doxygen Doxyfile
 	make html
 	mv -fv _build/html/* ../
 	mv -fv -t ../ *.png *.rst _build sphinxext
 	rm -rf conf.py _static _templates
 	cd ../ &&\
-	mv -fv source/doc/html doxygen
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
 	git commit -m "Generated gh-pages for `git log $(BRANCH) -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout $(BRANCH);
