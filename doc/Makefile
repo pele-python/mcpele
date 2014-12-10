@@ -187,7 +187,8 @@ gh-pages:
 	git checkout $(BRANCH) $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
 	python setup_with_cmake.py build_ext -i &&\
-	cd source && doxygen Doxyfile && ls doc && mv -fv doc/html ../ &&\
+	cd source && doxygen Doxyfile && cd ../ &&\
+	mv -fv source/doc/html ./doxygen &&\
 	cd doc &&\
 	make html &&\
 	mv -fv _build/html/* ../ &&\
