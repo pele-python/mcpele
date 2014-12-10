@@ -186,13 +186,13 @@ gh-pages:
 	rm -rf build _build _sources _static _images _modules _templates sphinxext &&\
 	git checkout doxygen $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
-	python setup_with_cmake.py build_ext -i
-	cd `pwd`
-	make html
-	mv -fv _build/html/* ../
-	mv -fv -t ../ *.png *.rst _build sphinxext
-	rm -rf conf.py _static _templates
+	python setup_with_cmake.py build_ext -i &&\
+	cd doc &&\
+	make html &&\
+	mv -fv _build/html/* ../ &&\
+	mv -fv -t ../ *.png *.rst _build sphinxext &&\
+	rm -rf conf.py _static _templates &&\
 	cd ../ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
-	git commit -m "Generated gh-pages for `git log doxygen -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout doxygen;
+	git commit -m "Generated gh-pages for `git log doxygen -1 --pretty=short --abbrev-commit`" && git push origin gh-pages && git checkout doxygen;
