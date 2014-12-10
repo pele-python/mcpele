@@ -1,0 +1,4 @@
+var structpele_1_1periodic__policy__check__helper_3_01pele_1_1periodic__distance_3_01box__dimension_01_4_00_01box__dimension_01_4 =
+[
+    [ "is_periodic", "structpele_1_1periodic__policy__check__helper_3_01pele_1_1periodic__distance_3_01box__dimension_01_4_00_01box__dimension_01_4.html#af94bff1f819f4982865c8d5533eecf6b", null ]
+];

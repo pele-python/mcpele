@@ -14,6 +14,12 @@
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://www.mathjax.org/mathjax/MathJax.js"></script>
 
 </head>
 <body>
@@ -30,7 +36,7 @@
    <div id="projectname">mcpele
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   
+   <div id="projectbrief">The Monte Carlo Python Energy Landscape Explorer</div>
   </td>
   
   
@@ -50,7 +56,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="https://pele-python.github.io/mcpele/"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -80,17 +85,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">/home/sm958/Work/pele/source/pele/inversepower.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="inversepower_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _PELE_INVERSEPOWER_H</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _PELE_INVERSEPOWER_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _PELE_INVERSEPOWER_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;memory&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="simple__pairwise__potential_8h.html">simple_pairwise_potential.h</a>&quot;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="simple__pairwise__ilist_8h.html">simple_pairwise_ilist.h</a>&quot;</span>
-<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="atomlist__potential_8h.html">atomlist_potential.h</a>&quot;</span>
-<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="distance_8h.html">distance.h</a>&quot;</span>
-<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="meta__pow_8h.html">meta_pow.h</a>&quot;</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="cell__list__potential_8h.html">cell_list_potential.h</a>&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;simple_pairwise_potential.h&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;simple_pairwise_ilist.h&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;atomlist_potential.h&quot;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;distance.h&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;meta_pow.h&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;cell_list_potential.h&quot;</span>
 <a name="l00012"></a>00012 
 <a name="l00013"></a>00013 <span class="keyword">namespace </span>pele {
 <a name="l00014"></a>00014 
@@ -409,7 +414,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -421,7 +426,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 17:44:51 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 18:22:46 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

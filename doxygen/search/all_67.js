@@ -1,8 +1,6 @@
 var searchData=
 [
   ['g_5f',['g_',['../classpele_1_1GradientOptimizer.html#a572231249a09e3e7692ecdf30bc3d5b6',1,'pele::GradientOptimizer']]],
-  ['gaussian_5fcoords_5fdisplacement_2ecpp',['gaussian_coords_displacement.cpp',['../gaussian__coords__displacement_8cpp.html',1,'']]],
-  ['gaussian_5fcoords_5fdisplacement_2eh',['gaussian_coords_displacement.h',['../gaussian__coords__displacement_8h.html',1,'']]],
   ['gaussiancoordsdisplacement',['GaussianCoordsDisplacement',['../classmcpele_1_1GaussianCoordsDisplacement.html',1,'mcpele']]],
   ['gaussiancoordsdisplacement',['GaussianCoordsDisplacement',['../classmcpele_1_1GaussianCoordsDisplacement.html#a693f5cd3743cca41cfae62ba5c8fa1b2',1,'mcpele::GaussianCoordsDisplacement']]],
   ['get_5faccepted_5ffraction',['get_accepted_fraction',['../classmcpele_1_1MC.html#a5a2cf1de51e632cd845002299f6d2e9f',1,'mcpele::MC']]],
@@ -105,11 +103,10 @@ var searchData=
   ['get_5fweights',['get_weights',['../classmcpele_1_1TakeStepProbabilities.html#aa7e74438ac856884198539d1091b2f35',1,'mcpele::TakeStepProbabilities']]],
   ['get_5fx',['get_x',['../classpele_1_1Optimizer.html#a217e0c748a864ea7d08429bd178a7583',1,'pele::Optimizer::get_x()'],['../classpele_1_1GradientOptimizer.html#a98928439cec8b050c6b7a7eb45672f59',1,'pele::GradientOptimizer::get_x()']]],
   ['get_5fzero_5fmodes',['get_zero_modes',['../classpele_1_1RBTopology.html#a16a52c48504e9863c832acf0aee23c0f',1,'pele::RBTopology']]],
-  ['getdisplacementperparticle',['GetDisplacementPerParticle',['../classmcpele_1_1GetDisplacementPerParticle.html',1,'mcpele']]],
   ['getdisplacementperparticle',['GetDisplacementPerParticle',['../classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25',1,'mcpele::GetDisplacementPerParticle']]],
+  ['getdisplacementperparticle',['GetDisplacementPerParticle',['../classmcpele_1_1GetDisplacementPerParticle.html',1,'mcpele']]],
   ['gradientoptimizer',['GradientOptimizer',['../classpele_1_1GradientOptimizer.html#a6880093440ee33812c85df8b6c2f2965',1,'pele::GradientOptimizer']]],
   ['gradientoptimizer',['GradientOptimizer',['../classpele_1_1GradientOptimizer.html',1,'pele']]],
   ['graph',['Graph',['../classpele_1_1Graph.html',1,'pele']]],
-  ['graph',['Graph',['../classpele_1_1Graph.html#a453f4bd69bb15a8f44ae847e4d7b72ba',1,'pele::Graph::Graph()'],['../classpele_1_1Graph.html#ad08092879eab0eff1cbcfd4f7abae77c',1,'pele::Graph::Graph(Graph &amp;graph)']]],
-  ['graph_2ehpp',['graph.hpp',['../graph_8hpp.html',1,'']]]
+  ['graph',['Graph',['../classpele_1_1Graph.html#a453f4bd69bb15a8f44ae847e4d7b72ba',1,'pele::Graph::Graph()'],['../classpele_1_1Graph.html#ad08092879eab0eff1cbcfd4f7abae77c',1,'pele::Graph::Graph(Graph &amp;graph)']]]
 ];

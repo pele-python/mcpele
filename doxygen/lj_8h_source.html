@@ -14,6 +14,12 @@
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://www.mathjax.org/mathjax/MathJax.js"></script>
 
 </head>
 <body>
@@ -30,7 +36,7 @@
    <div id="projectname">mcpele
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   
+   <div id="projectbrief">The Monte Carlo Python Energy Landscape Explorer</div>
   </td>
   
   
@@ -50,7 +56,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="https://pele-python.github.io/mcpele/"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -80,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">/home/sm958/Work/pele/source/pele/lj.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="lj_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/******************************+</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/******************************+</span>
 <a name="l00002"></a>00002 <span class="comment"> * This is an example on how to define a new c potential. The class</span>
 <a name="l00003"></a>00003 <span class="comment"> * internally calls the lennard jones fortran function but manages all</span>
 <a name="l00004"></a>00004 <span class="comment"> * the parameters.</span>
@@ -95,11 +100,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00013"></a>00013 <span class="preprocessor">#ifndef PYGMIN_LJ_H</span>
 <a name="l00014"></a>00014 <span class="preprocessor"></span><span class="preprocessor">#define PYGMIN_LJ_H</span>
 <a name="l00015"></a>00015 <span class="preprocessor"></span>
-<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="simple__pairwise__potential_8h.html">simple_pairwise_potential.h</a>&quot;</span>
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="simple__pairwise__ilist_8h.html">simple_pairwise_ilist.h</a>&quot;</span>
-<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="atomlist__potential_8h.html">atomlist_potential.h</a>&quot;</span>
-<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;<a class="code" href="distance_8h.html">distance.h</a>&quot;</span>
-<a name="l00020"></a>00020 <span class="preprocessor">#include &quot;<a class="code" href="frozen__atoms_8h.html">frozen_atoms.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;simple_pairwise_potential.h&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;simple_pairwise_ilist.h&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;atomlist_potential.h&quot;</span>
+<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;distance.h&quot;</span>
+<a name="l00020"></a>00020 <span class="preprocessor">#include &quot;frozen_atoms.h&quot;</span>
 <a name="l00021"></a>00021 <span class="preprocessor">#include &lt;memory&gt;</span>
 <a name="l00022"></a>00022 
 <a name="l00023"></a>00023 <span class="keyword">namespace </span>pele {
@@ -194,7 +199,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -206,7 +211,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 17:44:51 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 18:22:46 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
