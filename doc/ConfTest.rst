@@ -6,5 +6,6 @@ Configuration Tests
 
 .. autoclass:: CheckSphericalContainer
    :members:
+   :inherited-members:
    :undoc-members:
    :show-inheritance:
