@@ -74,7 +74,7 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
     
     This class is the Python interface for the c++ RecordEnergyHistogram implementation.
     
-    .. warning :: class:`RecordEnergyHistogram` should only start recording
+    .. warning :: :class:`RecordEnergyHistogram` should only start recording
                   entries when the system is equilibrated, set the number of steps
                   to skip with the ``eqsteps`` parameter.
     Parameters
