@@ -38,7 +38,7 @@ cdef class _Cdef_Metropolis(_Cdef_AcceptTest):
 class MetropolisTest(_Cdef_Metropolis):
     """Metropolis acceptance criterion
     
-    This class is the Python interface for the c++ pele::MetropolisTest 
+    This class is the Python interface for the c++ mcpele::MetropolisTest 
     acceptance test class implementation. The Metropolis acceptance criterion
     accepts each move with probability
     

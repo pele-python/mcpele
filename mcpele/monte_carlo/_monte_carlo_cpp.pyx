@@ -183,7 +183,8 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         -------
         norm : double
             norm of coordinates
-            .. math:: \sqrt{x \dot x}
+            
+            .. math:: \sqrt{x \cdot x}
         """
         return self.thisptr.get().get_norm_coords()
     
@@ -281,7 +282,7 @@ class _BaseMCRunner(_Cdef_MC):
     
     Parameters
     ----------
-    potential : pele:BasePotential 
+    potential : :class:`BasePotential <pele:pele.potentials.BasePotential>` 
         the potential (or cost function) return energy, gradient and hessian
         information given a set of coordinates
     coords : numpy.array
@@ -291,7 +292,7 @@ class _BaseMCRunner(_Cdef_MC):
            
     Attributes
     ----------
-    potential : pele:BasePotential
+    potential : :class:`BasePotential <pele:pele.potentials.BasePotential>`
         the potential (or cost function) return energy, gradient and hessian
         information given a set of coordinates
     start_coords : numpy.array
@@ -302,7 +303,7 @@ class _BaseMCRunner(_Cdef_MC):
         number of Monte Carlo iteration to perform
     ndim : int
         number of degrees of freedom (which is ``len(coords)``)
-    res : pele:Result container
+    res : :class:`Result <pele:pele.optimize.Result>` container
         dictionary-like container for the results
     """
     __metaclass__ = abc.ABCMeta
@@ -348,7 +349,7 @@ class _BaseMCRunner(_Cdef_MC):
         
         Returns
         -------
-        res : pele:Result container
+        res : :class:`Result <pele:pele.optimize.Result>` container
             dictionary-like container typically containing 
             coords and energy accessible via: 
             
@@ -363,7 +364,7 @@ class _BaseMCRunner(_Cdef_MC):
     def get_status(self):
         """Returns typical information about the status of the Monte Carlo walker
         
-        status : pele:Result container
+        status : :class:`Result <pele:pele.optimize.Result>` container
             dictionary-like container typically containing 
             coords and energy accessible via: 
             

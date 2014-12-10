@@ -77,6 +77,7 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
     .. warning :: :class:`RecordEnergyHistogram` should only start recording
                   entries when the system is equilibrated, set the number of steps
                   to skip with the ``eqsteps`` parameter.
+    
     Parameters
     ----------
     min : double
@@ -87,6 +88,7 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
         choice for the bin size
     eqsteps: int
         number of iterations to skip before starting to record entries
+        
     """
 
 #===============================================================================
@@ -298,7 +300,7 @@ class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
         expected number of steps (to preallocate)
     record_every : int
         interval every which the energy is recorded
-    landscape_potential : pele:BasePotential
+    landscape_potential : :class:`BasePotential <pele:pele.potentials.BasePotential>`
         potential associated with particles (so the underlying potential energy surface)
     boxdimension: int
         dimensionality of the space (dimensionality of box)
