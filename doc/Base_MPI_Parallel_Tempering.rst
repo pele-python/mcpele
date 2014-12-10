@@ -1,4 +1,3 @@
-
 Base MPI Parallel Tempering
 ===========================
 
