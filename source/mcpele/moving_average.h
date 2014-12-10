@@ -1,8 +1,8 @@
 #ifndef _MCPELE_MOVING_AVERAGE_H
 #define _MCPELE_MOVING_AVERAGE_H
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 #include "histogram.h"
 
@@ -48,28 +48,14 @@ public:
         if (time_series.size() < nr_steps_total) {
             throw std::runtime_error("MovingAverageAcc: illegal input: time series too short");
         }
-
         //initialise moments
-        for(auto it = m_begin; it != m_end; ++it){
+        for(auto it = m_begin; it != m_end; ++it) {
             m_moments(*it);
         }
     }
-
-    double get_mean() const
-    {
-        return m_moments.mean();
-    }
-
-    double get_variance() const
-    {
-        return m_moments.variance();
-    }
-
-    size_t get_nr_steps_ma() const
-    {
-        return m_nr_steps_ma;
-    }
-
+    double get_mean() const { return m_moments.mean(); }
+    double get_variance() const { return m_moments.variance(); }
+    size_t get_nr_steps_ma() const { return m_nr_steps_ma; }
     void shift_right()
     {
         ++m_begin;
@@ -81,14 +67,13 @@ public:
             m_moments.replace(*(m_begin - 1), *(m_end - 1));
         }
     }
-
     void reset()
     {
         m_begin = m_time_series.end() - m_nr_steps_total;
         m_end = m_begin + m_window_size;
         m_moments = mcpele::Moments();
         //initialise moments
-        for(auto it = m_begin; it != m_end; ++it){
+        for(auto it = m_begin; it != m_end; ++it) {
             m_moments(*it);
         }
     }

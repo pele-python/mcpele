@@ -10,6 +10,7 @@
 #include "pele/hs_wca.h"
 #include "pele/lj.h"
 
+#include "mcpele/moving_average.h"
 #include "mcpele/record_energy_timeseries.h"
 #include "mcpele/record_displacement_per_particle_timeseries.h"
 #include "mcpele/record_lowest_evalue_timeseries.h"
@@ -137,4 +138,20 @@ TEST(ParticleDisplacementTimeseries, Works){
     for (size_t i = 0; i < series.size(); ++i){
         EXPECT_NEAR_RELATIVE(series[i], sqrt(12), 1e-14);
     }
+}
+
+TEST(MovingAverage, Works)
+{
+    std::vector<double> ts = {0, 0, 0, 1, 1, 1, 1, 4, 4, 5};
+    const double true_mean = std::accumulate(ts.begin(), ts.end(), double(0)) / ts.size();
+    std::cout << "true_mean: " << true_mean << std::endl;
+    mcpele::MovingAverageAcc ma10(ts, ts.size(), ts.size());
+    ma10.reset();
+    EXPECT_DOUBLE_EQ(true_mean, ma10.get_mean());
+    mcpele::MovingAverageAcc ma2(ts, ts.size(), 2);
+    EXPECT_DOUBLE_EQ(0, ma2.get_mean());
+    ma2.shift_right();
+    EXPECT_DOUBLE_EQ(0, ma2.get_mean());
+    ma2.shift_right();
+    EXPECT_DOUBLE_EQ(0.5, ma2.get_mean());
 }
