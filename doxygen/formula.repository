@@ -1,0 +1,2 @@
+\form#0:\[ P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \} \]
+\form#1:$\beta$
