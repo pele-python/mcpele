@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,10 +10,11 @@
     
     <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '1.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -25,13 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
     <link rel="next" title="Take Step" href="TakeStep.html" />
     <link rel="prev" title="Getting started" href="getting_started.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,14 +52,14 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="base-mcrunner">
 <h1>Base MCRunner<a class="headerlink" href="#base-mcrunner" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mcpele.monte_carlo._BaseMCRunner">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">_BaseMCRunner</tt><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._monte_carlo_cpp._Cdef_MC</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">_BaseMCRunner</code><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._monte_carlo_cpp._Cdef_MC</span></code></p>
 <p>Abstract base class for MC runners, all MC runners should derive from this base class.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -75,14 +74,14 @@ Using the pele::MC class is however recommended.</p>
 of all inheriting classes constructors be positional as in the parent class.
 Hence pay particular attention to the first 4 positional arguments when
 constructing a MCrunner class! A workaround could be a pure Python class
-that has a member of type <tt class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></tt>, then what you do with the
+that has a member of type <code class="xref py py-class docutils literal"><span class="pre">_BaseMCrunner</span></code>, then what you do with the
 constructor will not matter as long as the member is constructed correctly</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>potential</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">BasePotential</span></tt></a></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>potential</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><code class="xref py py-class docutils literal"><span class="pre">BasePotential</span></code></a></p>
 <blockquote>
 <div><p>the potential (or cost function) return energy, gradient and hessian
 information given a set of coordinates</p>
@@ -107,7 +106,7 @@ information given a set of coordinates</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>potential</td>
-<td>(<a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">BasePotential</span></tt></a>) the potential (or cost function) return energy, gradient and hessian information given a set of coordinates</td>
+<td>(<a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><code class="xref py py-class docutils literal"><span class="pre">BasePotential</span></code></a>) the potential (or cost function) return energy, gradient and hessian information given a set of coordinates</td>
 </tr>
 <tr class="row-even"><td>start_coords</td>
 <td>(numpy.array) initial coordinates array</td>
@@ -119,32 +118,32 @@ information given a set of coordinates</p>
 <td>(int) number of Monte Carlo iteration to perform</td>
 </tr>
 <tr class="row-odd"><td>ndim</td>
-<td>(int) number of degrees of freedom (which is <tt class="docutils literal"><span class="pre">len(coords)</span></tt>)</td>
+<td>(int) number of degrees of freedom (which is <code class="docutils literal"><span class="pre">len(coords)</span></code>)</td>
 </tr>
 <tr class="row-even"><td>res</td>
-<td>(<a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> container) dictionary-like container for the results</td>
+<td>(<a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><code class="xref py py-class docutils literal"><span class="pre">Result</span></code></a> container) dictionary-like container for the results</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.abort">
-<tt class="descname">abort</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.abort" title="Permalink to this definition">¶</a></dt>
-<dd><p>abort <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-func docutils literal"><span class="pre">run()</span></tt></a></p>
-<p>this is done by setting <tt class="docutils literal"><span class="pre">niter</span></tt> to infinity</p>
+<code class="descname">abort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.abort" title="Permalink to this definition">¶</a></dt>
+<dd><p>abort <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><code class="xref py py-func docutils literal"><span class="pre">run()</span></code></a></p>
+<p>this is done by setting <code class="docutils literal"><span class="pre">niter</span></code> to infinity</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.add_accept_test">
-<tt class="descname">add_accept_test</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_accept_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>add <tt class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></tt> to MCrunner</p>
+<code class="descname">add_accept_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_accept_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>add <code class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></code> to MCrunner</p>
 <p>order in which multiple accept tests are added matters</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>test</strong> : <tt class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>test</strong> : <code class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></code></p>
 <blockquote class="last">
-<div><p>class of type <tt class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></tt>, constructed beforehand</p>
+<div><p>class of type <code class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></code>, constructed beforehand</p>
 </div></blockquote>
 </td>
 </tr>
@@ -154,16 +153,16 @@ information given a set of coordinates</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.add_action">
-<tt class="descname">add_action</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_action" title="Permalink to this definition">¶</a></dt>
-<dd><p>add <tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> to MCrunner</p>
+<code class="descname">add_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>add <code class="xref py py-class docutils literal"><span class="pre">Action</span></code> to MCrunner</p>
 <p>order in which multiple actions are added matters</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>action</strong> : <tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>action</strong> : <code class="xref py py-class docutils literal"><span class="pre">Action</span></code></p>
 <blockquote class="last">
-<div><p>class of type <tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt>, constructed beforehand</p>
+<div><p>class of type <code class="xref py py-class docutils literal"><span class="pre">Action</span></code>, constructed beforehand</p>
 </div></blockquote>
 </td>
 </tr>
@@ -173,8 +172,8 @@ information given a set of coordinates</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.add_conf_test">
-<tt class="descname">add_conf_test</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_conf_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>add <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt> to MCrunner</p>
+<code class="descname">add_conf_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_conf_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>add <code class="xref py py-class docutils literal"><span class="pre">ConfTest</span></code> to MCrunner</p>
 <p>to be executed before the energy evaluation (potential call). 
 These should be configurational tests that are faster to evaluate 
 than the potential call, so that fast rejections save computational 
@@ -183,9 +182,9 @@ time. The order in which multiple conf tests are added matters.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>test</strong> : <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>test</strong> : <code class="xref py py-class docutils literal"><span class="pre">ConfTest</span></code></p>
 <blockquote class="last">
-<div><p>class of type <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt>, constructed beforehand</p>
+<div><p>class of type <code class="xref py py-class docutils literal"><span class="pre">ConfTest</span></code>, constructed beforehand</p>
 </div></blockquote>
 </td>
 </tr>
@@ -195,20 +194,20 @@ time. The order in which multiple conf tests are added matters.</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.add_late_conf_test">
-<tt class="descname">add_late_conf_test</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_late_conf_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>add <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt> to MCrunner</p>
+<code class="descname">add_late_conf_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.add_late_conf_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>add <code class="xref py py-class docutils literal"><span class="pre">ConfTest</span></code> to MCrunner</p>
 <p>to be executed after the energy evaluation (potential call). 
 These should be configurational tests that are slower to evaluate 
 than the potential call, so that configurations that have been rejected 
-by the <tt class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></tt> don&#8217;t need to be tested in order to save 
+by the <code class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></code> don&#8217;t need to be tested in order to save 
 computational time. The order in which multiple conf tests are added matters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>test</strong> : <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>test</strong> : <code class="xref py py-class docutils literal"><span class="pre">ConfTest</span></code></p>
 <blockquote class="last">
-<div><p>class of type <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt>, constructed beforehand</p>
+<div><p>class of type <code class="xref py py-class docutils literal"><span class="pre">ConfTest</span></code>, constructed beforehand</p>
 </div></blockquote>
 </td>
 </tr>
@@ -218,13 +217,13 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_E_rejection_fraction">
-<tt class="descname">get_E_rejection_fraction</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_E_rejection_fraction" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_E_rejection_fraction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_E_rejection_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the fraction of steps rejected by accept tests</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>f</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>f</strong> : double</p>
 <blockquote class="last">
 <div><p>fraction of steps rejected by the accept tests</p>
 </div></blockquote>
@@ -236,13 +235,13 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_accepted_fraction">
-<tt class="descname">get_accepted_fraction</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_accepted_fraction" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_accepted_fraction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_accepted_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the accepted fraction of steps</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>f</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>f</strong> : double</p>
 <blockquote class="last">
 <div><p>accepted fraction of steps</p>
 </div></blockquote>
@@ -254,13 +253,13 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_conf_rejection_fraction">
-<tt class="descname">get_conf_rejection_fraction</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_conf_rejection_fraction" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_conf_rejection_fraction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_conf_rejection_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the fraction of steps rejected by configuration tests</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>f</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>f</strong> : double</p>
 <blockquote class="last">
 <div><p>fraction of steps rejected by the configuration tests</p>
 </div></blockquote>
@@ -272,19 +271,19 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_config">
-<tt class="descname">get_config</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_config" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the coordinates of the current configuration and its associated energy</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_coords">
-<tt class="descname">get_coords</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_coords" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_coords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the coordinates</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>x</strong> : numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>x</strong> : numpy.array</p>
 <blockquote class="last">
 <div><p>array of coordinates</p>
 </div></blockquote>
@@ -296,13 +295,13 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_energy">
-<tt class="descname">get_energy</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_energy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_energy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the energy</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>energy</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>energy</strong> : double</p>
 <blockquote class="last">
 <div><p>energy for current coordinates</p>
 </div></blockquote>
@@ -314,16 +313,16 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_iterations_count">
-<tt class="descname">get_iterations_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_iterations_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_iterations_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_iterations_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the total number of iterations</p>
-<p>accumulates the number of iterations for many <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-func docutils literal"><span class="pre">run()</span></tt></a> calls</p>
+<p>accumulates the number of iterations for many <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><code class="xref py py-func docutils literal"><span class="pre">run()</span></code></a> calls</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
 <blockquote class="last">
-<div><p>total number of iteration (accumulated over multiple <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-func docutils literal"><span class="pre">run()</span></tt></a> calls)</p>
+<div><p>total number of iteration (accumulated over multiple <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><code class="xref py py-func docutils literal"><span class="pre">run()</span></code></a> calls)</p>
 </div></blockquote>
 </td>
 </tr>
@@ -333,13 +332,13 @@ computational time. The order in which multiple conf tests are added matters.</p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_neval">
-<tt class="descname">get_neval</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_neval" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_neval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_neval" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the total number of energy evaluation (per run)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>neval</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>neval</strong> : int</p>
 <blockquote class="last">
 <div><p>total number of energy evaluation accumulated over 
 a single run</p>
@@ -352,13 +351,13 @@ a single run</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_norm_coords">
-<tt class="descname">get_norm_coords</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_norm_coords" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_norm_coords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_norm_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the norm of the coordinates</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>norm</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>norm</strong> : double</p>
 <blockquote class="last">
 <div><p>norm of coordinates</p>
 <div class="math">
@@ -372,13 +371,13 @@ a single run</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_results">
-<tt class="descname">get_results</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_results" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Must return a result object, generally must contain at least final configuration and energy</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>res</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> container</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><code class="xref py py-class docutils literal"><span class="pre">Result</span></code></a> container</p>
 <blockquote class="last">
 <div><p>dictionary-like container typically containing 
 coords and energy accessible via:</p>
@@ -395,10 +394,10 @@ coords and energy accessible via:</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_status">
-<tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_status" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns typical information about the status of the Monte Carlo walker</p>
 <dl class="docutils">
-<dt>status <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> container</span></dt>
+<dt>status <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><code class="xref py py-class docutils literal"><span class="pre">Result</span></code></a> container</span></dt>
 <dd><p class="first">dictionary-like container typically containing 
 coords and energy accessible via:</p>
 <ul class="last simple">
@@ -415,13 +414,13 @@ coords and energy accessible via:</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.get_temperature">
-<tt class="descname">get_temperature</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_temperature" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_temperature</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the temperature</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>T</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>T</strong> : double</p>
 <blockquote class="last">
 <div><p>temperature or equivalent control parameter</p>
 </div></blockquote>
@@ -433,31 +432,31 @@ coords and energy accessible via:</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.one_iteration">
-<tt class="descname">one_iteration</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.one_iteration" title="Permalink to this definition">¶</a></dt>
+<code class="descname">one_iteration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.one_iteration" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform a single iteration of the MC loop</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.reset_energy">
-<tt class="descname">reset_energy</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.reset_energy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset_energy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.reset_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>recomputes and resets the energy of the system</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform <tt class="docutils literal"><span class="pre">niter</span></tt> iterations of the MC loop</p>
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform <code class="docutils literal"><span class="pre">niter</span></code> iterations of the MC loop</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.set_config">
-<tt class="descname">set_config</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_config" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets current configuration and its energy</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.array</p>
 <blockquote>
 <div><p>these are the initial coordinates for the system</p>
 </div></blockquote>
@@ -473,7 +472,7 @@ coords and energy accessible via:</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.set_control">
-<tt class="descname">set_control</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_control" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_control</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_control" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the temperature or whichever control parameter that takes
 the role of the temperature, such as the stifness of an harmonic
 sprint to which the system is coupled. This abstract method <strong>must</strong> 
@@ -482,13 +481,13 @@ be overwritten in any derived class.</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.set_coordinates">
-<tt class="descname">set_coordinates</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_coordinates" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_coordinates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the coordinates</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.array</p>
 <blockquote>
 <div><p>coordinates of the system</p>
 </div></blockquote>
@@ -504,16 +503,16 @@ be overwritten in any derived class.</p>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.set_report_steps">
-<tt class="descname">set_report_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_report_steps" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_report_steps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_report_steps" title="Permalink to this definition">¶</a></dt>
 <dd><p>set number of steps for which the MC loop should report to :class`TakeStep`</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>steps</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int</p>
 <blockquote class="last">
 <div><p>number of steps out of <cite>niter_count</cite>, which is the total count of the MCrunner
-which accumulates the number of iterations for many <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-func docutils literal"><span class="pre">run()</span></tt></a> calls</p>
+which accumulates the number of iterations for many <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><code class="xref py py-func docutils literal"><span class="pre">run()</span></code></a> calls</p>
 </div></blockquote>
 </td>
 </tr>
@@ -523,18 +522,18 @@ which accumulates the number of iterations for many <a class="reference internal
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.set_takestep">
-<tt class="descname">set_takestep</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_takestep" title="Permalink to this definition">¶</a></dt>
-<dd><p>add <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt> to MCrunner</p>
+<code class="descname">set_takestep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_takestep" title="Permalink to this definition">¶</a></dt>
+<dd><p>add <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code> to MCrunner</p>
 <p>Multiple takestep should be combined using the appropriate 
-classes designed to combined them, such as <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeStepPattern" title="mcpele.monte_carlo.TakeStepPattern"><tt class="xref py py-class docutils literal"><span class="pre">TakeStepPattern</span></tt></a>
-and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeStepProbabilities" title="mcpele.monte_carlo.TakeStepProbabilities"><tt class="xref py py-class docutils literal"><span class="pre">TakeStepProbabilities</span></tt></a></p>
+classes designed to combined them, such as <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeStepPattern" title="mcpele.monte_carlo.TakeStepPattern"><code class="xref py py-class docutils literal"><span class="pre">TakeStepPattern</span></code></a>
+and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeStepProbabilities" title="mcpele.monte_carlo.TakeStepProbabilities"><code class="xref py py-class docutils literal"><span class="pre">TakeStepProbabilities</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>test</strong> : <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>test</strong> : <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code></p>
 <blockquote class="last">
-<div><p>class of type <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt>, constructed beforehand</p>
+<div><p>class of type <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code>, constructed beforehand</p>
 </div></blockquote>
 </td>
 </tr>
@@ -544,13 +543,13 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
 
 <dl class="method">
 <dt id="mcpele.monte_carlo._BaseMCRunner.set_temperature">
-<tt class="descname">set_temperature</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_temperature" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_temperature</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.set_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the temperature</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>T</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>T</strong> : double</p>
 <blockquote class="last">
 <div><p>temperature or equivalent control parameter</p>
 </div></blockquote>
@@ -568,7 +567,7 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="getting_started.html"
@@ -576,7 +575,7 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
   <h4>Next topic</h4>
   <p class="topless"><a href="TakeStep.html"
                         title="next chapter">Take Step</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -593,7 +592,7 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -611,9 +610,9 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
     </div>
   </body>
 </html>

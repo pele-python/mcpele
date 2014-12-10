@@ -135,9 +135,9 @@ mc.h
 /home/sm958/Work/mcpele/source/mcpele/mc.h
 
 /home/sm958/Work/mcpele/source/mcpele/moving_average.h
-vector
--
 algorithm
+-
+vector
 -
 histogram.h
 /home/sm958/Work/mcpele/source/mcpele/histogram.h

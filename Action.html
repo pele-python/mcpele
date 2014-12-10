@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,10 +10,11 @@
     
     <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '1.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -25,13 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
     <link rel="next" title="Base MPI Parallel Tempering" href="Base_MPI_Parallel_Tempering.html" />
     <link rel="prev" title="Acceptance Tests" href="AcceptTest.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,21 +52,27 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="actions">
 <h1>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordEnergyHistogram">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordEnergyHistogram</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyHistogram</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">RecordEnergyHistogram</code><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyHistogram</span></code></p>
 <p>Bins energies into a resizable histogram</p>
 <p>This class is the Python interface for the c++ RecordEnergyHistogram implementation.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram" title="mcpele.monte_carlo.RecordEnergyHistogram"><code class="xref py py-class docutils literal"><span class="pre">RecordEnergyHistogram</span></code></a> should only start recording
+entries when the system is equilibrated, set the number of steps
+to skip with the <code class="docutils literal"><span class="pre">eqsteps</span></code> parameter.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>min</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>min</strong> : double</p>
 <blockquote>
 <div><p>guess for the minimum energy expected</p>
 </div></blockquote>
@@ -89,13 +94,13 @@
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val">
-<tt class="descname">get_bounds_val</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_bounds_val</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val" title="Permalink to this definition">¶</a></dt>
 <dd><p>get energy boundaries of the histogram</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>Emax</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>Emax</strong> : double</p>
 <blockquote>
 <div><p>maximum energy of the histogram</p>
 </div></blockquote>
@@ -111,13 +116,13 @@
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyHistogram.get_histogram">
-<tt class="descname">get_histogram</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_histogram" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_histogram</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_histogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the histogram array</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">numpy.array</p>
 <blockquote class="last">
 <div><p>energy histogram</p>
 </div></blockquote>
@@ -129,13 +134,13 @@
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance">
-<tt class="descname">get_mean_variance</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_mean_variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance" title="Permalink to this definition">¶</a></dt>
 <dd><p>get mean and variance of the histogram</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>mean</strong> : double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>mean</strong> : double</p>
 <blockquote>
 <div><p>first moment of the distribution</p>
 </div></blockquote>
@@ -151,7 +156,7 @@
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyHistogram.print_terminal">
-<tt class="descname">print_terminal</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.print_terminal" title="Permalink to this definition">¶</a></dt>
+<code class="descname">print_terminal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyHistogram.print_terminal" title="Permalink to this definition">¶</a></dt>
 <dd><p>draws histogram on the terminal</p>
 </dd></dl>
 
@@ -159,16 +164,16 @@
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordEnergyTimeseries">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordEnergyTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyTimeseries</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">RecordEnergyTimeseries</code><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyTimeseries</span></code></p>
 <p>Record a time series of the energy</p>
 <p>This class is the Python interface for the c++ bv::RecordEnergyTimeseries 
-<tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> class implementation.</p>
+<code class="xref py py-class docutils literal"><span class="pre">Action</span></code> class implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
 <blockquote>
 <div><p>expected number of steps (to preallocate)</p>
 </div></blockquote>
@@ -182,20 +187,20 @@
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyTimeseries.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.clear" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>clear time series container</p>
 <p>deletes the entries in the c++ container</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series">
-<tt class="descname">get_time_series</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_time_series</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
 <dd><p>get a energy time series array</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">numpy.array</p>
 <blockquote class="last">
 <div><p>array containing the energy time series</p>
 </div></blockquote>
@@ -209,8 +214,8 @@
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordPairDistHistogram">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordPairDistHistogram</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordPairDistHistogram</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">RecordPairDistHistogram</code><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordPairDistHistogram</span></code></p>
 <p>Record a pair distribution function histogram</p>
 <p>This class is the Python interface for the c++ mcpele::RecordPairDistHistogram implementation.
 The pair correlation function (or radial distribution function) describes how the density of a
@@ -218,13 +223,13 @@ system of particles varies as a function of distance from a reference particle. 
 it is a measure of the probability of finding a particle at a distance of <span class="math">\(r\)</span> away from a given 
 reference particle.</p>
 <p>Every time the action is called, it accumulates the present configuration into the same <span class="math">\(g(r)\)</span> histogram.
-The action function calls <tt class="docutils literal"><span class="pre">add_configuration</span></tt> which accumulates the current configuration into the <span class="math">\(g(r)\)</span> 
+The action function calls <code class="docutils literal"><span class="pre">add_configuration</span></code> which accumulates the current configuration into the <span class="math">\(g(r)\)</span> 
 histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at any point after that.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>boxvec</strong> : numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>boxvec</strong> : numpy.array</p>
 <blockquote>
 <div><p>array of box side lengths</p>
 </div></blockquote>
@@ -238,7 +243,7 @@ histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at a
 </div></blockquote>
 <p><strong>record_every</strong> : int</p>
 <blockquote class="last">
-<div><p>after <tt class="docutils literal"><span class="pre">eqsteps</span></tt> steps have been done, record every <tt class="docutils literal"><span class="pre">record_everyth</span></tt> steps</p>
+<div><p>after <code class="docutils literal"><span class="pre">eqsteps</span></code> steps have been done, record every <code class="docutils literal"><span class="pre">record_everyth</span></code> steps</p>
 </div></blockquote>
 </td>
 </tr>
@@ -246,13 +251,13 @@ histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at a
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps">
-<tt class="descname">get_eqsteps</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_eqsteps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps" title="Permalink to this definition">¶</a></dt>
 <dd><p>get number of equilibration steps</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
 <blockquote class="last">
 <div><p>number of equilibration steps</p>
 </div></blockquote>
@@ -264,13 +269,13 @@ histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at a
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr">
-<tt class="descname">get_hist_gr</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_hist_gr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr" title="Permalink to this definition">¶</a></dt>
 <dd><p>get array of <span class="math">\(g(r)\)</span> values for <span class="math">\(g(r)\)</span> measurement</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">numpy.array</p>
 <blockquote class="last">
 <div><p>array of array of <span class="math">\(g(r)\)</span> values for <span class="math">\(g(r)\)</span></p>
 </div></blockquote>
@@ -282,13 +287,13 @@ histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at a
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r">
-<tt class="descname">get_hist_r</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_hist_r</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r" title="Permalink to this definition">¶</a></dt>
 <dd><p>get array of <span class="math">\(r\)</span> values for <span class="math">\(g(r)\)</span> measurement</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">numpy.array</p>
 <blockquote class="last">
 <div><p>array of <span class="math">\(r\)</span> values for <span class="math">\(g(r)\)</span> histogram</p>
 </div></blockquote>
@@ -302,10 +307,10 @@ histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at a
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordLowestEValueTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordLowestEValueTimeseries</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">RecordLowestEValueTimeseries</code><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordLowestEValueTimeseries</span></code></p>
 <p>Record lowest eigenvalue of the inherent structure</p>
-<p>This class is the Python interface for the c++ RecordLowestEValueTimeseries <tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> 
+<p>This class is the Python interface for the c++ RecordLowestEValueTimeseries <code class="xref py py-class docutils literal"><span class="pre">Action</span></code> 
 class implementation.
 The structure is quenched to a minimum energy configuration (its inherent structure) and
 the lowest eigenvalue is computed by the Rayleight-Ritz method for lowest eigenvalue (which
@@ -315,7 +320,7 @@ orthogonalised through the Gram-Schmidt orthogonalisation procedure.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
 <blockquote>
 <div><p>expected number of steps (to preallocate)</p>
 </div></blockquote>
@@ -323,7 +328,7 @@ orthogonalised through the Gram-Schmidt orthogonalisation procedure.</p>
 <blockquote>
 <div><p>interval every which the energy is recorded</p>
 </div></blockquote>
-<p><strong>landscape_potential</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">BasePotential</span></tt></a></p>
+<p><strong>landscape_potential</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><code class="xref py py-class docutils literal"><span class="pre">BasePotential</span></code></a></p>
 <blockquote>
 <div><p>potential associated with particles (so the underlying potential energy surface)</p>
 </div></blockquote>
@@ -346,20 +351,20 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.clear" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>clear time series container</p>
 <p>deletes the entries in the c++ container</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series">
-<tt class="descname">get_time_series</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_time_series</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the lowest eigenvalue time series array</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">numpy.array:</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">numpy.array:</p>
 <blockquote class="last">
 <div><p>array time series of the lowest eigenvalue</p>
 </div></blockquote>
@@ -373,16 +378,16 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RecordDisplacementPerParticleTimeseries</tt><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordDisplacementPerParticleTimeseries</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">RecordDisplacementPerParticleTimeseries</code><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordDisplacementPerParticleTimeseries</span></code></p>
 <p>Record time series of the average root mean square displacement per particle at each step</p>
 <p>This class is the Python interface for the c++ RecordDisplacementPerParticleTimeseries 
-<tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> class implementation.</p>
+<code class="xref py py-class docutils literal"><span class="pre">Action</span></code> class implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niter: int, Deprecated</strong></p>
 <blockquote>
 <div><p>expected number of steps (to preallocate)</p>
 </div></blockquote>
@@ -404,20 +409,20 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>clear time series container</p>
 <p>deletes the entries in the c++ container</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series">
-<tt class="descname">get_time_series</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_time_series</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a the root mean square displacement time series array</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">np.array</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">np.array</p>
 <blockquote class="last">
 <div><p>root mean square displacement array</p>
 </div></blockquote>
@@ -435,7 +440,7 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="AcceptTest.html"
@@ -443,7 +448,7 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Base_MPI_Parallel_Tempering.html"
                         title="next chapter">Base MPI Parallel Tempering</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -460,7 +465,7 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -478,9 +483,9 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
     </div>
   </body>
 </html>

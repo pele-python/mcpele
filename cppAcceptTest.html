@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="Actions" href="Action.html" />
-    <link rel="prev" title="Configuration Tests" href="ConfTest.html" /> 
+    <link rel="next" title="Monte Carlo" href="monte_carlo.html" />
+    <link rel="prev" title="MPI Parallel Tempering" href="MPI_Parallel_Tempering.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -40,10 +40,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Action.html" title="Actions"
+          <a href="monte_carlo.html" title="Monte Carlo"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ConfTest.html" title="Configuration Tests"
+          <a href="MPI_Parallel_Tempering.html" title="MPI Parallel Tempering"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -57,52 +57,57 @@
   <div class="section" id="acceptance-tests">
 <h1>Acceptance Tests<a class="headerlink" href="#acceptance-tests" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="mcpele.monte_carlo.MetropolisTest">
-<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">MetropolisTest</code><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._accept_test_cpp._Cdef_Metropolis</span></code></p>
-<p>Metropolis acceptance criterion</p>
-<p>This class is the Python interface for the c++ mcpele::MetropolisTest 
-acceptance test class implementation. The Metropolis acceptance criterion
-accepts each move with probability</p>
-<div class="math">
-\[P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \}\]</div>
-<p>where <span class="math">\(\beta\)</span> is the reciprocal of the temperature.</p>
-<dl class="method">
-<dt id="mcpele.monte_carlo.MetropolisTest.get_seed">
-<code class="descname">get_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest.get_seed" title="Permalink to this definition">¶</a></dt>
-<dd><p>return random number generator seed</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
-<blockquote class="last">
-<div><p>random number generator seed</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest"></span><em>class</em> <code class="descname">mcpele::MetropolisTest</code></dt>
+<dd><p>The Metropolis acceptance criterion accepts each move with probability <div class="math">
+\[ P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \} \]</div>
+ where <span class="math">\(\beta\)</span> is the reciprocal of the temperature </p>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1a9cf4477f7ddfc2999178d99861f915a2"></span><code class="descname">MetropolisTest</code><span class="sig-paren">(</span>const size_t <em>rseed</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
 
-<dl class="method">
-<dt id="mcpele.monte_carlo.MetropolisTest.set_generator_seed">
-<code class="descname">set_generator_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest.set_generator_seed" title="Permalink to this definition">¶</a></dt>
-<dd><p>sets the random number generator seed</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
-<blockquote class="last">
-<div><p>random number generator seed</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dl class="function">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1a3c7b3df9ae8624eb3e4e4e2aa94249d0"></span>virtual <code class="descname">~MetropolisTest</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
 
+<dl class="function">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7"></span>virtual bool <code class="descname">test</code><span class="sig-paren">(</span>pele::Array&lt; double &gt; &amp; <em>trial_coords</em>, double <em>trial_energy</em>, pele::Array&lt; double &gt; &amp; <em>old_coords</em>, double <em>old_energy</em>, double <em>temperature</em>, MC * <em>mc</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1a8f02eef6939b2acc3d2b50af04248dcf"></span>size_t <code class="descname">get_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> const</dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1a6c1fe3e8acdeb71a806c94cf8318936b"></span>void <code class="descname">set_generator_seed</code><span class="sig-paren">(</span>const size_t <em>inp</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="variable">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1aa2973163ef6d8160e5f1d096cc7d4170"></span>size_t <code class="descname">m_seed</code></dt>
+<dd></dd></dl>
+
+<dl class="variable">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1acf16d24f5b32afb1977c542e20dc23cf"></span>std::mt19937_64 <code class="descname">m_generator</code></dt>
+<dd></dd></dl>
+
+<dl class="variable">
+<dt>
+<span class="target" id="project0classmcpele_1_1MetropolisTest_1a98284c84912422d5846aef7f21772740"></span>std::uniform_real_distribution&lt; double &gt; <code class="descname">m_distribution</code></dt>
+<dd></dd></dl>
+
+</div>
 </dd></dl>
 
 </div>
@@ -114,11 +119,11 @@ accepts each move with probability</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="ConfTest.html"
-                        title="previous chapter">Configuration Tests</a></p>
+  <p class="topless"><a href="MPI_Parallel_Tempering.html"
+                        title="previous chapter">MPI Parallel Tempering</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="Action.html"
-                        title="next chapter">Actions</a></p>
+  <p class="topless"><a href="monte_carlo.html"
+                        title="next chapter">Monte Carlo</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -146,10 +151,10 @@ accepts each move with probability</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Action.html" title="Actions"
+          <a href="monte_carlo.html" title="Monte Carlo"
              >next</a> |</li>
         <li class="right" >
-          <a href="ConfTest.html" title="Configuration Tests"
+          <a href="MPI_Parallel_Tempering.html" title="MPI Parallel Tempering"
              >previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>

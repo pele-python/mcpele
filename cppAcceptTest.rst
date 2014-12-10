@@ -3,8 +3,8 @@ Acceptance Tests
 
 .. currentmodule:: mcpele.monte_carlo
 
-.. autoclass:: MetropolisTest
+.. doxygenclass:: mcpele::MetropolisTest
    :members:
-   :inherited-members:
+   :protected-members:
+   :private-members:
    :undoc-members:
-   :show-inheritance:

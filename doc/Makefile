@@ -8,6 +8,7 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
 GH_PAGES_SOURCES = mcpele source cythonize.py setup_with_cmake.py CMakeLists.txt.in
+BRANCH = doxygen
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -183,9 +184,11 @@ gh-pages:
 	git checkout gh-pages
 	cd ../ &&\
 	rm -rf build _build _sources _static _images _modules _templates sphinxext &&\
-	git checkout master $(GH_PAGES_SOURCES) doc &&\
+	git checkout $(BRANCH) $(GH_PAGES_SOURCES) doc &&\
 	git reset HEAD &&\
-	python setup_with_cmake.py build_ext -i
+	python setup_with_cmake.py build_ext -i &&\
+	cd source &&\
+	doxygen Doxyfile
 	make html
 	mv -fv _build/html/* ../
 	mv -fv -t ../ *.png *.rst _build sphinxext
@@ -193,4 +196,4 @@ gh-pages:
 	cd ../ &&\
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
-	git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master;
+	git commit -m "Generated gh-pages for `git log $(BRANCH) -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout $(BRANCH);

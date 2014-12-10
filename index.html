@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,10 +10,11 @@
     
     <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '1.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -25,12 +24,12 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="#" />
     <link rel="next" title="Getting started" href="getting_started.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -49,7 +48,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="mcpele-monte-carlo-python-energy-landscape-explorer">
 <h1>mcpele : Monte Carlo Python Energy Landscape Explorer<a class="headerlink" href="#mcpele-monte-carlo-python-energy-landscape-explorer" title="Permalink to this headline">¶</a></h1>
@@ -66,11 +65,11 @@ on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo
 simulation eliminating the need for frequent code rewriting that experienced
 Monte Carlo developers typically go through, thus reducing the time required for
 the implementation of an idea and reducing the occurrence of bugs.</p>
-<div class="figure">
+<div class="figure" id="id1">
 <img alt="_images/diagram_fluid.png" src="_images/diagram_fluid.png" />
-<p class="caption">Figure 1: Diagramatic representation of the mcpele framework. On the right
+<p class="caption"><span class="caption-text">Figure 1: Diagramatic representation of the mcpele framework. On the right
 is a hard spheres fluid equilibrated by uniform sampling in a cubic box with
-periodic boundary conditions.</p>
+periodic boundary conditions.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>mcpele has been authored by Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
 The project is publicly available under the GNU general public licence.</p>
@@ -84,6 +83,9 @@ The project is publicly available under the GNU general public licence.</p>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="BaseMCRunner.html">Base MCRunner</a></li>
@@ -120,6 +122,14 @@ The project is publicly available under the GNU general public licence.</p>
 </ul>
 </div>
 </div>
+<div class="section" id="c">
+<h2>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cppAcceptTest.html">Acceptance Tests</a></li>
+</ul>
+</div>
+</div>
 </div>
 <div class="section" id="modules">
 <h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
@@ -143,17 +153,17 @@ The project is publicly available under the GNU general public licence.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">mcpele : Monte Carlo Python Energy Landscape Explorer</a><ul>
-<li><a class="reference internal" href="#tutorials">Tutorials</a><ul>
+<li><a class="reference internal" href="#tutorials">Tutorials</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+<li><a class="reference internal" href="#python">Python</a><ul>
 </ul>
 </li>
-<li><a class="reference internal" href="#reference">Reference</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#c">C++</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#modules">Modules</a><ul>
@@ -165,7 +175,7 @@ The project is publicly available under the GNU general public licence.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="getting_started.html"
                         title="next chapter">Getting started</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -182,7 +192,7 @@ The project is publicly available under the GNU general public licence.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -197,9 +207,9 @@ The project is publicly available under the GNU general public licence.</p>
         <li><a href="#">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
     </div>
   </body>
 </html>

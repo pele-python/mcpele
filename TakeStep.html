@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,10 +10,11 @@
     
     <link rel="stylesheet" href="_static/scipy.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '1.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -25,13 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
     <link rel="next" title="Configuration Tests" href="ConfTest.html" />
     <link rel="prev" title="Base MCRunner" href="BaseMCRunner.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,22 +52,22 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="take-step">
 <h1>Take Step<a class="headerlink" href="#take-step" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="mcpele.monte_carlo.RandomCoordsDisplacement">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">RandomCoordsDisplacement</tt><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_RandomCoordsDisplacement</span></tt></p>
-<p>Take a uniform random step in a <tt class="docutils literal"><span class="pre">bdim</span></tt> dimensional hypercube</p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">RandomCoordsDisplacement</code><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_RandomCoordsDisplacement</span></code></p>
+<p>Take a uniform random step in a <code class="docutils literal"><span class="pre">bdim</span></code> dimensional hypercube</p>
 <p>this class is the Python interface for the c++ RandomCoordsDisplacement implementation.
-Takes a step by sampling uniformly a <tt class="docutils literal"><span class="pre">bdim</span></tt> dimensional box</p>
+Takes a step by sampling uniformly a <code class="docutils literal"><span class="pre">bdim</span></code> dimensional box</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rseed</strong> : pos int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rseed</strong> : pos int</p>
 <blockquote>
 <div><p>seed for the random number generator (std:library 64 bits Merseene Twister)</p>
 </div></blockquote>
@@ -110,13 +109,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RandomCoordsDisplacement.get_count">
-<tt class="descname">get_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the total count of the number of steps taken</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
 <blockquote class="last">
 <div><p>total count of steps taken</p>
 </div></blockquote>
@@ -128,13 +127,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RandomCoordsDisplacement.get_seed">
-<tt class="descname">get_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_seed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>return random number generator seed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
 <blockquote class="last">
 <div><p>random number generator seed</p>
 </div></blockquote>
@@ -146,13 +145,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RandomCoordsDisplacement.get_stepsize">
-<tt class="descname">get_stepsize</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_stepsize" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_stepsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_stepsize" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the step size</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">double</p>
 <blockquote class="last">
 <div><p>stepsize</p>
 </div></blockquote>
@@ -164,13 +163,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.RandomCoordsDisplacement.set_generator_seed">
-<tt class="descname">set_generator_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.set_generator_seed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_generator_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.RandomCoordsDisplacement.set_generator_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the random number generator seed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
 <blockquote class="last">
 <div><p>random number generator seed</p>
 </div></blockquote>
@@ -184,16 +183,16 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.GaussianCoordsDisplacement">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">GaussianCoordsDisplacement</tt><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_GaussianCoordsDisplacement</span></tt></p>
-<p>Take a uniform random step in a <tt class="docutils literal"><span class="pre">bdim</span></tt> dimensional hypersphere</p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">GaussianCoordsDisplacement</code><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_GaussianCoordsDisplacement</span></code></p>
+<p>Take a uniform random step in a <code class="docutils literal"><span class="pre">bdim</span></code> dimensional hypersphere</p>
 <p>this class is the Python interface for the c++ GaussianCoordsDisplacement implementation.
-Takes a step by sampling uniformly a <tt class="docutils literal"><span class="pre">bdim</span></tt> dimensional hypersphere</p>
+Takes a step by sampling uniformly a <code class="docutils literal"><span class="pre">bdim</span></code> dimensional hypersphere</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rseed</strong> : pos int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rseed</strong> : pos int</p>
 <blockquote>
 <div><p>seed for the random number generator (std:library 64 bits Merseene Twister)</p>
 </div></blockquote>
@@ -207,13 +206,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.GaussianCoordsDisplacement.get_count">
-<tt class="descname">get_count</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_count" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the total count of the number of steps taken</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
 <blockquote class="last">
 <div><p>total count of steps taken</p>
 </div></blockquote>
@@ -225,13 +224,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.GaussianCoordsDisplacement.get_seed">
-<tt class="descname">get_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_seed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>return random number generator seed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
 <blockquote class="last">
 <div><p>random number generator seed</p>
 </div></blockquote>
@@ -243,13 +242,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.GaussianCoordsDisplacement.get_stepsize">
-<tt class="descname">get_stepsize</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_stepsize" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_stepsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_stepsize" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the step size</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">double</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">double</p>
 <blockquote class="last">
 <div><p>stepsize</p>
 </div></blockquote>
@@ -261,13 +260,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.GaussianCoordsDisplacement.set_generator_seed">
-<tt class="descname">set_generator_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.set_generator_seed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_generator_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.set_generator_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the random number generator seed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
 <blockquote class="last">
 <div><p>random number generator seed</p>
 </div></blockquote>
@@ -281,15 +280,15 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.ParticlePairSwap">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">ParticlePairSwap</tt><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_ParticlePairSwap</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">ParticlePairSwap</code><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_ParticlePairSwap</span></code></p>
 <p>Swap a pair of particles</p>
 <p>Python interface for c++ ParticlePairSwap</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>seed</strong> : pos integer</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>seed</strong> : pos integer</p>
 <blockquote>
 <div><p>Seed for random number generator.</p>
 </div></blockquote>
@@ -300,7 +299,7 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 <p><strong>swap_every</strong> : pos integer</p>
 <blockquote class="last">
 <div><p>Spacing for swapping attempts: particle pair swap is attempted every
-<tt class="docutils literal"><span class="pre">swap_every</span></tt> move.</p>
+<code class="docutils literal"><span class="pre">swap_every</span></code> move.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -308,13 +307,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 </table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.ParticlePairSwap.get_seed">
-<tt class="descname">get_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap.get_seed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap.get_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>return random number generator seed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first">int</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">int</p>
 <blockquote class="last">
 <div><p>random number generator seed</p>
 </div></blockquote>
@@ -326,13 +325,13 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="mcpele.monte_carlo.ParticlePairSwap.set_generator_seed">
-<tt class="descname">set_generator_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap.set_generator_seed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_generator_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap.set_generator_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the random number generator seed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>input</strong> : pos int</p>
 <blockquote class="last">
 <div><p>random number generator seed</p>
 </div></blockquote>
@@ -346,8 +345,8 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.TakeStepPattern">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">TakeStepPattern</tt><a class="headerlink" href="#mcpele.monte_carlo.TakeStepPattern" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_TakeStepPattern</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">TakeStepPattern</code><a class="headerlink" href="#mcpele.monte_carlo.TakeStepPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_TakeStepPattern</span></code></p>
 <p>Takes multiple steps in a repeated pattern</p>
 <p>Python interface for c++ TakeStepPattern. This move
 takes multiple steps in a repeated deterministic pattern.</p>
@@ -357,15 +356,15 @@ takes multiple steps in a repeated deterministic pattern.</p>
 </div>
 <dl class="method">
 <dt id="mcpele.monte_carlo.TakeStepPattern.add_step">
-<tt class="descname">add_step</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.TakeStepPattern.add_step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.TakeStepPattern.add_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>add a step to a pattern</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>step</strong> : <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>step</strong> : <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code></p>
 <blockquote>
-<div><p>object of class <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt> constructed beforehand</p>
+<div><p>object of class <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code> constructed beforehand</p>
 </div></blockquote>
 <p><strong>nr_repetitions: int</strong></p>
 <blockquote class="last">
@@ -382,8 +381,8 @@ move is performed</p>
 
 <dl class="class">
 <dt id="mcpele.monte_carlo.TakeStepProbabilities">
-<em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">TakeStepProbabilities</tt><a class="headerlink" href="#mcpele.monte_carlo.TakeStepProbabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_TakeStepProbabilities</span></tt></p>
+<em class="property">class </em><code class="descclassname">mcpele.monte_carlo.</code><code class="descname">TakeStepProbabilities</code><a class="headerlink" href="#mcpele.monte_carlo.TakeStepProbabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._takestep_cpp._Cdef_TakeStepProbabilities</span></code></p>
 <p>Takes multiple steps in a repeated pattern</p>
 <p>Python interface for c++ TakeStepProbabilities. This move
 takes multiple steps, each with some probability thus
@@ -395,16 +394,16 @@ hence it is the recommended choice</p>
 </div>
 <dl class="method">
 <dt id="mcpele.monte_carlo.TakeStepProbabilities.add_step">
-<tt class="descname">add_step</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.TakeStepProbabilities.add_step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mcpele.monte_carlo.TakeStepProbabilities.add_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>add a step to a pattern</p>
 <p>all the weights are combined in a normalised discrete distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>step</strong> : <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>step</strong> : <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code></p>
 <blockquote>
-<div><p>object of class <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt> constructed beforehand</p>
+<div><p>object of class <code class="xref py py-class docutils literal"><span class="pre">TakeStep</span></code> constructed beforehand</p>
 </div></blockquote>
 <p><strong>weight: double or int</strong></p>
 <blockquote class="last">
@@ -424,7 +423,7 @@ hence it is the recommended choice</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="BaseMCRunner.html"
@@ -432,7 +431,7 @@ hence it is the recommended choice</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="ConfTest.html"
                         title="next chapter">Configuration Tests</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -449,7 +448,7 @@ hence it is the recommended choice</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -467,9 +466,9 @@ hence it is the recommended choice</p>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
     </div>
   </body>
 </html>
