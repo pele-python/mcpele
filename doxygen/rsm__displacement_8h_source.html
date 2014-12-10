@@ -82,21 +82,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="rsm__displacement_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _MCPELE_RSM_DISPLACEMENT_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _MCPELE_RSM_DISPLACEMENT_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;pele/array.h&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="array_8h.html">pele/array.h</a>&quot;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">namespace </span>mcpele{
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 
 <a name="l00009"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html">00009</a> <span class="keyword">class </span><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html">GetDisplacementPerParticle</a>{
 <a name="l00010"></a>00010 <span class="keyword">private</span>:
-<a name="l00011"></a>00011     pele::Array&lt;double&gt; m_initial_coordinates;
+<a name="l00011"></a>00011     <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> m_initial_coordinates;
 <a name="l00012"></a>00012     <span class="keyword">const</span> <span class="keywordtype">size_t</span> m_boxdimension;
 <a name="l00013"></a>00013     <span class="keyword">const</span> <span class="keywordtype">size_t</span> m_nr_particles;
 <a name="l00014"></a>00014 <span class="keyword">public</span>:
 <a name="l00015"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8a6de0c38b3dc64c7a7c4f00fe86e8da">00015</a>     <span class="keyword">virtual</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8a6de0c38b3dc64c7a7c4f00fe86e8da">~GetDisplacementPerParticle</a>(){}
-<a name="l00016"></a>00016     <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25">GetDisplacementPerParticle</a>(pele::Array&lt;double&gt;, <span class="keyword">const</span> <span class="keywordtype">size_t</span>);
-<a name="l00017"></a>00017     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">compute_mean_particle_displacement</a>(pele::Array&lt;double&gt;);
-<a name="l00018"></a>00018     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a781391271adacc033a133d18eca2a539">get_particle_displ</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span>, pele::Array&lt;double&gt;);
+<a name="l00016"></a>00016     <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25">GetDisplacementPerParticle</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>, <span class="keyword">const</span> <span class="keywordtype">size_t</span>);
+<a name="l00017"></a>00017     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">compute_mean_particle_displacement</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>);
+<a name="l00018"></a>00018     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a781391271adacc033a133d18eca2a539">get_particle_displ</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span>, <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>);
 <a name="l00019"></a>00019 };
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 
@@ -121,7 +121,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

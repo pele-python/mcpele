@@ -97,15 +97,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00019"></a>00019 <span class="keyword">public</span>:
 <a name="l00020"></a>00020     <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#af446b764d9a8f16f67c751bfb94a47d1">RecordScalarTimeseries</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span>, <span class="keyword">const</span> <span class="keywordtype">size_t</span>);
 <a name="l00021"></a><a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#aba51863fc7829b1fa7a2908ea3b8dd3c">00021</a>     <span class="keyword">virtual</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#aba51863fc7829b1fa7a2908ea3b8dd3c">~RecordScalarTimeseries</a>(){}
-<a name="l00022"></a>00022     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a7cc733d8f0b8daebf4da92423793b9c7">action</a>(pele::Array&lt;double&gt; &amp;coords, <span class="keywordtype">double</span> energy, <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc);
-<a name="l00023"></a>00023     <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a8151f9f679c926d481e7354ac170663a">get_recorded_scalar</a>(pele::Array&lt;double&gt; &amp;coords, <span class="keyword">const</span> <span class="keywordtype">double</span> energy, <span class="keyword">const</span> <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc) = 0;
+<a name="l00022"></a>00022     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a7cc733d8f0b8daebf4da92423793b9c7">action</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> &amp;coords, <span class="keywordtype">double</span> energy, <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc);
+<a name="l00023"></a>00023     <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a8151f9f679c926d481e7354ac170663a">get_recorded_scalar</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> &amp;coords, <span class="keyword">const</span> <span class="keywordtype">double</span> energy, <span class="keyword">const</span> <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc) = 0;
 <a name="l00024"></a>00024     <span class="keywordtype">bool</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a98fce48e1cc8cd2e73fb0705a4d05cde">moving_average_is_stable</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> nr_steps_to_check=1000, <span class="keyword">const</span> <span class="keywordtype">double</span> rel_std_threshold=0.1);
 <a name="l00025"></a>00025     std::pair&lt;double, double&gt; <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#aa5cce7dde2ec7f096baeefad210ff063">get_moving_average_mean</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> nr_steps_to_check); <span class="comment">//returns first moment of ma</span>
 <a name="l00026"></a>00026     std::pair&lt;double, double&gt; <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a0df1f17ac9304e831f37e7e97bf45b83">get_moving_average_variance</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> nr_steps_to_check); <span class="comment">//returns second central moments of ma</span>
-<a name="l00027"></a><a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#ad3c2dbc09a421030dcddff87d96299e5">00027</a>     pele::Array&lt;double&gt; <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#ad3c2dbc09a421030dcddff87d96299e5">get_time_series</a>()
+<a name="l00027"></a><a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#ad3c2dbc09a421030dcddff87d96299e5">00027</a>     <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#ad3c2dbc09a421030dcddff87d96299e5">get_time_series</a>()
 <a name="l00028"></a>00028     {
 <a name="l00029"></a>00029         m_time_series.shrink_to_fit();
-<a name="l00030"></a>00030         <span class="keywordflow">return</span> pele::Array&lt;double&gt;(m_time_series).copy();
+<a name="l00030"></a>00030         <span class="keywordflow">return</span> <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>(m_time_series).copy();
 <a name="l00031"></a>00031     }
 <a name="l00032"></a><a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a0f616cd3a4e0dea710c0919f22b8f5ce">00032</a>     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html#a0f616cd3a4e0dea710c0919f22b8f5ce">clear</a>()
 <a name="l00033"></a>00033     {
@@ -134,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

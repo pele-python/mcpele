@@ -123,7 +123,7 @@ Public Types</h2></td></tr>
 &lt; std::shared_ptr&lt; <a class="el" href="classmcpele_1_1ConfTest.html">ConfTest</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a025b387c3222c83625323afcddeda1ea">conf_t</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ae144a06dfc924f7ae63d8b14b95a5f6b">MC</a> (std::shared_ptr&lt; pele::BasePotential &gt; potential, pele::Array&lt; double &gt; &amp;coords, const double temperature)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ae144a06dfc924f7ae63d8b14b95a5f6b">MC</a> (std::shared_ptr&lt; <a class="el" href="classpele_1_1BasePotential.html">pele::BasePotential</a> &gt; potential, <a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; &amp;coords, const double temperature)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a4737173950c8a51437230d5d83163572">~MC</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#aa1528423634e13ade3fcefa525c5ed89">one_iteration</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a746de23c4d9ddad54a1e9da1dd025033">run</a> (const size_t max_iter)</td></tr>
@@ -137,12 +137,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a7a9ab41eb342247e9bacea30c2b3e033">add_late_conf_test</a> (std::shared_ptr&lt; <a class="el" href="classmcpele_1_1ConfTest.html">ConfTest</a> &gt; conf_test)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a4a348d7cb35617b70f8ef2955712b084">set_takestep</a> (std::shared_ptr&lt; <a class="el" href="classmcpele_1_1TakeStep.html">TakeStep</a> &gt; takestep)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classmcpele_1_1TakeStep.html">TakeStep</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#aa5207841480b9a6d11699babf63aa95e">get_takestep</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a5df3e0f95cbe02e4e7ee2e3bb7654dff">set_coordinates</a> (pele::Array&lt; double &gt; &amp;coords, double energy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a5df3e0f95cbe02e4e7ee2e3bb7654dff">set_coordinates</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; &amp;coords, double energy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ac538a56ea555f102fc4fe347f9ff40c3">get_energy</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ad3ec3d5ae30a44ed5a7f832a1c570b63">reset_energy</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a67f441e23995e82288fd9e44072c8efe">get_trial_energy</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">pele::Array&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a37869df5487d535a9a4515492cd7a056">get_coords</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">pele::Array&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a1ba8a6e2d26b1124fa4707ad7397a024">get_trial_coords</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a37869df5487d535a9a4515492cd7a056">get_coords</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a1ba8a6e2d26b1124fa4707ad7397a024">get_trial_coords</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a61bb33c1cfd7e7f1caa96ae9f9af79f1">get_norm_coords</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a6a2355df19783573a6d15294cce4fd43">get_naccept</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a5c9f22a57a3e9cc0228c7f84acd8ec7f">get_nreject</a> () const </td></tr>
@@ -152,7 +152,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a9a8e8b2c4a9e77b5136c9a3c1b67bb9c">get_iterations_count</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a656ec94034cc412e819438d21f7fcfa3">get_neval</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::shared_ptr<br class="typebreak"/>
-&lt; pele::BasePotential &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a1e0731055ab95e94142cd0c20fce2daf">get_potential_ptr</a> ()</td></tr>
+&lt; <a class="el" href="classpele_1_1BasePotential.html">pele::BasePotential</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a1e0731055ab95e94142cd0c20fce2daf">get_potential_ptr</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#af0c4c8dcf99b125917644ee5744d4ed6">take_step_specified</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#aa822dbcc2c5e3d2489880c5f16cb1dfd">report_steps_specified</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a3682931dc32796af0c7051ce3311c54f">check_input</a> ()</td></tr>
@@ -169,18 +169,18 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a956f949abbf2bd055e72924cb136f3e7">m_trial_energy</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ab0a769e799bccd46f1e290daf1f4698b">compute_energy</a> (pele::Array&lt; double &gt; x)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a10c67bdbd29525b7cfe4c97f861e5b8f">do_conf_tests</a> (pele::Array&lt; double &gt; x)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ab122e2f3a32b409493043d62a2ad5806">do_accept_tests</a> (pele::Array&lt; double &gt; xtrial, double etrial, pele::Array&lt; double &gt; xold, double eold)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ac2f9ac6eaf22fff6d85e3a659658c3c2">do_late_conf_tests</a> (pele::Array&lt; double &gt; x)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#afc4426d60374b2d941405d269eb214ed">do_actions</a> (pele::Array&lt; double &gt; x, double energy, bool success)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ab0a769e799bccd46f1e290daf1f4698b">compute_energy</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a10c67bdbd29525b7cfe4c97f861e5b8f">do_conf_tests</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ab122e2f3a32b409493043d62a2ad5806">do_accept_tests</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; xtrial, double etrial, <a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; xold, double eold)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ac2f9ac6eaf22fff6d85e3a659658c3c2">do_late_conf_tests</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#afc4426d60374b2d941405d269eb214ed">do_actions</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; x, double energy, bool success)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ac9f211c253a12cd3e6bed935a0c8c1f2">take_steps</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::shared_ptr<br class="typebreak"/>
-&lt; pele::BasePotential &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a80e94b003bfc9893c1f829064125a81c">m_potential</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">pele::Array&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a3a38fa108292b3e7270ad439ebb2c886">m_coords</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">pele::Array&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ab32722238c16272bf95141b825fd3bf4">m_trial_coords</a></td></tr>
+&lt; <a class="el" href="classpele_1_1BasePotential.html">pele::BasePotential</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a80e94b003bfc9893c1f829064125a81c">m_potential</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a3a38fa108292b3e7270ad439ebb2c886">m_coords</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#ab32722238c16272bf95141b825fd3bf4">m_trial_coords</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmcpele_1_1MC.html#a6b0a924bb76c28b6fc25c66675c1dcf9">actions_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a582e528bae7b630e6845628f49ae443d">m_actions</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmcpele_1_1MC.html#ab52ae82dba8e7299583f48a382f8bd5a">accept_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#aa28a68b36566e4c5e4bb27ae816c37ab">m_accept_tests</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmcpele_1_1MC.html#a025b387c3222c83625323afcddeda1ea">conf_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1MC.html#a444f1a159469de77761abced4a94dc48">m_conf_tests</a></td></tr>
@@ -251,13 +251,13 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classmcpele_1_1MC.html#ae144a06dfc924f7ae63d8b14b95a5f6b">mcpele::MC::MC</a> </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; pele::BasePotential &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classpele_1_1BasePotential.html">pele::BasePotential</a> &gt;&#160;</td>
           <td class="paramname"><em>potential</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">pele::Array&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>coords</em>, </td>
         </tr>
         <tr>
@@ -418,7 +418,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">double <a class="el" href="classmcpele_1_1MC.html#ab0a769e799bccd46f1e290daf1f4698b">mcpele::MC::compute_energy</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
           <td><code> [inline, protected]</code></td>
         </tr>
@@ -437,7 +437,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool <a class="el" href="classmcpele_1_1MC.html#ab122e2f3a32b409493043d62a2ad5806">mcpele::MC::do_accept_tests</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>xtrial</em>, </td>
         </tr>
         <tr>
@@ -449,7 +449,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>xold</em>, </td>
         </tr>
         <tr>
@@ -479,7 +479,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void <a class="el" href="classmcpele_1_1MC.html#afc4426d60374b2d941405d269eb214ed">mcpele::MC::do_actions</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -514,7 +514,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool <a class="el" href="classmcpele_1_1MC.html#a10c67bdbd29525b7cfe4c97f861e5b8f">mcpele::MC::do_conf_tests</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
           <td><code> [protected]</code></td>
         </tr>
@@ -534,7 +534,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool <a class="el" href="classmcpele_1_1MC.html#ac2f9ac6eaf22fff6d85e3a659658c3c2">mcpele::MC::do_late_conf_tests</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
           <td><code> [protected]</code></td>
         </tr>
@@ -588,7 +588,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">pele::Array&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#a37869df5487d535a9a4515492cd7a056">mcpele::MC::get_coords</a> </td>
+          <td class="memname"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#a37869df5487d535a9a4515492cd7a056">mcpele::MC::get_coords</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [inline]</code></td>
@@ -732,7 +732,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;pele::BasePotential&gt; <a class="el" href="classmcpele_1_1MC.html#a1e0731055ab95e94142cd0c20fce2daf">mcpele::MC::get_potential_ptr</a> </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classpele_1_1BasePotential.html">pele::BasePotential</a>&gt; <a class="el" href="classmcpele_1_1MC.html#a1e0731055ab95e94142cd0c20fce2daf">mcpele::MC::get_potential_ptr</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline]</code></td>
@@ -822,7 +822,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">pele::Array&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#a1ba8a6e2d26b1124fa4707ad7397a024">mcpele::MC::get_trial_coords</a> </td>
+          <td class="memname"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#a1ba8a6e2d26b1124fa4707ad7397a024">mcpele::MC::get_trial_coords</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [inline]</code></td>
@@ -933,7 +933,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void <a class="el" href="classmcpele_1_1MC.html#a5df3e0f95cbe02e4e7ee2e3bb7654dff">mcpele::MC::set_coordinates</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>coords</em>, </td>
         </tr>
         <tr>
@@ -1166,7 +1166,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">pele::Array&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#a3a38fa108292b3e7270ad439ebb2c886">mcpele::MC::m_coords</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#a3a38fa108292b3e7270ad439ebb2c886">mcpele::MC::m_coords</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -1271,7 +1271,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;pele::BasePotential&gt; <a class="el" href="classmcpele_1_1MC.html#a80e94b003bfc9893c1f829064125a81c">mcpele::MC::m_potential</a><code> [protected]</code></td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classpele_1_1BasePotential.html">pele::BasePotential</a>&gt; <a class="el" href="classmcpele_1_1MC.html#a80e94b003bfc9893c1f829064125a81c">mcpele::MC::m_potential</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -1346,7 +1346,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">pele::Array&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#ab32722238c16272bf95141b825fd3bf4">mcpele::MC::m_trial_coords</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt;double&gt; <a class="el" href="classmcpele_1_1MC.html#ab32722238c16272bf95141b825fd3bf4">mcpele::MC::m_trial_coords</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -1393,7 +1393,7 @@ Protected Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:40 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:25 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

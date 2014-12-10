@@ -82,9 +82,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="lowest__eigenvalue_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _MCPELE_LOWEST_EIGENVALUE_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _MCPELE_LOWEST_EIGENVALUE_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;pele/base_potential.h&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;pele/lbfgs.h&quot;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;pele/lowest_eig_potential.h&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="base__potential_8h.html">pele/base_potential.h</a>&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="lbfgs_8h.html">pele/lbfgs.h</a>&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="lowest__eig__potential_8h.html">pele/lowest_eig_potential.h</a>&quot;</span>
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>mcpele{
 <a name="l00009"></a>00009 
@@ -92,12 +92,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00011"></a><a class="code" href="classmcpele_1_1FindLowestEigenvalue.html">00011</a> <span class="keyword">class </span><a class="code" href="classmcpele_1_1FindLowestEigenvalue.html">FindLowestEigenvalue</a>{
 <a name="l00012"></a>00012 <span class="keyword">private</span>:
 <a name="l00013"></a>00013     std::shared_ptr&lt;pele::LowestEigPotential&gt; m_lowesteigpot;
-<a name="l00014"></a>00014     pele::Array&lt;double&gt; m_ranvec;
-<a name="l00015"></a>00015     pele::LBFGS m_lbfgs;
+<a name="l00014"></a>00014     <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> m_ranvec;
+<a name="l00015"></a>00015     <a class="code" href="classpele_1_1LBFGS.html">pele::LBFGS</a> m_lbfgs;
 <a name="l00016"></a>00016 <span class="keyword">public</span>:
 <a name="l00017"></a>00017     <a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#aa8cff93dfc74754b4bd4f290d852a7a0">FindLowestEigenvalue</a>(std::shared_ptr&lt;pele::BasePotential&gt; landscape_potential, <span class="keyword">const</span> <span class="keywordtype">size_t</span> boxdimension,
-<a name="l00018"></a>00018             <span class="keyword">const</span> pele::Array&lt;double&gt; ranvec, <span class="keyword">const</span> <span class="keywordtype">size_t</span> lbfgsniter);
-<a name="l00019"></a>00019     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#a29f56a74823d7e974187b1a04ff44639">compute_lowest_eigenvalue</a>(pele::Array&lt;double&gt; coords);
+<a name="l00018"></a>00018             <span class="keyword">const</span> <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> ranvec, <span class="keyword">const</span> <span class="keywordtype">size_t</span> lbfgsniter);
+<a name="l00019"></a>00019     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#a29f56a74823d7e974187b1a04ff44639">compute_lowest_eigenvalue</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> coords);
 <a name="l00020"></a>00020 };
 <a name="l00021"></a>00021 
 <a name="l00022"></a>00022 
@@ -122,7 +122,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

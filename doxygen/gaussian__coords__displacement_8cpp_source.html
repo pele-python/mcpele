@@ -97,10 +97,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00016"></a>00016 <span class="preprocessor">    #endif</span>
 <a name="l00017"></a>00017 <span class="preprocessor"></span>}
 <a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9855e838fb6d19c55be12dd108cfdb5b">00019</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9855e838fb6d19c55be12dd108cfdb5b">GaussianCoordsDisplacement::displace</a>(pele::Array&lt;double&gt;&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
+<a name="l00019"></a><a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9855e838fb6d19c55be12dd108cfdb5b">00019</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9855e838fb6d19c55be12dd108cfdb5b">GaussianCoordsDisplacement::displace</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
 <a name="l00020"></a>00020 {
 <a name="l00021"></a>00021     <span class="comment">//assert(coords.size() == _N);</span>
-<a name="l00022"></a>00022     <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; coords.size(); ++i){
+<a name="l00022"></a>00022     <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; coords.<a class="code" href="classpele_1_1Array.html#a818421c8f4fe04ac86cf9ff2398d45ef">size</a>(); ++i){
 <a name="l00023"></a>00023         <span class="keywordtype">double</span> randz = <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a231f5ed3fcf7b644e7bdd44cbd6d318d">m_distribution</a>(<a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a1e9c3d0a0135be68c503e4148a55f0b6">m_generator</a>); <span class="comment">//this is sample from N(0,1)</span>
 <a name="l00024"></a>00024         coords[i] += randz * <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9818016f14a05214f1b50f328612ed79">m_stepsize</a>; <span class="comment">//here the stepsize plays the same role as the stdev. This is sampled from N(0,stepsize)</span>
 <a name="l00025"></a>00025     }
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

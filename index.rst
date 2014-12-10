@@ -77,7 +77,7 @@ Reference
     
    MPI_Parallel_Tempering
 
-* `C++ Class Index <./doxygen/classes.html>`_
+* `C++ Class Index <./doxygen/namespacemcpele.html>`_
 
 Modules
 +++++++

@@ -102,9 +102,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00021"></a><a class="code" href="classmcpele_1_1RandomCoordsDisplacementAll.html#aeddd85475bfd9fc2b0877259ce0fa6c8">00021</a> <a class="code" href="classmcpele_1_1RandomCoordsDisplacementAll.html#aeddd85475bfd9fc2b0877259ce0fa6c8">RandomCoordsDisplacementAll::RandomCoordsDisplacementAll</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> rseed, <span class="keyword">const</span> <span class="keywordtype">double</span> stepsize)
 <a name="l00022"></a>00022     : <a class="code" href="classmcpele_1_1RandomCoordsDisplacement.html">RandomCoordsDisplacement</a>(rseed, stepsize){}
 <a name="l00023"></a>00023 
-<a name="l00024"></a><a class="code" href="classmcpele_1_1RandomCoordsDisplacementAll.html#ab40ce59b2d74ffe3d8042c3e90268eab">00024</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RandomCoordsDisplacementAll.html#ab40ce59b2d74ffe3d8042c3e90268eab">RandomCoordsDisplacementAll::displace</a>(pele::Array&lt;double&gt;&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
+<a name="l00024"></a><a class="code" href="classmcpele_1_1RandomCoordsDisplacementAll.html#ab40ce59b2d74ffe3d8042c3e90268eab">00024</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RandomCoordsDisplacementAll.html#ab40ce59b2d74ffe3d8042c3e90268eab">RandomCoordsDisplacementAll::displace</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
 <a name="l00025"></a>00025 {
-<a name="l00026"></a>00026     <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coords.size(); ++i) {
+<a name="l00026"></a>00026     <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coords.<a class="code" href="classpele_1_1Array.html#a818421c8f4fe04ac86cf9ff2398d45ef">size</a>(); ++i) {
 <a name="l00027"></a>00027         <span class="keywordtype">double</span> rand = <a class="code" href="classmcpele_1_1RandomCoordsDisplacement.html#a8d3de3a3e1b9595baf9618bf1530c5e2">m_real_distribution</a>(<a class="code" href="classmcpele_1_1RandomCoordsDisplacement.html#a6301d7fc89a1943a5fb7c870f25fe2a2">m_generator</a>);
 <a name="l00028"></a>00028         coords[i] += (0.5 - rand) * <a class="code" href="classmcpele_1_1RandomCoordsDisplacement.html#a523a1ff179209b62e574ebb3050f86a1">m_stepsize</a>;
 <a name="l00029"></a>00029     }
@@ -120,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00039"></a>00039       m_rand_particle(0),
 <a name="l00040"></a>00040       m_int_distribution(0, m_nparticles-1){}
 <a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="classmcpele_1_1RandomCoordsDisplacementSingle.html#a52c3271d105453d89024230f3f392dc7">00042</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RandomCoordsDisplacementSingle.html#a52c3271d105453d89024230f3f392dc7">RandomCoordsDisplacementSingle::displace</a>(pele::Array&lt;double&gt;&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
+<a name="l00042"></a><a class="code" href="classmcpele_1_1RandomCoordsDisplacementSingle.html#a52c3271d105453d89024230f3f392dc7">00042</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RandomCoordsDisplacementSingle.html#a52c3271d105453d89024230f3f392dc7">RandomCoordsDisplacementSingle::displace</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
 <a name="l00043"></a>00043 {
 <a name="l00044"></a>00044     m_rand_particle = m_int_distribution(<a class="code" href="classmcpele_1_1RandomCoordsDisplacement.html#a6301d7fc89a1943a5fb7c870f25fe2a2">m_generator</a>);
 <a name="l00045"></a>00045     <span class="keywordtype">size_t</span> rand_particle_dof = m_rand_particle * m_ndim;
@@ -150,7 +150,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

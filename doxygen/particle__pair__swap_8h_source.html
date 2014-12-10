@@ -97,8 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00016"></a>00016 <span class="keyword">public</span>:
 <a name="l00017"></a><a class="code" href="classmcpele_1_1ParticlePairSwap.html#a391476c1f25fa3e194b69cfb542adea3">00017</a>     <span class="keyword">virtual</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#a391476c1f25fa3e194b69cfb542adea3">~ParticlePairSwap</a>() {}
 <a name="l00018"></a>00018     <a class="code" href="classmcpele_1_1ParticlePairSwap.html#a09aebe2a1c7a5e89be202def3bfded9f">ParticlePairSwap</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> seed, <span class="keyword">const</span> <span class="keywordtype">size_t</span> nr_particles);
-<a name="l00019"></a>00019     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#ab4d35820381b34f5e4c993ad3817427b">displace</a>(pele::Array&lt;double&gt;&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc);
-<a name="l00020"></a>00020     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#a075a55654c1cd9d6d80a361acc8014ed">swap_coordinates</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_a, <span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_b, pele::Array&lt;double&gt;&amp; coords);
+<a name="l00019"></a>00019     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#ab4d35820381b34f5e4c993ad3817427b">displace</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc);
+<a name="l00020"></a>00020     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#a075a55654c1cd9d6d80a361acc8014ed">swap_coordinates</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_a, <span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_b, <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>&amp; coords);
 <a name="l00021"></a><a class="code" href="classmcpele_1_1ParticlePairSwap.html#a1f3abbcf103328a91eeda411199fe478">00021</a>     <span class="keywordtype">size_t</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#a1f3abbcf103328a91eeda411199fe478">get_seed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_seed; }
 <a name="l00022"></a>00022     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1ParticlePairSwap.html#a1142a8be79e9c872ab07f0f9995656fe">set_generator_seed</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> inp);
 <a name="l00023"></a>00023 };
@@ -124,7 +124,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

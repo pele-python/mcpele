@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <a href="record__energy__histogram_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;<a class="code" href="record__energy__histogram_8h.html">mcpele/record_energy_histogram.h</a>&quot;</span>
 <a name="l00002"></a>00002 
-<a name="l00003"></a>00003 <span class="keyword">using</span> pele::Array;
+<a name="l00003"></a>00003 <span class="keyword">using</span> <a class="code" href="classpele_1_1Array.html">pele::Array</a>;
 <a name="l00004"></a>00004 
 <a name="l00005"></a>00005 <span class="keyword">namespace </span>mcpele {
 <a name="l00006"></a>00006 
@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00010"></a>00010       m_count(0)
 <a name="l00011"></a>00011     {}
 <a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#af0aa711e4556dff5ae5837e42be17ecc">00013</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#af0aa711e4556dff5ae5837e42be17ecc">RecordEnergyHistogram::action</a>(Array&lt;double&gt; &amp;coords, <span class="keywordtype">double</span> energy, <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
+<a name="l00013"></a><a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#af0aa711e4556dff5ae5837e42be17ecc">00013</a> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#af0aa711e4556dff5ae5837e42be17ecc">RecordEnergyHistogram::action</a>(<a class="code" href="classpele_1_1Array.html">Array&lt;double&gt;</a> &amp;coords, <span class="keywordtype">double</span> energy, <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
 <a name="l00014"></a>00014 {
 <a name="l00015"></a>00015     m_count = mc-&gt;<a class="code" href="classmcpele_1_1MC.html#a9a8e8b2c4a9e77b5136c9a3c1b67bb9c">get_iterations_count</a>();
 <a name="l00016"></a>00016     <span class="keywordflow">if</span> (m_count &gt; m_eqsteps){
@@ -99,10 +99,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00018"></a>00018     }
 <a name="l00019"></a>00019 }
 <a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#a9e4df47ed681ca5de613bab6021bf32c">00021</a> pele::Array&lt;double&gt; <a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#a9e4df47ed681ca5de613bab6021bf32c">RecordEnergyHistogram::get_histogram</a>()<span class="keyword"> const</span>
+<a name="l00021"></a><a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#a9e4df47ed681ca5de613bab6021bf32c">00021</a> <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> <a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#a9e4df47ed681ca5de613bab6021bf32c">RecordEnergyHistogram::get_histogram</a>()<span class="keyword"> const</span>
 <a name="l00022"></a>00022 <span class="keyword"></span>{
 <a name="l00023"></a>00023     std::vector&lt;double&gt; vecdata(<a class="code" href="classmcpele_1_1RecordEnergyHistogram.html#a5c6bc30e23e724736b75e7ed61b55ca1">m_hist</a>.<a class="code" href="classmcpele_1_1Histogram.html#a9eddd3113511e59d7b49f693fc2152a3">get_vecdata</a>());
-<a name="l00024"></a>00024     pele::Array&lt;double&gt; histogram(vecdata);
+<a name="l00024"></a>00024     <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> histogram(vecdata);
 <a name="l00025"></a>00025     <span class="keywordflow">return</span> histogram.copy();
 <a name="l00026"></a>00026 }
 <a name="l00027"></a>00027 
@@ -125,7 +125,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

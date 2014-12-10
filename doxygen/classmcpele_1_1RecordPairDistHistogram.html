@@ -120,18 +120,18 @@ Inheritance diagram for mcpele::RecordPairDistHistogram&lt; BOXDIM &gt;:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a8c9dd2de7672d3858e7adf298fbf9c1b">RecordPairDistHistogram</a> (pele::Array&lt; double &gt; boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a8c9dd2de7672d3858e7adf298fbf9c1b">RecordPairDistHistogram</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a5c084f8196fff90ea8dcfa9d61fa6d34">~RecordPairDistHistogram</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a2b0d3af344db398ce16e0a473f7f55c4">action</a> (pele::Array&lt; double &gt; &amp;coords, double energy, bool accepted, <a class="el" href="classmcpele_1_1MC.html">MC</a> *mc)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a2b0d3af344db398ce16e0a473f7f55c4">action</a> (<a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; &amp;coords, double energy, bool accepted, <a class="el" href="classmcpele_1_1MC.html">MC</a> *mc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a58689e61e83ea1223f322bbc20795d0e">get_eqsteps</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">pele::Array&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a33de592d9288de540fc56edfecfbc8f1">get_hist_r</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">pele::Array&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#ae8e88de17c1654b06412b73b1f9ad9e0">get_hist_gr</a> (const double number_density, const size_t nr_particles) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a33de592d9288de540fc56edfecfbc8f1">get_hist_r</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#ae8e88de17c1654b06412b73b1f9ad9e0">get_hist_gr</a> (const double number_density, const size_t nr_particles) const </td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><h3>template&lt;size_t BOXDIM&gt;<br/>
 class mcpele::RecordPairDistHistogram&lt; BOXDIM &gt;</h3>
 
-<p>Record pair-distance distribution (radial distribution function) Templated on boxdimension, should work fine with pele::periodic_distance Input parameters: --- boxvector: defines the (periodic) simlation box --- nr_bins: number of bins for g(r) histogram --- eqsteps: number of equilibration steps to be excluded from g(r) computation --- record_every: after more than eqsteps steps have been done, record every record_everyth step Everytime the action is called, it accumulates the present configuration into the same g(r) histogram. The action function calls add_configuration which accumulates the current configuration into the g(r) histogram. The g(r) histogram can be read out at any point after that. To read out the data, two functions are used: --- <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a33de592d9288de540fc56edfecfbc8f1">get_hist_r()</a> gives the r value array for the g(r) histogram --- <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#ae8e88de17c1654b06412b73b1f9ad9e0">get_hist_gr()</a> gives the corresponding g(r) value array, normalized using the input number of particles and number density (Admittedly number density could have been reconstructed independently of that input.) </p>
+<p>Record pair-distance distribution (radial distribution function) Templated on boxdimension, should work fine with <a class="el" href="classpele_1_1periodic__distance.html">pele::periodic_distance</a> Input parameters: --- boxvector: defines the (periodic) simlation box --- nr_bins: number of bins for g(r) histogram --- eqsteps: number of equilibration steps to be excluded from g(r) computation --- record_every: after more than eqsteps steps have been done, record every record_everyth step Everytime the action is called, it accumulates the present configuration into the same g(r) histogram. The action function calls add_configuration which accumulates the current configuration into the g(r) histogram. The g(r) histogram can be read out at any point after that. To read out the data, two functions are used: --- <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a33de592d9288de540fc56edfecfbc8f1">get_hist_r()</a> gives the r value array for the g(r) histogram --- <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#ae8e88de17c1654b06412b73b1f9ad9e0">get_hist_gr()</a> gives the corresponding g(r) value array, normalized using the input number of particles and number density (Admittedly number density could have been reconstructed independently of that input.) </p>
 
 <p>Definition at line <a class="el" href="record__pair__dist__histogram_8h_source.html#l00027">27</a> of file <a class="el" href="record__pair__dist__histogram_8h_source.html">record_pair_dist_histogram.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -144,7 +144,7 @@ template&lt;size_t BOXDIM&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">mcpele::RecordPairDistHistogram</a>&lt; BOXDIM &gt;::<a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">RecordPairDistHistogram</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt;&#160;</td>
           <td class="paramname"><em>boxvector</em>, </td>
         </tr>
         <tr>
@@ -208,7 +208,7 @@ template&lt;size_t BOXDIM&gt; </div>
         <tr>
           <td class="memname">virtual void <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">mcpele::RecordPairDistHistogram</a>&lt; BOXDIM &gt;::<a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a2b0d3af344db398ce16e0a473f7f55c4">action</a> </td>
           <td>(</td>
-          <td class="paramtype">pele::Array&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>coords</em>, </td>
         </tr>
         <tr>
@@ -271,7 +271,7 @@ template&lt;size_t BOXDIM&gt; </div>
 template&lt;size_t BOXDIM&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">pele::Array&lt;double&gt; <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">mcpele::RecordPairDistHistogram</a>&lt; BOXDIM &gt;::<a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#ae8e88de17c1654b06412b73b1f9ad9e0">get_hist_gr</a> </td>
+          <td class="memname"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt;double&gt; <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">mcpele::RecordPairDistHistogram</a>&lt; BOXDIM &gt;::<a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#ae8e88de17c1654b06412b73b1f9ad9e0">get_hist_gr</a> </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>number_density</em>, </td>
@@ -302,7 +302,7 @@ template&lt;size_t BOXDIM&gt; </div>
 template&lt;size_t BOXDIM&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">pele::Array&lt;double&gt; <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">mcpele::RecordPairDistHistogram</a>&lt; BOXDIM &gt;::<a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a33de592d9288de540fc56edfecfbc8f1">get_hist_r</a> </td>
+          <td class="memname"><a class="el" href="classpele_1_1Array.html">pele::Array</a>&lt;double&gt; <a class="el" href="classmcpele_1_1RecordPairDistHistogram.html">mcpele::RecordPairDistHistogram</a>&lt; BOXDIM &gt;::<a class="el" href="classmcpele_1_1RecordPairDistHistogram.html#a33de592d9288de540fc56edfecfbc8f1">get_hist_r</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [inline]</code></td>
@@ -336,7 +336,7 @@ template&lt;size_t BOXDIM&gt; </div>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:41 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:26 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

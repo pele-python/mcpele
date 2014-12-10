@@ -100,7 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00024"></a>00024 <span class="keyword">public</span>:
 <a name="l00025"></a>00025     <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a693f5cd3743cca41cfae62ba5c8fa1b2">GaussianCoordsDisplacement</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> rseed, <span class="keyword">const</span> <span class="keywordtype">double</span> stepsize);
 <a name="l00026"></a><a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a5629b7e1fc63a2208a188a7ed0461acc">00026</a>     <span class="keyword">virtual</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a5629b7e1fc63a2208a188a7ed0461acc">~GaussianCoordsDisplacement</a>() {}
-<a name="l00027"></a>00027     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9855e838fb6d19c55be12dd108cfdb5b">displace</a>(pele::Array&lt;double&gt;&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc);
+<a name="l00027"></a>00027     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a9855e838fb6d19c55be12dd108cfdb5b">displace</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a>&amp; coords, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc);
 <a name="l00028"></a><a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#acb65b915f740d1618ecc267c02fcd17b">00028</a>     <span class="keywordtype">size_t</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#acb65b915f740d1618ecc267c02fcd17b">get_seed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#af50ffc7add2d8e7ae70b07c04a620fb7">m_seed</a>; }
 <a name="l00029"></a><a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#adaefd98609344bb8a9744a9cee554ccc">00029</a>     <span class="keywordtype">void</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#adaefd98609344bb8a9744a9cee554ccc">set_generator_seed</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> inp) { <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a1e9c3d0a0135be68c503e4148a55f0b6">m_generator</a>.seed(inp); }
 <a name="l00030"></a><a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a5f7da29b7bde371ff3971164f58ff3d9">00030</a>     <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GaussianCoordsDisplacement.html#a5f7da29b7bde371ff3971164f58ff3d9">expected_mean</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 0; }
@@ -131,7 +131,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

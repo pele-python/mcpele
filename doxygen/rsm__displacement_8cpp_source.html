@@ -88,16 +88,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00007"></a>00007 <span class="keyword">namespace </span>mcpele{
 <a name="l00008"></a>00008 
 <a name="l00009"></a>00009 
-<a name="l00010"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25">00010</a> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25">GetDisplacementPerParticle::GetDisplacementPerParticle</a>(pele::Array&lt;double&gt; initial_coordinates_,
+<a name="l00010"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25">00010</a> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#afbe836e3aaa986a5328f108491dd4b25">GetDisplacementPerParticle::GetDisplacementPerParticle</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> initial_coordinates_,
 <a name="l00011"></a>00011         <span class="keyword">const</span> <span class="keywordtype">size_t</span> boxdimension_)
 <a name="l00012"></a>00012     : m_initial_coordinates(initial_coordinates_.copy()),
 <a name="l00013"></a>00013       m_boxdimension(boxdimension_),
 <a name="l00014"></a>00014       m_nr_particles(initial_coordinates_.size() / boxdimension_)
 <a name="l00015"></a>00015 {}
 <a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">00017</a> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">GetDisplacementPerParticle::compute_mean_particle_displacement</a>(pele::Array&lt;double&gt; new_coords)
+<a name="l00017"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">00017</a> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">GetDisplacementPerParticle::compute_mean_particle_displacement</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> new_coords)
 <a name="l00018"></a>00018 {
-<a name="l00019"></a>00019     <span class="keywordflow">if</span> (new_coords.size() != m_initial_coordinates.size()) {
+<a name="l00019"></a>00019     <span class="keywordflow">if</span> (new_coords.<a class="code" href="classpele_1_1Array.html#a818421c8f4fe04ac86cf9ff2398d45ef">size</a>() != m_initial_coordinates.<a class="code" href="classpele_1_1Array.html#a818421c8f4fe04ac86cf9ff2398d45ef">size</a>()) {
 <a name="l00020"></a>00020         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;GetMeanRMSDisplacement::compute_mean_rsm_displacement: illegal new coords&quot;</span>);
 <a name="l00021"></a>00021     }
 <a name="l00022"></a>00022     <a class="code" href="classmcpele_1_1Moments.html">Moments</a> mom;
@@ -107,7 +107,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00026"></a>00026     <span class="keywordflow">return</span> mom.<a class="code" href="classmcpele_1_1Moments.html#a1707a2b086488a643deb51e06bdf8c48">mean</a>();
 <a name="l00027"></a>00027 }
 <a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a781391271adacc033a133d18eca2a539">00029</a> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a781391271adacc033a133d18eca2a539">GetDisplacementPerParticle::get_particle_displ</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_idx, pele::Array&lt;double&gt; new_coords)
+<a name="l00029"></a><a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a781391271adacc033a133d18eca2a539">00029</a> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a781391271adacc033a133d18eca2a539">GetDisplacementPerParticle::get_particle_displ</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_idx, <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> new_coords)
 <a name="l00030"></a>00030 {
 <a name="l00031"></a>00031     <span class="keyword">const</span> <span class="keywordtype">size_t</span> particle_start = particle_idx * m_boxdimension;
 <a name="l00032"></a>00032     <span class="keywordtype">double</span> sumsq(0);
@@ -138,7 +138,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

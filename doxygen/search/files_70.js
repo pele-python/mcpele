@@ -4,5 +4,6 @@ var searchData=
   ['particle_5fpair_5fswap_2ecpp',['particle_pair_swap.cpp',['../particle__pair__swap_8cpp.html',1,'']]],
   ['particle_5fpair_5fswap_2eh',['particle_pair_swap.h',['../particle__pair__swap_8h.html',1,'']]],
   ['pattern_5fmanager_2eh',['pattern_manager.h',['../pattern__manager_8h.html',1,'']]],
-  ['progress_2eh',['progress.h',['../progress_8h.html',1,'']]]
+  ['progress_2eh',['progress.h',['../progress_8h.html',1,'']]],
+  ['python_5fpotential_5fwrapper_2eh',['python_potential_wrapper.h',['../python__potential__wrapper_8h.html',1,'']]]
 ];

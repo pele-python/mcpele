@@ -92,13 +92,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00016"></a>00016     <a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html">GetDisplacementPerParticle</a> m_rsm_displacement;
 <a name="l00017"></a>00017 <span class="keyword">public</span>:
 <a name="l00018"></a><a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#a43afba63785193f65c9db66b040ed6d8">00018</a>     <a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#a43afba63785193f65c9db66b040ed6d8">RecordDisplacementPerParticleTimeseries</a>(<span class="keyword">const</span> <span class="keywordtype">size_t</span> niter,
-<a name="l00019"></a>00019             <span class="keyword">const</span> <span class="keywordtype">size_t</span> record_every, pele::Array&lt;double&gt; initial_coords,
+<a name="l00019"></a>00019             <span class="keyword">const</span> <span class="keywordtype">size_t</span> record_every, <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> initial_coords,
 <a name="l00020"></a>00020             <span class="keyword">const</span> <span class="keywordtype">size_t</span> boxdimension)
 <a name="l00021"></a>00021         : <a class="code" href="classmcpele_1_1RecordScalarTimeseries.html">RecordScalarTimeseries</a>(niter, record_every),
 <a name="l00022"></a>00022           m_rsm_displacement(initial_coords, boxdimension)
 <a name="l00023"></a>00023     {}
 <a name="l00024"></a><a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#add341ebe1011d36c53df06ddc256fdbf">00024</a>     <span class="keyword">virtual</span> <a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#add341ebe1011d36c53df06ddc256fdbf">~RecordDisplacementPerParticleTimeseries</a>(){}
-<a name="l00025"></a><a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#ac049afa25de4847b76910680cb3f1a10">00025</a>     <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#ac049afa25de4847b76910680cb3f1a10">get_recorded_scalar</a>(pele::Array&lt;double&gt; &amp;coords,
+<a name="l00025"></a><a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#ac049afa25de4847b76910680cb3f1a10">00025</a>     <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1RecordDisplacementPerParticleTimeseries.html#ac049afa25de4847b76910680cb3f1a10">get_recorded_scalar</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> &amp;coords,
 <a name="l00026"></a>00026             <span class="keyword">const</span> <span class="keywordtype">double</span> energy, <span class="keyword">const</span> <span class="keywordtype">bool</span> accepted, <a class="code" href="classmcpele_1_1MC.html">MC</a>* mc)
 <a name="l00027"></a>00027             { <span class="keywordflow">return</span> m_rsm_displacement.<a class="code" href="classmcpele_1_1GetDisplacementPerParticle.html#a8c145ff40848797ae8a1990f408d0082">compute_mean_particle_displacement</a>(coords); }
 <a name="l00028"></a>00028 };
@@ -124,7 +124,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

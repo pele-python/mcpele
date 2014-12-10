@@ -86,24 +86,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00005"></a>00005 <span class="keyword">namespace </span>mcpele{
 <a name="l00006"></a>00006 
 <a name="l00007"></a><a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#aa8cff93dfc74754b4bd4f290d852a7a0">00007</a> <a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#aa8cff93dfc74754b4bd4f290d852a7a0">FindLowestEigenvalue::FindLowestEigenvalue</a>(std::shared_ptr&lt;pele::BasePotential&gt; landscape_potential, <span class="keyword">const</span> <span class="keywordtype">size_t</span> boxdimension,
-<a name="l00008"></a>00008         <span class="keyword">const</span> pele::Array&lt;double&gt; ranvec, <span class="keyword">const</span> <span class="keywordtype">size_t</span> lbfgsniter)
+<a name="l00008"></a>00008         <span class="keyword">const</span> <a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> ranvec, <span class="keyword">const</span> <span class="keywordtype">size_t</span> lbfgsniter)
 <a name="l00009"></a>00009     : m_lowesteigpot(std::make_shared&lt;pele::LowestEigPotential&gt;(landscape_potential, ranvec.copy(), boxdimension)),
-<a name="l00010"></a>00010       m_ranvec((ranvec.copy() /= norm(ranvec))),
+<a name="l00010"></a>00010       m_ranvec((ranvec.copy() /= <a class="code" href="namespacepele.html#a22ed2210a44bb746133fba46c2dca9a6">norm</a>(ranvec))),
 <a name="l00011"></a>00011       m_lbfgs(m_lowesteigpot, m_ranvec.copy())
 <a name="l00012"></a>00012 {
-<a name="l00013"></a>00013     <span class="keywordflow">if</span> (isinf(<span class="keywordtype">double</span>(1) / norm(ranvec))) {
+<a name="l00013"></a>00013     <span class="keywordflow">if</span> (isinf(<span class="keywordtype">double</span>(1) / <a class="code" href="namespacepele.html#a22ed2210a44bb746133fba46c2dca9a6">norm</a>(ranvec))) {
 <a name="l00014"></a>00014         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;FindLowestEigenvalue: 1/norm(ranvec) is isinf&quot;</span>);
 <a name="l00015"></a>00015     }
-<a name="l00016"></a>00016     m_lbfgs.set_max_iter(lbfgsniter);
+<a name="l00016"></a>00016     m_lbfgs.<a class="code" href="classpele_1_1GradientOptimizer.html#ad770e8bbf4685982ffbcba49d9ddef69">set_max_iter</a>(lbfgsniter);
 <a name="l00017"></a>00017 }
 <a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#a29f56a74823d7e974187b1a04ff44639">00019</a> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#a29f56a74823d7e974187b1a04ff44639">FindLowestEigenvalue::compute_lowest_eigenvalue</a>(pele::Array&lt;double&gt; coords)
+<a name="l00019"></a><a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#a29f56a74823d7e974187b1a04ff44639">00019</a> <span class="keywordtype">double</span> <a class="code" href="classmcpele_1_1FindLowestEigenvalue.html#a29f56a74823d7e974187b1a04ff44639">FindLowestEigenvalue::compute_lowest_eigenvalue</a>(<a class="code" href="classpele_1_1Array.html">pele::Array&lt;double&gt;</a> coords)
 <a name="l00020"></a>00020 {
 <a name="l00021"></a>00021     m_lowesteigpot-&gt;reset_coords(coords);
-<a name="l00022"></a>00022     m_lbfgs.reset(m_ranvec);
-<a name="l00023"></a>00023     m_lbfgs.set_use_relative_f(1);
-<a name="l00024"></a>00024     m_lbfgs.run();
-<a name="l00025"></a>00025     <span class="keyword">const</span> <span class="keywordtype">double</span> lowesteig = m_lbfgs.get_f();
+<a name="l00022"></a>00022     m_lbfgs.<a class="code" href="classpele_1_1LBFGS.html#ace456efd563eacd8ebec9e6359bd2d23">reset</a>(m_ranvec);
+<a name="l00023"></a>00023     m_lbfgs.<a class="code" href="classpele_1_1LBFGS.html#accf88912f6d444de9459c6cc9c0e6e62">set_use_relative_f</a>(1);
+<a name="l00024"></a>00024     m_lbfgs.<a class="code" href="classpele_1_1GradientOptimizer.html#acfac38e877fd86dfffd605319c813f06">run</a>();
+<a name="l00025"></a>00025     <span class="keyword">const</span> <span class="keywordtype">double</span> lowesteig = m_lbfgs.<a class="code" href="classpele_1_1GradientOptimizer.html#ab417238ce68a1f3b9fecae6295a32e9d">get_f</a>();
 <a name="l00026"></a>00026     <span class="keywordflow">return</span> lowesteig;
 <a name="l00027"></a>00027 }
 <a name="l00028"></a>00028 
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 16:07:39 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 16:21:23 for mcpele by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
