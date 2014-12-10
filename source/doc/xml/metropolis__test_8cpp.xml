@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="metropolis__test_8cpp" kind="file">
+    <compoundname>metropolis_test.cpp</compoundname>
+    <includes refid="metropolis__test_8h" local="yes">mcpele/metropolis_test.h</includes>
+    <includes local="no">cmath</includes>
+    <incdepgraph>
+      <node id="366">
+        <label>metropolis_test.cpp</label>
+        <link refid="metropolis_test.cpp"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="371" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>mcpele/metropolis_test.h</label>
+        <link refid="metropolis__test_8h"/>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+      </node>
+      <node id="371">
+        <label>cmath</label>
+      </node>
+      <node id="374">
+        <label>stdexcept</label>
+      </node>
+      <node id="369">
+        <label>pele/array.h</label>
+      </node>
+      <node id="368">
+        <label>random</label>
+      </node>
+      <node id="370">
+        <label>mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="371" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="372">
+        <label>algorithm</label>
+      </node>
+      <node id="373">
+        <label>memory</label>
+      </node>
+      <node id="375">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="metropolis__test_8h" kindref="compound">mcpele/metropolis_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>pele::Array;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classmcpele_1_1MetropolisTest_1a9cf4477f7ddfc2999178d99861f915a2" refkind="member"><highlight class="normal"><ref refid="classmcpele_1_1MetropolisTest_1a9cf4477f7ddfc2999178d99861f915a2" kindref="member">MetropolisTest::MetropolisTest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>rseed)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>m_seed(rseed),</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_generator(rseed),</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_distribution(0.0,<sp/>1.0)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;seed<sp/>Metropolis:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>_seed<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::chrono::system_clock::now().time_since_epoch().count()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7" kindref="member">MetropolisTest::test</ref>(Array&lt;double&gt;<sp/>&amp;trial_coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>trial_energy,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Array&lt;double&gt;&amp;<sp/>old_coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>old_energy,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>temperature,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref><sp/>*<sp/>mc)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rand;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>w;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>wcomp;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>success<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>wcomp<sp/>=<sp/>(trial_energy<sp/>-<sp/>old_energy)<sp/>/<sp/>temperature;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>w<sp/>=<sp/>exp(-wcomp);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(w<sp/>&lt;<sp/>1.0)<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rand<sp/>=<sp/><ref refid="classmcpele_1_1MetropolisTest_1a98284c84912422d5846aef7f21772740" kindref="member">m_distribution</ref>(<ref refid="classmcpele_1_1MetropolisTest_1acf16d24f5b32afb1977c542e20dc23cf" kindref="member">m_generator</ref>);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rand<sp/>&gt;<sp/>w)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>success<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>success;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/metropolis_test.cpp"/>
+  </compounddef>
+</doxygen>

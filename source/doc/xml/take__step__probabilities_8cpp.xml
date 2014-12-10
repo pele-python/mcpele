@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="take__step__probabilities_8cpp" kind="file">
+    <compoundname>take_step_probabilities.cpp</compoundname>
+    <includes refid="take__step__probabilities_8h" local="yes">mcpele/take_step_probabilities.h</includes>
+    <incdepgraph>
+      <node id="453">
+        <label>take_step_probabilities.cpp</label>
+        <link refid="take_step_probabilities.cpp"/>
+        <childnode refid="454" relation="include">
+        </childnode>
+      </node>
+      <node id="458">
+        <label>cmath</label>
+      </node>
+      <node id="461">
+        <label>stdexcept</label>
+      </node>
+      <node id="462">
+        <label>pele/array.h</label>
+      </node>
+      <node id="456">
+        <label>random</label>
+      </node>
+      <node id="454">
+        <label>mcpele/take_step_probabilities.h</label>
+        <link refid="take__step__probabilities_8h"/>
+        <childnode refid="455" relation="include">
+        </childnode>
+        <childnode refid="456" relation="include">
+        </childnode>
+        <childnode refid="457" relation="include">
+        </childnode>
+      </node>
+      <node id="457">
+        <label>mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="458" relation="include">
+        </childnode>
+        <childnode refid="459" relation="include">
+        </childnode>
+        <childnode refid="460" relation="include">
+        </childnode>
+        <childnode refid="461" relation="include">
+        </childnode>
+        <childnode refid="462" relation="include">
+        </childnode>
+        <childnode refid="463" relation="include">
+        </childnode>
+      </node>
+      <node id="455">
+        <label>vector</label>
+      </node>
+      <node id="459">
+        <label>algorithm</label>
+      </node>
+      <node id="460">
+        <label>memory</label>
+      </node>
+      <node id="463">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="take__step__probabilities_8h" kindref="compound">mcpele/take_step_probabilities.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="classmcpele_1_1TakeStepProbabilities_1a8079f6916d0d1052cbe41bf53610c9aa" refkind="member"><highlight class="normal"><ref refid="classmcpele_1_1TakeStepProbabilities_1a8079f6916d0d1052cbe41bf53610c9aa" kindref="member">TakeStepProbabilities::TakeStepProbabilities</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>seed)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>m_generator(seed)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">{}</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="classmcpele_1_1TakeStepProbabilities_1a754adeca2adcad04c43043f937fc915f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1TakeStepProbabilities_1a754adeca2adcad04c43043f937fc915f" kindref="member">TakeStepProbabilities::add_step</ref>(std::shared_ptr&lt;TakeStep&gt;<sp/>step_input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>weight_input)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>m_steps.push_back(step_input);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>m_weights.push_back(weight_input);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>m_steps.swap(m_steps);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>m_weights.swap(m_weights);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>m_distribution<sp/>=<sp/>std::discrete_distribution&lt;size_t&gt;(m_weights.begin(),<sp/>m_weights.end());</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classmcpele_1_1TakeStepProbabilities_1ae6f6a8c420950d97d463ee4cff74ad0f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1TakeStepProbabilities_1ae6f6a8c420950d97d463ee4cff74ad0f" kindref="member">TakeStepProbabilities::displace</ref>(pele::Array&lt;double&gt;&amp;<sp/>coords,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_steps.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;TakeStepProbabilities::displace:<sp/>no<sp/>step<sp/>specified&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>m_current_index<sp/>=<sp/>m_distribution(m_generator);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>m_steps.at(m_current_index)-&gt;displace(coords,<sp/>mc);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="classmcpele_1_1TakeStepProbabilities_1a595978a5e30ba966e1f328826a8f1e68" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1TakeStepProbabilities_1a595978a5e30ba966e1f328826a8f1e68" kindref="member">TakeStepProbabilities::report</ref>(pele::Array&lt;double&gt;&amp;<sp/>old_coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>old_energy,<sp/>pele::Array&lt;double&gt;&amp;<sp/>new_coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>new_energy,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>success,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>m_steps.at(m_current_index)-&gt;report(old_coords,<sp/>old_energy,<sp/>new_coords,<sp/>new_energy,<sp/>success,<sp/>mc);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/take_step_probabilities.cpp"/>
+  </compounddef>
+</doxygen>

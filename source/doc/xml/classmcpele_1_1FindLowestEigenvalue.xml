@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1FindLowestEigenvalue" kind="class" prot="public">
+    <compoundname>mcpele::FindLowestEigenvalue</compoundname>
+    <includes refid="lowest__eigenvalue_8h" local="no">lowest_eigenvalue.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1FindLowestEigenvalue_1a0954e8580234b237dfe77cdccc260386" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; pele::LowestEigPotential &gt;</type>
+        <definition>std::shared_ptr&lt;pele::LowestEigPotential&gt; mcpele::FindLowestEigenvalue::m_lowesteigpot</definition>
+        <argsstring></argsstring>
+        <name>m_lowesteigpot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" line="13" bodyfile="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1FindLowestEigenvalue_1add920c3ac874f8f2631ad05bcad3d8ee" prot="private" static="no" mutable="no">
+        <type>pele::Array&lt; double &gt;</type>
+        <definition>pele::Array&lt;double&gt; mcpele::FindLowestEigenvalue::m_ranvec</definition>
+        <argsstring></argsstring>
+        <name>m_ranvec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" line="14" bodyfile="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1FindLowestEigenvalue_1a627293eebbc1006363a180640d805949" prot="private" static="no" mutable="no">
+        <type>pele::LBFGS</type>
+        <definition>pele::LBFGS mcpele::FindLowestEigenvalue::m_lbfgs</definition>
+        <argsstring></argsstring>
+        <name>m_lbfgs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" line="15" bodyfile="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1FindLowestEigenvalue_1aa8cff93dfc74754b4bd4f290d852a7a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::FindLowestEigenvalue::FindLowestEigenvalue</definition>
+        <argsstring>(std::shared_ptr&lt; pele::BasePotential &gt; landscape_potential, const size_t boxdimension, const pele::Array&lt; double &gt; ranvec, const size_t lbfgsniter)</argsstring>
+        <name>FindLowestEigenvalue</name>
+        <param>
+          <type>std::shared_ptr&lt; pele::BasePotential &gt;</type>
+          <declname>landscape_potential</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>boxdimension</declname>
+        </param>
+        <param>
+          <type>const pele::Array&lt; double &gt;</type>
+          <declname>ranvec</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>lbfgsniter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" line="18" bodyfile="/home/sm958/Work/mcpele/source/lowest_eigenvalue.cpp" bodystart="7" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1FindLowestEigenvalue_1a29f56a74823d7e974187b1a04ff44639" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::FindLowestEigenvalue::compute_lowest_eigenvalue</definition>
+        <argsstring>(pele::Array&lt; double &gt; coords)</argsstring>
+        <name>compute_lowest_eigenvalue</name>
+        <param>
+          <type>pele::Array&lt; double &gt;</type>
+          <declname>coords</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" line="19" bodyfile="/home/sm958/Work/mcpele/source/lowest_eigenvalue.cpp" bodystart="19" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" line="11" bodyfile="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h" bodystart="11" bodyend="20"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1FindLowestEigenvalue_1a29f56a74823d7e974187b1a04ff44639" prot="public" virt="non-virtual"><scope>mcpele::FindLowestEigenvalue</scope><name>compute_lowest_eigenvalue</name></member>
+      <member refid="classmcpele_1_1FindLowestEigenvalue_1aa8cff93dfc74754b4bd4f290d852a7a0" prot="public" virt="non-virtual"><scope>mcpele::FindLowestEigenvalue</scope><name>FindLowestEigenvalue</name></member>
+      <member refid="classmcpele_1_1FindLowestEigenvalue_1a627293eebbc1006363a180640d805949" prot="private" virt="non-virtual"><scope>mcpele::FindLowestEigenvalue</scope><name>m_lbfgs</name></member>
+      <member refid="classmcpele_1_1FindLowestEigenvalue_1a0954e8580234b237dfe77cdccc260386" prot="private" virt="non-virtual"><scope>mcpele::FindLowestEigenvalue</scope><name>m_lowesteigpot</name></member>
+      <member refid="classmcpele_1_1FindLowestEigenvalue_1add920c3ac874f8f2631ad05bcad3d8ee" prot="private" virt="non-virtual"><scope>mcpele::FindLowestEigenvalue</scope><name>m_ranvec</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

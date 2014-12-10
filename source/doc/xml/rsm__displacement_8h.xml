@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="rsm__displacement_8h" kind="file">
+    <compoundname>rsm_displacement.h</compoundname>
+    <includes local="yes">pele/array.h</includes>
+    <includedby refid="record__displacement__per__particle__timeseries_8h" local="yes">mcpele/record_displacement_per_particle_timeseries.h</includedby>
+    <includedby refid="rsm__displacement_8cpp" local="yes">rsm_displacement.cpp</includedby>
+    <incdepgraph>
+      <node id="337">
+        <label>pele/array.h</label>
+      </node>
+      <node id="336">
+        <label>mcpele/rsm_displacement.h</label>
+        <link refid="rsm_displacement.h"/>
+        <childnode refid="337" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="339">
+        <label>mcpele/record_displacement_per_particle_timeseries.h</label>
+        <link refid="record__displacement__per__particle__timeseries_8h"/>
+      </node>
+      <node id="338">
+        <label>mcpele/rsm_displacement.h</label>
+        <link refid="rsm_displacement.h"/>
+        <childnode refid="339" relation="include">
+        </childnode>
+        <childnode refid="340" relation="include">
+        </childnode>
+      </node>
+      <node id="340">
+        <label>rsm_displacement.cpp</label>
+        <link refid="rsm__displacement_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1GetDisplacementPerParticle" prot="public">mcpele::GetDisplacementPerParticle</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_RSM_DISPLACEMENT_H</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_RSM_DISPLACEMENT_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pele/array.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="classmcpele_1_1GetDisplacementPerParticle" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1GetDisplacementPerParticle" kindref="compound">GetDisplacementPerParticle</ref>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>pele::Array&lt;double&gt;<sp/>m_initial_coordinates;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>m_boxdimension;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>m_nr_particles;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15" refid="classmcpele_1_1GetDisplacementPerParticle_1a8a6de0c38b3dc64c7a7c4f00fe86e8da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1GetDisplacementPerParticle_1a8a6de0c38b3dc64c7a7c4f00fe86e8da" kindref="member">~GetDisplacementPerParticle</ref>(){}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1GetDisplacementPerParticle_1afbe836e3aaa986a5328f108491dd4b25" kindref="member">GetDisplacementPerParticle</ref>(pele::Array&lt;double&gt;,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1GetDisplacementPerParticle_1a8c145ff40848797ae8a1990f408d0082" kindref="member">compute_mean_particle_displacement</ref>(pele::Array&lt;double&gt;);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1GetDisplacementPerParticle_1a781391271adacc033a133d18eca2a539" kindref="member">get_particle_displ</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">,<sp/>pele::Array&lt;double&gt;);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}<sp/></highlight><highlight class="comment">//namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//#ifndef<sp/>_MCPELE_RSM_DISPLACEMENT_H</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/rsm_displacement.h"/>
+  </compounddef>
+</doxygen>

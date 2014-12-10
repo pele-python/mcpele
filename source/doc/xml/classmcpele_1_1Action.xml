@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1Action" kind="class" prot="public">
+    <compoundname>mcpele::Action</compoundname>
+    <derivedcompoundref refid="classmcpele_1_1RecordEnergyHistogram" prot="public" virt="non-virtual">mcpele::RecordEnergyHistogram</derivedcompoundref>
+    <derivedcompoundref refid="classmcpele_1_1RecordPairDistHistogram" prot="public" virt="non-virtual">mcpele::RecordPairDistHistogram&lt; BOXDIM &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classmcpele_1_1RecordScalarTimeseries" prot="public" virt="non-virtual">mcpele::RecordScalarTimeseries</derivedcompoundref>
+    <includes refid="mc_8h" local="no">mc.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1Action_1adee26930d409e327d88b8539b5bb3a67" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::Action::~Action</definition>
+        <argsstring>()</argsstring>
+        <name>~Action</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="24" bodyfile="/home/sm958/Work/mcpele/source/mcpele/mc.h" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Action_1a9500d60c55f0d36ffb6ed0464ea3c68e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void mcpele::Action::action</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;coords, double energy, bool accepted, MC *mc)=0</argsstring>
+        <name>action</name>
+        <reimplementedby refid="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7">action</reimplementedby>
+        <reimplementedby refid="classmcpele_1_1RecordEnergyHistogram_1af0aa711e4556dff5ae5837e42be17ecc">action</reimplementedby>
+        <reimplementedby refid="classmcpele_1_1RecordPairDistHistogram_1a2b0d3af344db398ce16e0a473f7f55c4">action</reimplementedby>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>energy</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>accepted</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>mcpele::Action</label>
+        <link refid="classmcpele_1_1Action"/>
+      </node>
+      <node id="6">
+        <label>mcpele::RecordPairDistHistogram&lt; BOXDIM &gt;</label>
+        <link refid="classmcpele_1_1RecordPairDistHistogram"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>mcpele::RecordLowestEValueTimeseries</label>
+        <link refid="classmcpele_1_1RecordLowestEValueTimeseries"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>mcpele::RecordDisplacementPerParticleTimeseries</label>
+        <link refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>mcpele::RecordScalarTimeseries</label>
+        <link refid="classmcpele_1_1RecordScalarTimeseries"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>mcpele::RecordEnergyTimeseries</label>
+        <link refid="classmcpele_1_1RecordEnergyTimeseries"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>mcpele::RecordEnergyHistogram</label>
+        <link refid="classmcpele_1_1RecordEnergyHistogram"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="20" bodyfile="/home/sm958/Work/mcpele/source/mcpele/mc.h" bodystart="20" bodyend="27"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1Action_1a9500d60c55f0d36ffb6ed0464ea3c68e" prot="public" virt="pure-virtual"><scope>mcpele::Action</scope><name>action</name></member>
+      <member refid="classmcpele_1_1Action_1adee26930d409e327d88b8539b5bb3a67" prot="public" virt="virtual"><scope>mcpele::Action</scope><name>~Action</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

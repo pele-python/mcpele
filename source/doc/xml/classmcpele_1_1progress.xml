@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1progress" kind="class" prot="public">
+    <compoundname>mcpele::progress</compoundname>
+    <includes refid="progress_8h" local="no">progress.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" prot="public" static="no">
+        <type>size_t</type>
+        <definition>typedef size_t mcpele::progress::index_t</definition>
+        <argsstring></argsstring>
+        <name>index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="38" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classmcpele_1_1progress_1a58b0ad8ca4041095da304be26345e533" prot="public" static="no">
+        <type>double</type>
+        <definition>typedef double mcpele::progress::float_t</definition>
+        <argsstring></argsstring>
+        <name>float_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="39" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classmcpele_1_1progress_1aca882b448ea2df62757b62ccdcf72064" prot="public" static="no">
+        <type>long long int</type>
+        <definition>typedef long long int mcpele::progress::long_t</definition>
+        <argsstring></argsstring>
+        <name>long_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="40" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1progress_1a28113756630ee03d7c770cb30be4ac84" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classmcpele_1_1progress_1a58b0ad8ca4041095da304be26345e533" kindref="member">float_t</ref></type>
+        <definition>const float_t mcpele::progress::m_inverse_of_total_iterations</definition>
+        <argsstring></argsstring>
+        <name>m_inverse_of_total_iterations</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="42" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1progress_1a03db0b6dc9c953340b790df6a49b7f79" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+        <definition>const index_t mcpele::progress::m_total_iterations</definition>
+        <argsstring></argsstring>
+        <name>m_total_iterations</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="43" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1progress_1a1ce40e167a42bfd5518ad58de869508f" prot="private" static="no" mutable="no">
+        <type><ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+        <definition>index_t mcpele::progress::m_curr</definition>
+        <argsstring></argsstring>
+        <name>m_curr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="44" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1progress_1a83e063e84afd2cc95ccaf7486946e061" prot="private" static="no" mutable="no">
+        <type><ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+        <definition>index_t mcpele::progress::m_prev</definition>
+        <argsstring></argsstring>
+        <name>m_prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="45" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1progress_1abf0d9ce8fadf86ec3f99d53c106272f2" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classmcpele_1_1progress_1aca882b448ea2df62757b62ccdcf72064" kindref="member">long_t</ref></type>
+        <definition>const long_t mcpele::progress::m_start_time</definition>
+        <argsstring></argsstring>
+        <name>m_start_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="46" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1progress_1a85b33747573822894e73648ab9d39283" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::progress::progress</definition>
+        <argsstring>(const index_t totalin)</argsstring>
+        <name>progress</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+          <declname>totalin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="55" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="49" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1a5d43020edf40edcc80aacdd6d20ee381" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+        <definition>index_t mcpele::progress::get_current_percentage</definition>
+        <argsstring>() const </argsstring>
+        <name>get_current_percentage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="57" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1aefd26e12135e0b12f7b69ed09ca93822" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::next</definition>
+        <argsstring>(const index_t idx, std::ostream &amp;stm=std::cout)</argsstring>
+        <name>next</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+          <defval>std::cout</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="60" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="59" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1a714ca1e3fd28ce6fd8b08b6dca897bb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::print_time_percentage</definition>
+        <argsstring>(const index_t smp, std::ostream &amp;stm)</argsstring>
+        <name>print_time_percentage</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+          <declname>smp</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="71" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="70" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1ae1bf4cc3061af7aebc8e2e47e2a0d7ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::update_and_print_percentage_complete</definition>
+        <argsstring>(std::ostream &amp;stm)</argsstring>
+        <name>update_and_print_percentage_complete</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="92" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="91" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1ac0d3ff0e4d19c907998a6d7e79028684" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::get_and_print_elapsed_time</definition>
+        <argsstring>(std::ostream &amp;stm)</argsstring>
+        <name>get_and_print_elapsed_time</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="98" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="97" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1abc1242a755e95d3e5e42c8d51f9ac111" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::estimate_and_print_time_to_complete</definition>
+        <argsstring>(const index_t smp, std::ostream &amp;stm)</argsstring>
+        <name>estimate_and_print_time_to_complete</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+          <declname>smp</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="104" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="103" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1a269dd163562c738119be1d0eb62ff593" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::estimate_and_print_total_time</definition>
+        <argsstring>(const index_t smp, std::ostream &amp;stm)</argsstring>
+        <name>estimate_and_print_total_time</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+          <declname>smp</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="110" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="109" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1a8d4b8ff4bbe4cf820310a7bdaef520be" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::estimate_and_print_completion_local_time</definition>
+        <argsstring>(const index_t smp, std::ostream &amp;stm)</argsstring>
+        <name>estimate_and_print_completion_local_time</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kindref="member">index_t</ref></type>
+          <declname>smp</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="116" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="115" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1progress_1a786d5d4edd6dd3e34fc0acc77a7bf548" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::progress::print_estimated_time</definition>
+        <argsstring>(const long_t inp, std::ostream &amp;stm)</argsstring>
+        <name>print_estimated_time</name>
+        <param>
+          <type>const <ref refid="classmcpele_1_1progress_1aca882b448ea2df62757b62ccdcf72064" kindref="member">long_t</ref></type>
+          <declname>inp</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="126" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="125" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/progress.h" line="36" bodyfile="/home/sm958/Work/mcpele/source/mcpele/progress.h" bodystart="36" bodyend="149"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1progress_1a8d4b8ff4bbe4cf820310a7bdaef520be" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>estimate_and_print_completion_local_time</name></member>
+      <member refid="classmcpele_1_1progress_1abc1242a755e95d3e5e42c8d51f9ac111" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>estimate_and_print_time_to_complete</name></member>
+      <member refid="classmcpele_1_1progress_1a269dd163562c738119be1d0eb62ff593" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>estimate_and_print_total_time</name></member>
+      <member refid="classmcpele_1_1progress_1a58b0ad8ca4041095da304be26345e533" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>float_t</name></member>
+      <member refid="classmcpele_1_1progress_1ac0d3ff0e4d19c907998a6d7e79028684" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>get_and_print_elapsed_time</name></member>
+      <member refid="classmcpele_1_1progress_1a5d43020edf40edcc80aacdd6d20ee381" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>get_current_percentage</name></member>
+      <member refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>index_t</name></member>
+      <member refid="classmcpele_1_1progress_1aca882b448ea2df62757b62ccdcf72064" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>long_t</name></member>
+      <member refid="classmcpele_1_1progress_1a1ce40e167a42bfd5518ad58de869508f" prot="private" virt="non-virtual"><scope>mcpele::progress</scope><name>m_curr</name></member>
+      <member refid="classmcpele_1_1progress_1a28113756630ee03d7c770cb30be4ac84" prot="private" virt="non-virtual"><scope>mcpele::progress</scope><name>m_inverse_of_total_iterations</name></member>
+      <member refid="classmcpele_1_1progress_1a83e063e84afd2cc95ccaf7486946e061" prot="private" virt="non-virtual"><scope>mcpele::progress</scope><name>m_prev</name></member>
+      <member refid="classmcpele_1_1progress_1abf0d9ce8fadf86ec3f99d53c106272f2" prot="private" virt="non-virtual"><scope>mcpele::progress</scope><name>m_start_time</name></member>
+      <member refid="classmcpele_1_1progress_1a03db0b6dc9c953340b790df6a49b7f79" prot="private" virt="non-virtual"><scope>mcpele::progress</scope><name>m_total_iterations</name></member>
+      <member refid="classmcpele_1_1progress_1aefd26e12135e0b12f7b69ed09ca93822" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>next</name></member>
+      <member refid="classmcpele_1_1progress_1a786d5d4edd6dd3e34fc0acc77a7bf548" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>print_estimated_time</name></member>
+      <member refid="classmcpele_1_1progress_1a714ca1e3fd28ce6fd8b08b6dca897bb8" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>print_time_percentage</name></member>
+      <member refid="classmcpele_1_1progress_1a85b33747573822894e73648ab9d39283" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>progress</name></member>
+      <member refid="classmcpele_1_1progress_1ae1bf4cc3061af7aebc8e2e47e2a0d7ac" prot="public" virt="non-virtual"><scope>mcpele::progress</scope><name>update_and_print_percentage_complete</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

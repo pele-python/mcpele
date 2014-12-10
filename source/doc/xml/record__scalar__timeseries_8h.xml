@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="record__scalar__timeseries_8h" kind="file">
+    <compoundname>record_scalar_timeseries.h</compoundname>
+    <includes refid="mc_8h" local="yes">mc.h</includes>
+    <includedby refid="record__displacement__per__particle__timeseries_8h" local="yes">mcpele/record_displacement_per_particle_timeseries.h</includedby>
+    <includedby refid="record__energy__timeseries_8h" local="yes">mcpele/record_energy_timeseries.h</includedby>
+    <includedby refid="record__lowest__evalue__timeseries_8h" local="yes">mcpele/record_lowest_evalue_timeseries.h</includedby>
+    <includedby refid="record__scalar__timeseries_8cpp" local="yes">record_scalar_timeseries.cpp</includedby>
+    <incdepgraph>
+      <node id="325">
+        <label>cmath</label>
+      </node>
+      <node id="328">
+        <label>stdexcept</label>
+      </node>
+      <node id="329">
+        <label>pele/array.h</label>
+      </node>
+      <node id="324">
+        <label>mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="325" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
+        <childnode refid="328" relation="include">
+        </childnode>
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="330" relation="include">
+        </childnode>
+      </node>
+      <node id="326">
+        <label>algorithm</label>
+      </node>
+      <node id="323">
+        <label>mcpele/record_scalar_timeseries.h</label>
+        <link refid="record_scalar_timeseries.h"/>
+        <childnode refid="324" relation="include">
+        </childnode>
+      </node>
+      <node id="327">
+        <label>memory</label>
+      </node>
+      <node id="330">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="332">
+        <label>mcpele/record_displacement_per_particle_timeseries.h</label>
+        <link refid="record__displacement__per__particle__timeseries_8h"/>
+      </node>
+      <node id="334">
+        <label>mcpele/record_lowest_evalue_timeseries.h</label>
+        <link refid="record__lowest__evalue__timeseries_8h"/>
+      </node>
+      <node id="335">
+        <label>record_scalar_timeseries.cpp</label>
+        <link refid="record__scalar__timeseries_8cpp"/>
+      </node>
+      <node id="331">
+        <label>mcpele/record_scalar_timeseries.h</label>
+        <link refid="record_scalar_timeseries.h"/>
+        <childnode refid="332" relation="include">
+        </childnode>
+        <childnode refid="333" relation="include">
+        </childnode>
+        <childnode refid="334" relation="include">
+        </childnode>
+        <childnode refid="335" relation="include">
+        </childnode>
+      </node>
+      <node id="333">
+        <label>mcpele/record_energy_timeseries.h</label>
+        <link refid="record__energy__timeseries_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1RecordScalarTimeseries" prot="public">mcpele::RecordScalarTimeseries</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_RECORD_SCALAR_TIMESERIES_H__</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_RECORD_SCALAR_TIMESERIES_H__</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mc_8h" kindref="compound">mc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="classmcpele_1_1RecordScalarTimeseries" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1RecordScalarTimeseries" kindref="compound">RecordScalarTimeseries</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Action" kindref="compound">Action</ref>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>m_record_every;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>m_time_series;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>m_record_scalar_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_time_series.push_back(input);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1af446b764d9a8f16f67c751bfb94a47d1" kindref="member">RecordScalarTimeseries</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="21" refid="classmcpele_1_1RecordScalarTimeseries_1aba51863fc7829b1fa7a2908ea3b8dd3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1aba51863fc7829b1fa7a2908ea3b8dd3c" kindref="member">~RecordScalarTimeseries</ref>(){}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7" kindref="member">action</ref>(pele::Array&lt;double&gt;<sp/>&amp;coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>energy,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>accepted,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a8151f9f679c926d481e7354ac170663a" kindref="member">get_recorded_scalar</ref>(pele::Array&lt;double&gt;<sp/>&amp;coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>energy,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>accepted,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a98fce48e1cc8cd2e73fb0705a4d05cde" kindref="member">moving_average_is_stable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_to_check=1000,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rel_std_threshold=0.1);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>std::pair&lt;double,<sp/>double&gt;<sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" kindref="member">get_moving_average_mean</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_to_check);<sp/></highlight><highlight class="comment">//returns<sp/>first<sp/>moment<sp/>of<sp/>ma</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>std::pair&lt;double,<sp/>double&gt;<sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a0df1f17ac9304e831f37e7e97bf45b83" kindref="member">get_moving_average_variance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_to_check);<sp/></highlight><highlight class="comment">//returns<sp/>second<sp/>central<sp/>moments<sp/>of<sp/>ma</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="classmcpele_1_1RecordScalarTimeseries_1ad3c2dbc09a421030dcddff87d96299e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>pele::Array&lt;double&gt;<sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1ad3c2dbc09a421030dcddff87d96299e5" kindref="member">get_time_series</ref>()</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_time_series.shrink_to_fit();</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pele::Array&lt;double&gt;(m_time_series).copy();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32" refid="classmcpele_1_1RecordScalarTimeseries_1a0f616cd3a4e0dea710c0919f22b8f5ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a0f616cd3a4e0dea710c0919f22b8f5ce" kindref="member">clear</ref>()</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_time_series.clear();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>#ifndef<sp/>_MCPELE_RECORD_SCALAR_TIMESERIES_H__</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h"/>
+  </compounddef>
+</doxygen>

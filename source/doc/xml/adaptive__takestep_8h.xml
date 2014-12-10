@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="adaptive__takestep_8h" kind="file">
+    <compoundname>adaptive_takestep.h</compoundname>
+    <includes refid="mc_8h" local="yes">mcpele/mc.h</includes>
+    <includedby refid="adaptive__takestep_8cpp" local="yes">adaptive_takestep.cpp</includedby>
+    <incdepgraph>
+      <node id="78">
+        <label>cmath</label>
+      </node>
+      <node id="81">
+        <label>stdexcept</label>
+      </node>
+      <node id="82">
+        <label>pele/array.h</label>
+      </node>
+      <node id="77">
+        <label>mcpele/mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>algorithm</label>
+      </node>
+      <node id="80">
+        <label>memory</label>
+      </node>
+      <node id="76">
+        <label>mcpele/adaptive_takestep.h</label>
+        <link refid="adaptive_takestep.h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="85">
+        <label>adaptive_takestep.cpp</label>
+        <link refid="adaptive__takestep_8cpp"/>
+      </node>
+      <node id="84">
+        <label>mcpele/adaptive_takestep.h</label>
+        <link refid="adaptive_takestep.h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1AdaptiveTakeStep" prot="public">mcpele::AdaptiveTakeStep</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_ADAPTIVE_TAKESTEP_H__</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_ADAPTIVE_TAKESTEP_H__</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mc_8h" kindref="compound">mcpele/mc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="namespacemcpele" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classmcpele_1_1AdaptiveTakeStep" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1AdaptiveTakeStep" kindref="compound">AdaptiveTakeStep</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1TakeStep" kindref="compound">TakeStep</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="10" refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;TakeStep&gt;<sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" kindref="member">m_ts</ref>;</highlight></codeline>
+<codeline lineno="11" refid="classmcpele_1_1AdaptiveTakeStep_1ac16baa470b559d1c994be4cebc331b90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1ac16baa470b559d1c994be4cebc331b90" kindref="member">m_interval</ref>;</highlight></codeline>
+<codeline lineno="12" refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" kindref="member">m_total_steps</ref>;</highlight></codeline>
+<codeline lineno="13" refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" kindref="member">m_accepted_steps</ref>;</highlight></codeline>
+<codeline lineno="14" refid="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" kindref="member">m_factor</ref>;</highlight></codeline>
+<codeline lineno="15" refid="classmcpele_1_1AdaptiveTakeStep_1ad6c2c748b3effbbb8ab2cec826419e88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1ad6c2c748b3effbbb8ab2cec826419e88" kindref="member">m_min_acceptance_ratio</ref>;</highlight></codeline>
+<codeline lineno="16" refid="classmcpele_1_1AdaptiveTakeStep_1a2f83a3b74b5a6d515687e5c02292f9c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a2f83a3b74b5a6d515687e5c02292f9c9" kindref="member">m_max_acceptance_ratio</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18" refid="classmcpele_1_1AdaptiveTakeStep_1a6f42dbb0ed0d9dcd88b47e267368b34f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a6f42dbb0ed0d9dcd88b47e267368b34f" kindref="member">~AdaptiveTakeStep</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a1ee619caed0973ddea12e0d1a4ce8e9d" kindref="member">AdaptiveTakeStep</ref>(std::shared_ptr&lt;TakeStep&gt;<sp/>ts,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>interval=100,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>factor=0.9,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min_acceptance_ratio=0.2,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_acceptance_ratio=0.5);</highlight></codeline>
+<codeline lineno="22" refid="classmcpele_1_1AdaptiveTakeStep_1a63b75b0fda5b685fdfd8076f1e099523" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a63b75b0fda5b685fdfd8076f1e099523" kindref="member">displace</ref>(pele::Array&lt;double&gt;<sp/>&amp;coords,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref><sp/>*<sp/>mc)<sp/>{<sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" kindref="member">m_ts</ref>-&gt;displace(coords,<sp/>mc);<sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a3787085dd0bdf41fee0787c13265edea" kindref="member">report</ref>(pele::Array&lt;double&gt;&amp;<sp/>old_coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>old_energy,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pele::Array&lt;double&gt;&amp;<sp/>new_coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>new_energy,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>success,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc);</highlight></codeline>
+<codeline lineno="26" refid="classmcpele_1_1AdaptiveTakeStep_1ac3693c26dbad6a3a1f5003626da0eff4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1ac3693c26dbad6a3a1f5003626da0eff4" kindref="member">get_min_acceptance_ratio</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1ad6c2c748b3effbbb8ab2cec826419e88" kindref="member">m_min_acceptance_ratio</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="27" refid="classmcpele_1_1AdaptiveTakeStep_1a245d6ab24dce23791a2a75fd896b21e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a245d6ab24dce23791a2a75fd896b21e5" kindref="member">get_max_acceptance_ratio</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a2f83a3b74b5a6d515687e5c02292f9c9" kindref="member">m_max_acceptance_ratio</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>#ifndef<sp/>_MCPELE_ADAPTIVE_TAKESTEP_H__</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h"/>
+  </compounddef>
+</doxygen>

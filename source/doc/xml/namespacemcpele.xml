@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="namespacemcpele" kind="namespace">
+    <compoundname>mcpele</compoundname>
+    <innerclass refid="classmcpele_1_1AdaptiveTakeStep" prot="public">mcpele::AdaptiveTakeStep</innerclass>
+    <innerclass refid="classmcpele_1_1CheckSphericalContainer" prot="public">mcpele::CheckSphericalContainer</innerclass>
+    <innerclass refid="classmcpele_1_1EnergyWindowTest" prot="public">mcpele::EnergyWindowTest</innerclass>
+    <innerclass refid="classmcpele_1_1GaussianCoordsDisplacement" prot="public">mcpele::GaussianCoordsDisplacement</innerclass>
+    <innerclass refid="classmcpele_1_1Moments" prot="public">mcpele::Moments</innerclass>
+    <innerclass refid="classmcpele_1_1Histogram" prot="public">mcpele::Histogram</innerclass>
+    <innerclass refid="classmcpele_1_1FindLowestEigenvalue" prot="public">mcpele::FindLowestEigenvalue</innerclass>
+    <innerclass refid="classmcpele_1_1Action" prot="public">mcpele::Action</innerclass>
+    <innerclass refid="classmcpele_1_1AcceptTest" prot="public">mcpele::AcceptTest</innerclass>
+    <innerclass refid="classmcpele_1_1ConfTest" prot="public">mcpele::ConfTest</innerclass>
+    <innerclass refid="classmcpele_1_1TakeStep" prot="public">mcpele::TakeStep</innerclass>
+    <innerclass refid="classmcpele_1_1MC" prot="public">mcpele::MC</innerclass>
+    <innerclass refid="classmcpele_1_1MetropolisTest" prot="public">mcpele::MetropolisTest</innerclass>
+    <innerclass refid="classmcpele_1_1MovingAverageAcc" prot="public">mcpele::MovingAverageAcc</innerclass>
+    <innerclass refid="classmcpele_1_1PairDistHistogram" prot="public">mcpele::PairDistHistogram</innerclass>
+    <innerclass refid="classmcpele_1_1ParticlePairSwap" prot="public">mcpele::ParticlePairSwap</innerclass>
+    <innerclass refid="classmcpele_1_1PatternManager" prot="public">mcpele::PatternManager</innerclass>
+    <innerclass refid="classmcpele_1_1progress" prot="public">mcpele::progress</innerclass>
+    <innerclass refid="classmcpele_1_1RandomCoordsDisplacement" prot="public">mcpele::RandomCoordsDisplacement</innerclass>
+    <innerclass refid="classmcpele_1_1RandomCoordsDisplacementAll" prot="public">mcpele::RandomCoordsDisplacementAll</innerclass>
+    <innerclass refid="classmcpele_1_1RandomCoordsDisplacementSingle" prot="public">mcpele::RandomCoordsDisplacementSingle</innerclass>
+    <innerclass refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries" prot="public">mcpele::RecordDisplacementPerParticleTimeseries</innerclass>
+    <innerclass refid="classmcpele_1_1RecordEnergyHistogram" prot="public">mcpele::RecordEnergyHistogram</innerclass>
+    <innerclass refid="classmcpele_1_1RecordEnergyTimeseries" prot="public">mcpele::RecordEnergyTimeseries</innerclass>
+    <innerclass refid="classmcpele_1_1RecordLowestEValueTimeseries" prot="public">mcpele::RecordLowestEValueTimeseries</innerclass>
+    <innerclass refid="classmcpele_1_1RecordPairDistHistogram" prot="public">mcpele::RecordPairDistHistogram</innerclass>
+    <innerclass refid="classmcpele_1_1RecordScalarTimeseries" prot="public">mcpele::RecordScalarTimeseries</innerclass>
+    <innerclass refid="classmcpele_1_1GetDisplacementPerParticle" prot="public">mcpele::GetDisplacementPerParticle</innerclass>
+    <innerclass refid="classmcpele_1_1TakeStepPattern" prot="public">mcpele::TakeStepPattern</innerclass>
+    <innerclass refid="classmcpele_1_1TakeStepProbabilities" prot="public">mcpele::TakeStepProbabilities</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="6"/>
+  </compounddef>
+</doxygen>

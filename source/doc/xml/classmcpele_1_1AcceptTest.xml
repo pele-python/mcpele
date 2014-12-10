@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1AcceptTest" kind="class" prot="public">
+    <compoundname>mcpele::AcceptTest</compoundname>
+    <derivedcompoundref refid="classmcpele_1_1EnergyWindowTest" prot="public" virt="non-virtual">mcpele::EnergyWindowTest</derivedcompoundref>
+    <derivedcompoundref refid="classmcpele_1_1MetropolisTest" prot="public" virt="non-virtual">mcpele::MetropolisTest</derivedcompoundref>
+    <includes refid="mc_8h" local="no">mc.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1AcceptTest_1ab2a9fd77376ce15e1c7c5b1ee0df23fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::AcceptTest::~AcceptTest</definition>
+        <argsstring>()</argsstring>
+        <name>~AcceptTest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="37" bodyfile="/home/sm958/Work/mcpele/source/mcpele/mc.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1AcceptTest_1ae2d9e2feaae60d49a35c7170f56f5d78" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool mcpele::AcceptTest::test</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;trial_coords, double trial_energy, pele::Array&lt; double &gt; &amp;old_coords, double old_energy, double temperature, MC *mc)=0</argsstring>
+        <name>test</name>
+        <reimplementedby refid="classmcpele_1_1EnergyWindowTest_1a529460eac573357f981639fe85807520">test</reimplementedby>
+        <reimplementedby refid="classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7">test</reimplementedby>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>trial_coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>trial_energy</declname>
+        </param>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>old_coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>old_energy</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>temperature</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="0">
+        <label>mcpele::AcceptTest</label>
+        <link refid="classmcpele_1_1AcceptTest"/>
+      </node>
+      <node id="2">
+        <label>mcpele::MetropolisTest</label>
+        <link refid="classmcpele_1_1MetropolisTest"/>
+        <childnode refid="0" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>mcpele::EnergyWindowTest</label>
+        <link refid="classmcpele_1_1EnergyWindowTest"/>
+        <childnode refid="0" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="33" bodyfile="/home/sm958/Work/mcpele/source/mcpele/mc.h" bodystart="33" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1AcceptTest_1ae2d9e2feaae60d49a35c7170f56f5d78" prot="public" virt="pure-virtual"><scope>mcpele::AcceptTest</scope><name>test</name></member>
+      <member refid="classmcpele_1_1AcceptTest_1ab2a9fd77376ce15e1c7c5b1ee0df23fc" prot="public" virt="virtual"><scope>mcpele::AcceptTest</scope><name>~AcceptTest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

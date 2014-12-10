@@ -1,0 +1,428 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1Histogram" kind="class" prot="public">
+    <compoundname>mcpele::Histogram</compoundname>
+    <includes refid="histogram_8h" local="no">histogram.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1a0992d03fb112a480a0a8514a4da2d51e" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::Histogram::m_max</definition>
+        <argsstring></argsstring>
+        <name>m_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="66" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1a3be26e1f2f72e96ddf04aa28df48918b" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::Histogram::m_min</definition>
+        <argsstring></argsstring>
+        <name>m_min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="67" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1a31a9aa25478dfc8f4f71087bef157fe7" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::Histogram::m_bin</definition>
+        <argsstring></argsstring>
+        <name>m_bin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="68" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1ada65339a433af943d05de698c792d991" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::Histogram::m_eps</definition>
+        <argsstring></argsstring>
+        <name>m_eps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="69" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1a6e9b41eb6b039061699a4bede1834385" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mcpele::Histogram::m_N</definition>
+        <argsstring></argsstring>
+        <name>m_N</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="70" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1abdf19b97acf04fc1afba72bfd9d1fd91" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; mcpele::Histogram::m_hist</definition>
+        <argsstring></argsstring>
+        <name>m_hist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="71" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1a3b158d4c10e7e399b7f88f2cf7eddf03" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mcpele::Histogram::m_niter</definition>
+        <argsstring></argsstring>
+        <name>m_niter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="72" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1Histogram_1ad7d64976c19b9310a865313388ac2537" prot="private" static="no" mutable="no">
+        <type><ref refid="classmcpele_1_1Moments" kindref="compound">Moments</ref></type>
+        <definition>Moments mcpele::Histogram::m_moments</definition>
+        <argsstring></argsstring>
+        <name>m_moments</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="73" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a527370a55aa12f1a36390865f144ab76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::Histogram::Histogram</definition>
+        <argsstring>(const double min, const double max, const double bin)</argsstring>
+        <name>Histogram</name>
+        <param>
+          <type>const double</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>bin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="75" bodyfile="/home/sm958/Work/mcpele/source/histogram.cpp" bodystart="5" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a13bccf52f23ea879132d6e6b89172915" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::Histogram::~Histogram</definition>
+        <argsstring>()</argsstring>
+        <name>~Histogram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="76" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a2ff51dc04284a0371187d04f808c3c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::Histogram::add_entry</definition>
+        <argsstring>(double entry)</argsstring>
+        <name>add_entry</name>
+        <param>
+          <type>double</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="77" bodyfile="/home/sm958/Work/mcpele/source/histogram.cpp" bodystart="19" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1afb72fcce52a9718593956481e038a333" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::max</definition>
+        <argsstring>() const </argsstring>
+        <name>max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="78" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a8bb9aea49e095dd5508de32bdc7ebdcf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::min</definition>
+        <argsstring>() const </argsstring>
+        <name>min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="79" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a9a90258e8df0945f38020b5ae1c9e19f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::bin</definition>
+        <argsstring>() const </argsstring>
+        <name>bin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="80" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a493a8f86c28d26c1c66e43ddb5210150" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mcpele::Histogram::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="81" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1adacd3cc3fc6a0f9a09035d796f436cc6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int mcpele::Histogram::entries</definition>
+        <argsstring>() const </argsstring>
+        <name>entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="82" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a54ac991262cd696da90dd18310995736" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::get_mean</definition>
+        <argsstring>() const </argsstring>
+        <name>get_mean</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="83" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1ad9f034dae24b631fa0b5139cd4f29b1a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::get_variance</definition>
+        <argsstring>() const </argsstring>
+        <name>get_variance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="84" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="84" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a93a26f3242e02023172c54b6b82e5516" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; double &gt;::iterator</type>
+        <definition>std::vector&lt;double&gt;::iterator mcpele::Histogram::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="85" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a8d4b79d418263af19547cfe42df14700" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; double &gt;::iterator</type>
+        <definition>std::vector&lt;double&gt;::iterator mcpele::Histogram::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="86" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1ac9323d8cfd10faf0305514feb78bd33a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::get_position</definition>
+        <argsstring>(const size_t bin_index) const </argsstring>
+        <name>get_position</name>
+        <param>
+          <type>const size_t</type>
+          <declname>bin_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="87" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="87" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a9eddd3113511e59d7b49f693fc2152a3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; mcpele::Histogram::get_vecdata</definition>
+        <argsstring>() const </argsstring>
+        <name>get_vecdata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="88" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="88" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a89a09120ead0a701a05352b627790f14" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::Histogram::get_entry</definition>
+        <argsstring>(const size_t bin_index) const </argsstring>
+        <name>get_entry</name>
+        <param>
+          <type>const size_t</type>
+          <declname>bin_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="89" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="89" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a12553273f14fde64d977acdd468c0f19" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt; double &gt; mcpele::Histogram::get_vecdata_error</definition>
+        <argsstring>() const </argsstring>
+        <name>get_vecdata_error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="90" bodyfile="/home/sm958/Work/mcpele/source/histogram.cpp" bodystart="86" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1afa079be2c29686204d84badb5afe40af" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt; double &gt; mcpele::Histogram::get_vecdata_normalized</definition>
+        <argsstring>() const </argsstring>
+        <name>get_vecdata_normalized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="91" bodyfile="/home/sm958/Work/mcpele/source/histogram.cpp" bodystart="96" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a49853926fd36ebd17fe4d175f7ecb3fb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::Histogram::print_terminal</definition>
+        <argsstring>() const </argsstring>
+        <name>print_terminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="92" bodyfile="/home/sm958/Work/mcpele/source/histogram.cpp" bodystart="106" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1Histogram_1a20ef56d27ca0364d32b6cabfaef4b6c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::Histogram::resize</definition>
+        <argsstring>(const double E, const int i)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>const double</type>
+          <declname>E</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="93" bodyfile="/home/sm958/Work/mcpele/source/histogram.cpp" bodystart="46" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h" line="64" bodyfile="/home/sm958/Work/mcpele/source/mcpele/histogram.h" bodystart="64" bodyend="94"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1Histogram_1a2ff51dc04284a0371187d04f808c3c27" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>add_entry</name></member>
+      <member refid="classmcpele_1_1Histogram_1a93a26f3242e02023172c54b6b82e5516" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>begin</name></member>
+      <member refid="classmcpele_1_1Histogram_1a9a90258e8df0945f38020b5ae1c9e19f" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>bin</name></member>
+      <member refid="classmcpele_1_1Histogram_1a8d4b79d418263af19547cfe42df14700" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>end</name></member>
+      <member refid="classmcpele_1_1Histogram_1adacd3cc3fc6a0f9a09035d796f436cc6" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>entries</name></member>
+      <member refid="classmcpele_1_1Histogram_1a89a09120ead0a701a05352b627790f14" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_entry</name></member>
+      <member refid="classmcpele_1_1Histogram_1a54ac991262cd696da90dd18310995736" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_mean</name></member>
+      <member refid="classmcpele_1_1Histogram_1ac9323d8cfd10faf0305514feb78bd33a" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_position</name></member>
+      <member refid="classmcpele_1_1Histogram_1ad9f034dae24b631fa0b5139cd4f29b1a" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_variance</name></member>
+      <member refid="classmcpele_1_1Histogram_1a9eddd3113511e59d7b49f693fc2152a3" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_vecdata</name></member>
+      <member refid="classmcpele_1_1Histogram_1a12553273f14fde64d977acdd468c0f19" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_vecdata_error</name></member>
+      <member refid="classmcpele_1_1Histogram_1afa079be2c29686204d84badb5afe40af" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>get_vecdata_normalized</name></member>
+      <member refid="classmcpele_1_1Histogram_1a527370a55aa12f1a36390865f144ab76" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>Histogram</name></member>
+      <member refid="classmcpele_1_1Histogram_1a31a9aa25478dfc8f4f71087bef157fe7" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_bin</name></member>
+      <member refid="classmcpele_1_1Histogram_1ada65339a433af943d05de698c792d991" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_eps</name></member>
+      <member refid="classmcpele_1_1Histogram_1abdf19b97acf04fc1afba72bfd9d1fd91" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_hist</name></member>
+      <member refid="classmcpele_1_1Histogram_1a0992d03fb112a480a0a8514a4da2d51e" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_max</name></member>
+      <member refid="classmcpele_1_1Histogram_1a3be26e1f2f72e96ddf04aa28df48918b" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_min</name></member>
+      <member refid="classmcpele_1_1Histogram_1ad7d64976c19b9310a865313388ac2537" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_moments</name></member>
+      <member refid="classmcpele_1_1Histogram_1a6e9b41eb6b039061699a4bede1834385" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_N</name></member>
+      <member refid="classmcpele_1_1Histogram_1a3b158d4c10e7e399b7f88f2cf7eddf03" prot="private" virt="non-virtual"><scope>mcpele::Histogram</scope><name>m_niter</name></member>
+      <member refid="classmcpele_1_1Histogram_1afb72fcce52a9718593956481e038a333" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>max</name></member>
+      <member refid="classmcpele_1_1Histogram_1a8bb9aea49e095dd5508de32bdc7ebdcf" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>min</name></member>
+      <member refid="classmcpele_1_1Histogram_1a49853926fd36ebd17fe4d175f7ecb3fb" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>print_terminal</name></member>
+      <member refid="classmcpele_1_1Histogram_1a20ef56d27ca0364d32b6cabfaef4b6c1" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>resize</name></member>
+      <member refid="classmcpele_1_1Histogram_1a493a8f86c28d26c1c66e43ddb5210150" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>size</name></member>
+      <member refid="classmcpele_1_1Histogram_1a13bccf52f23ea879132d6e6b89172915" prot="public" virt="non-virtual"><scope>mcpele::Histogram</scope><name>~Histogram</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

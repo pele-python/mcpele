@@ -1,0 +1,126 @@
+\hypertarget{classmcpele_1_1PairDistHistogram}{\section{mcpele\-:\-:\-Pair\-Dist\-Histogram$<$ \-B\-O\-X\-D\-I\-M $>$ \-Class \-Template \-Reference}
+\label{classmcpele_1_1PairDistHistogram}\index{mcpele\-::\-Pair\-Dist\-Histogram$<$ B\-O\-X\-D\-I\-M $>$@{mcpele\-::\-Pair\-Dist\-Histogram$<$ B\-O\-X\-D\-I\-M $>$}}
+}
+
+
+{\ttfamily \#include $<$pair\-\_\-dist\-\_\-histogram.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmcpele_1_1PairDistHistogram_a2eb2e7d4fe32c03f17f85ea18373af1c}{\-Pair\-Dist\-Histogram} (pele\-::\-Array$<$ double $>$ boxvector, const size\-\_\-t nr\-\_\-bins)
+\item 
+virtual \hyperlink{classmcpele_1_1PairDistHistogram_aa9e464547fc961cb8ec394331369aa55}{$\sim$\-Pair\-Dist\-Histogram} ()
+\item 
+void \hyperlink{classmcpele_1_1PairDistHistogram_aed454da4feb9525c05fa05389dfa875e}{add\-\_\-configuration} (pele\-::\-Array$<$ double $>$ coords)
+\item 
+void \hyperlink{classmcpele_1_1PairDistHistogram_afc8c7d70c8fd97c995ff1bcbfb1d2a41}{add\-\_\-distance} (const size\-\_\-t i, const size\-\_\-t j, const double $\ast$coor)
+\item 
+double \hyperlink{classmcpele_1_1PairDistHistogram_a60dbf068f7b45fa2a4ba59eef078705b}{volume\-\_\-nball} (const double radius, const size\-\_\-t ndim) const 
+\item 
+std\-::vector$<$ double $>$ \hyperlink{classmcpele_1_1PairDistHistogram_a00a321092cf3d428b36c4ea0695995ac}{get\-\_\-vecdata\-\_\-r} () const 
+\item 
+std\-::vector$<$ double $>$ \hyperlink{classmcpele_1_1PairDistHistogram_ac5a27c5e7329ac64829fc16c92fb911c}{get\-\_\-vecdata\-\_\-gr} (const double number\-\_\-density, const size\-\_\-t nr\-\_\-particles) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\subsubsection*{template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$class mcpele\-::\-Pair\-Dist\-Histogram$<$ B\-O\-X\-D\-I\-M $>$}
+
+
+
+\-Definition at line 16 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmcpele_1_1PairDistHistogram_a2eb2e7d4fe32c03f17f85ea18373af1c}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!\-Pair\-Dist\-Histogram@{\-Pair\-Dist\-Histogram}}
+\index{\-Pair\-Dist\-Histogram@{\-Pair\-Dist\-Histogram}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{\-Pair\-Dist\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::{\bf \-Pair\-Dist\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{boxvector, }
+\item[{const size\-\_\-t}]{nr\-\_\-bins}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_a2eb2e7d4fe32c03f17f85ea18373af1c}
+
+
+\-Definition at line 26 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+\hypertarget{classmcpele_1_1PairDistHistogram_aa9e464547fc961cb8ec394331369aa55}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!$\sim$\-Pair\-Dist\-Histogram@{$\sim$\-Pair\-Dist\-Histogram}}
+\index{$\sim$\-Pair\-Dist\-Histogram@{$\sim$\-Pair\-Dist\-Histogram}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{$\sim$\-Pair\-Dist\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ virtual {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::$\sim${\bf \-Pair\-Dist\-Histogram} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_aa9e464547fc961cb8ec394331369aa55}
+
+
+\-Definition at line 39 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmcpele_1_1PairDistHistogram_aed454da4feb9525c05fa05389dfa875e}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!add\-\_\-configuration@{add\-\_\-configuration}}
+\index{add\-\_\-configuration@{add\-\_\-configuration}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{add\-\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ void {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::{\bf add\-\_\-configuration} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{coords}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_aed454da4feb9525c05fa05389dfa875e}
+
+
+\-Definition at line 40 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+\hypertarget{classmcpele_1_1PairDistHistogram_afc8c7d70c8fd97c995ff1bcbfb1d2a41}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!add\-\_\-distance@{add\-\_\-distance}}
+\index{add\-\_\-distance@{add\-\_\-distance}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{add\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ void {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::{\bf add\-\_\-distance} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{i, }
+\item[{const size\-\_\-t}]{j, }
+\item[{const double $\ast$}]{coor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_afc8c7d70c8fd97c995ff1bcbfb1d2a41}
+
+
+\-Definition at line 50 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+\hypertarget{classmcpele_1_1PairDistHistogram_ac5a27c5e7329ac64829fc16c92fb911c}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!get\-\_\-vecdata\-\_\-gr@{get\-\_\-vecdata\-\_\-gr}}
+\index{get\-\_\-vecdata\-\_\-gr@{get\-\_\-vecdata\-\_\-gr}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{get\-\_\-vecdata\-\_\-gr}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ std\-::vector$<$double$>$ {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::{\bf get\-\_\-vecdata\-\_\-gr} (
+\begin{DoxyParamCaption}
+\item[{const double}]{number\-\_\-density, }
+\item[{const size\-\_\-t}]{nr\-\_\-particles}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_ac5a27c5e7329ac64829fc16c92fb911c}
+
+
+\-Definition at line 80 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+\hypertarget{classmcpele_1_1PairDistHistogram_a00a321092cf3d428b36c4ea0695995ac}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!get\-\_\-vecdata\-\_\-r@{get\-\_\-vecdata\-\_\-r}}
+\index{get\-\_\-vecdata\-\_\-r@{get\-\_\-vecdata\-\_\-r}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{get\-\_\-vecdata\-\_\-r}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ std\-::vector$<$double$>$ {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::{\bf get\-\_\-vecdata\-\_\-r} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_a00a321092cf3d428b36c4ea0695995ac}
+
+
+\-Definition at line 71 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+\hypertarget{classmcpele_1_1PairDistHistogram_a60dbf068f7b45fa2a4ba59eef078705b}{\index{mcpele\-::\-Pair\-Dist\-Histogram@{mcpele\-::\-Pair\-Dist\-Histogram}!volume\-\_\-nball@{volume\-\_\-nball}}
+\index{volume\-\_\-nball@{volume\-\_\-nball}!mcpele::PairDistHistogram@{mcpele\-::\-Pair\-Dist\-Histogram}}
+\subsubsection[{volume\-\_\-nball}]{\setlength{\rightskip}{0pt plus 5cm}template$<$size\-\_\-t \-B\-O\-X\-D\-I\-M$>$ double {\bf mcpele\-::\-Pair\-Dist\-Histogram}$<$ \-B\-O\-X\-D\-I\-M $>$\-::{\bf volume\-\_\-nball} (
+\begin{DoxyParamCaption}
+\item[{const double}]{radius, }
+\item[{const size\-\_\-t}]{ndim}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1PairDistHistogram_a60dbf068f7b45fa2a4ba59eef078705b}
+
+
+\-Definition at line 67 of file pair\-\_\-dist\-\_\-histogram.\-h.
+
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+mcpele/\hyperlink{pair__dist__histogram_8h}{pair\-\_\-dist\-\_\-histogram.\-h}\end{DoxyCompactItemize}

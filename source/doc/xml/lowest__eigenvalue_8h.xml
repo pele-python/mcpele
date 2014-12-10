@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="lowest__eigenvalue_8h" kind="file">
+    <compoundname>lowest_eigenvalue.h</compoundname>
+    <includes local="yes">pele/base_potential.h</includes>
+    <includes local="yes">pele/lbfgs.h</includes>
+    <includes local="yes">pele/lowest_eig_potential.h</includes>
+    <includedby refid="record__lowest__evalue__timeseries_8h" local="yes">mcpele/record_lowest_evalue_timeseries.h</includedby>
+    <includedby refid="lowest__eigenvalue_8cpp" local="yes">lowest_eigenvalue.cpp</includedby>
+    <incdepgraph>
+      <node id="140">
+        <label>pele/lbfgs.h</label>
+      </node>
+      <node id="138">
+        <label>mcpele/lowest_eigenvalue.h</label>
+        <link refid="lowest_eigenvalue.h"/>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>pele/lowest_eig_potential.h</label>
+      </node>
+      <node id="139">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="143">
+        <label>mcpele/record_lowest_evalue_timeseries.h</label>
+        <link refid="record__lowest__evalue__timeseries_8h"/>
+      </node>
+      <node id="142">
+        <label>mcpele/lowest_eigenvalue.h</label>
+        <link refid="lowest_eigenvalue.h"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>lowest_eigenvalue.cpp</label>
+        <link refid="lowest__eigenvalue_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1FindLowestEigenvalue" prot="public">mcpele::FindLowestEigenvalue</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_LOWEST_EIGENVALUE_H</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_LOWEST_EIGENVALUE_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pele/base_potential.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pele/lbfgs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pele/lowest_eig_potential.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="classmcpele_1_1FindLowestEigenvalue" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1FindLowestEigenvalue" kindref="compound">FindLowestEigenvalue</ref>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;pele::LowestEigPotential&gt;<sp/>m_lowesteigpot;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>pele::Array&lt;double&gt;<sp/>m_ranvec;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>pele::LBFGS<sp/>m_lbfgs;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1FindLowestEigenvalue_1aa8cff93dfc74754b4bd4f290d852a7a0" kindref="member">FindLowestEigenvalue</ref>(std::shared_ptr&lt;pele::BasePotential&gt;<sp/>landscape_potential,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>boxdimension,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>pele::Array&lt;double&gt;<sp/>ranvec,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>lbfgsniter);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1FindLowestEigenvalue_1a29f56a74823d7e974187b1a04ff44639" kindref="member">compute_lowest_eigenvalue</ref>(pele::Array&lt;double&gt;<sp/>coords);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight><highlight class="comment">//namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#endif//#ifndef<sp/>_MCPELE_LOWEST_EIGENVALUE_H</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/lowest_eigenvalue.h"/>
+  </compounddef>
+</doxygen>

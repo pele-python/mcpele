@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="random__coords__displacement_8h" kind="file">
+    <compoundname>random_coords_displacement.h</compoundname>
+    <includes local="no">random</includes>
+    <includes refid="mc_8h" local="yes">mc.h</includes>
+    <includedby refid="random__coords__displacement_8cpp" local="yes">random_coords_displacement.cpp</includedby>
+    <incdepgraph>
+      <node id="251">
+        <label>cmath</label>
+      </node>
+      <node id="254">
+        <label>stdexcept</label>
+      </node>
+      <node id="255">
+        <label>pele/array.h</label>
+      </node>
+      <node id="248">
+        <label>mcpele/random_coords_displacement.h</label>
+        <link refid="random_coords_displacement.h"/>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+      </node>
+      <node id="249">
+        <label>random</label>
+      </node>
+      <node id="250">
+        <label>mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+        <childnode refid="256" relation="include">
+        </childnode>
+      </node>
+      <node id="252">
+        <label>algorithm</label>
+      </node>
+      <node id="253">
+        <label>memory</label>
+      </node>
+      <node id="256">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="257">
+        <label>mcpele/random_coords_displacement.h</label>
+        <link refid="random_coords_displacement.h"/>
+        <childnode refid="258" relation="include">
+        </childnode>
+      </node>
+      <node id="258">
+        <label>random_coords_displacement.cpp</label>
+        <link refid="random__coords__displacement_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1RandomCoordsDisplacement" prot="public">mcpele::RandomCoordsDisplacement</innerclass>
+    <innerclass refid="classmcpele_1_1RandomCoordsDisplacementAll" prot="public">mcpele::RandomCoordsDisplacementAll</innerclass>
+    <innerclass refid="classmcpele_1_1RandomCoordsDisplacementSingle" prot="public">mcpele::RandomCoordsDisplacementSingle</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_RANDOM_COORDS_DISPLACEMENT_H__</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_RANDOM_COORDS_DISPLACEMENT_H__</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;random&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mc_8h" kindref="compound">mc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classmcpele_1_1RandomCoordsDisplacement" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1RandomCoordsDisplacement" kindref="compound">RandomCoordsDisplacement</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1TakeStep" kindref="compound">TakeStep</ref><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18" refid="classmcpele_1_1RandomCoordsDisplacement_1a1b60fa629821ec194d0d153716d26f73" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a1b60fa629821ec194d0d153716d26f73" kindref="member">m_seed</ref>;</highlight></codeline>
+<codeline lineno="19" refid="classmcpele_1_1RandomCoordsDisplacement_1a6301d7fc89a1943a5fb7c870f25fe2a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::mt19937_64<sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a6301d7fc89a1943a5fb7c870f25fe2a2" kindref="member">m_generator</ref>;</highlight></codeline>
+<codeline lineno="20" refid="classmcpele_1_1RandomCoordsDisplacement_1a8d3de3a3e1b9595baf9618bf1530c5e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_real_distribution&lt;double&gt;<sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a8d3de3a3e1b9595baf9618bf1530c5e2" kindref="member">m_real_distribution</ref>;</highlight></codeline>
+<codeline lineno="21" refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" kindref="member">m_stepsize</ref>;</highlight></codeline>
+<codeline lineno="22" refid="classmcpele_1_1RandomCoordsDisplacement_1aabfbc53faf2723b66852d634bb6f9b0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1aabfbc53faf2723b66852d634bb6f9b0a" kindref="member">m_count</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a70c32449d74f21634737ebd382ede3aa" kindref="member">RandomCoordsDisplacement</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>rseed,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>stepsize=1);</highlight></codeline>
+<codeline lineno="25" refid="classmcpele_1_1RandomCoordsDisplacement_1a4603750d055490114b68f18b564e9fd4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a4603750d055490114b68f18b564e9fd4" kindref="member">~RandomCoordsDisplacement</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1aa6c2c40b2a36dc1711c5a7bbeeced708" kindref="member">displace</ref>(pele::Array&lt;double&gt;&amp;<sp/>coords,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc)<sp/>=0;</highlight></codeline>
+<codeline lineno="27" refid="classmcpele_1_1RandomCoordsDisplacement_1ac909159a4d7007b09cf5291af3415d82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1ac909159a4d7007b09cf5291af3415d82" kindref="member">get_seed</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a1b60fa629821ec194d0d153716d26f73" kindref="member">m_seed</ref>;}</highlight></codeline>
+<codeline lineno="28" refid="classmcpele_1_1RandomCoordsDisplacement_1aaf9325c782ecb904a71e92671c7732fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1aaf9325c782ecb904a71e92671c7732fb" kindref="member">set_generator_seed</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>inp)<sp/>{<sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a6301d7fc89a1943a5fb7c870f25fe2a2" kindref="member">m_generator</ref>.seed(inp);<sp/>}</highlight></codeline>
+<codeline lineno="29" refid="classmcpele_1_1RandomCoordsDisplacement_1ae8cff94bafe19a4fb529e2dbc8ac3ab1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1ae8cff94bafe19a4fb529e2dbc8ac3ab1" kindref="member">expected_mean</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/>}</highlight></codeline>
+<codeline lineno="30" refid="classmcpele_1_1RandomCoordsDisplacement_1a41cda87cd1b61178bc5035f9c4bcf753" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a41cda87cd1b61178bc5035f9c4bcf753" kindref="member">get_stepsize</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" kindref="member">m_stepsize</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="34" refid="classmcpele_1_1RandomCoordsDisplacement_1a77a73851c26beb001c8a48be76362a15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a77a73851c26beb001c8a48be76362a15" kindref="member">expected_variance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ss)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ss<sp/>*<sp/>ss<sp/>/<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(12);<sp/>}</highlight></codeline>
+<codeline lineno="35" refid="classmcpele_1_1RandomCoordsDisplacement_1abb8bd83d44eb248599c799f6ff76656f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1abb8bd83d44eb248599c799f6ff76656f" kindref="member">increase_acceptance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>factor)<sp/>{<sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" kindref="member">m_stepsize</ref><sp/>*=<sp/>factor;<sp/>}</highlight></codeline>
+<codeline lineno="36" refid="classmcpele_1_1RandomCoordsDisplacement_1a75b39857737f466cee1ff4fe452d848e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a75b39857737f466cee1ff4fe452d848e" kindref="member">decrease_acceptance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>factor)<sp/>{<sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" kindref="member">m_stepsize</ref><sp/>/=<sp/>factor;<sp/>}</highlight></codeline>
+<codeline lineno="37" refid="classmcpele_1_1RandomCoordsDisplacement_1a37d0b36e6f3ec26e0ce3a5b5a381d661" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1a37d0b36e6f3ec26e0ce3a5b5a381d661" kindref="member">get_count</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement_1aabfbc53faf2723b66852d634bb6f9b0a" kindref="member">m_count</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="classmcpele_1_1RandomCoordsDisplacementAll" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1RandomCoordsDisplacementAll" kindref="compound">RandomCoordsDisplacementAll</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement" kindref="compound">RandomCoordsDisplacement</ref><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementAll_1aeddd85475bfd9fc2b0877259ce0fa6c8" kindref="member">RandomCoordsDisplacementAll</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>rseed,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>stepsize=1);</highlight></codeline>
+<codeline lineno="43" refid="classmcpele_1_1RandomCoordsDisplacementAll_1ac80a8e168ea9f6e1f17d6462ce325492" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementAll_1ac80a8e168ea9f6e1f17d6462ce325492" kindref="member">~RandomCoordsDisplacementAll</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementAll_1ab40ce59b2d74ffe3d8042c3e90268eab" kindref="member">displace</ref>(pele::Array&lt;double&gt;&amp;<sp/>coords,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="classmcpele_1_1RandomCoordsDisplacementSingle" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1RandomCoordsDisplacementSingle" kindref="compound">RandomCoordsDisplacementSingle</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacement" kindref="compound">RandomCoordsDisplacement</ref><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>m_nparticles,<sp/>m_ndim,<sp/>m_rand_particle;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uniform_int_distribution&lt;size_t&gt;<sp/>m_int_distribution;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a5a5ff549e6129c94d87bf4416f23574f" kindref="member">RandomCoordsDisplacementSingle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>rseed,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nparticles,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndim,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>stepsize=1);</highlight></codeline>
+<codeline lineno="52" refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a96c89a89af34b00f2705cd226e94142d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a96c89a89af34b00f2705cd226e94142d" kindref="member">~RandomCoordsDisplacementSingle</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a52c3271d105453d89024230f3f392dc7" kindref="member">displace</ref>(pele::Array&lt;double&gt;&amp;<sp/>coords,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc);</highlight></codeline>
+<codeline lineno="54" refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a86f20835fae2527099165f24e894788b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a86f20835fae2527099165f24e894788b" kindref="member">get_rand_particle</ref>(){</highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_rand_particle;}<sp/></highlight><highlight class="comment">//dangerous<sp/>function,<sp/>should<sp/>be<sp/>used<sp/>only<sp/>for<sp/>testing<sp/>purposes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>#ifndef<sp/>_MCPELE_RANDOM_COORDS_DISPLACEMENT_H__</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h"/>
+  </compounddef>
+</doxygen>

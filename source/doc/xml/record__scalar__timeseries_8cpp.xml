@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="record__scalar__timeseries_8cpp" kind="file">
+    <compoundname>record_scalar_timeseries.cpp</compoundname>
+    <includes refid="record__scalar__timeseries_8h" local="yes">mcpele/record_scalar_timeseries.h</includes>
+    <includes refid="moving__average_8h" local="yes">mcpele/moving_average.h</includes>
+    <incdepgraph>
+      <node id="425">
+        <label>list</label>
+      </node>
+      <node id="427">
+        <label>limits</label>
+      </node>
+      <node id="416">
+        <label>cmath</label>
+      </node>
+      <node id="419">
+        <label>stdexcept</label>
+      </node>
+      <node id="420">
+        <label>pele/array.h</label>
+      </node>
+      <node id="424">
+        <label>histogram.h</label>
+        <link refid="histogram_8h"/>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+        <childnode refid="425" relation="include">
+        </childnode>
+        <childnode refid="426" relation="include">
+        </childnode>
+        <childnode refid="427" relation="include">
+        </childnode>
+        <childnode refid="420" relation="include">
+        </childnode>
+      </node>
+      <node id="422">
+        <label>mcpele/moving_average.h</label>
+        <link refid="moving__average_8h"/>
+        <childnode refid="417" relation="include">
+        </childnode>
+        <childnode refid="423" relation="include">
+        </childnode>
+        <childnode refid="424" relation="include">
+        </childnode>
+      </node>
+      <node id="415">
+        <label>mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+        <childnode refid="418" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="420" relation="include">
+        </childnode>
+        <childnode refid="421" relation="include">
+        </childnode>
+      </node>
+      <node id="413">
+        <label>record_scalar_timeseries.cpp</label>
+        <link refid="record_scalar_timeseries.cpp"/>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="422" relation="include">
+        </childnode>
+      </node>
+      <node id="423">
+        <label>vector</label>
+      </node>
+      <node id="426">
+        <label>iostream</label>
+      </node>
+      <node id="417">
+        <label>algorithm</label>
+      </node>
+      <node id="414">
+        <label>mcpele/record_scalar_timeseries.h</label>
+        <link refid="record__scalar__timeseries_8h"/>
+        <childnode refid="415" relation="include">
+        </childnode>
+      </node>
+      <node id="418">
+        <label>memory</label>
+      </node>
+      <node id="421">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="record__scalar__timeseries_8h" kindref="compound">mcpele/record_scalar_timeseries.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="moving__average_8h" kindref="compound">mcpele/moving_average.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>pele::Array;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classmcpele_1_1RecordScalarTimeseries_1af446b764d9a8f16f67c751bfb94a47d1" refkind="member"><highlight class="normal"><ref refid="classmcpele_1_1RecordScalarTimeseries_1af446b764d9a8f16f67c751bfb94a47d1" kindref="member">RecordScalarTimeseries::RecordScalarTimeseries</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>niter,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>record_every)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>m_record_every(record_every)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(record_every<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;RecordScalarTimeseries:<sp/>record_every<sp/>expected<sp/>to<sp/>be<sp/>at<sp/>least<sp/>1&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>m_time_series.reserve(niter<sp/>/<sp/>record_every);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7" kindref="member">RecordScalarTimeseries::action</ref>(Array&lt;double&gt;<sp/>&amp;coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>energy,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>accepted,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>counter<sp/>=<sp/>mc-&gt;<ref refid="classmcpele_1_1MC_1a9a8e8b2c4a9e77b5136c9a3c1b67bb9c" kindref="member">get_iterations_count</ref>();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(counter<sp/>%<sp/>m_record_every<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_record_scalar_value(this-&gt;<ref refid="classmcpele_1_1RecordScalarTimeseries_1a8151f9f679c926d481e7354ac170663a" kindref="member">get_recorded_scalar</ref>(coords,<sp/>energy,<sp/>accepted,<sp/>mc));</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="classmcpele_1_1RecordScalarTimeseries_1a98fce48e1cc8cd2e73fb0705a4d05cde" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a98fce48e1cc8cd2e73fb0705a4d05cde" kindref="member">RecordScalarTimeseries::moving_average_is_stable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_to_check,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rel_std_threshold)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>std::pair&lt;double,double&gt;<sp/>mean_ma<sp/>=<sp/>this-&gt;<ref refid="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" kindref="member">get_moving_average_mean</ref>(nr_steps_to_check);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>mu_mean_ma<sp/>=<sp/>mean_ma.first;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>std_mean_ma<sp/>=<sp/>mean_ma.second;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout&lt;&lt;&quot;std_mean_ma/mu_mean_ma<sp/>&quot;&lt;&lt;100*std_mean_ma/mu_mean_ma&lt;&lt;std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<sp/>(std_mean_ma<sp/>/<sp/>mu_mean_ma)<sp/>&lt;<sp/>rel_std_threshold);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*std::pair&lt;double,double&gt;<sp/>var_ma<sp/>=<sp/>this-&gt;get_moving_average_variance(nr_steps_to_check);</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/><sp/><sp/><sp/>const<sp/>double<sp/>mu_var_ma<sp/>=<sp/>var_ma.first;</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/><sp/><sp/><sp/>const<sp/>double<sp/>std_var_ma<sp/>=<sp/>var_ma.second;</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/><sp/>std::cout&lt;&lt;&quot;std_var_ma/mu_var_ma<sp/>&quot;&lt;&lt;100*std_var_ma/mu_var_ma&lt;&lt;std::endl;</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>(std_var_ma<sp/>/<sp/>mu_var_ma)<sp/>&lt;<sp/>rel_std_threshold*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" refkind="member"><highlight class="normal">std::pair&lt;double,double&gt;<sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" kindref="member">RecordScalarTimeseries::get_moving_average_mean</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_to_check)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>scale<sp/>=<sp/>10;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tmp<sp/>=<sp/>nr_steps_to_check<sp/>/<sp/>scale;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>window_size<sp/>=<sp/>tmp<sp/>+<sp/>(tmp<sp/>%<sp/>2);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MovingAverageAcc" kindref="compound">MovingAverageAcc</ref><sp/>moving_average(m_time_series,<sp/>nr_steps_to_check,<sp/>window_size);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments" kindref="compound">Moments</ref><sp/>moving_average_mean;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_ma<sp/>=<sp/>moving_average.get_nr_steps_ma();</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nr_steps_ma;<sp/>++i,<sp/>moving_average.shift_right())<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>moving_average_mean.<ref refid="classmcpele_1_1Moments_1a4013c89a1d84431b62ca3ad7d32d5278" kindref="member">update</ref>(moving_average.get_mean());</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::pair&lt;double,double&gt;(moving_average_mean.<ref refid="classmcpele_1_1Moments_1a1707a2b086488a643deb51e06bdf8c48" kindref="member">mean</ref>(),moving_average_mean.<ref refid="classmcpele_1_1Moments_1afe797a35a1e551a057348de77807d34e" kindref="member">std</ref>());</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="classmcpele_1_1RecordScalarTimeseries_1a0df1f17ac9304e831f37e7e97bf45b83" refkind="member"><highlight class="normal">std::pair&lt;double,double&gt;<sp/><ref refid="classmcpele_1_1RecordScalarTimeseries_1a0df1f17ac9304e831f37e7e97bf45b83" kindref="member">RecordScalarTimeseries::get_moving_average_variance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_to_check)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>scale<sp/>=<sp/>10;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tmp<sp/>=<sp/>nr_steps_to_check<sp/>/<sp/>scale;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>window_size<sp/>=<sp/>tmp<sp/>+<sp/>(tmp<sp/>%<sp/>2);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MovingAverageAcc" kindref="compound">MovingAverageAcc</ref><sp/>moving_average(m_time_series,<sp/>nr_steps_to_check,<sp/>window_size);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments" kindref="compound">Moments</ref><sp/>moving_average_var;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nr_steps_ma<sp/>=<sp/>moving_average.get_nr_steps_ma();</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nr_steps_ma;<sp/>++i,<sp/>moving_average.shift_right())<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>moving_average_var.<ref refid="classmcpele_1_1Moments_1a4013c89a1d84431b62ca3ad7d32d5278" kindref="member">update</ref>(moving_average.get_variance());</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::pair&lt;double,double&gt;(moving_average_var.<ref refid="classmcpele_1_1Moments_1a1707a2b086488a643deb51e06bdf8c48" kindref="member">mean</ref>(),moving_average_var.<ref refid="classmcpele_1_1Moments_1afe797a35a1e551a057348de77807d34e" kindref="member">std</ref>());</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp"/>
+  </compounddef>
+</doxygen>

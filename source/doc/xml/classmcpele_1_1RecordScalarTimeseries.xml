@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1RecordScalarTimeseries" kind="class" prot="public">
+    <compoundname>mcpele::RecordScalarTimeseries</compoundname>
+    <basecompoundref refid="classmcpele_1_1Action" prot="public" virt="non-virtual">mcpele::Action</basecompoundref>
+    <derivedcompoundref refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries" prot="public" virt="non-virtual">mcpele::RecordDisplacementPerParticleTimeseries</derivedcompoundref>
+    <derivedcompoundref refid="classmcpele_1_1RecordEnergyTimeseries" prot="public" virt="non-virtual">mcpele::RecordEnergyTimeseries</derivedcompoundref>
+    <derivedcompoundref refid="classmcpele_1_1RecordLowestEValueTimeseries" prot="public" virt="non-virtual">mcpele::RecordLowestEValueTimeseries</derivedcompoundref>
+    <includes refid="record__scalar__timeseries_8h" local="no">record_scalar_timeseries.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1RecordScalarTimeseries_1a2042053ba43f2e07f6cc15daf4950660" prot="private" static="no" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t mcpele::RecordScalarTimeseries::m_record_every</definition>
+        <argsstring></argsstring>
+        <name>m_record_every</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="13" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1RecordScalarTimeseries_1afb10e894eaed9e98f8d47b00d7b26488" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; mcpele::RecordScalarTimeseries::m_time_series</definition>
+        <argsstring></argsstring>
+        <name>m_time_series</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="14" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1af752cd44cd144dbe6e8c824f8989adb7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::RecordScalarTimeseries::m_record_scalar_value</definition>
+        <argsstring>(const double input)</argsstring>
+        <name>m_record_scalar_value</name>
+        <param>
+          <type>const double</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="16" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="15" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1af446b764d9a8f16f67c751bfb94a47d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::RecordScalarTimeseries::RecordScalarTimeseries</definition>
+        <argsstring>(const size_t, const size_t)</argsstring>
+        <name>RecordScalarTimeseries</name>
+        <param>
+          <type>const size_t</type>
+          <defname>niter</defname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <defname>record_every</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="20" bodyfile="/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp" bodystart="8" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1aba51863fc7829b1fa7a2908ea3b8dd3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::RecordScalarTimeseries::~RecordScalarTimeseries</definition>
+        <argsstring>()</argsstring>
+        <name>~RecordScalarTimeseries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="21" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void mcpele::RecordScalarTimeseries::action</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;coords, double energy, bool accepted, MC *mc)</argsstring>
+        <name>action</name>
+        <reimplements refid="classmcpele_1_1Action_1a9500d60c55f0d36ffb6ed0464ea3c68e">action</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>energy</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>accepted</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="22" bodyfile="/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp" bodystart="17" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1a8151f9f679c926d481e7354ac170663a" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double mcpele::RecordScalarTimeseries::get_recorded_scalar</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;coords, const double energy, const bool accepted, MC *mc)=0</argsstring>
+        <name>get_recorded_scalar</name>
+        <reimplementedby refid="classmcpele_1_1RecordEnergyTimeseries_1a6cab4a7ab5462ee3ddf0c6eacb88b757">get_recorded_scalar</reimplementedby>
+        <reimplementedby refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries_1ac049afa25de4847b76910680cb3f1a10">get_recorded_scalar</reimplementedby>
+        <reimplementedby refid="classmcpele_1_1RecordLowestEValueTimeseries_1affb535be88d9352a5b323e26a7c17bd2">get_recorded_scalar</reimplementedby>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>energy</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>accepted</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1a98fce48e1cc8cd2e73fb0705a4d05cde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mcpele::RecordScalarTimeseries::moving_average_is_stable</definition>
+        <argsstring>(const size_t nr_steps_to_check=1000, const double rel_std_threshold=0.1)</argsstring>
+        <name>moving_average_is_stable</name>
+        <param>
+          <type>const size_t</type>
+          <declname>nr_steps_to_check</declname>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>rel_std_threshold</declname>
+          <defval>0.1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Apply a basic check on the behaviour of the moving average of the recorded time series to decide if it is sufficiently stable. Parameters: nr_steps_to_check is the number of steps, from the present into the past, that are considered for the moving average check. rel_std_threshold is the relative size of the fluctuations in the moving average that is considered stable. Decreasing that number should make the test more sensitive. NOTE: we do not test the variance because the variance has some functional dependence on the mean var = f(mu). In order to remove this one would require a &quot;variance stabilising transformation&quot; which would require the implementation of a different moments class where f(x) si stored giving an approximately constant variance as a function of the mean. See Ascombe transform for instance. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="24" bodyfile="/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp" bodystart="40" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; double, double &gt;</type>
+        <definition>std::pair&lt; double, double &gt; mcpele::RecordScalarTimeseries::get_moving_average_mean</definition>
+        <argsstring>(const size_t nr_steps_to_check)</argsstring>
+        <name>get_moving_average_mean</name>
+        <param>
+          <type>const size_t</type>
+          <declname>nr_steps_to_check</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="25" bodyfile="/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp" bodystart="55" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1a0df1f17ac9304e831f37e7e97bf45b83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; double, double &gt;</type>
+        <definition>std::pair&lt; double, double &gt; mcpele::RecordScalarTimeseries::get_moving_average_variance</definition>
+        <argsstring>(const size_t nr_steps_to_check)</argsstring>
+        <name>get_moving_average_variance</name>
+        <param>
+          <type>const size_t</type>
+          <declname>nr_steps_to_check</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="26" bodyfile="/home/sm958/Work/mcpele/source/record_scalar_timeseries.cpp" bodystart="69" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1ad3c2dbc09a421030dcddff87d96299e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>pele::Array&lt; double &gt;</type>
+        <definition>pele::Array&lt;double&gt; mcpele::RecordScalarTimeseries::get_time_series</definition>
+        <argsstring>()</argsstring>
+        <name>get_time_series</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="28" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="27" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RecordScalarTimeseries_1a0f616cd3a4e0dea710c0919f22b8f5ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::RecordScalarTimeseries::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="33" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="32" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Record scalar time series, every record_every-th step. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="103">
+        <label>mcpele::Action</label>
+        <link refid="classmcpele_1_1Action"/>
+      </node>
+      <node id="106">
+        <label>mcpele::RecordLowestEValueTimeseries</label>
+        <link refid="classmcpele_1_1RecordLowestEValueTimeseries"/>
+        <childnode refid="102" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>mcpele::RecordDisplacementPerParticleTimeseries</label>
+        <link refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries"/>
+        <childnode refid="102" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>mcpele::RecordScalarTimeseries</label>
+        <link refid="classmcpele_1_1RecordScalarTimeseries"/>
+        <childnode refid="103" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>mcpele::RecordEnergyTimeseries</label>
+        <link refid="classmcpele_1_1RecordEnergyTimeseries"/>
+        <childnode refid="102" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="108">
+        <label>mcpele::Action</label>
+        <link refid="classmcpele_1_1Action"/>
+      </node>
+      <node id="107">
+        <label>mcpele::RecordScalarTimeseries</label>
+        <link refid="classmcpele_1_1RecordScalarTimeseries"/>
+        <childnode refid="108" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" line="11" bodyfile="/home/sm958/Work/mcpele/source/mcpele/record_scalar_timeseries.h" bodystart="11" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7" prot="public" virt="virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>action</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1a0f616cd3a4e0dea710c0919f22b8f5ce" prot="public" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>clear</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" prot="public" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>get_moving_average_mean</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1a0df1f17ac9304e831f37e7e97bf45b83" prot="public" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>get_moving_average_variance</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1a8151f9f679c926d481e7354ac170663a" prot="public" virt="pure-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>get_recorded_scalar</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1ad3c2dbc09a421030dcddff87d96299e5" prot="public" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>get_time_series</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1a2042053ba43f2e07f6cc15daf4950660" prot="private" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>m_record_every</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1af752cd44cd144dbe6e8c824f8989adb7" prot="private" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>m_record_scalar_value</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1afb10e894eaed9e98f8d47b00d7b26488" prot="private" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>m_time_series</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1a98fce48e1cc8cd2e73fb0705a4d05cde" prot="public" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>moving_average_is_stable</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1af446b764d9a8f16f67c751bfb94a47d1" prot="public" virt="non-virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>RecordScalarTimeseries</name></member>
+      <member refid="classmcpele_1_1Action_1adee26930d409e327d88b8539b5bb3a67" prot="public" virt="virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>~Action</name></member>
+      <member refid="classmcpele_1_1RecordScalarTimeseries_1aba51863fc7829b1fa7a2908ea3b8dd3c" prot="public" virt="virtual"><scope>mcpele::RecordScalarTimeseries</scope><name>~RecordScalarTimeseries</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

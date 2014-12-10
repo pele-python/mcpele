@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="histogram_8h" kind="file">
+    <compoundname>histogram.h</compoundname>
+    <includes local="no">cmath</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">list</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">limits</includes>
+    <includes local="yes">pele/array.h</includes>
+    <includedby refid="moving__average_8h" local="yes">mcpele/moving_average.h</includedby>
+    <includedby refid="pair__dist__histogram_8h" local="yes">mcpele/pair_dist_histogram.h</includedby>
+    <includedby refid="record__energy__histogram_8h" local="yes">mcpele/record_energy_histogram.h</includedby>
+    <includedby refid="histogram_8cpp" local="yes">histogram.cpp</includedby>
+    <includedby refid="rsm__displacement_8cpp" local="yes">rsm_displacement.cpp</includedby>
+    <incdepgraph>
+      <node id="125">
+        <label>list</label>
+      </node>
+      <node id="127">
+        <label>limits</label>
+      </node>
+      <node id="123">
+        <label>cmath</label>
+      </node>
+      <node id="128">
+        <label>pele/array.h</label>
+      </node>
+      <node id="122">
+        <label>mcpele/histogram.h</label>
+        <link refid="histogram.h"/>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>iostream</label>
+      </node>
+      <node id="124">
+        <label>algorithm</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="133">
+        <label>mcpele/record_pair_dist_histogram.h</label>
+        <link refid="record__pair__dist__histogram_8h"/>
+      </node>
+      <node id="136">
+        <label>histogram.cpp</label>
+        <link refid="histogram_8cpp"/>
+      </node>
+      <node id="129">
+        <label>mcpele/histogram.h</label>
+        <link refid="histogram.h"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>mcpele/pair_dist_histogram.h</label>
+        <link refid="pair__dist__histogram_8h"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>mcpele/moving_average.h</label>
+        <link refid="moving__average_8h"/>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>record_energy_histogram.cpp</label>
+        <link refid="record__energy__histogram_8cpp"/>
+      </node>
+      <node id="131">
+        <label>record_scalar_timeseries.cpp</label>
+        <link refid="record__scalar__timeseries_8cpp"/>
+      </node>
+      <node id="134">
+        <label>mcpele/record_energy_histogram.h</label>
+        <link refid="record__energy__histogram_8h"/>
+        <childnode refid="135" relation="include">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>rsm_displacement.cpp</label>
+        <link refid="rsm__displacement_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1Moments" prot="public">mcpele::Moments</innerclass>
+    <innerclass refid="classmcpele_1_1Histogram" prot="public">mcpele::Histogram</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_HISTOGRAM_H</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_HISTOGRAM_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;list&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pele/array.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/*Dynamic<sp/>histogram<sp/>class<sp/>that<sp/>expand<sp/>if<sp/>energies<sp/>outside<sp/>of<sp/>the<sp/>initial<sp/>bounds<sp/>are<sp/>found.</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>Being<sp/>generous<sp/>on<sp/>the<sp/>initial<sp/>bounds<sp/>saves<sp/>a<sp/>lot<sp/>of<sp/>time<sp/>in<sp/>reallocation<sp/>of<sp/>memory,<sp/>at</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>the<sp/>cost<sp/>of<sp/>memory<sp/>preallocation.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>Notes:</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>-&gt;floor<sp/>always<sp/>casts<sp/>towards<sp/>minus<sp/>infinity</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>-&gt;a<sp/>list<sp/>is<sp/>used<sp/>instead<sp/>of<sp/>a<sp/>vector<sp/>because<sp/>more<sp/>efficient<sp/>at<sp/>pushing<sp/>forward</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>-&gt;begin<sp/>and<sp/>end<sp/>return<sp/>list<sp/>iterators<sp/>point<sp/>to<sp/>the<sp/>beginning<sp/>and<sp/>the<sp/>end<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/><sp/><sp/>histogram<sp/>respectively.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>-&gt;<sp/>the<sp/>most<sp/>basic<sp/>test<sp/>that<sp/>histogram<sp/>must<sp/>satisfy<sp/>is<sp/>that<sp/>there<sp/>must<sp/>be<sp/>as<sp/>many</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>beads<sp/>as<sp/>the<sp/>number<sp/>of<sp/>iterations<sp/>(commented<sp/>out<sp/>at<sp/>the<sp/>end<sp/>of<sp/>the<sp/>script)</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="classmcpele_1_1Moments" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1Moments" kindref="compound">Moments</ref><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="28" refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref>;</highlight></codeline>
+<codeline lineno="29" refid="classmcpele_1_1Moments_1a73dc5d511f63d1f4769d05bbc535f24c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a73dc5d511f63d1f4769d05bbc535f24c" kindref="member">index_t</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/>m_mean;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/>m_mean2;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a73dc5d511f63d1f4769d05bbc535f24c" kindref="member">index_t</ref><sp/>m_count;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="35" refid="classmcpele_1_1Moments_1ad40f97eac46ca595e759f6d2e249b2ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1ad40f97eac46ca595e759f6d2e249b2ad" kindref="member">Moments</ref>()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>m_mean(0),</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_mean2(0),</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_count(0)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="40" refid="classmcpele_1_1Moments_1a4013c89a1d84431b62ca3ad7d32d5278" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a4013c89a1d84431b62ca3ad7d32d5278" kindref="member">update</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/>input)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_mean<sp/>=<sp/>(m_mean<sp/>*<sp/>m_count<sp/>+<sp/>input)<sp/>/<sp/>(m_count<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_mean2<sp/>=<sp/>(m_mean2<sp/>*<sp/>m_count<sp/>+<sp/>(input<sp/>*<sp/>input))<sp/>/<sp/>(m_count<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m_count<sp/>==<sp/>std::numeric_limits&lt;index_t&gt;::max())<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Moments:<sp/>update:<sp/>integer<sp/>overflow&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++m_count;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52" refid="classmcpele_1_1Moments_1a6526753dd1c2be0863f7d02ddf8573b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a6526753dd1c2be0863f7d02ddf8573b4" kindref="member">replace</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/>old_data,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/>new_data)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_mean<sp/>+=<sp/>(new_data<sp/>-<sp/>old_data)<sp/>/<sp/>m_count;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_mean2<sp/>+=<sp/>(new_data<sp/>*<sp/>new_data<sp/>-<sp/>old_data<sp/>*<sp/>old_data)<sp/>/<sp/>m_count;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57" refid="classmcpele_1_1Moments_1aae097b850d24e7e969a0b69e0590cdfa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1aae097b850d24e7e969a0b69e0590cdfa" kindref="member">operator() </ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/>input)<sp/>{<sp/><ref refid="classmcpele_1_1Moments_1a4013c89a1d84431b62ca3ad7d32d5278" kindref="member">update</ref>(input);<sp/>}</highlight></codeline>
+<codeline lineno="58" refid="classmcpele_1_1Moments_1afb38f4e5675d4e3ecded24153d64f69b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a73dc5d511f63d1f4769d05bbc535f24c" kindref="member">index_t</ref><sp/><ref refid="classmcpele_1_1Moments_1afb38f4e5675d4e3ecded24153d64f69b" kindref="member">count</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_count;<sp/>}</highlight></codeline>
+<codeline lineno="59" refid="classmcpele_1_1Moments_1a1707a2b086488a643deb51e06bdf8c48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/><ref refid="classmcpele_1_1Moments_1a1707a2b086488a643deb51e06bdf8c48" kindref="member">mean</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_mean;<sp/>}</highlight></codeline>
+<codeline lineno="60" refid="classmcpele_1_1Moments_1a1fffc728d29b659f9f8c6438168f794d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/><ref refid="classmcpele_1_1Moments_1a1fffc728d29b659f9f8c6438168f794d" kindref="member">variance</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(m_mean2<sp/>-<sp/>m_mean<sp/>*<sp/>m_mean);<sp/>}</highlight></codeline>
+<codeline lineno="61" refid="classmcpele_1_1Moments_1afe797a35a1e551a057348de77807d34e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kindref="member">data_t</ref><sp/><ref refid="classmcpele_1_1Moments_1afe797a35a1e551a057348de77807d34e" kindref="member">std</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sqrt(<ref refid="classmcpele_1_1Moments_1a1fffc728d29b659f9f8c6438168f794d" kindref="member">variance</ref>());<sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="classmcpele_1_1Histogram" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1Histogram" kindref="compound">Histogram</ref>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_max;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_min;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_bin;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m_eps;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m_N;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>m_hist;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m_niter;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Moments" kindref="compound">Moments</ref><sp/>m_moments;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Histogram_1a527370a55aa12f1a36390865f144ab76" kindref="member">Histogram</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a8bb9aea49e095dd5508de32bdc7ebdcf" kindref="member">min</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1afb72fcce52a9718593956481e038a333" kindref="member">max</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a9a90258e8df0945f38020b5ae1c9e19f" kindref="member">bin</ref>);</highlight></codeline>
+<codeline lineno="76" refid="classmcpele_1_1Histogram_1a13bccf52f23ea879132d6e6b89172915" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1Histogram_1a13bccf52f23ea879132d6e6b89172915" kindref="member">~Histogram</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a2ff51dc04284a0371187d04f808c3c27" kindref="member">add_entry</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>entry);</highlight></codeline>
+<codeline lineno="78" refid="classmcpele_1_1Histogram_1afb72fcce52a9718593956481e038a333" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1afb72fcce52a9718593956481e038a333" kindref="member">max</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_max;<sp/>}</highlight></codeline>
+<codeline lineno="79" refid="classmcpele_1_1Histogram_1a8bb9aea49e095dd5508de32bdc7ebdcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a8bb9aea49e095dd5508de32bdc7ebdcf" kindref="member">min</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_min;<sp/>}</highlight></codeline>
+<codeline lineno="80" refid="classmcpele_1_1Histogram_1a9a90258e8df0945f38020b5ae1c9e19f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a9a90258e8df0945f38020b5ae1c9e19f" kindref="member">bin</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_bin;<sp/>}</highlight></codeline>
+<codeline lineno="81" refid="classmcpele_1_1Histogram_1a493a8f86c28d26c1c66e43ddb5210150" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a493a8f86c28d26c1c66e43ddb5210150" kindref="member">size</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_N;<sp/>}</highlight></codeline>
+<codeline lineno="82" refid="classmcpele_1_1Histogram_1adacd3cc3fc6a0f9a09035d796f436cc6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1adacd3cc3fc6a0f9a09035d796f436cc6" kindref="member">entries</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_niter;<sp/>}</highlight></codeline>
+<codeline lineno="83" refid="classmcpele_1_1Histogram_1a54ac991262cd696da90dd18310995736" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a54ac991262cd696da90dd18310995736" kindref="member">get_mean</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_moments.<ref refid="classmcpele_1_1Moments_1a1707a2b086488a643deb51e06bdf8c48" kindref="member">mean</ref>();<sp/>}</highlight></codeline>
+<codeline lineno="84" refid="classmcpele_1_1Histogram_1ad9f034dae24b631fa0b5139cd4f29b1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1ad9f034dae24b631fa0b5139cd4f29b1a" kindref="member">get_variance</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_moments.<ref refid="classmcpele_1_1Moments_1a1fffc728d29b659f9f8c6438168f794d" kindref="member">variance</ref>();<sp/>}</highlight></codeline>
+<codeline lineno="85" refid="classmcpele_1_1Histogram_1a93a26f3242e02023172c54b6b82e5516" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;::iterator<sp/><ref refid="classmcpele_1_1Histogram_1a93a26f3242e02023172c54b6b82e5516" kindref="member">begin</ref>(){</highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_hist.begin();<sp/>}</highlight></codeline>
+<codeline lineno="86" refid="classmcpele_1_1Histogram_1a8d4b79d418263af19547cfe42df14700" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;::iterator<sp/><ref refid="classmcpele_1_1Histogram_1a8d4b79d418263af19547cfe42df14700" kindref="member">end</ref>(){</highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_hist.end();<sp/>}</highlight></codeline>
+<codeline lineno="87" refid="classmcpele_1_1Histogram_1ac9323d8cfd10faf0305514feb78bd33a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1ac9323d8cfd10faf0305514feb78bd33a" kindref="member">get_position</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>bin_index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_min<sp/>+<sp/>(0.5<sp/>+<sp/>bin_index)<sp/>*<sp/>m_bin;<sp/>}</highlight></codeline>
+<codeline lineno="88" refid="classmcpele_1_1Histogram_1a9eddd3113511e59d7b49f693fc2152a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classmcpele_1_1Histogram_1a9eddd3113511e59d7b49f693fc2152a3" kindref="member">get_vecdata</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_hist;<sp/>}</highlight></codeline>
+<codeline lineno="89" refid="classmcpele_1_1Histogram_1a89a09120ead0a701a05352b627790f14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a89a09120ead0a701a05352b627790f14" kindref="member">get_entry</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>bin_index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_hist.at(bin_index);<sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classmcpele_1_1Histogram_1a12553273f14fde64d977acdd468c0f19" kindref="member">get_vecdata_error</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/><ref refid="classmcpele_1_1Histogram_1afa079be2c29686204d84badb5afe40af" kindref="member">get_vecdata_normalized</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a49853926fd36ebd17fe4d175f7ecb3fb" kindref="member">print_terminal</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1Histogram_1a20ef56d27ca0364d32b6cabfaef4b6c1" kindref="member">resize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>E,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight><highlight class="comment">//namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/histogram.h"/>
+  </compounddef>
+</doxygen>

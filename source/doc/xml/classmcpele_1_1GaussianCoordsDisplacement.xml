@@ -1,0 +1,314 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1GaussianCoordsDisplacement" kind="class" prot="public">
+    <compoundname>mcpele::GaussianCoordsDisplacement</compoundname>
+    <basecompoundref refid="classmcpele_1_1TakeStep" prot="public" virt="non-virtual">mcpele::TakeStep</basecompoundref>
+    <includes refid="gaussian__coords__displacement_8h" local="no">gaussian_coords_displacement.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1af50ffc7add2d8e7ae70b07c04a620fb7" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::GaussianCoordsDisplacement::m_seed</definition>
+        <argsstring></argsstring>
+        <name>m_seed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="17" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1a515b27b041db3301e85bd4da6ba44383" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::GaussianCoordsDisplacement::m_mean</definition>
+        <argsstring></argsstring>
+        <name>m_mean</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="18" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1a49258ed3098c51b3567e7193ccd57e70" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::GaussianCoordsDisplacement::m_stdev</definition>
+        <argsstring></argsstring>
+        <name>m_stdev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="19" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1a1e9c3d0a0135be68c503e4148a55f0b6" prot="protected" static="no" mutable="no">
+        <type>std::mt19937_64</type>
+        <definition>std::mt19937_64 mcpele::GaussianCoordsDisplacement::m_generator</definition>
+        <argsstring></argsstring>
+        <name>m_generator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="20" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1a231f5ed3fcf7b644e7bdd44cbd6d318d" prot="protected" static="no" mutable="no">
+        <type>std::normal_distribution&lt; double &gt;</type>
+        <definition>std::normal_distribution&lt;double&gt; mcpele::GaussianCoordsDisplacement::m_distribution</definition>
+        <argsstring></argsstring>
+        <name>m_distribution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="21" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1a9818016f14a05214f1b50f328612ed79" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::GaussianCoordsDisplacement::m_stepsize</definition>
+        <argsstring></argsstring>
+        <name>m_stepsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="22" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1GaussianCoordsDisplacement_1a16890ca6001b9c8ae624fdd89b612aad" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::GaussianCoordsDisplacement::m_count</definition>
+        <argsstring></argsstring>
+        <name>m_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="23" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1a693f5cd3743cca41cfae62ba5c8fa1b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::GaussianCoordsDisplacement::GaussianCoordsDisplacement</definition>
+        <argsstring>(const size_t rseed, const double stepsize)</argsstring>
+        <name>GaussianCoordsDisplacement</name>
+        <param>
+          <type>const size_t</type>
+          <declname>rseed</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>stepsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="25" bodyfile="/home/sm958/Work/mcpele/source/gaussian_coords_displacement.cpp" bodystart="5" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1a5629b7e1fc63a2208a188a7ed0461acc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::GaussianCoordsDisplacement::~GaussianCoordsDisplacement</definition>
+        <argsstring>()</argsstring>
+        <name>~GaussianCoordsDisplacement</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="26" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1a9855e838fb6d19c55be12dd108cfdb5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void mcpele::GaussianCoordsDisplacement::displace</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;coords, MC *mc)</argsstring>
+        <name>displace</name>
+        <reimplements refid="classmcpele_1_1TakeStep_1ac3032e0d99d4aa5f940ffea4a28442f5">displace</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="27" bodyfile="/home/sm958/Work/mcpele/source/gaussian_coords_displacement.cpp" bodystart="19" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1acb65b915f740d1618ecc267c02fcd17b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mcpele::GaussianCoordsDisplacement::get_seed</definition>
+        <argsstring>() const </argsstring>
+        <name>get_seed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="28" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1adaefd98609344bb8a9744a9cee554ccc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::GaussianCoordsDisplacement::set_generator_seed</definition>
+        <argsstring>(const size_t inp)</argsstring>
+        <name>set_generator_seed</name>
+        <param>
+          <type>const size_t</type>
+          <declname>inp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="29" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1a5f7da29b7bde371ff3971164f58ff3d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::GaussianCoordsDisplacement::expected_mean</definition>
+        <argsstring>() const </argsstring>
+        <name>expected_mean</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="30" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1a225423c83abb6d91bedac92802961790" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::GaussianCoordsDisplacement::expected_variance</definition>
+        <argsstring>(const double ss) const </argsstring>
+        <name>expected_variance</name>
+        <param>
+          <type>const double</type>
+          <declname>ss</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reference: <ulink url="http://mathworld.wolfram.com/NormalDistribution.html">http://mathworld.wolfram.com/NormalDistribution.html</ulink> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="34" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1a87e64b4fed1cf85cc6e4ee13d6fde190" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::GaussianCoordsDisplacement::get_stepsize</definition>
+        <argsstring>() const </argsstring>
+        <name>get_stepsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="35" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1ab36a3671f18d4b2560cfc981a6bd6a2d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::GaussianCoordsDisplacement::set_stepsize</definition>
+        <argsstring>(const double input)</argsstring>
+        <name>set_stepsize</name>
+        <param>
+          <type>const double</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="36" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1GaussianCoordsDisplacement_1ae5042527322a279d5a151ae7879d647e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mcpele::GaussianCoordsDisplacement::get_count</definition>
+        <argsstring>() const </argsstring>
+        <name>get_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="37" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Uniform Gaussian step this step samples first from the standard normal N(0, 1) and outputs a random variate sampled from N(0, stepsize) </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="29">
+        <label>mcpele::GaussianCoordsDisplacement</label>
+        <link refid="classmcpele_1_1GaussianCoordsDisplacement"/>
+        <childnode refid="30" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>mcpele::TakeStep</label>
+        <link refid="classmcpele_1_1TakeStep"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="31">
+        <label>mcpele::GaussianCoordsDisplacement</label>
+        <link refid="classmcpele_1_1GaussianCoordsDisplacement"/>
+        <childnode refid="32" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>mcpele::TakeStep</label>
+        <link refid="classmcpele_1_1TakeStep"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" line="15" bodyfile="/home/sm958/Work/mcpele/source/mcpele/gaussian_coords_displacement.h" bodystart="15" bodyend="38"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1TakeStep_1a492ccf2a2e3b3d8ef2224947d0385d77" prot="public" virt="virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>decrease_acceptance</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a9855e838fb6d19c55be12dd108cfdb5b" prot="public" virt="virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>displace</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a5f7da29b7bde371ff3971164f58ff3d9" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>expected_mean</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a225423c83abb6d91bedac92802961790" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>expected_variance</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a693f5cd3743cca41cfae62ba5c8fa1b2" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>GaussianCoordsDisplacement</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1ae5042527322a279d5a151ae7879d647e" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>get_count</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1acb65b915f740d1618ecc267c02fcd17b" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>get_seed</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a87e64b4fed1cf85cc6e4ee13d6fde190" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>get_stepsize</name></member>
+      <member refid="classmcpele_1_1TakeStep_1afa92f5196e0304d6ad910304b188c705" prot="public" virt="virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>increase_acceptance</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a16890ca6001b9c8ae624fdd89b612aad" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_count</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a231f5ed3fcf7b644e7bdd44cbd6d318d" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_distribution</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a1e9c3d0a0135be68c503e4148a55f0b6" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_generator</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a515b27b041db3301e85bd4da6ba44383" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_mean</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1af50ffc7add2d8e7ae70b07c04a620fb7" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_seed</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a49258ed3098c51b3567e7193ccd57e70" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_stdev</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a9818016f14a05214f1b50f328612ed79" prot="protected" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>m_stepsize</name></member>
+      <member refid="classmcpele_1_1TakeStep_1aac4f30de62c4cbc4d9d31c7629742f64" prot="public" virt="virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>report</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1adaefd98609344bb8a9744a9cee554ccc" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>set_generator_seed</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1ab36a3671f18d4b2560cfc981a6bd6a2d" prot="public" virt="non-virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>set_stepsize</name></member>
+      <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a5629b7e1fc63a2208a188a7ed0461acc" prot="public" virt="virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>~GaussianCoordsDisplacement</name></member>
+      <member refid="classmcpele_1_1TakeStep_1a82aab5c2527f8a7fd4c0f8a438dc3625" prot="public" virt="virtual"><scope>mcpele::GaussianCoordsDisplacement</scope><name>~TakeStep</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

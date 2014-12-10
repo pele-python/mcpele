@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1RandomCoordsDisplacementSingle" kind="class" prot="public">
+    <compoundname>mcpele::RandomCoordsDisplacementSingle</compoundname>
+    <basecompoundref refid="classmcpele_1_1RandomCoordsDisplacement" prot="public" virt="non-virtual">mcpele::RandomCoordsDisplacement</basecompoundref>
+    <includes refid="random__coords__displacement_8h" local="no">random_coords_displacement.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1RandomCoordsDisplacementSingle_1acfce45e71e9001822d5282bbacc665e3" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::RandomCoordsDisplacementSingle::m_nparticles</definition>
+        <argsstring></argsstring>
+        <name>m_nparticles</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="48" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a1fe5db0701219d589e1c5dbdfc96613d" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::RandomCoordsDisplacementSingle::m_ndim</definition>
+        <argsstring></argsstring>
+        <name>m_ndim</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="48" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a04917e0ed0d549f71358e5c6e1abd748" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::RandomCoordsDisplacementSingle::m_rand_particle</definition>
+        <argsstring></argsstring>
+        <name>m_rand_particle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="48" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a651ab4f1ca6b7a93f38b0d2372941d49" prot="private" static="no" mutable="no">
+        <type>std::uniform_int_distribution&lt; size_t &gt;</type>
+        <definition>std::uniform_int_distribution&lt;size_t&gt; mcpele::RandomCoordsDisplacementSingle::m_int_distribution</definition>
+        <argsstring></argsstring>
+        <name>m_int_distribution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="49" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a5a5ff549e6129c94d87bf4416f23574f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::RandomCoordsDisplacementSingle::RandomCoordsDisplacementSingle</definition>
+        <argsstring>(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize=1)</argsstring>
+        <name>RandomCoordsDisplacementSingle</name>
+        <param>
+          <type>const size_t</type>
+          <declname>rseed</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>nparticles</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>ndim</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>stepsize</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="51" bodyfile="/home/sm958/Work/mcpele/source/random_coords_displacement.cpp" bodystart="35" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a96c89a89af34b00f2705cd226e94142d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::RandomCoordsDisplacementSingle::~RandomCoordsDisplacementSingle</definition>
+        <argsstring>()</argsstring>
+        <name>~RandomCoordsDisplacementSingle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="52" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a52c3271d105453d89024230f3f392dc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void mcpele::RandomCoordsDisplacementSingle::displace</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;coords, MC *mc)</argsstring>
+        <name>displace</name>
+        <reimplements refid="classmcpele_1_1RandomCoordsDisplacement_1aa6c2c40b2a36dc1711c5a7bbeeced708">displace</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="53" bodyfile="/home/sm958/Work/mcpele/source/random_coords_displacement.cpp" bodystart="42" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1RandomCoordsDisplacementSingle_1a86f20835fae2527099165f24e894788b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mcpele::RandomCoordsDisplacementSingle::get_rand_particle</definition>
+        <argsstring>()</argsstring>
+        <name>get_rand_particle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="54" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="71">
+        <label>mcpele::TakeStep</label>
+        <link refid="classmcpele_1_1TakeStep"/>
+      </node>
+      <node id="70">
+        <label>mcpele::RandomCoordsDisplacement</label>
+        <link refid="classmcpele_1_1RandomCoordsDisplacement"/>
+        <childnode refid="71" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>mcpele::RandomCoordsDisplacementSingle</label>
+        <link refid="classmcpele_1_1RandomCoordsDisplacementSingle"/>
+        <childnode refid="70" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="74">
+        <label>mcpele::TakeStep</label>
+        <link refid="classmcpele_1_1TakeStep"/>
+      </node>
+      <node id="73">
+        <label>mcpele::RandomCoordsDisplacement</label>
+        <link refid="classmcpele_1_1RandomCoordsDisplacement"/>
+        <childnode refid="74" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>mcpele::RandomCoordsDisplacementSingle</label>
+        <link refid="classmcpele_1_1RandomCoordsDisplacementSingle"/>
+        <childnode refid="73" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" line="47" bodyfile="/home/sm958/Work/mcpele/source/mcpele/random_coords_displacement.h" bodystart="47" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a75b39857737f466cee1ff4fe452d848e" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>decrease_acceptance</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a52c3271d105453d89024230f3f392dc7" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>displace</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1ae8cff94bafe19a4fb529e2dbc8ac3ab1" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>expected_mean</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a77a73851c26beb001c8a48be76362a15" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>expected_variance</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a37d0b36e6f3ec26e0ce3a5b5a381d661" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>get_count</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a86f20835fae2527099165f24e894788b" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>get_rand_particle</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1ac909159a4d7007b09cf5291af3415d82" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>get_seed</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a41cda87cd1b61178bc5035f9c4bcf753" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>get_stepsize</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1abb8bd83d44eb248599c799f6ff76656f" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>increase_acceptance</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1aabfbc53faf2723b66852d634bb6f9b0a" prot="protected" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_count</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a6301d7fc89a1943a5fb7c870f25fe2a2" prot="protected" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_generator</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a651ab4f1ca6b7a93f38b0d2372941d49" prot="private" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_int_distribution</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a1fe5db0701219d589e1c5dbdfc96613d" prot="private" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_ndim</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1acfce45e71e9001822d5282bbacc665e3" prot="private" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_nparticles</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a04917e0ed0d549f71358e5c6e1abd748" prot="private" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_rand_particle</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a8d3de3a3e1b9595baf9618bf1530c5e2" prot="protected" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_real_distribution</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a1b60fa629821ec194d0d153716d26f73" prot="protected" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_seed</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" prot="protected" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>m_stepsize</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a70c32449d74f21634737ebd382ede3aa" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>RandomCoordsDisplacement</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a5a5ff549e6129c94d87bf4416f23574f" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>RandomCoordsDisplacementSingle</name></member>
+      <member refid="classmcpele_1_1TakeStep_1aac4f30de62c4cbc4d9d31c7629742f64" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>report</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1aaf9325c782ecb904a71e92671c7732fb" prot="public" virt="non-virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>set_generator_seed</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacement_1a4603750d055490114b68f18b564e9fd4" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>~RandomCoordsDisplacement</name></member>
+      <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a96c89a89af34b00f2705cd226e94142d" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>~RandomCoordsDisplacementSingle</name></member>
+      <member refid="classmcpele_1_1TakeStep_1a82aab5c2527f8a7fd4c0f8a438dc3625" prot="public" virt="virtual"><scope>mcpele::RandomCoordsDisplacementSingle</scope><name>~TakeStep</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

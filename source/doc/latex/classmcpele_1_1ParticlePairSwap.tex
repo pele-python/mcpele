@@ -1,0 +1,121 @@
+\hypertarget{classmcpele_1_1ParticlePairSwap}{\section{mcpele\-:\-:\-Particle\-Pair\-Swap \-Class \-Reference}
+\label{classmcpele_1_1ParticlePairSwap}\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}}
+}
+
+
+{\ttfamily \#include $<$particle\-\_\-pair\-\_\-swap.\-h$>$}
+
+\-Inheritance diagram for mcpele\-:\-:\-Particle\-Pair\-Swap\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmcpele_1_1ParticlePairSwap}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{classmcpele_1_1ParticlePairSwap_a391476c1f25fa3e194b69cfb542adea3}{$\sim$\-Particle\-Pair\-Swap} ()
+\item 
+\hyperlink{classmcpele_1_1ParticlePairSwap_a09aebe2a1c7a5e89be202def3bfded9f}{\-Particle\-Pair\-Swap} (const size\-\_\-t seed, const size\-\_\-t nr\-\_\-particles)
+\item 
+void \hyperlink{classmcpele_1_1ParticlePairSwap_ab4d35820381b34f5e4c993ad3817427b}{displace} (pele\-::\-Array$<$ double $>$ \&coords, \hyperlink{classmcpele_1_1MC}{\-M\-C} $\ast$mc)
+\item 
+void \hyperlink{classmcpele_1_1ParticlePairSwap_a075a55654c1cd9d6d80a361acc8014ed}{swap\-\_\-coordinates} (const size\-\_\-t particle\-\_\-a, const size\-\_\-t particle\-\_\-b, pele\-::\-Array$<$ double $>$ \&coords)
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1ParticlePairSwap_a1f3abbcf103328a91eeda411199fe478}{get\-\_\-seed} () const 
+\item 
+void \hyperlink{classmcpele_1_1ParticlePairSwap_a1142a8be79e9c872ab07f0f9995656fe}{set\-\_\-generator\-\_\-seed} (const size\-\_\-t inp)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+
+
+\-Definition at line 10 of file particle\-\_\-pair\-\_\-swap.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmcpele_1_1ParticlePairSwap_a391476c1f25fa3e194b69cfb542adea3}{\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}!$\sim$\-Particle\-Pair\-Swap@{$\sim$\-Particle\-Pair\-Swap}}
+\index{$\sim$\-Particle\-Pair\-Swap@{$\sim$\-Particle\-Pair\-Swap}!mcpele::ParticlePairSwap@{mcpele\-::\-Particle\-Pair\-Swap}}
+\subsubsection[{$\sim$\-Particle\-Pair\-Swap}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf mcpele\-::\-Particle\-Pair\-Swap\-::$\sim$\-Particle\-Pair\-Swap} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1ParticlePairSwap_a391476c1f25fa3e194b69cfb542adea3}
+
+
+\-Definition at line 17 of file particle\-\_\-pair\-\_\-swap.\-h.
+
+\hypertarget{classmcpele_1_1ParticlePairSwap_a09aebe2a1c7a5e89be202def3bfded9f}{\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}!\-Particle\-Pair\-Swap@{\-Particle\-Pair\-Swap}}
+\index{\-Particle\-Pair\-Swap@{\-Particle\-Pair\-Swap}!mcpele::ParticlePairSwap@{mcpele\-::\-Particle\-Pair\-Swap}}
+\subsubsection[{\-Particle\-Pair\-Swap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mcpele\-::\-Particle\-Pair\-Swap\-::\-Particle\-Pair\-Swap} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{seed, }
+\item[{const size\-\_\-t}]{nr\-\_\-particles}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1ParticlePairSwap_a09aebe2a1c7a5e89be202def3bfded9f}
+
+
+\-Definition at line 5 of file particle\-\_\-pair\-\_\-swap.\-cpp.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmcpele_1_1ParticlePairSwap_ab4d35820381b34f5e4c993ad3817427b}{\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}!displace@{displace}}
+\index{displace@{displace}!mcpele::ParticlePairSwap@{mcpele\-::\-Particle\-Pair\-Swap}}
+\subsubsection[{displace}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Particle\-Pair\-Swap\-::displace} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{{\bf \-M\-C} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classmcpele_1_1ParticlePairSwap_ab4d35820381b34f5e4c993ad3817427b}
+
+
+\-Implements \hyperlink{classmcpele_1_1TakeStep_ac3032e0d99d4aa5f940ffea4a28442f5}{mcpele\-::\-Take\-Step}.
+
+
+
+\-Definition at line 16 of file particle\-\_\-pair\-\_\-swap.\-cpp.
+
+\hypertarget{classmcpele_1_1ParticlePairSwap_a1f3abbcf103328a91eeda411199fe478}{\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}!get\-\_\-seed@{get\-\_\-seed}}
+\index{get\-\_\-seed@{get\-\_\-seed}!mcpele::ParticlePairSwap@{mcpele\-::\-Particle\-Pair\-Swap}}
+\subsubsection[{get\-\_\-seed}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-Particle\-Pair\-Swap\-::get\-\_\-seed} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1ParticlePairSwap_a1f3abbcf103328a91eeda411199fe478}
+
+
+\-Definition at line 21 of file particle\-\_\-pair\-\_\-swap.\-h.
+
+\hypertarget{classmcpele_1_1ParticlePairSwap_a1142a8be79e9c872ab07f0f9995656fe}{\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}!set\-\_\-generator\-\_\-seed@{set\-\_\-generator\-\_\-seed}}
+\index{set\-\_\-generator\-\_\-seed@{set\-\_\-generator\-\_\-seed}!mcpele::ParticlePairSwap@{mcpele\-::\-Particle\-Pair\-Swap}}
+\subsubsection[{set\-\_\-generator\-\_\-seed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Particle\-Pair\-Swap\-::set\-\_\-generator\-\_\-seed} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{inp}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1ParticlePairSwap_a1142a8be79e9c872ab07f0f9995656fe}
+
+
+\-Definition at line 43 of file particle\-\_\-pair\-\_\-swap.\-cpp.
+
+\hypertarget{classmcpele_1_1ParticlePairSwap_a075a55654c1cd9d6d80a361acc8014ed}{\index{mcpele\-::\-Particle\-Pair\-Swap@{mcpele\-::\-Particle\-Pair\-Swap}!swap\-\_\-coordinates@{swap\-\_\-coordinates}}
+\index{swap\-\_\-coordinates@{swap\-\_\-coordinates}!mcpele::ParticlePairSwap@{mcpele\-::\-Particle\-Pair\-Swap}}
+\subsubsection[{swap\-\_\-coordinates}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Particle\-Pair\-Swap\-::swap\-\_\-coordinates} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{particle\-\_\-a, }
+\item[{const size\-\_\-t}]{particle\-\_\-b, }
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1ParticlePairSwap_a075a55654c1cd9d6d80a361acc8014ed}
+
+
+\-Definition at line 29 of file particle\-\_\-pair\-\_\-swap.\-cpp.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+mcpele/\hyperlink{particle__pair__swap_8h}{particle\-\_\-pair\-\_\-swap.\-h}\item 
+\hyperlink{particle__pair__swap_8cpp}{particle\-\_\-pair\-\_\-swap.\-cpp}\end{DoxyCompactItemize}

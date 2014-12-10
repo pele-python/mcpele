@@ -42,6 +42,9 @@ Tutorials
 Reference
 ---------
 
+Python
+------
+
 .. toctree::
    :maxdepth: 2
 	
@@ -76,6 +79,14 @@ Reference
    :maxdepth: 2
     
    MPI_Parallel_Tempering
+
+C++
+---
+
+.. toctree::
+   :maxdepth: 2
+    
+   cppAcceptTest
 
 Modules
 +++++++

@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1AdaptiveTakeStep" kind="class" prot="public">
+    <compoundname>mcpele::AdaptiveTakeStep</compoundname>
+    <basecompoundref refid="classmcpele_1_1TakeStep" prot="public" virt="non-virtual">mcpele::TakeStep</basecompoundref>
+    <includes refid="adaptive__takestep_8h" local="no">adaptive_takestep.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" prot="protected" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classmcpele_1_1TakeStep" kindref="compound">TakeStep</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;TakeStep&gt; mcpele::AdaptiveTakeStep::m_ts</definition>
+        <argsstring></argsstring>
+        <name>m_ts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="10" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1ac16baa470b559d1c994be4cebc331b90" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::AdaptiveTakeStep::m_interval</definition>
+        <argsstring></argsstring>
+        <name>m_interval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="11" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::AdaptiveTakeStep::m_total_steps</definition>
+        <argsstring></argsstring>
+        <name>m_total_steps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="12" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::AdaptiveTakeStep::m_accepted_steps</definition>
+        <argsstring></argsstring>
+        <name>m_accepted_steps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="13" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" prot="protected" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double mcpele::AdaptiveTakeStep::m_factor</definition>
+        <argsstring></argsstring>
+        <name>m_factor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="14" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1ad6c2c748b3effbbb8ab2cec826419e88" prot="protected" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double mcpele::AdaptiveTakeStep::m_min_acceptance_ratio</definition>
+        <argsstring></argsstring>
+        <name>m_min_acceptance_ratio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="15" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1AdaptiveTakeStep_1a2f83a3b74b5a6d515687e5c02292f9c9" prot="protected" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double mcpele::AdaptiveTakeStep::m_max_acceptance_ratio</definition>
+        <argsstring></argsstring>
+        <name>m_max_acceptance_ratio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="16" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1AdaptiveTakeStep_1a6f42dbb0ed0d9dcd88b47e267368b34f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::AdaptiveTakeStep::~AdaptiveTakeStep</definition>
+        <argsstring>()</argsstring>
+        <name>~AdaptiveTakeStep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="18" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1AdaptiveTakeStep_1a1ee619caed0973ddea12e0d1a4ce8e9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::AdaptiveTakeStep::AdaptiveTakeStep</definition>
+        <argsstring>(std::shared_ptr&lt; TakeStep &gt; ts, const size_t interval=100, const double factor=0.9, const double min_acceptance_ratio=0.2, const double max_acceptance_ratio=0.5)</argsstring>
+        <name>AdaptiveTakeStep</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classmcpele_1_1TakeStep" kindref="compound">TakeStep</ref> &gt;</type>
+          <declname>ts</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>interval</declname>
+          <defval>100</defval>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>factor</declname>
+          <defval>0.9</defval>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>min_acceptance_ratio</declname>
+          <defval>0.2</defval>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>max_acceptance_ratio</declname>
+          <defval>0.5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="21" bodyfile="/home/sm958/Work/mcpele/source/adaptive_takestep.cpp" bodystart="5" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1AdaptiveTakeStep_1a63b75b0fda5b685fdfd8076f1e099523" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void mcpele::AdaptiveTakeStep::displace</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;coords, MC *mc)</argsstring>
+        <name>displace</name>
+        <reimplements refid="classmcpele_1_1TakeStep_1ac3032e0d99d4aa5f940ffea4a28442f5">displace</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>coords</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="22" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1AdaptiveTakeStep_1a3787085dd0bdf41fee0787c13265edea" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void mcpele::AdaptiveTakeStep::report</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;old_coords, const double old_energy, pele::Array&lt; double &gt; &amp;new_coords, const double new_energy, const bool success, MC *mc)</argsstring>
+        <name>report</name>
+        <reimplements refid="classmcpele_1_1TakeStep_1aac4f30de62c4cbc4d9d31c7629742f64">report</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>old_coords</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>old_energy</declname>
+        </param>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>new_coords</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>new_energy</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>success</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="25" bodyfile="/home/sm958/Work/mcpele/source/adaptive_takestep.cpp" bodystart="21" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1AdaptiveTakeStep_1ac3693c26dbad6a3a1f5003626da0eff4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::AdaptiveTakeStep::get_min_acceptance_ratio</definition>
+        <argsstring>() const </argsstring>
+        <name>get_min_acceptance_ratio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="26" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1AdaptiveTakeStep_1a245d6ab24dce23791a2a75fd896b21e5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double mcpele::AdaptiveTakeStep::get_max_acceptance_ratio</definition>
+        <argsstring>() const </argsstring>
+        <name>get_max_acceptance_ratio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="27" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="13">
+        <label>mcpele::TakeStep</label>
+        <link refid="classmcpele_1_1TakeStep"/>
+      </node>
+      <node id="12">
+        <label>mcpele::AdaptiveTakeStep</label>
+        <link refid="classmcpele_1_1AdaptiveTakeStep"/>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="15">
+        <label>mcpele::TakeStep</label>
+        <link refid="classmcpele_1_1TakeStep"/>
+      </node>
+      <node id="14">
+        <label>mcpele::AdaptiveTakeStep</label>
+        <link refid="classmcpele_1_1AdaptiveTakeStep"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" line="8" bodyfile="/home/sm958/Work/mcpele/source/mcpele/adaptive_takestep.h" bodystart="8" bodyend="28"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a1ee619caed0973ddea12e0d1a4ce8e9d" prot="public" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>AdaptiveTakeStep</name></member>
+      <member refid="classmcpele_1_1TakeStep_1a492ccf2a2e3b3d8ef2224947d0385d77" prot="public" virt="virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>decrease_acceptance</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a63b75b0fda5b685fdfd8076f1e099523" prot="public" virt="virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>displace</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a245d6ab24dce23791a2a75fd896b21e5" prot="public" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>get_max_acceptance_ratio</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1ac3693c26dbad6a3a1f5003626da0eff4" prot="public" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>get_min_acceptance_ratio</name></member>
+      <member refid="classmcpele_1_1TakeStep_1afa92f5196e0304d6ad910304b188c705" prot="public" virt="virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>increase_acceptance</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_accepted_steps</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_factor</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1ac16baa470b559d1c994be4cebc331b90" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_interval</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a2f83a3b74b5a6d515687e5c02292f9c9" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_max_acceptance_ratio</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1ad6c2c748b3effbbb8ab2cec826419e88" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_min_acceptance_ratio</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_total_steps</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" prot="protected" virt="non-virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>m_ts</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a3787085dd0bdf41fee0787c13265edea" prot="public" virt="virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>report</name></member>
+      <member refid="classmcpele_1_1AdaptiveTakeStep_1a6f42dbb0ed0d9dcd88b47e267368b34f" prot="public" virt="virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>~AdaptiveTakeStep</name></member>
+      <member refid="classmcpele_1_1TakeStep_1a82aab5c2527f8a7fd4c0f8a438dc3625" prot="public" virt="virtual"><scope>mcpele::AdaptiveTakeStep</scope><name>~TakeStep</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

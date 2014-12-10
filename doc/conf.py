@@ -40,8 +40,15 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
-    'numpydoc'
+    'numpydoc',
+    'breathe'
 ]
+
+#Add breathe projects
+breathe_projects = { "mcpele": "/home/sm958/Work/mcpele/source/doc/xml" }
+
+#Specify breathe default project
+breathe_default_project = "mcpele"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

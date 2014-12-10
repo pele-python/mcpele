@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1EnergyWindowTest" kind="class" prot="public">
+    <compoundname>mcpele::EnergyWindowTest</compoundname>
+    <basecompoundref refid="classmcpele_1_1AcceptTest" prot="public" virt="non-virtual">mcpele::AcceptTest</basecompoundref>
+    <includes refid="energy__window__test_8h" local="no">energy_window_test.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1EnergyWindowTest_1abb86cad9952f92fd8db221baaf62e847" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::EnergyWindowTest::m_min_energy</definition>
+        <argsstring></argsstring>
+        <name>m_min_energy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" line="16" bodyfile="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1EnergyWindowTest_1ae0db5a8b295b8bf29477fd5dd741a88c" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::EnergyWindowTest::m_max_energy</definition>
+        <argsstring></argsstring>
+        <name>m_max_energy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" line="17" bodyfile="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1EnergyWindowTest_1a0b8f02bf14f23525e1661729864d8e70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::EnergyWindowTest::EnergyWindowTest</definition>
+        <argsstring>(const double min_energy, const double max_energy)</argsstring>
+        <name>EnergyWindowTest</name>
+        <param>
+          <type>const double</type>
+          <declname>min_energy</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>max_energy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" line="19" bodyfile="/home/sm958/Work/mcpele/source/energy_window_test.cpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1EnergyWindowTest_1ad0e1111aaf29e6c462451d7708722c52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::EnergyWindowTest::~EnergyWindowTest</definition>
+        <argsstring>()</argsstring>
+        <name>~EnergyWindowTest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" line="20" bodyfile="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1EnergyWindowTest_1a529460eac573357f981639fe85807520" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool mcpele::EnergyWindowTest::test</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;trial_coords, double trial_energy, pele::Array&lt; double &gt; &amp;old_coords, double old_energy, double temperature, MC *mc)</argsstring>
+        <name>test</name>
+        <reimplements refid="classmcpele_1_1AcceptTest_1ae2d9e2feaae60d49a35c7170f56f5d78">test</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>trial_coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>trial_energy</declname>
+        </param>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>old_coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>old_energy</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>temperature</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" line="23" bodyfile="/home/sm958/Work/mcpele/source/energy_window_test.cpp" bodystart="14" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Energy window test This test checks that the energy of the system stays within a certain energy window </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="24">
+        <label>mcpele::AcceptTest</label>
+        <link refid="classmcpele_1_1AcceptTest"/>
+      </node>
+      <node id="23">
+        <label>mcpele::EnergyWindowTest</label>
+        <link refid="classmcpele_1_1EnergyWindowTest"/>
+        <childnode refid="24" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="26">
+        <label>mcpele::AcceptTest</label>
+        <link refid="classmcpele_1_1AcceptTest"/>
+      </node>
+      <node id="25">
+        <label>mcpele::EnergyWindowTest</label>
+        <link refid="classmcpele_1_1EnergyWindowTest"/>
+        <childnode refid="26" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" line="14" bodyfile="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h" bodystart="14" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1EnergyWindowTest_1a0b8f02bf14f23525e1661729864d8e70" prot="public" virt="non-virtual"><scope>mcpele::EnergyWindowTest</scope><name>EnergyWindowTest</name></member>
+      <member refid="classmcpele_1_1EnergyWindowTest_1ae0db5a8b295b8bf29477fd5dd741a88c" prot="protected" virt="non-virtual"><scope>mcpele::EnergyWindowTest</scope><name>m_max_energy</name></member>
+      <member refid="classmcpele_1_1EnergyWindowTest_1abb86cad9952f92fd8db221baaf62e847" prot="protected" virt="non-virtual"><scope>mcpele::EnergyWindowTest</scope><name>m_min_energy</name></member>
+      <member refid="classmcpele_1_1EnergyWindowTest_1a529460eac573357f981639fe85807520" prot="public" virt="virtual"><scope>mcpele::EnergyWindowTest</scope><name>test</name></member>
+      <member refid="classmcpele_1_1AcceptTest_1ab2a9fd77376ce15e1c7c5b1ee0df23fc" prot="public" virt="virtual"><scope>mcpele::EnergyWindowTest</scope><name>~AcceptTest</name></member>
+      <member refid="classmcpele_1_1EnergyWindowTest_1ad0e1111aaf29e6c462451d7708722c52" prot="public" virt="virtual"><scope>mcpele::EnergyWindowTest</scope><name>~EnergyWindowTest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

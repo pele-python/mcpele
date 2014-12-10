@@ -1,0 +1,804 @@
+\hypertarget{classmcpele_1_1MC}{\section{mcpele\-:\-:\-M\-C \-Class \-Reference}
+\label{classmcpele_1_1MC}\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}}
+}
+
+
+{\ttfamily \#include $<$mc.\-h$>$}
+
+\subsection*{\-Public \-Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\-::vector\*
+$<$ std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1Action}{\-Action} $>$ $>$ \hyperlink{classmcpele_1_1MC_a6b0a924bb76c28b6fc25c66675c1dcf9}{actions\-\_\-t}
+\item 
+typedef std\-::vector\*
+$<$ std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1AcceptTest}{\-Accept\-Test} $>$ $>$ \hyperlink{classmcpele_1_1MC_ab52ae82dba8e7299583f48a382f8bd5a}{accept\-\_\-t}
+\item 
+typedef std\-::vector\*
+$<$ std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1ConfTest}{\-Conf\-Test} $>$ $>$ \hyperlink{classmcpele_1_1MC_a025b387c3222c83625323afcddeda1ea}{conf\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmcpele_1_1MC_ae144a06dfc924f7ae63d8b14b95a5f6b}{\-M\-C} (std\-::shared\-\_\-ptr$<$ pele\-::\-Base\-Potential $>$ potential, pele\-::\-Array$<$ double $>$ \&coords, const double temperature)
+\item 
+virtual \hyperlink{classmcpele_1_1MC_a4737173950c8a51437230d5d83163572}{$\sim$\-M\-C} ()
+\item 
+void \hyperlink{classmcpele_1_1MC_aa1528423634e13ade3fcefa525c5ed89}{one\-\_\-iteration} ()
+\item 
+void \hyperlink{classmcpele_1_1MC_a746de23c4d9ddad54a1e9da1dd025033}{run} (const size\-\_\-t max\-\_\-iter)
+\item 
+void \hyperlink{classmcpele_1_1MC_ac42e32abd801ea17353fd8fb7b23aea5}{set\-\_\-temperature} (const double \-T)
+\item 
+double \hyperlink{classmcpele_1_1MC_a897efd5c7a2d444811de516f740c1045}{get\-\_\-temperature} () const 
+\item 
+void \hyperlink{classmcpele_1_1MC_a8e7f1ab57cb3d68032c0293b09596d33}{set\-\_\-report\-\_\-steps} (const size\-\_\-t report\-\_\-steps)
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_ac7c99322af8dc258272c3f83c1ba44d3}{get\-\_\-report\-\_\-steps} () const 
+\item 
+void \hyperlink{classmcpele_1_1MC_a1f490ace67644e07548ccc7a2781963f}{add\-\_\-action} (std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1Action}{\-Action} $>$ action)
+\item 
+void \hyperlink{classmcpele_1_1MC_a66f76a288eb6389d408792c8c21c1ff0}{add\-\_\-accept\-\_\-test} (std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1AcceptTest}{\-Accept\-Test} $>$ accept\-\_\-test)
+\item 
+void \hyperlink{classmcpele_1_1MC_a326495f91244c8c6761b1d783019a5c6}{add\-\_\-conf\-\_\-test} (std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1ConfTest}{\-Conf\-Test} $>$ conf\-\_\-test)
+\item 
+void \hyperlink{classmcpele_1_1MC_a7a9ab41eb342247e9bacea30c2b3e033}{add\-\_\-late\-\_\-conf\-\_\-test} (std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1ConfTest}{\-Conf\-Test} $>$ conf\-\_\-test)
+\item 
+void \hyperlink{classmcpele_1_1MC_a4a348d7cb35617b70f8ef2955712b084}{set\-\_\-takestep} (std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1TakeStep}{\-Take\-Step} $>$ takestep)
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1TakeStep}{\-Take\-Step} $>$ \hyperlink{classmcpele_1_1MC_aa5207841480b9a6d11699babf63aa95e}{get\-\_\-takestep} () const 
+\item 
+void \hyperlink{classmcpele_1_1MC_a5df3e0f95cbe02e4e7ee2e3bb7654dff}{set\-\_\-coordinates} (pele\-::\-Array$<$ double $>$ \&coords, double energy)
+\item 
+double \hyperlink{classmcpele_1_1MC_ac538a56ea555f102fc4fe347f9ff40c3}{get\-\_\-energy} () const 
+\item 
+void \hyperlink{classmcpele_1_1MC_ad3ec3d5ae30a44ed5a7f832a1c570b63}{reset\-\_\-energy} ()
+\item 
+double \hyperlink{classmcpele_1_1MC_a67f441e23995e82288fd9e44072c8efe}{get\-\_\-trial\-\_\-energy} () const 
+\item 
+pele\-::\-Array$<$ double $>$ \hyperlink{classmcpele_1_1MC_a37869df5487d535a9a4515492cd7a056}{get\-\_\-coords} () const 
+\item 
+pele\-::\-Array$<$ double $>$ \hyperlink{classmcpele_1_1MC_a1ba8a6e2d26b1124fa4707ad7397a024}{get\-\_\-trial\-\_\-coords} () const 
+\item 
+double \hyperlink{classmcpele_1_1MC_a61bb33c1cfd7e7f1caa96ae9f9af79f1}{get\-\_\-norm\-\_\-coords} () const 
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a6a2355df19783573a6d15294cce4fd43}{get\-\_\-naccept} () const 
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a5c9f22a57a3e9cc0228c7f84acd8ec7f}{get\-\_\-nreject} () const 
+\item 
+double \hyperlink{classmcpele_1_1MC_a5a2cf1de51e632cd845002299f6d2e9f}{get\-\_\-accepted\-\_\-fraction} () const 
+\item 
+double \hyperlink{classmcpele_1_1MC_a83bfebc60ee7a0db945aeeeaede84181}{get\-\_\-conf\-\_\-rejection\-\_\-fraction} () const 
+\item 
+double \hyperlink{classmcpele_1_1MC_acfb4b64a6a339518c2a12a30b5f6b069}{get\-\_\-\-E\-\_\-rejection\-\_\-fraction} () const 
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a9a8e8b2c4a9e77b5136c9a3c1b67bb9c}{get\-\_\-iterations\-\_\-count} () const 
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a656ec94034cc412e819438d21f7fcfa3}{get\-\_\-neval} () const 
+\item 
+std\-::shared\-\_\-ptr\*
+$<$ pele\-::\-Base\-Potential $>$ \hyperlink{classmcpele_1_1MC_a1e0731055ab95e94142cd0c20fce2daf}{get\-\_\-potential\-\_\-ptr} ()
+\item 
+bool \hyperlink{classmcpele_1_1MC_af0c4c8dcf99b125917644ee5744d4ed6}{take\-\_\-step\-\_\-specified} () const 
+\item 
+bool \hyperlink{classmcpele_1_1MC_aa822dbcc2c5e3d2489880c5f16cb1dfd}{report\-\_\-steps\-\_\-specified} () const 
+\item 
+void \hyperlink{classmcpele_1_1MC_a3682931dc32796af0c7051ce3311c54f}{check\-\_\-input} ()
+\item 
+void \hyperlink{classmcpele_1_1MC_ab16a83837236952cac564a9f319ea7a1}{set\-\_\-print\-\_\-progress} (const bool input)
+\item 
+void \hyperlink{classmcpele_1_1MC_a071420a97e409024070d9c4580f8fe51}{set\-\_\-print\-\_\-progress} ()
+\item 
+bool \hyperlink{classmcpele_1_1MC_a18448513c2ed188169f3e26a3c431300}{get\-\_\-success} () const 
+\item 
+void \hyperlink{classmcpele_1_1MC_a9277bffe822241e2138dd1de6db320f4}{abort} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a570b47c5f340c2afda0a519f1225eba9}{m\-\_\-niter}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a678adb43213ef8da3a8b7620a8ff4d6e}{m\-\_\-neval}
+\item 
+double \hyperlink{classmcpele_1_1MC_ac96652882e0e578172de302578be5b88}{m\-\_\-temperature}
+\item 
+double \hyperlink{classmcpele_1_1MC_a61af4e6db5014d3ab4251dd38aca68f5}{m\-\_\-energy}
+\item 
+double \hyperlink{classmcpele_1_1MC_a956f949abbf2bd055e72924cb136f3e7}{m\-\_\-trial\-\_\-energy}
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classmcpele_1_1MC_ab0a769e799bccd46f1e290daf1f4698b}{compute\-\_\-energy} (pele\-::\-Array$<$ double $>$ x)
+\item 
+bool \hyperlink{classmcpele_1_1MC_a10c67bdbd29525b7cfe4c97f861e5b8f}{do\-\_\-conf\-\_\-tests} (pele\-::\-Array$<$ double $>$ x)
+\item 
+bool \hyperlink{classmcpele_1_1MC_ab122e2f3a32b409493043d62a2ad5806}{do\-\_\-accept\-\_\-tests} (pele\-::\-Array$<$ double $>$ xtrial, double etrial, pele\-::\-Array$<$ double $>$ xold, double eold)
+\item 
+bool \hyperlink{classmcpele_1_1MC_ac2f9ac6eaf22fff6d85e3a659658c3c2}{do\-\_\-late\-\_\-conf\-\_\-tests} (pele\-::\-Array$<$ double $>$ x)
+\item 
+void \hyperlink{classmcpele_1_1MC_afc4426d60374b2d941405d269eb214ed}{do\-\_\-actions} (pele\-::\-Array$<$ double $>$ x, double energy, bool success)
+\item 
+void \hyperlink{classmcpele_1_1MC_ac9f211c253a12cd3e6bed935a0c8c1f2}{take\-\_\-steps} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\-::shared\-\_\-ptr\*
+$<$ pele\-::\-Base\-Potential $>$ \hyperlink{classmcpele_1_1MC_a80e94b003bfc9893c1f829064125a81c}{m\-\_\-potential}
+\item 
+pele\-::\-Array$<$ double $>$ \hyperlink{classmcpele_1_1MC_a3a38fa108292b3e7270ad439ebb2c886}{m\-\_\-coords}
+\item 
+pele\-::\-Array$<$ double $>$ \hyperlink{classmcpele_1_1MC_ab32722238c16272bf95141b825fd3bf4}{m\-\_\-trial\-\_\-coords}
+\item 
+\hyperlink{classmcpele_1_1MC_a6b0a924bb76c28b6fc25c66675c1dcf9}{actions\-\_\-t} \hyperlink{classmcpele_1_1MC_a582e528bae7b630e6845628f49ae443d}{m\-\_\-actions}
+\item 
+\hyperlink{classmcpele_1_1MC_ab52ae82dba8e7299583f48a382f8bd5a}{accept\-\_\-t} \hyperlink{classmcpele_1_1MC_aa28a68b36566e4c5e4bb27ae816c37ab}{m\-\_\-accept\-\_\-tests}
+\item 
+\hyperlink{classmcpele_1_1MC_a025b387c3222c83625323afcddeda1ea}{conf\-\_\-t} \hyperlink{classmcpele_1_1MC_a444f1a159469de77761abced4a94dc48}{m\-\_\-conf\-\_\-tests}
+\item 
+\hyperlink{classmcpele_1_1MC_a025b387c3222c83625323afcddeda1ea}{conf\-\_\-t} \hyperlink{classmcpele_1_1MC_a6910233a8f6223c7826eebacb3f48f6c}{m\-\_\-late\-\_\-conf\-\_\-tests}
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1TakeStep}{\-Take\-Step} $>$ \hyperlink{classmcpele_1_1MC_a3d1e08b4757ebbeab14b523b8cecbc54}{m\-\_\-take\-\_\-step}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a1aac8aa817cf8eecd16eb414717b9205}{m\-\_\-nitercount}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a44e3aeb2ee137f98ec748f589da34250}{m\-\_\-accept\-\_\-count}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a98a00b35b659a559433c7f4bba313c34}{m\-\_\-\-E\-\_\-reject\-\_\-count}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1MC_a47bd41b121d3fda1ed69281454edd8c9}{m\-\_\-conf\-\_\-reject\-\_\-count}
+\item 
+bool \hyperlink{classmcpele_1_1MC_ad31e9ad1eca13c1826461ceb915bad23}{m\-\_\-success}
+\item 
+bool \hyperlink{classmcpele_1_1MC_adca6168469b1bac463443a81ae8dde05}{m\-\_\-print\-\_\-progress}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Monte \-Carlo \-\_\-coords and \-\_\-trialcoords are arrays that store coordinates and trial coordinates respectively \-\_\-potential is on object of \-Pele\-::\-Base\-Potential type that defines the interaction potential \-\_\-\-E\-\_\-reject\-\_\-count is the count of rejections due to an energy test (e.\-g. \-Metropolis) \-\_\-conf\-\_\-reject\-\_\-count is the count of rejections due to a configuration test (e.\-g. spherical container) \-\_\-niter is the count of steps whithin a \-M\-C\-M\-C run, it is reset to zero at the end of the run \-\_\-nitercount is the cumulative number of \-M\-C\-M\-C steps taken by the class \-\_\-neval is the number of energy evaluations \-\_\-temperature is the temperature at which the simulation is performed \-\_\-energy is the current energy of the system \-\_\-success records whether the step has been accepted or rejected 
+
+\-Definition at line 83 of file mc.\-h.
+
+
+
+\subsection{\-Member \-Typedef \-Documentation}
+\hypertarget{classmcpele_1_1MC_ab52ae82dba8e7299583f48a382f8bd5a}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!accept\-\_\-t@{accept\-\_\-t}}
+\index{accept\-\_\-t@{accept\-\_\-t}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{accept\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::vector$<$std\-::shared\-\_\-ptr$<${\bf \-Accept\-Test}$>$ $>$ {\bf mcpele\-::\-M\-C\-::accept\-\_\-t}}}\label{classmcpele_1_1MC_ab52ae82dba8e7299583f48a382f8bd5a}
+
+
+\-Definition at line 86 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a6b0a924bb76c28b6fc25c66675c1dcf9}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!actions\-\_\-t@{actions\-\_\-t}}
+\index{actions\-\_\-t@{actions\-\_\-t}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{actions\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::vector$<$std\-::shared\-\_\-ptr$<${\bf \-Action}$>$ $>$ {\bf mcpele\-::\-M\-C\-::actions\-\_\-t}}}\label{classmcpele_1_1MC_a6b0a924bb76c28b6fc25c66675c1dcf9}
+
+
+\-Definition at line 85 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a025b387c3222c83625323afcddeda1ea}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!conf\-\_\-t@{conf\-\_\-t}}
+\index{conf\-\_\-t@{conf\-\_\-t}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{conf\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::vector$<$std\-::shared\-\_\-ptr$<${\bf \-Conf\-Test}$>$ $>$ {\bf mcpele\-::\-M\-C\-::conf\-\_\-t}}}\label{classmcpele_1_1MC_a025b387c3222c83625323afcddeda1ea}
+
+
+\-Definition at line 87 of file mc.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmcpele_1_1MC_ae144a06dfc924f7ae63d8b14b95a5f6b}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!\-M\-C@{\-M\-C}}
+\index{\-M\-C@{\-M\-C}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{\-M\-C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mcpele\-::\-M\-C\-::\-M\-C} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ pele\-::\-Base\-Potential $>$}]{potential, }
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{const double}]{temperature}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1MC_ae144a06dfc924f7ae63d8b14b95a5f6b}
+
+
+\-Definition at line 8 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_a4737173950c8a51437230d5d83163572}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!$\sim$\-M\-C@{$\sim$\-M\-C}}
+\index{$\sim$\-M\-C@{$\sim$\-M\-C}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{$\sim$\-M\-C}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf mcpele\-::\-M\-C\-::$\sim$\-M\-C} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1MC_a4737173950c8a51437230d5d83163572}
+
+
+\-Definition at line 115 of file mc.\-h.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmcpele_1_1MC_a9277bffe822241e2138dd1de6db320f4}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!abort@{abort}}
+\index{abort@{abort}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{abort}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::abort} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a9277bffe822241e2138dd1de6db320f4}
+this will trigger premature exit from the \hyperlink{classmcpele_1_1MC}{\-M\-C} run loop 
+
+\-Definition at line 155 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a66f76a288eb6389d408792c8c21c1ff0}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!add\-\_\-accept\-\_\-test@{add\-\_\-accept\-\_\-test}}
+\index{add\-\_\-accept\-\_\-test@{add\-\_\-accept\-\_\-test}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{add\-\_\-accept\-\_\-test}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::add\-\_\-accept\-\_\-test} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf \-Accept\-Test} $>$}]{accept\-\_\-test}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a66f76a288eb6389d408792c8c21c1ff0}
+
+
+\-Definition at line 123 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a1f490ace67644e07548ccc7a2781963f}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!add\-\_\-action@{add\-\_\-action}}
+\index{add\-\_\-action@{add\-\_\-action}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{add\-\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::add\-\_\-action} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf \-Action} $>$}]{action}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a1f490ace67644e07548ccc7a2781963f}
+
+
+\-Definition at line 122 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a326495f91244c8c6761b1d783019a5c6}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!add\-\_\-conf\-\_\-test@{add\-\_\-conf\-\_\-test}}
+\index{add\-\_\-conf\-\_\-test@{add\-\_\-conf\-\_\-test}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{add\-\_\-conf\-\_\-test}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::add\-\_\-conf\-\_\-test} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf \-Conf\-Test} $>$}]{conf\-\_\-test}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a326495f91244c8c6761b1d783019a5c6}
+
+
+\-Definition at line 124 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a7a9ab41eb342247e9bacea30c2b3e033}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!add\-\_\-late\-\_\-conf\-\_\-test@{add\-\_\-late\-\_\-conf\-\_\-test}}
+\index{add\-\_\-late\-\_\-conf\-\_\-test@{add\-\_\-late\-\_\-conf\-\_\-test}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{add\-\_\-late\-\_\-conf\-\_\-test}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::add\-\_\-late\-\_\-conf\-\_\-test} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf \-Conf\-Test} $>$}]{conf\-\_\-test}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a7a9ab41eb342247e9bacea30c2b3e033}
+
+
+\-Definition at line 125 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a3682931dc32796af0c7051ce3311c54f}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!check\-\_\-input@{check\-\_\-input}}
+\index{check\-\_\-input@{check\-\_\-input}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{check\-\_\-input}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::check\-\_\-input} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1MC_a3682931dc32796af0c7051ce3311c54f}
+
+
+\-Definition at line 137 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_ab0a769e799bccd46f1e290daf1f4698b}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!compute\-\_\-energy@{compute\-\_\-energy}}
+\index{compute\-\_\-energy@{compute\-\_\-energy}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{compute\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::compute\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}}\label{classmcpele_1_1MC_ab0a769e799bccd46f1e290daf1f4698b}
+
+
+\-Definition at line 157 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ab122e2f3a32b409493043d62a2ad5806}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!do\-\_\-accept\-\_\-tests@{do\-\_\-accept\-\_\-tests}}
+\index{do\-\_\-accept\-\_\-tests@{do\-\_\-accept\-\_\-tests}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{do\-\_\-accept\-\_\-tests}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::do\-\_\-accept\-\_\-tests} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{xtrial, }
+\item[{double}]{etrial, }
+\item[{pele\-::\-Array$<$ double $>$}]{xold, }
+\item[{double}]{eold}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_ab122e2f3a32b409493043d62a2ad5806}
+perform the acceptance tests. \-Stop as soon as one of them fails 
+
+\-Definition at line 49 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_afc4426d60374b2d941405d269eb214ed}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!do\-\_\-actions@{do\-\_\-actions}}
+\index{do\-\_\-actions@{do\-\_\-actions}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{do\-\_\-actions}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::do\-\_\-actions} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{x, }
+\item[{double}]{energy, }
+\item[{bool}]{success}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_afc4426d60374b2d941405d269eb214ed}
+
+
+\-Definition at line 78 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_a10c67bdbd29525b7cfe4c97f861e5b8f}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!do\-\_\-conf\-\_\-tests@{do\-\_\-conf\-\_\-tests}}
+\index{do\-\_\-conf\-\_\-tests@{do\-\_\-conf\-\_\-tests}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{do\-\_\-conf\-\_\-tests}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::do\-\_\-conf\-\_\-tests} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a10c67bdbd29525b7cfe4c97f861e5b8f}
+perform the configuration tests. \-Stop as soon as one of them fails 
+
+\-Definition at line 33 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_ac2f9ac6eaf22fff6d85e3a659658c3c2}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!do\-\_\-late\-\_\-conf\-\_\-tests@{do\-\_\-late\-\_\-conf\-\_\-tests}}
+\index{do\-\_\-late\-\_\-conf\-\_\-tests@{do\-\_\-late\-\_\-conf\-\_\-tests}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{do\-\_\-late\-\_\-conf\-\_\-tests}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::do\-\_\-late\-\_\-conf\-\_\-tests} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_ac2f9ac6eaf22fff6d85e3a659658c3c2}
+perform the configuration tests. \-Stop as soon as one of them fails 
+
+\-Definition at line 65 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_a5a2cf1de51e632cd845002299f6d2e9f}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-accepted\-\_\-fraction@{get\-\_\-accepted\-\_\-fraction}}
+\index{get\-\_\-accepted\-\_\-fraction@{get\-\_\-accepted\-\_\-fraction}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-accepted\-\_\-fraction}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-accepted\-\_\-fraction} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a5a2cf1de51e632cd845002299f6d2e9f}
+
+
+\-Definition at line 137 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a83bfebc60ee7a0db945aeeeaede84181}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-conf\-\_\-rejection\-\_\-fraction@{get\-\_\-conf\-\_\-rejection\-\_\-fraction}}
+\index{get\-\_\-conf\-\_\-rejection\-\_\-fraction@{get\-\_\-conf\-\_\-rejection\-\_\-fraction}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-conf\-\_\-rejection\-\_\-fraction}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-conf\-\_\-rejection\-\_\-fraction} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a83bfebc60ee7a0db945aeeeaede84181}
+
+
+\-Definition at line 139 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a37869df5487d535a9a4515492cd7a056}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-coords@{get\-\_\-coords}}
+\index{get\-\_\-coords@{get\-\_\-coords}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}pele\-::\-Array$<$double$>$ {\bf mcpele\-::\-M\-C\-::get\-\_\-coords} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a37869df5487d535a9a4515492cd7a056}
+
+
+\-Definition at line 132 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_acfb4b64a6a339518c2a12a30b5f6b069}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-\-E\-\_\-rejection\-\_\-fraction@{get\-\_\-\-E\-\_\-rejection\-\_\-fraction}}
+\index{get\-\_\-\-E\-\_\-rejection\-\_\-fraction@{get\-\_\-\-E\-\_\-rejection\-\_\-fraction}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-\-E\-\_\-rejection\-\_\-fraction}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-\-E\-\_\-rejection\-\_\-fraction} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_acfb4b64a6a339518c2a12a30b5f6b069}
+
+
+\-Definition at line 141 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ac538a56ea555f102fc4fe347f9ff40c3}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-energy@{get\-\_\-energy}}
+\index{get\-\_\-energy@{get\-\_\-energy}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-energy} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_ac538a56ea555f102fc4fe347f9ff40c3}
+
+
+\-Definition at line 129 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a9a8e8b2c4a9e77b5136c9a3c1b67bb9c}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-iterations\-\_\-count@{get\-\_\-iterations\-\_\-count}}
+\index{get\-\_\-iterations\-\_\-count@{get\-\_\-iterations\-\_\-count}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-iterations\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::get\-\_\-iterations\-\_\-count} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a9a8e8b2c4a9e77b5136c9a3c1b67bb9c}
+
+
+\-Definition at line 143 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a6a2355df19783573a6d15294cce4fd43}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-naccept@{get\-\_\-naccept}}
+\index{get\-\_\-naccept@{get\-\_\-naccept}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-naccept}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::get\-\_\-naccept} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a6a2355df19783573a6d15294cce4fd43}
+
+
+\-Definition at line 135 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a656ec94034cc412e819438d21f7fcfa3}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-neval@{get\-\_\-neval}}
+\index{get\-\_\-neval@{get\-\_\-neval}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-neval}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::get\-\_\-neval} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a656ec94034cc412e819438d21f7fcfa3}
+
+
+\-Definition at line 144 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a61bb33c1cfd7e7f1caa96ae9f9af79f1}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-norm\-\_\-coords@{get\-\_\-norm\-\_\-coords}}
+\index{get\-\_\-norm\-\_\-coords@{get\-\_\-norm\-\_\-coords}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-norm\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-norm\-\_\-coords} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a61bb33c1cfd7e7f1caa96ae9f9af79f1}
+
+
+\-Definition at line 134 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a5c9f22a57a3e9cc0228c7f84acd8ec7f}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-nreject@{get\-\_\-nreject}}
+\index{get\-\_\-nreject@{get\-\_\-nreject}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-nreject}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::get\-\_\-nreject} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a5c9f22a57a3e9cc0228c7f84acd8ec7f}
+
+
+\-Definition at line 136 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a1e0731055ab95e94142cd0c20fce2daf}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-potential\-\_\-ptr@{get\-\_\-potential\-\_\-ptr}}
+\index{get\-\_\-potential\-\_\-ptr@{get\-\_\-potential\-\_\-ptr}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-potential\-\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$pele\-::\-Base\-Potential$>$ {\bf mcpele\-::\-M\-C\-::get\-\_\-potential\-\_\-ptr} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a1e0731055ab95e94142cd0c20fce2daf}
+
+
+\-Definition at line 145 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ac7c99322af8dc258272c3f83c1ba44d3}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-report\-\_\-steps@{get\-\_\-report\-\_\-steps}}
+\index{get\-\_\-report\-\_\-steps@{get\-\_\-report\-\_\-steps}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-report\-\_\-steps}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::get\-\_\-report\-\_\-steps} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_ac7c99322af8dc258272c3f83c1ba44d3}
+
+
+\-Definition at line 121 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a18448513c2ed188169f3e26a3c431300}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-success@{get\-\_\-success}}
+\index{get\-\_\-success@{get\-\_\-success}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-success}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::get\-\_\-success} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a18448513c2ed188169f3e26a3c431300}
+
+
+\-Definition at line 151 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_aa5207841480b9a6d11699babf63aa95e}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-takestep@{get\-\_\-takestep}}
+\index{get\-\_\-takestep@{get\-\_\-takestep}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-takestep}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<${\bf \-Take\-Step}$>$ {\bf mcpele\-::\-M\-C\-::get\-\_\-takestep} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_aa5207841480b9a6d11699babf63aa95e}
+
+
+\-Definition at line 127 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a897efd5c7a2d444811de516f740c1045}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-temperature@{get\-\_\-temperature}}
+\index{get\-\_\-temperature@{get\-\_\-temperature}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-temperature}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-temperature} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a897efd5c7a2d444811de516f740c1045}
+
+
+\-Definition at line 119 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a1ba8a6e2d26b1124fa4707ad7397a024}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-trial\-\_\-coords@{get\-\_\-trial\-\_\-coords}}
+\index{get\-\_\-trial\-\_\-coords@{get\-\_\-trial\-\_\-coords}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-trial\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}pele\-::\-Array$<$double$>$ {\bf mcpele\-::\-M\-C\-::get\-\_\-trial\-\_\-coords} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a1ba8a6e2d26b1124fa4707ad7397a024}
+
+
+\-Definition at line 133 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a67f441e23995e82288fd9e44072c8efe}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!get\-\_\-trial\-\_\-energy@{get\-\_\-trial\-\_\-energy}}
+\index{get\-\_\-trial\-\_\-energy@{get\-\_\-trial\-\_\-energy}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{get\-\_\-trial\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::get\-\_\-trial\-\_\-energy} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a67f441e23995e82288fd9e44072c8efe}
+
+
+\-Definition at line 131 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_aa1528423634e13ade3fcefa525c5ed89}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!one\-\_\-iteration@{one\-\_\-iteration}}
+\index{one\-\_\-iteration@{one\-\_\-iteration}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{one\-\_\-iteration}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::one\-\_\-iteration} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1MC_aa1528423634e13ade3fcefa525c5ed89}
+
+
+\-Definition at line 91 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_aa822dbcc2c5e3d2489880c5f16cb1dfd}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!report\-\_\-steps\-\_\-specified@{report\-\_\-steps\-\_\-specified}}
+\index{report\-\_\-steps\-\_\-specified@{report\-\_\-steps\-\_\-specified}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{report\-\_\-steps\-\_\-specified}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::report\-\_\-steps\-\_\-specified} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_aa822dbcc2c5e3d2489880c5f16cb1dfd}
+
+
+\-Definition at line 147 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ad3ec3d5ae30a44ed5a7f832a1c570b63}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!reset\-\_\-energy@{reset\-\_\-energy}}
+\index{reset\-\_\-energy@{reset\-\_\-energy}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{reset\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::reset\-\_\-energy} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1MC_ad3ec3d5ae30a44ed5a7f832a1c570b63}
+
+
+\-Definition at line 155 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_a746de23c4d9ddad54a1e9da1dd025033}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!run@{run}}
+\index{run@{run}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::run} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{max\-\_\-iter}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1MC_a746de23c4d9ddad54a1e9da1dd025033}
+
+
+\-Definition at line 163 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_a5df3e0f95cbe02e4e7ee2e3bb7654dff}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!set\-\_\-coordinates@{set\-\_\-coordinates}}
+\index{set\-\_\-coordinates@{set\-\_\-coordinates}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{set\-\_\-coordinates}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::set\-\_\-coordinates} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{double}]{energy}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1MC_a5df3e0f95cbe02e4e7ee2e3bb7654dff}
+
+
+\-Definition at line 148 of file mc.\-cpp.
+
+\hypertarget{classmcpele_1_1MC_ab16a83837236952cac564a9f319ea7a1}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!set\-\_\-print\-\_\-progress@{set\-\_\-print\-\_\-progress}}
+\index{set\-\_\-print\-\_\-progress@{set\-\_\-print\-\_\-progress}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{set\-\_\-print\-\_\-progress}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::set\-\_\-print\-\_\-progress} (
+\begin{DoxyParamCaption}
+\item[{const bool}]{input}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_ab16a83837236952cac564a9f319ea7a1}
+
+
+\-Definition at line 149 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a071420a97e409024070d9c4580f8fe51}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!set\-\_\-print\-\_\-progress@{set\-\_\-print\-\_\-progress}}
+\index{set\-\_\-print\-\_\-progress@{set\-\_\-print\-\_\-progress}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{set\-\_\-print\-\_\-progress}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::set\-\_\-print\-\_\-progress} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a071420a97e409024070d9c4580f8fe51}
+
+
+\-Definition at line 150 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a8e7f1ab57cb3d68032c0293b09596d33}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!set\-\_\-report\-\_\-steps@{set\-\_\-report\-\_\-steps}}
+\index{set\-\_\-report\-\_\-steps@{set\-\_\-report\-\_\-steps}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{set\-\_\-report\-\_\-steps}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::set\-\_\-report\-\_\-steps} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{report\-\_\-steps}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a8e7f1ab57cb3d68032c0293b09596d33}
+
+
+\-Definition at line 120 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a4a348d7cb35617b70f8ef2955712b084}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!set\-\_\-takestep@{set\-\_\-takestep}}
+\index{set\-\_\-takestep@{set\-\_\-takestep}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{set\-\_\-takestep}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::set\-\_\-takestep} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf \-Take\-Step} $>$}]{takestep}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_a4a348d7cb35617b70f8ef2955712b084}
+
+
+\-Definition at line 126 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ac42e32abd801ea17353fd8fb7b23aea5}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!set\-\_\-temperature@{set\-\_\-temperature}}
+\index{set\-\_\-temperature@{set\-\_\-temperature}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{set\-\_\-temperature}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::set\-\_\-temperature} (
+\begin{DoxyParamCaption}
+\item[{const double}]{\-T}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_ac42e32abd801ea17353fd8fb7b23aea5}
+
+
+\-Definition at line 118 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_af0c4c8dcf99b125917644ee5744d4ed6}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!take\-\_\-step\-\_\-specified@{take\-\_\-step\-\_\-specified}}
+\index{take\-\_\-step\-\_\-specified@{take\-\_\-step\-\_\-specified}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{take\-\_\-step\-\_\-specified}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::take\-\_\-step\-\_\-specified} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1MC_af0c4c8dcf99b125917644ee5744d4ed6}
+
+
+\-Definition at line 146 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ac9f211c253a12cd3e6bed935a0c8c1f2}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!take\-\_\-steps@{take\-\_\-steps}}
+\index{take\-\_\-steps@{take\-\_\-steps}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{take\-\_\-steps}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-M\-C\-::take\-\_\-steps} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_ac9f211c253a12cd3e6bed935a0c8c1f2}
+
+
+\-Definition at line 85 of file mc.\-cpp.
+
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classmcpele_1_1MC_a44e3aeb2ee137f98ec748f589da34250}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-accept\-\_\-count@{m\-\_\-accept\-\_\-count}}
+\index{m\-\_\-accept\-\_\-count@{m\-\_\-accept\-\_\-count}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-accept\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::m\-\_\-accept\-\_\-count}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a44e3aeb2ee137f98ec748f589da34250}
+
+
+\-Definition at line 98 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_aa28a68b36566e4c5e4bb27ae816c37ab}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-accept\-\_\-tests@{m\-\_\-accept\-\_\-tests}}
+\index{m\-\_\-accept\-\_\-tests@{m\-\_\-accept\-\_\-tests}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-accept\-\_\-tests}]{\setlength{\rightskip}{0pt plus 5cm}{\bf accept\-\_\-t} {\bf mcpele\-::\-M\-C\-::m\-\_\-accept\-\_\-tests}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_aa28a68b36566e4c5e4bb27ae816c37ab}
+
+
+\-Definition at line 93 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a582e528bae7b630e6845628f49ae443d}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-actions@{m\-\_\-actions}}
+\index{m\-\_\-actions@{m\-\_\-actions}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-actions}]{\setlength{\rightskip}{0pt plus 5cm}{\bf actions\-\_\-t} {\bf mcpele\-::\-M\-C\-::m\-\_\-actions}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a582e528bae7b630e6845628f49ae443d}
+
+
+\-Definition at line 92 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a47bd41b121d3fda1ed69281454edd8c9}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-conf\-\_\-reject\-\_\-count@{m\-\_\-conf\-\_\-reject\-\_\-count}}
+\index{m\-\_\-conf\-\_\-reject\-\_\-count@{m\-\_\-conf\-\_\-reject\-\_\-count}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-conf\-\_\-reject\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::m\-\_\-conf\-\_\-reject\-\_\-count}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a47bd41b121d3fda1ed69281454edd8c9}
+
+
+\-Definition at line 100 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a444f1a159469de77761abced4a94dc48}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-conf\-\_\-tests@{m\-\_\-conf\-\_\-tests}}
+\index{m\-\_\-conf\-\_\-tests@{m\-\_\-conf\-\_\-tests}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-conf\-\_\-tests}]{\setlength{\rightskip}{0pt plus 5cm}{\bf conf\-\_\-t} {\bf mcpele\-::\-M\-C\-::m\-\_\-conf\-\_\-tests}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a444f1a159469de77761abced4a94dc48}
+
+
+\-Definition at line 94 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a3a38fa108292b3e7270ad439ebb2c886}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-coords@{m\-\_\-coords}}
+\index{m\-\_\-coords@{m\-\_\-coords}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}pele\-::\-Array$<$double$>$ {\bf mcpele\-::\-M\-C\-::m\-\_\-coords}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a3a38fa108292b3e7270ad439ebb2c886}
+
+
+\-Definition at line 90 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a98a00b35b659a559433c7f4bba313c34}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-\-E\-\_\-reject\-\_\-count@{m\-\_\-\-E\-\_\-reject\-\_\-count}}
+\index{m\-\_\-\-E\-\_\-reject\-\_\-count@{m\-\_\-\-E\-\_\-reject\-\_\-count}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-\-E\-\_\-reject\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::m\-\_\-\-E\-\_\-reject\-\_\-count}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a98a00b35b659a559433c7f4bba313c34}
+
+
+\-Definition at line 99 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a61af4e6db5014d3ab4251dd38aca68f5}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-energy@{m\-\_\-energy}}
+\index{m\-\_\-energy@{m\-\_\-energy}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::m\-\_\-energy}}}\label{classmcpele_1_1MC_a61af4e6db5014d3ab4251dd38aca68f5}
+
+
+\-Definition at line 109 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a6910233a8f6223c7826eebacb3f48f6c}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-late\-\_\-conf\-\_\-tests@{m\-\_\-late\-\_\-conf\-\_\-tests}}
+\index{m\-\_\-late\-\_\-conf\-\_\-tests@{m\-\_\-late\-\_\-conf\-\_\-tests}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-late\-\_\-conf\-\_\-tests}]{\setlength{\rightskip}{0pt plus 5cm}{\bf conf\-\_\-t} {\bf mcpele\-::\-M\-C\-::m\-\_\-late\-\_\-conf\-\_\-tests}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a6910233a8f6223c7826eebacb3f48f6c}
+
+
+\-Definition at line 95 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a678adb43213ef8da3a8b7620a8ff4d6e}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-neval@{m\-\_\-neval}}
+\index{m\-\_\-neval@{m\-\_\-neval}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-neval}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::m\-\_\-neval}}}\label{classmcpele_1_1MC_a678adb43213ef8da3a8b7620a8ff4d6e}
+
+
+\-Definition at line 107 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a570b47c5f340c2afda0a519f1225eba9}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-niter@{m\-\_\-niter}}
+\index{m\-\_\-niter@{m\-\_\-niter}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-niter}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::m\-\_\-niter}}}\label{classmcpele_1_1MC_a570b47c5f340c2afda0a519f1225eba9}
+
+
+\-Definition at line 106 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a1aac8aa817cf8eecd16eb414717b9205}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-nitercount@{m\-\_\-nitercount}}
+\index{m\-\_\-nitercount@{m\-\_\-nitercount}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-nitercount}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-M\-C\-::m\-\_\-nitercount}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a1aac8aa817cf8eecd16eb414717b9205}
+
+
+\-Definition at line 97 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a80e94b003bfc9893c1f829064125a81c}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-potential@{m\-\_\-potential}}
+\index{m\-\_\-potential@{m\-\_\-potential}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-potential}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$pele\-::\-Base\-Potential$>$ {\bf mcpele\-::\-M\-C\-::m\-\_\-potential}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a80e94b003bfc9893c1f829064125a81c}
+
+
+\-Definition at line 89 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_adca6168469b1bac463443a81ae8dde05}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-print\-\_\-progress@{m\-\_\-print\-\_\-progress}}
+\index{m\-\_\-print\-\_\-progress@{m\-\_\-print\-\_\-progress}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-print\-\_\-progress}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::m\-\_\-print\-\_\-progress}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_adca6168469b1bac463443a81ae8dde05}
+
+
+\-Definition at line 103 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ad31e9ad1eca13c1826461ceb915bad23}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-success@{m\-\_\-success}}
+\index{m\-\_\-success@{m\-\_\-success}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-success}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-M\-C\-::m\-\_\-success}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_ad31e9ad1eca13c1826461ceb915bad23}
+
+
+\-Definition at line 101 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a3d1e08b4757ebbeab14b523b8cecbc54}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-take\-\_\-step@{m\-\_\-take\-\_\-step}}
+\index{m\-\_\-take\-\_\-step@{m\-\_\-take\-\_\-step}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-take\-\_\-step}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<${\bf \-Take\-Step}$>$ {\bf mcpele\-::\-M\-C\-::m\-\_\-take\-\_\-step}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_a3d1e08b4757ebbeab14b523b8cecbc54}
+
+
+\-Definition at line 96 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ac96652882e0e578172de302578be5b88}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-temperature@{m\-\_\-temperature}}
+\index{m\-\_\-temperature@{m\-\_\-temperature}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-temperature}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::m\-\_\-temperature}}}\label{classmcpele_1_1MC_ac96652882e0e578172de302578be5b88}
+
+
+\-Definition at line 108 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_ab32722238c16272bf95141b825fd3bf4}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-trial\-\_\-coords@{m\-\_\-trial\-\_\-coords}}
+\index{m\-\_\-trial\-\_\-coords@{m\-\_\-trial\-\_\-coords}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-trial\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}pele\-::\-Array$<$double$>$ {\bf mcpele\-::\-M\-C\-::m\-\_\-trial\-\_\-coords}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1MC_ab32722238c16272bf95141b825fd3bf4}
+
+
+\-Definition at line 91 of file mc.\-h.
+
+\hypertarget{classmcpele_1_1MC_a956f949abbf2bd055e72924cb136f3e7}{\index{mcpele\-::\-M\-C@{mcpele\-::\-M\-C}!m\-\_\-trial\-\_\-energy@{m\-\_\-trial\-\_\-energy}}
+\index{m\-\_\-trial\-\_\-energy@{m\-\_\-trial\-\_\-energy}!mcpele::MC@{mcpele\-::\-M\-C}}
+\subsubsection[{m\-\_\-trial\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-M\-C\-::m\-\_\-trial\-\_\-energy}}}\label{classmcpele_1_1MC_a956f949abbf2bd055e72924cb136f3e7}
+
+
+\-Definition at line 110 of file mc.\-h.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+mcpele/\hyperlink{mc_8h}{mc.\-h}\item 
+\hyperlink{mc_8cpp}{mc.\-cpp}\end{DoxyCompactItemize}

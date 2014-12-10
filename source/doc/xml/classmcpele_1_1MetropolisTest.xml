@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1MetropolisTest" kind="class" prot="public">
+    <compoundname>mcpele::MetropolisTest</compoundname>
+    <basecompoundref refid="classmcpele_1_1AcceptTest" prot="public" virt="non-virtual">mcpele::AcceptTest</basecompoundref>
+    <includes refid="metropolis__test_8h" local="no">metropolis_test.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1MetropolisTest_1aa2973163ef6d8160e5f1d096cc7d4170" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::MetropolisTest::m_seed</definition>
+        <argsstring></argsstring>
+        <name>m_seed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="26" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1MetropolisTest_1acf16d24f5b32afb1977c542e20dc23cf" prot="protected" static="no" mutable="no">
+        <type>std::mt19937_64</type>
+        <definition>std::mt19937_64 mcpele::MetropolisTest::m_generator</definition>
+        <argsstring></argsstring>
+        <name>m_generator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="27" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1MetropolisTest_1a98284c84912422d5846aef7f21772740" prot="protected" static="no" mutable="no">
+        <type>std::uniform_real_distribution&lt; double &gt;</type>
+        <definition>std::uniform_real_distribution&lt;double&gt; mcpele::MetropolisTest::m_distribution</definition>
+        <argsstring></argsstring>
+        <name>m_distribution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="28" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1MetropolisTest_1a9cf4477f7ddfc2999178d99861f915a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::MetropolisTest::MetropolisTest</definition>
+        <argsstring>(const size_t rseed)</argsstring>
+        <name>MetropolisTest</name>
+        <param>
+          <type>const size_t</type>
+          <declname>rseed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="30" bodyfile="/home/sm958/Work/mcpele/source/metropolis_test.cpp" bodystart="10" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1MetropolisTest_1a3c7b3df9ae8624eb3e4e4e2aa94249d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::MetropolisTest::~MetropolisTest</definition>
+        <argsstring>()</argsstring>
+        <name>~MetropolisTest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="31" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool mcpele::MetropolisTest::test</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;trial_coords, double trial_energy, pele::Array&lt; double &gt; &amp;old_coords, double old_energy, double temperature, MC *mc)</argsstring>
+        <name>test</name>
+        <reimplements refid="classmcpele_1_1AcceptTest_1ae2d9e2feaae60d49a35c7170f56f5d78">test</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>trial_coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>trial_energy</declname>
+        </param>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>old_coords</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>old_energy</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>temperature</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="34" bodyfile="/home/sm958/Work/mcpele/source/metropolis_test.cpp" bodystart="21" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1MetropolisTest_1a8f02eef6939b2acc3d2b50af04248dcf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mcpele::MetropolisTest::get_seed</definition>
+        <argsstring>() const </argsstring>
+        <name>get_seed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="35" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1MetropolisTest_1a6c1fe3e8acdeb71a806c94cf8318936b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void mcpele::MetropolisTest::set_generator_seed</definition>
+        <argsstring>(const size_t inp)</argsstring>
+        <name>set_generator_seed</name>
+        <param>
+          <type>const size_t</type>
+          <declname>inp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="36" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The Metropolis acceptance criterion accepts each move with probability <formula id="0">\[ P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \} \]</formula> where <formula id="1">$\beta$</formula> is the reciprocal of the temperature </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="40">
+        <label>mcpele::AcceptTest</label>
+        <link refid="classmcpele_1_1AcceptTest"/>
+      </node>
+      <node id="39">
+        <label>mcpele::MetropolisTest</label>
+        <link refid="classmcpele_1_1MetropolisTest"/>
+        <childnode refid="40" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="42">
+        <label>mcpele::AcceptTest</label>
+        <link refid="classmcpele_1_1AcceptTest"/>
+      </node>
+      <node id="41">
+        <label>mcpele::MetropolisTest</label>
+        <link refid="classmcpele_1_1MetropolisTest"/>
+        <childnode refid="42" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" line="24" bodyfile="/home/sm958/Work/mcpele/source/mcpele/metropolis_test.h" bodystart="24" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1MetropolisTest_1a8f02eef6939b2acc3d2b50af04248dcf" prot="public" virt="non-virtual"><scope>mcpele::MetropolisTest</scope><name>get_seed</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1a98284c84912422d5846aef7f21772740" prot="protected" virt="non-virtual"><scope>mcpele::MetropolisTest</scope><name>m_distribution</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1acf16d24f5b32afb1977c542e20dc23cf" prot="protected" virt="non-virtual"><scope>mcpele::MetropolisTest</scope><name>m_generator</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1aa2973163ef6d8160e5f1d096cc7d4170" prot="protected" virt="non-virtual"><scope>mcpele::MetropolisTest</scope><name>m_seed</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1a9cf4477f7ddfc2999178d99861f915a2" prot="public" virt="non-virtual"><scope>mcpele::MetropolisTest</scope><name>MetropolisTest</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1a6c1fe3e8acdeb71a806c94cf8318936b" prot="public" virt="non-virtual"><scope>mcpele::MetropolisTest</scope><name>set_generator_seed</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7" prot="public" virt="virtual"><scope>mcpele::MetropolisTest</scope><name>test</name></member>
+      <member refid="classmcpele_1_1AcceptTest_1ab2a9fd77376ce15e1c7c5b1ee0df23fc" prot="public" virt="virtual"><scope>mcpele::MetropolisTest</scope><name>~AcceptTest</name></member>
+      <member refid="classmcpele_1_1MetropolisTest_1a3c7b3df9ae8624eb3e4e4e2aa94249d0" prot="public" virt="virtual"><scope>mcpele::MetropolisTest</scope><name>~MetropolisTest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

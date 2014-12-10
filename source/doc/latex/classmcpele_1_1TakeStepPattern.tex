@@ -1,0 +1,132 @@
+\hypertarget{classmcpele_1_1TakeStepPattern}{\section{mcpele\-:\-:\-Take\-Step\-Pattern \-Class \-Reference}
+\label{classmcpele_1_1TakeStepPattern}\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}}
+}
+
+
+{\ttfamily \#include $<$take\-\_\-step\-\_\-pattern.\-h$>$}
+
+\-Inheritance diagram for mcpele\-:\-:\-Take\-Step\-Pattern\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmcpele_1_1TakeStepPattern}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{classmcpele_1_1TakeStepPattern_a574b72c67af41877b638d08b7a57e81b}{$\sim$\-Take\-Step\-Pattern} ()
+\item 
+void \hyperlink{classmcpele_1_1TakeStepPattern_a1bfe8206991a6aad0fdefe5ec916b31c}{add\-\_\-step} (std\-::shared\-\_\-ptr$<$ \hyperlink{classmcpele_1_1TakeStep}{\-Take\-Step} $>$ step\-\_\-input, const size\-\_\-t repetitions\-\_\-input=1)
+\item 
+void \hyperlink{classmcpele_1_1TakeStepPattern_a8c5ef12183c58b84b3ff5e9276ec8688}{displace} (pele\-::\-Array$<$ double $>$ \&coords, \hyperlink{classmcpele_1_1MC}{\-M\-C} $\ast$mc)
+\item 
+void \hyperlink{classmcpele_1_1TakeStepPattern_a6038fb5304e2a31c105fa5b537ee1b6c}{report} (pele\-::\-Array$<$ double $>$ \&old\-\_\-coords, const double old\-\_\-energy, pele\-::\-Array$<$ double $>$ \&new\-\_\-coords, const double new\-\_\-energy, const bool success, \hyperlink{classmcpele_1_1MC}{\-M\-C} $\ast$mc)
+\item 
+std\-::vector$<$ size\-\_\-t $>$ \hyperlink{classmcpele_1_1TakeStepPattern_a811124bbaa7ee317943d6bedb8155711}{get\-\_\-pattern} () const 
+\item 
+std\-::vector$<$ size\-\_\-t $>$ \hyperlink{classmcpele_1_1TakeStepPattern_ac6bf72bf5bb87c1fdd67999d88d85ed2}{get\-\_\-pattern\-\_\-direct} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Create a pattern of \-Take\-Steps to be exectuted by \hyperlink{classmcpele_1_1MC}{\-M\-C}.
+
+\-Example -\/-\/-\/-\/-\/-\/-\/
+
+\-To have \hyperlink{classmcpele_1_1MC}{\-M\-C} looping over a pattern consisting of 99 times step\-\_\-\-A and 1 time step\-\_\-\-B, do e.\-g.\-: auto pot = std\-::make\-\_\-shared$<$\-Some\-Potential$>$(\-Some\-Parameters); auto mc = std\-::make\-\_\-shared$<$mcpele\-::\-M\-C$>$(pot, Some\-Coordinates, Some\-Temperature); auto step\-\_\-pattern = std\-::make\-\_\-shared$<$mcpele\-::\-Take\-Step\-Pattern$>$(); auto step\-\_\-\-A = std\-::make\-\_\-shared$<$\-Some\-Take\-Step$>$(\-Some\-Parameters); auto step\-\_\-\-B = std\-::make\-\_\-shared$<$\-Some\-Other\-Take\-Step$>$(\-Some\-Other\-Parameters); step\-\_\-pattern-\/$>$add\-\_\-step(step\-\_\-\-A, 99); step\-\_\-pattern-\/$>$add\-\_\-step(step\-\_\-\-B, 1); mc-\/$>$set\-\_\-takestep(step\-\_\-pattern); mc-\/$>$run(1e6); 
+
+\-Definition at line 26 of file take\-\_\-step\-\_\-pattern.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmcpele_1_1TakeStepPattern_a574b72c67af41877b638d08b7a57e81b}{\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}!$\sim$\-Take\-Step\-Pattern@{$\sim$\-Take\-Step\-Pattern}}
+\index{$\sim$\-Take\-Step\-Pattern@{$\sim$\-Take\-Step\-Pattern}!mcpele::TakeStepPattern@{mcpele\-::\-Take\-Step\-Pattern}}
+\subsubsection[{$\sim$\-Take\-Step\-Pattern}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf mcpele\-::\-Take\-Step\-Pattern\-::$\sim$\-Take\-Step\-Pattern} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1TakeStepPattern_a574b72c67af41877b638d08b7a57e81b}
+
+
+\-Definition at line 30 of file take\-\_\-step\-\_\-pattern.\-h.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmcpele_1_1TakeStepPattern_a1bfe8206991a6aad0fdefe5ec916b31c}{\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}!add\-\_\-step@{add\-\_\-step}}
+\index{add\-\_\-step@{add\-\_\-step}!mcpele::TakeStepPattern@{mcpele\-::\-Take\-Step\-Pattern}}
+\subsubsection[{add\-\_\-step}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Take\-Step\-Pattern\-::add\-\_\-step} (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf \-Take\-Step} $>$}]{step\-\_\-input, }
+\item[{const size\-\_\-t}]{repetitions\-\_\-input = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1TakeStepPattern_a1bfe8206991a6aad0fdefe5ec916b31c}
+
+
+\-Definition at line 31 of file take\-\_\-step\-\_\-pattern.\-h.
+
+\hypertarget{classmcpele_1_1TakeStepPattern_a8c5ef12183c58b84b3ff5e9276ec8688}{\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}!displace@{displace}}
+\index{displace@{displace}!mcpele::TakeStepPattern@{mcpele\-::\-Take\-Step\-Pattern}}
+\subsubsection[{displace}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Take\-Step\-Pattern\-::displace} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{{\bf \-M\-C} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classmcpele_1_1TakeStepPattern_a8c5ef12183c58b84b3ff5e9276ec8688}
+
+
+\-Implements \hyperlink{classmcpele_1_1TakeStep_ac3032e0d99d4aa5f940ffea4a28442f5}{mcpele\-::\-Take\-Step}.
+
+
+
+\-Definition at line 5 of file take\-\_\-step\-\_\-pattern.\-cpp.
+
+\hypertarget{classmcpele_1_1TakeStepPattern_a811124bbaa7ee317943d6bedb8155711}{\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}!get\-\_\-pattern@{get\-\_\-pattern}}
+\index{get\-\_\-pattern@{get\-\_\-pattern}!mcpele::TakeStepPattern@{mcpele\-::\-Take\-Step\-Pattern}}
+\subsubsection[{get\-\_\-pattern}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$size\-\_\-t$>$ {\bf mcpele\-::\-Take\-Step\-Pattern\-::get\-\_\-pattern} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1TakeStepPattern_a811124bbaa7ee317943d6bedb8155711}
+
+
+\-Definition at line 38 of file take\-\_\-step\-\_\-pattern.\-h.
+
+\hypertarget{classmcpele_1_1TakeStepPattern_ac6bf72bf5bb87c1fdd67999d88d85ed2}{\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}!get\-\_\-pattern\-\_\-direct@{get\-\_\-pattern\-\_\-direct}}
+\index{get\-\_\-pattern\-\_\-direct@{get\-\_\-pattern\-\_\-direct}!mcpele::TakeStepPattern@{mcpele\-::\-Take\-Step\-Pattern}}
+\subsubsection[{get\-\_\-pattern\-\_\-direct}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$size\-\_\-t$>$ {\bf mcpele\-::\-Take\-Step\-Pattern\-::get\-\_\-pattern\-\_\-direct} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1TakeStepPattern_ac6bf72bf5bb87c1fdd67999d88d85ed2}
+
+
+\-Definition at line 39 of file take\-\_\-step\-\_\-pattern.\-h.
+
+\hypertarget{classmcpele_1_1TakeStepPattern_a6038fb5304e2a31c105fa5b537ee1b6c}{\index{mcpele\-::\-Take\-Step\-Pattern@{mcpele\-::\-Take\-Step\-Pattern}!report@{report}}
+\index{report@{report}!mcpele::TakeStepPattern@{mcpele\-::\-Take\-Step\-Pattern}}
+\subsubsection[{report}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Take\-Step\-Pattern\-::report} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{old\-\_\-coords, }
+\item[{const double}]{old\-\_\-energy, }
+\item[{pele\-::\-Array$<$ double $>$ \&}]{new\-\_\-coords, }
+\item[{const double}]{new\-\_\-energy, }
+\item[{const bool}]{success, }
+\item[{{\bf \-M\-C} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1TakeStepPattern_a6038fb5304e2a31c105fa5b537ee1b6c}
+
+
+\-Reimplemented from \hyperlink{classmcpele_1_1TakeStep_aac4f30de62c4cbc4d9d31c7629742f64}{mcpele\-::\-Take\-Step}.
+
+
+
+\-Definition at line 34 of file take\-\_\-step\-\_\-pattern.\-h.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+mcpele/\hyperlink{take__step__pattern_8h}{take\-\_\-step\-\_\-pattern.\-h}\item 
+\hyperlink{take__step__pattern_8cpp}{take\-\_\-step\-\_\-pattern.\-cpp}\end{DoxyCompactItemize}

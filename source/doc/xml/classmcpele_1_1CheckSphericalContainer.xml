@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1CheckSphericalContainer" kind="class" prot="public">
+    <compoundname>mcpele::CheckSphericalContainer</compoundname>
+    <basecompoundref refid="classmcpele_1_1ConfTest" prot="public" virt="non-virtual">mcpele::ConfTest</basecompoundref>
+    <includes refid="check__spherical__container_8h" local="no">check_spherical_container.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classmcpele_1_1CheckSphericalContainer_1a692b8da3daa2d45a7fc651d2ce045763" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double mcpele::CheckSphericalContainer::m_radius2</definition>
+        <argsstring></argsstring>
+        <name>m_radius2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" line="20" bodyfile="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmcpele_1_1CheckSphericalContainer_1a4c900129e7fe133b1ddd3f9957eb1154" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mcpele::CheckSphericalContainer::m_ndim</definition>
+        <argsstring></argsstring>
+        <name>m_ndim</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" line="21" bodyfile="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1CheckSphericalContainer_1af1ddbdb3d2651a18df37447af8749853" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mcpele::CheckSphericalContainer::CheckSphericalContainer</definition>
+        <argsstring>(const double radius, const size_t ndim)</argsstring>
+        <name>CheckSphericalContainer</name>
+        <param>
+          <type>const double</type>
+          <declname>radius</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>ndim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" line="23" bodyfile="/home/sm958/Work/mcpele/source/check_spherical_container.cpp" bodystart="8" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1CheckSphericalContainer_1a69f1b9e554a00d539477443dedbb3426" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool mcpele::CheckSphericalContainer::conf_test</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;trial_coords, MC *mc)</argsstring>
+        <name>conf_test</name>
+        <reimplements refid="classmcpele_1_1ConfTest_1ad2757dd936a04849c9657e15a950dd8f">conf_test</reimplements>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>trial_coords</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" line="24" bodyfile="/home/sm958/Work/mcpele/source/check_spherical_container.cpp" bodystart="13" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1CheckSphericalContainer_1ae0031a4990e7465c8f550f7bfe367042" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::CheckSphericalContainer::~CheckSphericalContainer</definition>
+        <argsstring>()</argsstring>
+        <name>~CheckSphericalContainer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" line="25" bodyfile="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="16">
+        <label>mcpele::CheckSphericalContainer</label>
+        <link refid="classmcpele_1_1CheckSphericalContainer"/>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>mcpele::ConfTest</label>
+        <link refid="classmcpele_1_1ConfTest"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="18">
+        <label>mcpele::CheckSphericalContainer</label>
+        <link refid="classmcpele_1_1CheckSphericalContainer"/>
+        <childnode refid="19" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>mcpele::ConfTest</label>
+        <link refid="classmcpele_1_1ConfTest"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" line="18" bodyfile="/home/sm958/Work/mcpele/source/mcpele/check_spherical_container.h" bodystart="18" bodyend="26"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1CheckSphericalContainer_1af1ddbdb3d2651a18df37447af8749853" prot="public" virt="non-virtual"><scope>mcpele::CheckSphericalContainer</scope><name>CheckSphericalContainer</name></member>
+      <member refid="classmcpele_1_1CheckSphericalContainer_1a69f1b9e554a00d539477443dedbb3426" prot="public" virt="virtual"><scope>mcpele::CheckSphericalContainer</scope><name>conf_test</name></member>
+      <member refid="classmcpele_1_1CheckSphericalContainer_1a4c900129e7fe133b1ddd3f9957eb1154" prot="protected" virt="non-virtual"><scope>mcpele::CheckSphericalContainer</scope><name>m_ndim</name></member>
+      <member refid="classmcpele_1_1CheckSphericalContainer_1a692b8da3daa2d45a7fc651d2ce045763" prot="protected" virt="non-virtual"><scope>mcpele::CheckSphericalContainer</scope><name>m_radius2</name></member>
+      <member refid="classmcpele_1_1CheckSphericalContainer_1ae0031a4990e7465c8f550f7bfe367042" prot="public" virt="virtual"><scope>mcpele::CheckSphericalContainer</scope><name>~CheckSphericalContainer</name></member>
+      <member refid="classmcpele_1_1ConfTest_1a8d5a5ff5d0222a2d55e3e6c413559d2a" prot="public" virt="virtual"><scope>mcpele::CheckSphericalContainer</scope><name>~ConfTest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

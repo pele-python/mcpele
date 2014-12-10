@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classmcpele_1_1ConfTest" kind="class" prot="public">
+    <compoundname>mcpele::ConfTest</compoundname>
+    <derivedcompoundref refid="classmcpele_1_1CheckSphericalContainer" prot="public" virt="non-virtual">mcpele::CheckSphericalContainer</derivedcompoundref>
+    <includes refid="mc_8h" local="no">mc.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmcpele_1_1ConfTest_1a8d5a5ff5d0222a2d55e3e6c413559d2a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual mcpele::ConfTest::~ConfTest</definition>
+        <argsstring>()</argsstring>
+        <name>~ConfTest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="51" bodyfile="/home/sm958/Work/mcpele/source/mcpele/mc.h" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classmcpele_1_1ConfTest_1ad2757dd936a04849c9657e15a950dd8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool mcpele::ConfTest::conf_test</definition>
+        <argsstring>(pele::Array&lt; double &gt; &amp;trial_coords, MC *mc)=0</argsstring>
+        <name>conf_test</name>
+        <reimplementedby refid="classmcpele_1_1CheckSphericalContainer_1a69f1b9e554a00d539477443dedbb3426">conf_test</reimplementedby>
+        <param>
+          <type>pele::Array&lt; double &gt; &amp;</type>
+          <declname>trial_coords</declname>
+        </param>
+        <param>
+          <type><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref> *</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="21">
+        <label>mcpele::CheckSphericalContainer</label>
+        <link refid="classmcpele_1_1CheckSphericalContainer"/>
+        <childnode refid="20" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>mcpele::ConfTest</label>
+        <link refid="classmcpele_1_1ConfTest"/>
+      </node>
+    </inheritancegraph>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/mc.h" line="47" bodyfile="/home/sm958/Work/mcpele/source/mcpele/mc.h" bodystart="47" bodyend="53"/>
+    <listofallmembers>
+      <member refid="classmcpele_1_1ConfTest_1ad2757dd936a04849c9657e15a950dd8f" prot="public" virt="pure-virtual"><scope>mcpele::ConfTest</scope><name>conf_test</name></member>
+      <member refid="classmcpele_1_1ConfTest_1a8d5a5ff5d0222a2d55e3e6c413559d2a" prot="public" virt="virtual"><scope>mcpele::ConfTest</scope><name>~ConfTest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

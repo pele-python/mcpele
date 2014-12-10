@@ -9,8 +9,18 @@
 namespace mcpele {
 
 /**
- * Metropolis acceptance criterion
- */
+    \file metropolis_test.h
+    Metropolis acceptance criterion
+*/
+
+/*!
+    The Metropolis acceptance criterion accepts each move with probability
+    @f[
+    P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \}
+    @f]
+    where \f$\beta\f$ is the reciprocal of the temperature
+*/
+
 class MetropolisTest : public AcceptTest {
 protected:
     size_t m_seed;

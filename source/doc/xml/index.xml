@@ -1,0 +1,477 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.7.6.1">
+  <compound refid="classmcpele_1_1AcceptTest" kind="class"><name>mcpele::AcceptTest</name>
+    <member refid="classmcpele_1_1AcceptTest_1ab2a9fd77376ce15e1c7c5b1ee0df23fc" kind="function"><name>~AcceptTest</name></member>
+    <member refid="classmcpele_1_1AcceptTest_1ae2d9e2feaae60d49a35c7170f56f5d78" kind="function"><name>test</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1Action" kind="class"><name>mcpele::Action</name>
+    <member refid="classmcpele_1_1Action_1adee26930d409e327d88b8539b5bb3a67" kind="function"><name>~Action</name></member>
+    <member refid="classmcpele_1_1Action_1a9500d60c55f0d36ffb6ed0464ea3c68e" kind="function"><name>action</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1AdaptiveTakeStep" kind="class"><name>mcpele::AdaptiveTakeStep</name>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" kind="variable"><name>m_ts</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1ac16baa470b559d1c994be4cebc331b90" kind="variable"><name>m_interval</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" kind="variable"><name>m_total_steps</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" kind="variable"><name>m_accepted_steps</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" kind="variable"><name>m_factor</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1ad6c2c748b3effbbb8ab2cec826419e88" kind="variable"><name>m_min_acceptance_ratio</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a2f83a3b74b5a6d515687e5c02292f9c9" kind="variable"><name>m_max_acceptance_ratio</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a6f42dbb0ed0d9dcd88b47e267368b34f" kind="function"><name>~AdaptiveTakeStep</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a1ee619caed0973ddea12e0d1a4ce8e9d" kind="function"><name>AdaptiveTakeStep</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a63b75b0fda5b685fdfd8076f1e099523" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a3787085dd0bdf41fee0787c13265edea" kind="function"><name>report</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1ac3693c26dbad6a3a1f5003626da0eff4" kind="function"><name>get_min_acceptance_ratio</name></member>
+    <member refid="classmcpele_1_1AdaptiveTakeStep_1a245d6ab24dce23791a2a75fd896b21e5" kind="function"><name>get_max_acceptance_ratio</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1CheckSphericalContainer" kind="class"><name>mcpele::CheckSphericalContainer</name>
+    <member refid="classmcpele_1_1CheckSphericalContainer_1a692b8da3daa2d45a7fc651d2ce045763" kind="variable"><name>m_radius2</name></member>
+    <member refid="classmcpele_1_1CheckSphericalContainer_1a4c900129e7fe133b1ddd3f9957eb1154" kind="variable"><name>m_ndim</name></member>
+    <member refid="classmcpele_1_1CheckSphericalContainer_1af1ddbdb3d2651a18df37447af8749853" kind="function"><name>CheckSphericalContainer</name></member>
+    <member refid="classmcpele_1_1CheckSphericalContainer_1a69f1b9e554a00d539477443dedbb3426" kind="function"><name>conf_test</name></member>
+    <member refid="classmcpele_1_1CheckSphericalContainer_1ae0031a4990e7465c8f550f7bfe367042" kind="function"><name>~CheckSphericalContainer</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1ConfTest" kind="class"><name>mcpele::ConfTest</name>
+    <member refid="classmcpele_1_1ConfTest_1a8d5a5ff5d0222a2d55e3e6c413559d2a" kind="function"><name>~ConfTest</name></member>
+    <member refid="classmcpele_1_1ConfTest_1ad2757dd936a04849c9657e15a950dd8f" kind="function"><name>conf_test</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1EnergyWindowTest" kind="class"><name>mcpele::EnergyWindowTest</name>
+    <member refid="classmcpele_1_1EnergyWindowTest_1abb86cad9952f92fd8db221baaf62e847" kind="variable"><name>m_min_energy</name></member>
+    <member refid="classmcpele_1_1EnergyWindowTest_1ae0db5a8b295b8bf29477fd5dd741a88c" kind="variable"><name>m_max_energy</name></member>
+    <member refid="classmcpele_1_1EnergyWindowTest_1a0b8f02bf14f23525e1661729864d8e70" kind="function"><name>EnergyWindowTest</name></member>
+    <member refid="classmcpele_1_1EnergyWindowTest_1ad0e1111aaf29e6c462451d7708722c52" kind="function"><name>~EnergyWindowTest</name></member>
+    <member refid="classmcpele_1_1EnergyWindowTest_1a529460eac573357f981639fe85807520" kind="function"><name>test</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1FindLowestEigenvalue" kind="class"><name>mcpele::FindLowestEigenvalue</name>
+    <member refid="classmcpele_1_1FindLowestEigenvalue_1a0954e8580234b237dfe77cdccc260386" kind="variable"><name>m_lowesteigpot</name></member>
+    <member refid="classmcpele_1_1FindLowestEigenvalue_1add920c3ac874f8f2631ad05bcad3d8ee" kind="variable"><name>m_ranvec</name></member>
+    <member refid="classmcpele_1_1FindLowestEigenvalue_1a627293eebbc1006363a180640d805949" kind="variable"><name>m_lbfgs</name></member>
+    <member refid="classmcpele_1_1FindLowestEigenvalue_1aa8cff93dfc74754b4bd4f290d852a7a0" kind="function"><name>FindLowestEigenvalue</name></member>
+    <member refid="classmcpele_1_1FindLowestEigenvalue_1a29f56a74823d7e974187b1a04ff44639" kind="function"><name>compute_lowest_eigenvalue</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1GaussianCoordsDisplacement" kind="class"><name>mcpele::GaussianCoordsDisplacement</name>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1af50ffc7add2d8e7ae70b07c04a620fb7" kind="variable"><name>m_seed</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a515b27b041db3301e85bd4da6ba44383" kind="variable"><name>m_mean</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a49258ed3098c51b3567e7193ccd57e70" kind="variable"><name>m_stdev</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a1e9c3d0a0135be68c503e4148a55f0b6" kind="variable"><name>m_generator</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a231f5ed3fcf7b644e7bdd44cbd6d318d" kind="variable"><name>m_distribution</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a9818016f14a05214f1b50f328612ed79" kind="variable"><name>m_stepsize</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a16890ca6001b9c8ae624fdd89b612aad" kind="variable"><name>m_count</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a693f5cd3743cca41cfae62ba5c8fa1b2" kind="function"><name>GaussianCoordsDisplacement</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a5629b7e1fc63a2208a188a7ed0461acc" kind="function"><name>~GaussianCoordsDisplacement</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a9855e838fb6d19c55be12dd108cfdb5b" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1acb65b915f740d1618ecc267c02fcd17b" kind="function"><name>get_seed</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1adaefd98609344bb8a9744a9cee554ccc" kind="function"><name>set_generator_seed</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a5f7da29b7bde371ff3971164f58ff3d9" kind="function"><name>expected_mean</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a225423c83abb6d91bedac92802961790" kind="function"><name>expected_variance</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1a87e64b4fed1cf85cc6e4ee13d6fde190" kind="function"><name>get_stepsize</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1ab36a3671f18d4b2560cfc981a6bd6a2d" kind="function"><name>set_stepsize</name></member>
+    <member refid="classmcpele_1_1GaussianCoordsDisplacement_1ae5042527322a279d5a151ae7879d647e" kind="function"><name>get_count</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1GetDisplacementPerParticle" kind="class"><name>mcpele::GetDisplacementPerParticle</name>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1a07db08d26ff4e9d20bf31cdddd3ab1bc" kind="variable"><name>m_initial_coordinates</name></member>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1a7bd672a90109c6d2cbd33650fbcfb205" kind="variable"><name>m_boxdimension</name></member>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1a3060f69193483ad310f2ad12639b57ff" kind="variable"><name>m_nr_particles</name></member>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1a8a6de0c38b3dc64c7a7c4f00fe86e8da" kind="function"><name>~GetDisplacementPerParticle</name></member>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1afbe836e3aaa986a5328f108491dd4b25" kind="function"><name>GetDisplacementPerParticle</name></member>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1a8c145ff40848797ae8a1990f408d0082" kind="function"><name>compute_mean_particle_displacement</name></member>
+    <member refid="classmcpele_1_1GetDisplacementPerParticle_1a781391271adacc033a133d18eca2a539" kind="function"><name>get_particle_displ</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1Histogram" kind="class"><name>mcpele::Histogram</name>
+    <member refid="classmcpele_1_1Histogram_1a0992d03fb112a480a0a8514a4da2d51e" kind="variable"><name>m_max</name></member>
+    <member refid="classmcpele_1_1Histogram_1a3be26e1f2f72e96ddf04aa28df48918b" kind="variable"><name>m_min</name></member>
+    <member refid="classmcpele_1_1Histogram_1a31a9aa25478dfc8f4f71087bef157fe7" kind="variable"><name>m_bin</name></member>
+    <member refid="classmcpele_1_1Histogram_1ada65339a433af943d05de698c792d991" kind="variable"><name>m_eps</name></member>
+    <member refid="classmcpele_1_1Histogram_1a6e9b41eb6b039061699a4bede1834385" kind="variable"><name>m_N</name></member>
+    <member refid="classmcpele_1_1Histogram_1abdf19b97acf04fc1afba72bfd9d1fd91" kind="variable"><name>m_hist</name></member>
+    <member refid="classmcpele_1_1Histogram_1a3b158d4c10e7e399b7f88f2cf7eddf03" kind="variable"><name>m_niter</name></member>
+    <member refid="classmcpele_1_1Histogram_1ad7d64976c19b9310a865313388ac2537" kind="variable"><name>m_moments</name></member>
+    <member refid="classmcpele_1_1Histogram_1a527370a55aa12f1a36390865f144ab76" kind="function"><name>Histogram</name></member>
+    <member refid="classmcpele_1_1Histogram_1a13bccf52f23ea879132d6e6b89172915" kind="function"><name>~Histogram</name></member>
+    <member refid="classmcpele_1_1Histogram_1a2ff51dc04284a0371187d04f808c3c27" kind="function"><name>add_entry</name></member>
+    <member refid="classmcpele_1_1Histogram_1afb72fcce52a9718593956481e038a333" kind="function"><name>max</name></member>
+    <member refid="classmcpele_1_1Histogram_1a8bb9aea49e095dd5508de32bdc7ebdcf" kind="function"><name>min</name></member>
+    <member refid="classmcpele_1_1Histogram_1a9a90258e8df0945f38020b5ae1c9e19f" kind="function"><name>bin</name></member>
+    <member refid="classmcpele_1_1Histogram_1a493a8f86c28d26c1c66e43ddb5210150" kind="function"><name>size</name></member>
+    <member refid="classmcpele_1_1Histogram_1adacd3cc3fc6a0f9a09035d796f436cc6" kind="function"><name>entries</name></member>
+    <member refid="classmcpele_1_1Histogram_1a54ac991262cd696da90dd18310995736" kind="function"><name>get_mean</name></member>
+    <member refid="classmcpele_1_1Histogram_1ad9f034dae24b631fa0b5139cd4f29b1a" kind="function"><name>get_variance</name></member>
+    <member refid="classmcpele_1_1Histogram_1a93a26f3242e02023172c54b6b82e5516" kind="function"><name>begin</name></member>
+    <member refid="classmcpele_1_1Histogram_1a8d4b79d418263af19547cfe42df14700" kind="function"><name>end</name></member>
+    <member refid="classmcpele_1_1Histogram_1ac9323d8cfd10faf0305514feb78bd33a" kind="function"><name>get_position</name></member>
+    <member refid="classmcpele_1_1Histogram_1a9eddd3113511e59d7b49f693fc2152a3" kind="function"><name>get_vecdata</name></member>
+    <member refid="classmcpele_1_1Histogram_1a89a09120ead0a701a05352b627790f14" kind="function"><name>get_entry</name></member>
+    <member refid="classmcpele_1_1Histogram_1a12553273f14fde64d977acdd468c0f19" kind="function"><name>get_vecdata_error</name></member>
+    <member refid="classmcpele_1_1Histogram_1afa079be2c29686204d84badb5afe40af" kind="function"><name>get_vecdata_normalized</name></member>
+    <member refid="classmcpele_1_1Histogram_1a49853926fd36ebd17fe4d175f7ecb3fb" kind="function"><name>print_terminal</name></member>
+    <member refid="classmcpele_1_1Histogram_1a20ef56d27ca0364d32b6cabfaef4b6c1" kind="function"><name>resize</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1MC" kind="class"><name>mcpele::MC</name>
+    <member refid="classmcpele_1_1MC_1a6b0a924bb76c28b6fc25c66675c1dcf9" kind="typedef"><name>actions_t</name></member>
+    <member refid="classmcpele_1_1MC_1ab52ae82dba8e7299583f48a382f8bd5a" kind="typedef"><name>accept_t</name></member>
+    <member refid="classmcpele_1_1MC_1a025b387c3222c83625323afcddeda1ea" kind="typedef"><name>conf_t</name></member>
+    <member refid="classmcpele_1_1MC_1a80e94b003bfc9893c1f829064125a81c" kind="variable"><name>m_potential</name></member>
+    <member refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kind="variable"><name>m_coords</name></member>
+    <member refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kind="variable"><name>m_trial_coords</name></member>
+    <member refid="classmcpele_1_1MC_1a582e528bae7b630e6845628f49ae443d" kind="variable"><name>m_actions</name></member>
+    <member refid="classmcpele_1_1MC_1aa28a68b36566e4c5e4bb27ae816c37ab" kind="variable"><name>m_accept_tests</name></member>
+    <member refid="classmcpele_1_1MC_1a444f1a159469de77761abced4a94dc48" kind="variable"><name>m_conf_tests</name></member>
+    <member refid="classmcpele_1_1MC_1a6910233a8f6223c7826eebacb3f48f6c" kind="variable"><name>m_late_conf_tests</name></member>
+    <member refid="classmcpele_1_1MC_1a3d1e08b4757ebbeab14b523b8cecbc54" kind="variable"><name>m_take_step</name></member>
+    <member refid="classmcpele_1_1MC_1a1aac8aa817cf8eecd16eb414717b9205" kind="variable"><name>m_nitercount</name></member>
+    <member refid="classmcpele_1_1MC_1a44e3aeb2ee137f98ec748f589da34250" kind="variable"><name>m_accept_count</name></member>
+    <member refid="classmcpele_1_1MC_1a98a00b35b659a559433c7f4bba313c34" kind="variable"><name>m_E_reject_count</name></member>
+    <member refid="classmcpele_1_1MC_1a47bd41b121d3fda1ed69281454edd8c9" kind="variable"><name>m_conf_reject_count</name></member>
+    <member refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kind="variable"><name>m_success</name></member>
+    <member refid="classmcpele_1_1MC_1adca6168469b1bac463443a81ae8dde05" kind="variable"><name>m_print_progress</name></member>
+    <member refid="classmcpele_1_1MC_1a570b47c5f340c2afda0a519f1225eba9" kind="variable"><name>m_niter</name></member>
+    <member refid="classmcpele_1_1MC_1a678adb43213ef8da3a8b7620a8ff4d6e" kind="variable"><name>m_neval</name></member>
+    <member refid="classmcpele_1_1MC_1ac96652882e0e578172de302578be5b88" kind="variable"><name>m_temperature</name></member>
+    <member refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kind="variable"><name>m_energy</name></member>
+    <member refid="classmcpele_1_1MC_1a956f949abbf2bd055e72924cb136f3e7" kind="variable"><name>m_trial_energy</name></member>
+    <member refid="classmcpele_1_1MC_1addeccf483fb7f0013af696189bdf51ed" kind="variable"><name>m_report_steps</name></member>
+    <member refid="classmcpele_1_1MC_1ae144a06dfc924f7ae63d8b14b95a5f6b" kind="function"><name>MC</name></member>
+    <member refid="classmcpele_1_1MC_1a4737173950c8a51437230d5d83163572" kind="function"><name>~MC</name></member>
+    <member refid="classmcpele_1_1MC_1aa1528423634e13ade3fcefa525c5ed89" kind="function"><name>one_iteration</name></member>
+    <member refid="classmcpele_1_1MC_1a746de23c4d9ddad54a1e9da1dd025033" kind="function"><name>run</name></member>
+    <member refid="classmcpele_1_1MC_1ac42e32abd801ea17353fd8fb7b23aea5" kind="function"><name>set_temperature</name></member>
+    <member refid="classmcpele_1_1MC_1a897efd5c7a2d444811de516f740c1045" kind="function"><name>get_temperature</name></member>
+    <member refid="classmcpele_1_1MC_1a8e7f1ab57cb3d68032c0293b09596d33" kind="function"><name>set_report_steps</name></member>
+    <member refid="classmcpele_1_1MC_1ac7c99322af8dc258272c3f83c1ba44d3" kind="function"><name>get_report_steps</name></member>
+    <member refid="classmcpele_1_1MC_1a1f490ace67644e07548ccc7a2781963f" kind="function"><name>add_action</name></member>
+    <member refid="classmcpele_1_1MC_1a66f76a288eb6389d408792c8c21c1ff0" kind="function"><name>add_accept_test</name></member>
+    <member refid="classmcpele_1_1MC_1a326495f91244c8c6761b1d783019a5c6" kind="function"><name>add_conf_test</name></member>
+    <member refid="classmcpele_1_1MC_1a7a9ab41eb342247e9bacea30c2b3e033" kind="function"><name>add_late_conf_test</name></member>
+    <member refid="classmcpele_1_1MC_1a4a348d7cb35617b70f8ef2955712b084" kind="function"><name>set_takestep</name></member>
+    <member refid="classmcpele_1_1MC_1aa5207841480b9a6d11699babf63aa95e" kind="function"><name>get_takestep</name></member>
+    <member refid="classmcpele_1_1MC_1a5df3e0f95cbe02e4e7ee2e3bb7654dff" kind="function"><name>set_coordinates</name></member>
+    <member refid="classmcpele_1_1MC_1ac538a56ea555f102fc4fe347f9ff40c3" kind="function"><name>get_energy</name></member>
+    <member refid="classmcpele_1_1MC_1ad3ec3d5ae30a44ed5a7f832a1c570b63" kind="function"><name>reset_energy</name></member>
+    <member refid="classmcpele_1_1MC_1a67f441e23995e82288fd9e44072c8efe" kind="function"><name>get_trial_energy</name></member>
+    <member refid="classmcpele_1_1MC_1a37869df5487d535a9a4515492cd7a056" kind="function"><name>get_coords</name></member>
+    <member refid="classmcpele_1_1MC_1a1ba8a6e2d26b1124fa4707ad7397a024" kind="function"><name>get_trial_coords</name></member>
+    <member refid="classmcpele_1_1MC_1a61bb33c1cfd7e7f1caa96ae9f9af79f1" kind="function"><name>get_norm_coords</name></member>
+    <member refid="classmcpele_1_1MC_1a6a2355df19783573a6d15294cce4fd43" kind="function"><name>get_naccept</name></member>
+    <member refid="classmcpele_1_1MC_1a5c9f22a57a3e9cc0228c7f84acd8ec7f" kind="function"><name>get_nreject</name></member>
+    <member refid="classmcpele_1_1MC_1a5a2cf1de51e632cd845002299f6d2e9f" kind="function"><name>get_accepted_fraction</name></member>
+    <member refid="classmcpele_1_1MC_1a83bfebc60ee7a0db945aeeeaede84181" kind="function"><name>get_conf_rejection_fraction</name></member>
+    <member refid="classmcpele_1_1MC_1acfb4b64a6a339518c2a12a30b5f6b069" kind="function"><name>get_E_rejection_fraction</name></member>
+    <member refid="classmcpele_1_1MC_1a9a8e8b2c4a9e77b5136c9a3c1b67bb9c" kind="function"><name>get_iterations_count</name></member>
+    <member refid="classmcpele_1_1MC_1a656ec94034cc412e819438d21f7fcfa3" kind="function"><name>get_neval</name></member>
+    <member refid="classmcpele_1_1MC_1a1e0731055ab95e94142cd0c20fce2daf" kind="function"><name>get_potential_ptr</name></member>
+    <member refid="classmcpele_1_1MC_1af0c4c8dcf99b125917644ee5744d4ed6" kind="function"><name>take_step_specified</name></member>
+    <member refid="classmcpele_1_1MC_1aa822dbcc2c5e3d2489880c5f16cb1dfd" kind="function"><name>report_steps_specified</name></member>
+    <member refid="classmcpele_1_1MC_1a3682931dc32796af0c7051ce3311c54f" kind="function"><name>check_input</name></member>
+    <member refid="classmcpele_1_1MC_1ab16a83837236952cac564a9f319ea7a1" kind="function"><name>set_print_progress</name></member>
+    <member refid="classmcpele_1_1MC_1a071420a97e409024070d9c4580f8fe51" kind="function"><name>set_print_progress</name></member>
+    <member refid="classmcpele_1_1MC_1a18448513c2ed188169f3e26a3c431300" kind="function"><name>get_success</name></member>
+    <member refid="classmcpele_1_1MC_1a9277bffe822241e2138dd1de6db320f4" kind="function"><name>abort</name></member>
+    <member refid="classmcpele_1_1MC_1ab0a769e799bccd46f1e290daf1f4698b" kind="function"><name>compute_energy</name></member>
+    <member refid="classmcpele_1_1MC_1a10c67bdbd29525b7cfe4c97f861e5b8f" kind="function"><name>do_conf_tests</name></member>
+    <member refid="classmcpele_1_1MC_1ab122e2f3a32b409493043d62a2ad5806" kind="function"><name>do_accept_tests</name></member>
+    <member refid="classmcpele_1_1MC_1ac2f9ac6eaf22fff6d85e3a659658c3c2" kind="function"><name>do_late_conf_tests</name></member>
+    <member refid="classmcpele_1_1MC_1afc4426d60374b2d941405d269eb214ed" kind="function"><name>do_actions</name></member>
+    <member refid="classmcpele_1_1MC_1ac9f211c253a12cd3e6bed935a0c8c1f2" kind="function"><name>take_steps</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1MetropolisTest" kind="class"><name>mcpele::MetropolisTest</name>
+    <member refid="classmcpele_1_1MetropolisTest_1aa2973163ef6d8160e5f1d096cc7d4170" kind="variable"><name>m_seed</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1acf16d24f5b32afb1977c542e20dc23cf" kind="variable"><name>m_generator</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1a98284c84912422d5846aef7f21772740" kind="variable"><name>m_distribution</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1a9cf4477f7ddfc2999178d99861f915a2" kind="function"><name>MetropolisTest</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1a3c7b3df9ae8624eb3e4e4e2aa94249d0" kind="function"><name>~MetropolisTest</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1ae59f0c208bedf4c8e2671c7150f8dcd7" kind="function"><name>test</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1a8f02eef6939b2acc3d2b50af04248dcf" kind="function"><name>get_seed</name></member>
+    <member refid="classmcpele_1_1MetropolisTest_1a6c1fe3e8acdeb71a806c94cf8318936b" kind="function"><name>set_generator_seed</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1Moments" kind="class"><name>mcpele::Moments</name>
+    <member refid="classmcpele_1_1Moments_1a2dc6e59f3fa3498e008c64955a693e4b" kind="typedef"><name>data_t</name></member>
+    <member refid="classmcpele_1_1Moments_1a73dc5d511f63d1f4769d05bbc535f24c" kind="typedef"><name>index_t</name></member>
+    <member refid="classmcpele_1_1Moments_1a448c4d214b85f79138fa9f8cb6d6c682" kind="variable"><name>m_mean</name></member>
+    <member refid="classmcpele_1_1Moments_1af2d1ad5608204c8afadec544d14a2963" kind="variable"><name>m_mean2</name></member>
+    <member refid="classmcpele_1_1Moments_1aeaab673e23b9ac49248d6550fbf0013e" kind="variable"><name>m_count</name></member>
+    <member refid="classmcpele_1_1Moments_1ad40f97eac46ca595e759f6d2e249b2ad" kind="function"><name>Moments</name></member>
+    <member refid="classmcpele_1_1Moments_1a4013c89a1d84431b62ca3ad7d32d5278" kind="function"><name>update</name></member>
+    <member refid="classmcpele_1_1Moments_1a6526753dd1c2be0863f7d02ddf8573b4" kind="function"><name>replace</name></member>
+    <member refid="classmcpele_1_1Moments_1aae097b850d24e7e969a0b69e0590cdfa" kind="function"><name>operator()</name></member>
+    <member refid="classmcpele_1_1Moments_1afb38f4e5675d4e3ecded24153d64f69b" kind="function"><name>count</name></member>
+    <member refid="classmcpele_1_1Moments_1a1707a2b086488a643deb51e06bdf8c48" kind="function"><name>mean</name></member>
+    <member refid="classmcpele_1_1Moments_1a1fffc728d29b659f9f8c6438168f794d" kind="function"><name>variance</name></member>
+    <member refid="classmcpele_1_1Moments_1afe797a35a1e551a057348de77807d34e" kind="function"><name>std</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1MovingAverageAcc" kind="class"><name>mcpele::MovingAverageAcc</name>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a854a0c7e416e8120d86762765731ad0c" kind="variable"><name>m_time_series</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1ae806d6dc722d3ad22393d835ed6e5864" kind="variable"><name>m_nr_steps_total</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a25ecc4cb43a1014fdd713dc55c119fe0" kind="variable"><name>m_window_size</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a9323bf5ce2913e7c4267c69504323ea9" kind="variable"><name>m_nr_steps_ma</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a34a65b7df7a47c2c61d7f7c834dd8673" kind="variable"><name>m_begin</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a1d75d2fb17bfaa891eacad8b9560d61d" kind="variable"><name>m_end</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1aedd1ac398cab7a9bc4951237be0bc0e7" kind="variable"><name>m_moments</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1ae6fec71cbafebc71e9a905899a7896de" kind="function"><name>MovingAverageAcc</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a9425234b23392b4e5bba42fc97d16003" kind="function"><name>get_mean</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a773b8ca120bbdf022d2bc47a0675fae0" kind="function"><name>get_variance</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a5445445958b84d53fb79de34c755b989" kind="function"><name>get_nr_steps_ma</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1a9e2cdb6a33be91c777151422405f7e0e" kind="function"><name>shift_right</name></member>
+    <member refid="classmcpele_1_1MovingAverageAcc_1ac949ea89cec25587bcb3ba0d9a07c3fb" kind="function"><name>reset</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1PairDistHistogram" kind="class"><name>mcpele::PairDistHistogram</name>
+    <member refid="classmcpele_1_1PairDistHistogram_1a8fe2d79420c46c66a36ca6e87f13669d" kind="variable"><name>m_distance</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a4f00a157c3381d5362a3bcd028523839" kind="variable"><name>m_nr_bins</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1acbd3c14bbb13cd5b55957db004b96535" kind="variable"><name>m_min_dist</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a903c11c629681b6f1aadef9a2cc4bb89" kind="variable"><name>m_max_dist</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a509c29c8ded8b6a6af64f6f679828bbe" kind="variable"><name>m_delta_bin</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a0499761ae4a4a3c53d900f128c493dbc" kind="variable"><name>m_hist</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a0ed2c4a028116298b6daeef20bcf809f" kind="variable"><name>m_nr_configs</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a2eb2e7d4fe32c03f17f85ea18373af1c" kind="function"><name>PairDistHistogram</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1aa9e464547fc961cb8ec394331369aa55" kind="function"><name>~PairDistHistogram</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1aed454da4feb9525c05fa05389dfa875e" kind="function"><name>add_configuration</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1afc8c7d70c8fd97c995ff1bcbfb1d2a41" kind="function"><name>add_distance</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a60dbf068f7b45fa2a4ba59eef078705b" kind="function"><name>volume_nball</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1a00a321092cf3d428b36c4ea0695995ac" kind="function"><name>get_vecdata_r</name></member>
+    <member refid="classmcpele_1_1PairDistHistogram_1ac5a27c5e7329ac64829fc16c92fb911c" kind="function"><name>get_vecdata_gr</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1ParticlePairSwap" kind="class"><name>mcpele::ParticlePairSwap</name>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a8311b9bcd859789e4745df46c8443fe2" kind="variable"><name>m_seed</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1ade9a097ffd32cc0c25b1c03b4fca4bec" kind="variable"><name>m_generator</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1ac76df1032b66dc89a16632d402f8e1dc" kind="variable"><name>m_distribution</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a548a55e3bac4b76454d3a381f28b3b8a" kind="variable"><name>m_nr_particles</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a391476c1f25fa3e194b69cfb542adea3" kind="function"><name>~ParticlePairSwap</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a09aebe2a1c7a5e89be202def3bfded9f" kind="function"><name>ParticlePairSwap</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1ab4d35820381b34f5e4c993ad3817427b" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a075a55654c1cd9d6d80a361acc8014ed" kind="function"><name>swap_coordinates</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a1f3abbcf103328a91eeda411199fe478" kind="function"><name>get_seed</name></member>
+    <member refid="classmcpele_1_1ParticlePairSwap_1a1142a8be79e9c872ab07f0f9995656fe" kind="function"><name>set_generator_seed</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1PatternManager" kind="class"><name>mcpele::PatternManager</name>
+    <member refid="classmcpele_1_1PatternManager_1a36be567f23cf68de43413b14faf94106" kind="typedef"><name>vec_t</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a2fc5defbc8581a91a4e8628f0c6f84ca" kind="variable"><name>m_step_repetitions</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a35aa51b7848451bbdbba7d600e6eb9e5" kind="variable"><name>m_current_step_index</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a53865f7579acd97492eef6d4957252e6" kind="variable"><name>m_current_step_count</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a5c336814eaf35f7241f4472bd18b857d" kind="variable"><name>m_initialized</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a6c7269b5132d71220d9a6d9776a3465e" kind="function"><name>~PatternManager</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a90c6acd70f630bc769a3fc0a11dd5bf3" kind="function"><name>PatternManager</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a1463b8b07b29148b4e56319719bd28d0" kind="function"><name>operator++</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a5ac6dc58164f62b123dda3cd7258022c" kind="function"><name>add</name></member>
+    <member refid="classmcpele_1_1PatternManager_1ad89c8cda16638f8a01cacb98122be970" kind="function"><name>get_step_ptr</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a4d3c6d5b2d94c5403f853d5947801f86" kind="function"><name>get_pattern</name></member>
+    <member refid="classmcpele_1_1PatternManager_1a5aa0545123e683f50e696265414fe378" kind="function"><name>get_pattern_direct</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1progress" kind="class"><name>mcpele::progress</name>
+    <member refid="classmcpele_1_1progress_1a3af9df6e1a8f337ef00e368820377316" kind="typedef"><name>index_t</name></member>
+    <member refid="classmcpele_1_1progress_1a58b0ad8ca4041095da304be26345e533" kind="typedef"><name>float_t</name></member>
+    <member refid="classmcpele_1_1progress_1aca882b448ea2df62757b62ccdcf72064" kind="typedef"><name>long_t</name></member>
+    <member refid="classmcpele_1_1progress_1a28113756630ee03d7c770cb30be4ac84" kind="variable"><name>m_inverse_of_total_iterations</name></member>
+    <member refid="classmcpele_1_1progress_1a03db0b6dc9c953340b790df6a49b7f79" kind="variable"><name>m_total_iterations</name></member>
+    <member refid="classmcpele_1_1progress_1a1ce40e167a42bfd5518ad58de869508f" kind="variable"><name>m_curr</name></member>
+    <member refid="classmcpele_1_1progress_1a83e063e84afd2cc95ccaf7486946e061" kind="variable"><name>m_prev</name></member>
+    <member refid="classmcpele_1_1progress_1abf0d9ce8fadf86ec3f99d53c106272f2" kind="variable"><name>m_start_time</name></member>
+    <member refid="classmcpele_1_1progress_1a85b33747573822894e73648ab9d39283" kind="function"><name>progress</name></member>
+    <member refid="classmcpele_1_1progress_1a5d43020edf40edcc80aacdd6d20ee381" kind="function"><name>get_current_percentage</name></member>
+    <member refid="classmcpele_1_1progress_1aefd26e12135e0b12f7b69ed09ca93822" kind="function"><name>next</name></member>
+    <member refid="classmcpele_1_1progress_1a714ca1e3fd28ce6fd8b08b6dca897bb8" kind="function"><name>print_time_percentage</name></member>
+    <member refid="classmcpele_1_1progress_1ae1bf4cc3061af7aebc8e2e47e2a0d7ac" kind="function"><name>update_and_print_percentage_complete</name></member>
+    <member refid="classmcpele_1_1progress_1ac0d3ff0e4d19c907998a6d7e79028684" kind="function"><name>get_and_print_elapsed_time</name></member>
+    <member refid="classmcpele_1_1progress_1abc1242a755e95d3e5e42c8d51f9ac111" kind="function"><name>estimate_and_print_time_to_complete</name></member>
+    <member refid="classmcpele_1_1progress_1a269dd163562c738119be1d0eb62ff593" kind="function"><name>estimate_and_print_total_time</name></member>
+    <member refid="classmcpele_1_1progress_1a8d4b8ff4bbe4cf820310a7bdaef520be" kind="function"><name>estimate_and_print_completion_local_time</name></member>
+    <member refid="classmcpele_1_1progress_1a786d5d4edd6dd3e34fc0acc77a7bf548" kind="function"><name>print_estimated_time</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RandomCoordsDisplacement" kind="class"><name>mcpele::RandomCoordsDisplacement</name>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a1b60fa629821ec194d0d153716d26f73" kind="variable"><name>m_seed</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a6301d7fc89a1943a5fb7c870f25fe2a2" kind="variable"><name>m_generator</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a8d3de3a3e1b9595baf9618bf1530c5e2" kind="variable"><name>m_real_distribution</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a523a1ff179209b62e574ebb3050f86a1" kind="variable"><name>m_stepsize</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1aabfbc53faf2723b66852d634bb6f9b0a" kind="variable"><name>m_count</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a70c32449d74f21634737ebd382ede3aa" kind="function"><name>RandomCoordsDisplacement</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a4603750d055490114b68f18b564e9fd4" kind="function"><name>~RandomCoordsDisplacement</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1aa6c2c40b2a36dc1711c5a7bbeeced708" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1ac909159a4d7007b09cf5291af3415d82" kind="function"><name>get_seed</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1aaf9325c782ecb904a71e92671c7732fb" kind="function"><name>set_generator_seed</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1ae8cff94bafe19a4fb529e2dbc8ac3ab1" kind="function"><name>expected_mean</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a41cda87cd1b61178bc5035f9c4bcf753" kind="function"><name>get_stepsize</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a77a73851c26beb001c8a48be76362a15" kind="function"><name>expected_variance</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1abb8bd83d44eb248599c799f6ff76656f" kind="function"><name>increase_acceptance</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a75b39857737f466cee1ff4fe452d848e" kind="function"><name>decrease_acceptance</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacement_1a37d0b36e6f3ec26e0ce3a5b5a381d661" kind="function"><name>get_count</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RandomCoordsDisplacementAll" kind="class"><name>mcpele::RandomCoordsDisplacementAll</name>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementAll_1aeddd85475bfd9fc2b0877259ce0fa6c8" kind="function"><name>RandomCoordsDisplacementAll</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementAll_1ac80a8e168ea9f6e1f17d6462ce325492" kind="function"><name>~RandomCoordsDisplacementAll</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementAll_1ab40ce59b2d74ffe3d8042c3e90268eab" kind="function"><name>displace</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RandomCoordsDisplacementSingle" kind="class"><name>mcpele::RandomCoordsDisplacementSingle</name>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1acfce45e71e9001822d5282bbacc665e3" kind="variable"><name>m_nparticles</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a1fe5db0701219d589e1c5dbdfc96613d" kind="variable"><name>m_ndim</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a04917e0ed0d549f71358e5c6e1abd748" kind="variable"><name>m_rand_particle</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a651ab4f1ca6b7a93f38b0d2372941d49" kind="variable"><name>m_int_distribution</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a5a5ff549e6129c94d87bf4416f23574f" kind="function"><name>RandomCoordsDisplacementSingle</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a96c89a89af34b00f2705cd226e94142d" kind="function"><name>~RandomCoordsDisplacementSingle</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a52c3271d105453d89024230f3f392dc7" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1RandomCoordsDisplacementSingle_1a86f20835fae2527099165f24e894788b" kind="function"><name>get_rand_particle</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries" kind="class"><name>mcpele::RecordDisplacementPerParticleTimeseries</name>
+    <member refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries_1acf7006fbb08ceebcd4247f7f4e663378" kind="variable"><name>m_rsm_displacement</name></member>
+    <member refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries_1a43afba63785193f65c9db66b040ed6d8" kind="function"><name>RecordDisplacementPerParticleTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries_1add341ebe1011d36c53df06ddc256fdbf" kind="function"><name>~RecordDisplacementPerParticleTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordDisplacementPerParticleTimeseries_1ac049afa25de4847b76910680cb3f1a10" kind="function"><name>get_recorded_scalar</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RecordEnergyHistogram" kind="class"><name>mcpele::RecordEnergyHistogram</name>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a5c6bc30e23e724736b75e7ed61b55ca1" kind="variable"><name>m_hist</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1ade56ff3dc1ef82b27685fc523e4d004a" kind="variable"><name>m_eqsteps</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1ab4500cc206d4998050eb87b918813ae1" kind="variable"><name>m_count</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a33f921c473b0e72b1965466d00951907" kind="function"><name>RecordEnergyHistogram</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a4635539552b05ae80b711141783591d2" kind="function"><name>~RecordEnergyHistogram</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1af0aa711e4556dff5ae5837e42be17ecc" kind="function"><name>action</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a9e4df47ed681ca5de613bab6021bf32c" kind="function"><name>get_histogram</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1adb151dfde34fbf2ea0317ee263d76c6b" kind="function"><name>print_terminal</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1aab9cbcb6bfe0e402c225cb2d24c89d07" kind="function"><name>get_max</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1abff6ed2dcf35f522d157401488402e42" kind="function"><name>get_min</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1acfe168ed7f14c8844acdb558c7dd1552" kind="function"><name>get_eqsteps</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a978c1bb832d0904664d108102e90abe2" kind="function"><name>get_mean</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a7246334bfba14e88b80cd4483b3e3eec" kind="function"><name>get_variance</name></member>
+    <member refid="classmcpele_1_1RecordEnergyHistogram_1a551a641f1e019ba960d2feecd2ddabf0" kind="function"><name>get_entries</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RecordEnergyTimeseries" kind="class"><name>mcpele::RecordEnergyTimeseries</name>
+    <member refid="classmcpele_1_1RecordEnergyTimeseries_1a5e27f7e13a2c2357016f165c75f7e5ef" kind="function"><name>RecordEnergyTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordEnergyTimeseries_1a19a365154f144b892095ef75034e6c88" kind="function"><name>~RecordEnergyTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordEnergyTimeseries_1a6cab4a7ab5462ee3ddf0c6eacb88b757" kind="function"><name>get_recorded_scalar</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RecordLowestEValueTimeseries" kind="class"><name>mcpele::RecordLowestEValueTimeseries</name>
+    <member refid="classmcpele_1_1RecordLowestEValueTimeseries_1a34ec878f524052c121349cb84c62e666" kind="variable"><name>m_lowest_ev</name></member>
+    <member refid="classmcpele_1_1RecordLowestEValueTimeseries_1a9ab99a86595a3620babe35e5e1e26083" kind="function"><name>RecordLowestEValueTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordLowestEValueTimeseries_1a90ba22381fd38a8fff5adced32a2a64f" kind="function"><name>~RecordLowestEValueTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordLowestEValueTimeseries_1affb535be88d9352a5b323e26a7c17bd2" kind="function"><name>get_recorded_scalar</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RecordPairDistHistogram" kind="class"><name>mcpele::RecordPairDistHistogram</name>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a5d89a8536f8b92e136514f8881312dc9" kind="variable"><name>m_hist_gr</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a81bb4e266ace91964a3d7907e71feb52" kind="variable"><name>m_eqsteps</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a2ffc6498d67bbf66461680fc1023c8f4" kind="variable"><name>m_record_every</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a8c9dd2de7672d3858e7adf298fbf9c1b" kind="function"><name>RecordPairDistHistogram</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a5c084f8196fff90ea8dcfa9d61fa6d34" kind="function"><name>~RecordPairDistHistogram</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a2b0d3af344db398ce16e0a473f7f55c4" kind="function"><name>action</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a58689e61e83ea1223f322bbc20795d0e" kind="function"><name>get_eqsteps</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1a33de592d9288de540fc56edfecfbc8f1" kind="function"><name>get_hist_r</name></member>
+    <member refid="classmcpele_1_1RecordPairDistHistogram_1ae8e88de17c1654b06412b73b1f9ad9e0" kind="function"><name>get_hist_gr</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1RecordScalarTimeseries" kind="class"><name>mcpele::RecordScalarTimeseries</name>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1a2042053ba43f2e07f6cc15daf4950660" kind="variable"><name>m_record_every</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1afb10e894eaed9e98f8d47b00d7b26488" kind="variable"><name>m_time_series</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1af752cd44cd144dbe6e8c824f8989adb7" kind="function"><name>m_record_scalar_value</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1af446b764d9a8f16f67c751bfb94a47d1" kind="function"><name>RecordScalarTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1aba51863fc7829b1fa7a2908ea3b8dd3c" kind="function"><name>~RecordScalarTimeseries</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1a7cc733d8f0b8daebf4da92423793b9c7" kind="function"><name>action</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1a8151f9f679c926d481e7354ac170663a" kind="function"><name>get_recorded_scalar</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1a98fce48e1cc8cd2e73fb0705a4d05cde" kind="function"><name>moving_average_is_stable</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1aa5cce7dde2ec7f096baeefad210ff063" kind="function"><name>get_moving_average_mean</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1a0df1f17ac9304e831f37e7e97bf45b83" kind="function"><name>get_moving_average_variance</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1ad3c2dbc09a421030dcddff87d96299e5" kind="function"><name>get_time_series</name></member>
+    <member refid="classmcpele_1_1RecordScalarTimeseries_1a0f616cd3a4e0dea710c0919f22b8f5ce" kind="function"><name>clear</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1TakeStep" kind="class"><name>mcpele::TakeStep</name>
+    <member refid="classmcpele_1_1TakeStep_1a82aab5c2527f8a7fd4c0f8a438dc3625" kind="function"><name>~TakeStep</name></member>
+    <member refid="classmcpele_1_1TakeStep_1ac3032e0d99d4aa5f940ffea4a28442f5" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1TakeStep_1aac4f30de62c4cbc4d9d31c7629742f64" kind="function"><name>report</name></member>
+    <member refid="classmcpele_1_1TakeStep_1afa92f5196e0304d6ad910304b188c705" kind="function"><name>increase_acceptance</name></member>
+    <member refid="classmcpele_1_1TakeStep_1a492ccf2a2e3b3d8ef2224947d0385d77" kind="function"><name>decrease_acceptance</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1TakeStepPattern" kind="class"><name>mcpele::TakeStepPattern</name>
+    <member refid="classmcpele_1_1TakeStepPattern_1a4095a4ec7c00f7b9c94fad2c60999b93" kind="variable"><name>m_steps</name></member>
+    <member refid="classmcpele_1_1TakeStepPattern_1a574b72c67af41877b638d08b7a57e81b" kind="function"><name>~TakeStepPattern</name></member>
+    <member refid="classmcpele_1_1TakeStepPattern_1a1bfe8206991a6aad0fdefe5ec916b31c" kind="function"><name>add_step</name></member>
+    <member refid="classmcpele_1_1TakeStepPattern_1a8c5ef12183c58b84b3ff5e9276ec8688" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1TakeStepPattern_1a6038fb5304e2a31c105fa5b537ee1b6c" kind="function"><name>report</name></member>
+    <member refid="classmcpele_1_1TakeStepPattern_1a811124bbaa7ee317943d6bedb8155711" kind="function"><name>get_pattern</name></member>
+    <member refid="classmcpele_1_1TakeStepPattern_1ac6bf72bf5bb87c1fdd67999d88d85ed2" kind="function"><name>get_pattern_direct</name></member>
+  </compound>
+  <compound refid="classmcpele_1_1TakeStepProbabilities" kind="class"><name>mcpele::TakeStepProbabilities</name>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1aa2f63773febf0307ded7638c7787e1d2" kind="variable"><name>m_steps</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1aed6a589c9680335c235a11176c5c6765" kind="variable"><name>m_weights</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1ad7798368d3361d6906573518f4891680" kind="variable"><name>m_distribution</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1ae01579b070742bb590437f68091aefd0" kind="variable"><name>m_generator</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1a0bcbbbc5109c9264ad04977f8212b8eb" kind="variable"><name>m_current_index</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1a6f7d0c9b37fbfb47fc4bd387472b1dac" kind="function"><name>~TakeStepProbabilities</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1a8079f6916d0d1052cbe41bf53610c9aa" kind="function"><name>TakeStepProbabilities</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1a754adeca2adcad04c43043f937fc915f" kind="function"><name>add_step</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1ae6f6a8c420950d97d463ee4cff74ad0f" kind="function"><name>displace</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1a595978a5e30ba966e1f328826a8f1e68" kind="function"><name>report</name></member>
+    <member refid="classmcpele_1_1TakeStepProbabilities_1aa7e74438ac856884198539d1091b2f35" kind="function"><name>get_weights</name></member>
+  </compound>
+  <compound refid="namespacemcpele" kind="namespace"><name>mcpele</name>
+  </compound>
+  <compound refid="adaptive__takestep_8cpp" kind="file"><name>adaptive_takestep.cpp</name>
+  </compound>
+  <compound refid="check__spherical__container_8cpp" kind="file"><name>check_spherical_container.cpp</name>
+  </compound>
+  <compound refid="energy__window__test_8cpp" kind="file"><name>energy_window_test.cpp</name>
+  </compound>
+  <compound refid="gaussian__coords__displacement_8cpp" kind="file"><name>gaussian_coords_displacement.cpp</name>
+  </compound>
+  <compound refid="histogram_8cpp" kind="file"><name>histogram.cpp</name>
+  </compound>
+  <compound refid="lowest__eigenvalue_8cpp" kind="file"><name>lowest_eigenvalue.cpp</name>
+  </compound>
+  <compound refid="mc_8cpp" kind="file"><name>mc.cpp</name>
+  </compound>
+  <compound refid="adaptive__takestep_8h" kind="file"><name>adaptive_takestep.h</name>
+  </compound>
+  <compound refid="check__spherical__container_8h" kind="file"><name>check_spherical_container.h</name>
+  </compound>
+  <compound refid="energy__window__test_8h" kind="file"><name>energy_window_test.h</name>
+  </compound>
+  <compound refid="gaussian__coords__displacement_8h" kind="file"><name>gaussian_coords_displacement.h</name>
+  </compound>
+  <compound refid="histogram_8h" kind="file"><name>histogram.h</name>
+  </compound>
+  <compound refid="lowest__eigenvalue_8h" kind="file"><name>lowest_eigenvalue.h</name>
+  </compound>
+  <compound refid="mc_8h" kind="file"><name>mc.h</name>
+  </compound>
+  <compound refid="metropolis__test_8h" kind="file"><name>metropolis_test.h</name>
+  </compound>
+  <compound refid="moving__average_8h" kind="file"><name>moving_average.h</name>
+  </compound>
+  <compound refid="pair__dist__histogram_8h" kind="file"><name>pair_dist_histogram.h</name>
+  </compound>
+  <compound refid="particle__pair__swap_8h" kind="file"><name>particle_pair_swap.h</name>
+  </compound>
+  <compound refid="pattern__manager_8h" kind="file"><name>pattern_manager.h</name>
+  </compound>
+  <compound refid="progress_8h" kind="file"><name>progress.h</name>
+  </compound>
+  <compound refid="random__coords__displacement_8h" kind="file"><name>random_coords_displacement.h</name>
+  </compound>
+  <compound refid="record__displacement__per__particle__timeseries_8h" kind="file"><name>record_displacement_per_particle_timeseries.h</name>
+  </compound>
+  <compound refid="record__energy__histogram_8h" kind="file"><name>record_energy_histogram.h</name>
+  </compound>
+  <compound refid="record__energy__timeseries_8h" kind="file"><name>record_energy_timeseries.h</name>
+  </compound>
+  <compound refid="record__lowest__evalue__timeseries_8h" kind="file"><name>record_lowest_evalue_timeseries.h</name>
+  </compound>
+  <compound refid="record__pair__dist__histogram_8h" kind="file"><name>record_pair_dist_histogram.h</name>
+  </compound>
+  <compound refid="record__scalar__timeseries_8h" kind="file"><name>record_scalar_timeseries.h</name>
+  </compound>
+  <compound refid="rsm__displacement_8h" kind="file"><name>rsm_displacement.h</name>
+  </compound>
+  <compound refid="take__step__pattern_8h" kind="file"><name>take_step_pattern.h</name>
+  </compound>
+  <compound refid="take__step__probabilities_8h" kind="file"><name>take_step_probabilities.h</name>
+  </compound>
+  <compound refid="metropolis__test_8cpp" kind="file"><name>metropolis_test.cpp</name>
+  </compound>
+  <compound refid="particle__pair__swap_8cpp" kind="file"><name>particle_pair_swap.cpp</name>
+  </compound>
+  <compound refid="random__coords__displacement_8cpp" kind="file"><name>random_coords_displacement.cpp</name>
+  </compound>
+  <compound refid="record__energy__histogram_8cpp" kind="file"><name>record_energy_histogram.cpp</name>
+  </compound>
+  <compound refid="record__scalar__timeseries_8cpp" kind="file"><name>record_scalar_timeseries.cpp</name>
+  </compound>
+  <compound refid="rsm__displacement_8cpp" kind="file"><name>rsm_displacement.cpp</name>
+  </compound>
+  <compound refid="take__step__pattern_8cpp" kind="file"><name>take_step_pattern.cpp</name>
+  </compound>
+  <compound refid="take__step__probabilities_8cpp" kind="file"><name>take_step_probabilities.cpp</name>
+  </compound>
+  <compound refid="dir_09854d356d5bd5006321c464ad9ab06f" kind="dir"><name>mcpele/</name>
+  </compound>
+</doxygenindex>

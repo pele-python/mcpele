@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="energy__window__test_8h" kind="file">
+    <compoundname>energy_window_test.h</compoundname>
+    <includes local="yes">pele/array.h</includes>
+    <includes refid="mc_8h" local="yes">mc.h</includes>
+    <includedby refid="energy__window__test_8cpp" local="yes">energy_window_test.cpp</includedby>
+    <incdepgraph>
+      <node id="101">
+        <label>mcpele/energy_window_test.h</label>
+        <link refid="energy_window_test.h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>cmath</label>
+      </node>
+      <node id="107">
+        <label>stdexcept</label>
+      </node>
+      <node id="102">
+        <label>pele/array.h</label>
+      </node>
+      <node id="103">
+        <label>mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>algorithm</label>
+      </node>
+      <node id="106">
+        <label>memory</label>
+      </node>
+      <node id="108">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="109">
+        <label>mcpele/energy_window_test.h</label>
+        <link refid="energy_window_test.h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>energy_window_test.cpp</label>
+        <link refid="energy__window__test_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classmcpele_1_1EnergyWindowTest" prot="public">mcpele::EnergyWindowTest</innerclass>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>_MCPELE_ENERGY_WINDOW_TEST_H__</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MCPELE_ENERGY_WINDOW_TEST_H__</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pele/array.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mc_8h" kindref="compound">mc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="classmcpele_1_1EnergyWindowTest" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classmcpele_1_1EnergyWindowTest" kindref="compound">EnergyWindowTest</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AcceptTest" kindref="compound">AcceptTest</ref><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="classmcpele_1_1EnergyWindowTest_1abb86cad9952f92fd8db221baaf62e847" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1EnergyWindowTest_1abb86cad9952f92fd8db221baaf62e847" kindref="member">m_min_energy</ref>;</highlight></codeline>
+<codeline lineno="17" refid="classmcpele_1_1EnergyWindowTest_1ae0db5a8b295b8bf29477fd5dd741a88c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1EnergyWindowTest_1ae0db5a8b295b8bf29477fd5dd741a88c" kindref="member">m_max_energy</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1EnergyWindowTest_1a0b8f02bf14f23525e1661729864d8e70" kindref="member">EnergyWindowTest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min_energy,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_energy);</highlight></codeline>
+<codeline lineno="20" refid="classmcpele_1_1EnergyWindowTest_1ad0e1111aaf29e6c462451d7708722c52" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1EnergyWindowTest_1ad0e1111aaf29e6c462451d7708722c52" kindref="member">~EnergyWindowTest</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1EnergyWindowTest_1a529460eac573357f981639fe85807520" kindref="member">test</ref>(pele::Array&lt;double&gt;<sp/>&amp;trial_coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>trial_energy,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pele::Array&lt;double&gt;<sp/>&amp;<sp/>old_coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>old_energy,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>temperature,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref><sp/>*<sp/>mc);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namesapce<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>#ifndef<sp/>_MCPELE_ENERGY_WINDOW_TEST_H__</highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mcpele/energy_window_test.h"/>
+  </compounddef>
+</doxygen>

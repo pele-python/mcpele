@@ -1,0 +1,240 @@
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement}{\section{mcpele\-:\-:\-Gaussian\-Coords\-Displacement \-Class \-Reference}
+\label{classmcpele_1_1GaussianCoordsDisplacement}\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+}
+
+
+{\ttfamily \#include $<$gaussian\-\_\-coords\-\_\-displacement.\-h$>$}
+
+\-Inheritance diagram for mcpele\-:\-:\-Gaussian\-Coords\-Displacement\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmcpele_1_1GaussianCoordsDisplacement}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a693f5cd3743cca41cfae62ba5c8fa1b2}{\-Gaussian\-Coords\-Displacement} (const size\-\_\-t rseed, const double stepsize)
+\item 
+virtual \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a5629b7e1fc63a2208a188a7ed0461acc}{$\sim$\-Gaussian\-Coords\-Displacement} ()
+\item 
+virtual void \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a9855e838fb6d19c55be12dd108cfdb5b}{displace} (pele\-::\-Array$<$ double $>$ \&coords, \hyperlink{classmcpele_1_1MC}{\-M\-C} $\ast$mc)
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_acb65b915f740d1618ecc267c02fcd17b}{get\-\_\-seed} () const 
+\item 
+void \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_adaefd98609344bb8a9744a9cee554ccc}{set\-\_\-generator\-\_\-seed} (const size\-\_\-t inp)
+\item 
+double \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a5f7da29b7bde371ff3971164f58ff3d9}{expected\-\_\-mean} () const 
+\item 
+double \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a225423c83abb6d91bedac92802961790}{expected\-\_\-variance} (const double ss) const 
+\item 
+double \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a87e64b4fed1cf85cc6e4ee13d6fde190}{get\-\_\-stepsize} () const 
+\item 
+void \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_ab36a3671f18d4b2560cfc981a6bd6a2d}{set\-\_\-stepsize} (const double input)
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_ae5042527322a279d5a151ae7879d647e}{get\-\_\-count} () const 
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_af50ffc7add2d8e7ae70b07c04a620fb7}{m\-\_\-seed}
+\item 
+double \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a515b27b041db3301e85bd4da6ba44383}{m\-\_\-mean}
+\item 
+double \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a49258ed3098c51b3567e7193ccd57e70}{m\-\_\-stdev}
+\item 
+std\-::mt19937\-\_\-64 \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a1e9c3d0a0135be68c503e4148a55f0b6}{m\-\_\-generator}
+\item 
+std\-::normal\-\_\-distribution$<$ double $>$ \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a231f5ed3fcf7b644e7bdd44cbd6d318d}{m\-\_\-distribution}
+\item 
+double \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a9818016f14a05214f1b50f328612ed79}{m\-\_\-stepsize}
+\item 
+size\-\_\-t \hyperlink{classmcpele_1_1GaussianCoordsDisplacement_a16890ca6001b9c8ae624fdd89b612aad}{m\-\_\-count}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Uniform \-Gaussian step this step samples first from the standard normal \-N(0, 1) and outputs a random variate sampled from \-N(0, stepsize) 
+
+\-Definition at line 15 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a693f5cd3743cca41cfae62ba5c8fa1b2}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!\-Gaussian\-Coords\-Displacement@{\-Gaussian\-Coords\-Displacement}}
+\index{\-Gaussian\-Coords\-Displacement@{\-Gaussian\-Coords\-Displacement}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{\-Gaussian\-Coords\-Displacement}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::\-Gaussian\-Coords\-Displacement} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{rseed, }
+\item[{const double}]{stepsize}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1GaussianCoordsDisplacement_a693f5cd3743cca41cfae62ba5c8fa1b2}
+
+
+\-Definition at line 5 of file gaussian\-\_\-coords\-\_\-displacement.\-cpp.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a5629b7e1fc63a2208a188a7ed0461acc}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!$\sim$\-Gaussian\-Coords\-Displacement@{$\sim$\-Gaussian\-Coords\-Displacement}}
+\index{$\sim$\-Gaussian\-Coords\-Displacement@{$\sim$\-Gaussian\-Coords\-Displacement}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{$\sim$\-Gaussian\-Coords\-Displacement}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::$\sim$\-Gaussian\-Coords\-Displacement} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a5629b7e1fc63a2208a188a7ed0461acc}
+
+
+\-Definition at line 26 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a9855e838fb6d19c55be12dd108cfdb5b}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!displace@{displace}}
+\index{displace@{displace}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{displace}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::displace} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{{\bf \-M\-C} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a9855e838fb6d19c55be12dd108cfdb5b}
+
+
+\-Implements \hyperlink{classmcpele_1_1TakeStep_ac3032e0d99d4aa5f940ffea4a28442f5}{mcpele\-::\-Take\-Step}.
+
+
+
+\-Definition at line 19 of file gaussian\-\_\-coords\-\_\-displacement.\-cpp.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a5f7da29b7bde371ff3971164f58ff3d9}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!expected\-\_\-mean@{expected\-\_\-mean}}
+\index{expected\-\_\-mean@{expected\-\_\-mean}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{expected\-\_\-mean}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::expected\-\_\-mean} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a5f7da29b7bde371ff3971164f58ff3d9}
+
+
+\-Definition at line 30 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a225423c83abb6d91bedac92802961790}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!expected\-\_\-variance@{expected\-\_\-variance}}
+\index{expected\-\_\-variance@{expected\-\_\-variance}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{expected\-\_\-variance}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::expected\-\_\-variance} (
+\begin{DoxyParamCaption}
+\item[{const double}]{ss}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a225423c83abb6d91bedac92802961790}
+\-Reference\-: \href{http://mathworld.wolfram.com/NormalDistribution.html}{\tt http\-://mathworld.\-wolfram.\-com/\-Normal\-Distribution.\-html} 
+
+\-Definition at line 34 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_ae5042527322a279d5a151ae7879d647e}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!get\-\_\-count@{get\-\_\-count}}
+\index{get\-\_\-count@{get\-\_\-count}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{get\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::get\-\_\-count} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_ae5042527322a279d5a151ae7879d647e}
+
+
+\-Definition at line 37 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_acb65b915f740d1618ecc267c02fcd17b}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!get\-\_\-seed@{get\-\_\-seed}}
+\index{get\-\_\-seed@{get\-\_\-seed}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{get\-\_\-seed}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::get\-\_\-seed} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_acb65b915f740d1618ecc267c02fcd17b}
+
+
+\-Definition at line 28 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a87e64b4fed1cf85cc6e4ee13d6fde190}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!get\-\_\-stepsize@{get\-\_\-stepsize}}
+\index{get\-\_\-stepsize@{get\-\_\-stepsize}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{get\-\_\-stepsize}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::get\-\_\-stepsize} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a87e64b4fed1cf85cc6e4ee13d6fde190}
+
+
+\-Definition at line 35 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_adaefd98609344bb8a9744a9cee554ccc}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!set\-\_\-generator\-\_\-seed@{set\-\_\-generator\-\_\-seed}}
+\index{set\-\_\-generator\-\_\-seed@{set\-\_\-generator\-\_\-seed}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{set\-\_\-generator\-\_\-seed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::set\-\_\-generator\-\_\-seed} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{inp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_adaefd98609344bb8a9744a9cee554ccc}
+
+
+\-Definition at line 29 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_ab36a3671f18d4b2560cfc981a6bd6a2d}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!set\-\_\-stepsize@{set\-\_\-stepsize}}
+\index{set\-\_\-stepsize@{set\-\_\-stepsize}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{set\-\_\-stepsize}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::set\-\_\-stepsize} (
+\begin{DoxyParamCaption}
+\item[{const double}]{input}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_ab36a3671f18d4b2560cfc981a6bd6a2d}
+
+
+\-Definition at line 36 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a16890ca6001b9c8ae624fdd89b612aad}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-count@{m\-\_\-count}}
+\index{m\-\_\-count@{m\-\_\-count}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-count}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a16890ca6001b9c8ae624fdd89b612aad}
+
+
+\-Definition at line 23 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a231f5ed3fcf7b644e7bdd44cbd6d318d}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-distribution@{m\-\_\-distribution}}
+\index{m\-\_\-distribution@{m\-\_\-distribution}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-distribution}]{\setlength{\rightskip}{0pt plus 5cm}std\-::normal\-\_\-distribution$<$double$>$ {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-distribution}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a231f5ed3fcf7b644e7bdd44cbd6d318d}
+
+
+\-Definition at line 21 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a1e9c3d0a0135be68c503e4148a55f0b6}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-generator@{m\-\_\-generator}}
+\index{m\-\_\-generator@{m\-\_\-generator}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-generator}]{\setlength{\rightskip}{0pt plus 5cm}std\-::mt19937\-\_\-64 {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-generator}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a1e9c3d0a0135be68c503e4148a55f0b6}
+
+
+\-Definition at line 20 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a515b27b041db3301e85bd4da6ba44383}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-mean@{m\-\_\-mean}}
+\index{m\-\_\-mean@{m\-\_\-mean}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-mean}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-mean}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a515b27b041db3301e85bd4da6ba44383}
+
+
+\-Definition at line 18 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_af50ffc7add2d8e7ae70b07c04a620fb7}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-seed@{m\-\_\-seed}}
+\index{m\-\_\-seed@{m\-\_\-seed}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-seed}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-seed}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_af50ffc7add2d8e7ae70b07c04a620fb7}
+
+
+\-Definition at line 17 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a49258ed3098c51b3567e7193ccd57e70}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-stdev@{m\-\_\-stdev}}
+\index{m\-\_\-stdev@{m\-\_\-stdev}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-stdev}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-stdev}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a49258ed3098c51b3567e7193ccd57e70}
+
+
+\-Definition at line 19 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+\hypertarget{classmcpele_1_1GaussianCoordsDisplacement_a9818016f14a05214f1b50f328612ed79}{\index{mcpele\-::\-Gaussian\-Coords\-Displacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}!m\-\_\-stepsize@{m\-\_\-stepsize}}
+\index{m\-\_\-stepsize@{m\-\_\-stepsize}!mcpele::GaussianCoordsDisplacement@{mcpele\-::\-Gaussian\-Coords\-Displacement}}
+\subsubsection[{m\-\_\-stepsize}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf mcpele\-::\-Gaussian\-Coords\-Displacement\-::m\-\_\-stepsize}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmcpele_1_1GaussianCoordsDisplacement_a9818016f14a05214f1b50f328612ed79}
+
+
+\-Definition at line 22 of file gaussian\-\_\-coords\-\_\-displacement.\-h.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+mcpele/\hyperlink{gaussian__coords__displacement_8h}{gaussian\-\_\-coords\-\_\-displacement.\-h}\item 
+\hyperlink{gaussian__coords__displacement_8cpp}{gaussian\-\_\-coords\-\_\-displacement.\-cpp}\end{DoxyCompactItemize}

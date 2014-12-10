@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="adaptive__takestep_8cpp" kind="file">
+    <compoundname>adaptive_takestep.cpp</compoundname>
+    <includes refid="adaptive__takestep_8h" local="yes">mcpele/adaptive_takestep.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>cmath</label>
+      </node>
+      <node id="6">
+        <label>stdexcept</label>
+      </node>
+      <node id="7">
+        <label>pele/array.h</label>
+      </node>
+      <node id="2">
+        <label>mcpele/mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="0">
+        <label>adaptive_takestep.cpp</label>
+        <link refid="adaptive_takestep.cpp"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>algorithm</label>
+      </node>
+      <node id="5">
+        <label>memory</label>
+      </node>
+      <node id="1">
+        <label>mcpele/adaptive_takestep.h</label>
+        <link refid="adaptive__takestep_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="adaptive__takestep_8h" kindref="compound">mcpele/adaptive_takestep.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="classmcpele_1_1AdaptiveTakeStep_1a1ee619caed0973ddea12e0d1a4ce8e9d" refkind="member"><highlight class="normal"><ref refid="classmcpele_1_1AdaptiveTakeStep_1a1ee619caed0973ddea12e0d1a4ce8e9d" kindref="member">AdaptiveTakeStep::AdaptiveTakeStep</ref>(std::shared_ptr&lt;TakeStep&gt;<sp/>ts,</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>interval,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>factor,</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>min_acceptance_ratio,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_acceptance_ratio)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>m_ts(ts),</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_interval(interval),</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_total_steps(0),</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_accepted_steps(0),</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_factor(factor),</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_min_acceptance_ratio(min_acceptance_ratio),</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_max_acceptance_ratio(max_acceptance_ratio)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(factor<sp/>&lt;=<sp/>0<sp/>||<sp/>factor<sp/>&gt;=<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;AdaptiveTakeStep::AdaptiveTakeStep:<sp/>input<sp/>factor<sp/>has<sp/>illegal<sp/>value&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="classmcpele_1_1AdaptiveTakeStep_1a3787085dd0bdf41fee0787c13265edea" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a3787085dd0bdf41fee0787c13265edea" kindref="member">AdaptiveTakeStep::report</ref>(pele::Array&lt;double&gt;&amp;,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pele::Array&lt;double&gt;&amp;,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>success,<sp/><ref refid="classmcpele_1_1MC" kindref="compound">MC</ref>*<sp/>mc)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" kindref="member">m_total_steps</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(success)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" kindref="member">m_accepted_steps</ref>;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mc-&gt;<ref refid="classmcpele_1_1MC_1a9a8e8b2c4a9e77b5136c9a3c1b67bb9c" kindref="member">get_iterations_count</ref>()<sp/>%<sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1ac16baa470b559d1c994be4cebc331b90" kindref="member">m_interval</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>acceptance_fraction<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(<ref refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" kindref="member">m_accepted_steps</ref>)<sp/>/<sp/>static_cast&lt;double&gt;(<ref refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" kindref="member">m_total_steps</ref>);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a5702f4198611fc3b2fa31d7dc27ba1b4" kindref="member">m_accepted_steps</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a40288a04fe0de43963d7e6284b1a44e3" kindref="member">m_total_steps</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(acceptance_fraction<sp/>&lt;<sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1ac3693c26dbad6a3a1f5003626da0eff4" kindref="member">get_min_acceptance_ratio</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" kindref="member">m_ts</ref>-&gt;increase_acceptance(<ref refid="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" kindref="member">m_factor</ref>);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(acceptance_fraction<sp/>&gt;<sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a245d6ab24dce23791a2a75fd896b21e5" kindref="member">get_max_acceptance_ratio</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1AdaptiveTakeStep_1a2f43525fa8608daabab615459b3ae42a" kindref="member">m_ts</ref>-&gt;decrease_acceptance(<ref refid="classmcpele_1_1AdaptiveTakeStep_1a82892e788ff27d943cb3845210fb9229" kindref="member">m_factor</ref>);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/adaptive_takestep.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="mc_8cpp" kind="file">
+    <compoundname>mc.cpp</compoundname>
+    <includes refid="mc_8h" local="yes">mcpele/mc.h</includes>
+    <includes refid="progress_8h" local="yes">mcpele/progress.h</includes>
+    <incdepgraph>
+      <node id="62">
+        <label>mc.cpp</label>
+        <link refid="mc.cpp"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>mcpele/progress.h</label>
+        <link refid="progress_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>cmath</label>
+      </node>
+      <node id="67">
+        <label>stdexcept</label>
+      </node>
+      <node id="74">
+        <label>string</label>
+      </node>
+      <node id="68">
+        <label>pele/array.h</label>
+      </node>
+      <node id="71">
+        <label>ctime</label>
+      </node>
+      <node id="63">
+        <label>mcpele/mc.h</label>
+        <link refid="mc_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>utility</label>
+      </node>
+      <node id="73">
+        <label>iostream</label>
+      </node>
+      <node id="65">
+        <label>algorithm</label>
+      </node>
+      <node id="66">
+        <label>memory</label>
+      </node>
+      <node id="69">
+        <label>pele/base_potential.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacemcpele">mcpele</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mc_8h" kindref="compound">mcpele/mc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="progress_8h" kindref="compound">mcpele/progress.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>pele::Array;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mcpele{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classmcpele_1_1MC_1ae144a06dfc924f7ae63d8b14b95a5f6b" refkind="member"><highlight class="normal"><ref refid="classmcpele_1_1MC_1ae144a06dfc924f7ae63d8b14b95a5f6b" kindref="member">MC::MC</ref>(std::shared_ptr&lt;pele::BasePotential&gt;<sp/>potential,<sp/>Array&lt;double&gt;&amp;<sp/>coords,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>temperature)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>m_potential(potential),</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_coords(coords.copy()),</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_trial_coords(m_coords.copy()),</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_take_step(NULL),</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_nitercount(0),</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_accept_count(0),</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_E_reject_count(0),</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_conf_reject_count(0),</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_success(true),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_print_progress(false),</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_niter(0),</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_neval(0),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_temperature(temperature),</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_report_steps(0)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1ab0a769e799bccd46f1e290daf1f4698b" kindref="member">compute_energy</ref>(<ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a956f949abbf2bd055e72924cb136f3e7" kindref="member">m_trial_energy</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref>;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*std::cout&lt;&lt;&quot;mcrunner<sp/>Energy<sp/>is<sp/>&quot;&lt;&lt;_energy&lt;&lt;<sp/>&quot;\n&quot;;</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/><sp/><sp/><sp/>std::cout&lt;&lt;&quot;mcrunner<sp/>potential<sp/>ptr<sp/>is<sp/>&quot;&lt;&lt;_potential&lt;&lt;<sp/>&quot;\n&quot;;*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="classmcpele_1_1MC_1a10c67bdbd29525b7cfe4c97f861e5b8f" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1a10c67bdbd29525b7cfe4c97f861e5b8f" kindref="member">MC::do_conf_tests</ref>(Array&lt;double&gt;<sp/>x)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>test<sp/>:<sp/><ref refid="classmcpele_1_1MC_1a444f1a159469de77761abced4a94dc48" kindref="member">m_conf_tests</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>test-&gt;conf_test(x,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1MC_1a47bd41b121d3fda1ed69281454edd8c9" kindref="member">m_conf_reject_count</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="classmcpele_1_1MC_1ab122e2f3a32b409493043d62a2ad5806" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1ab122e2f3a32b409493043d62a2ad5806" kindref="member">MC::do_accept_tests</ref>(Array&lt;double&gt;<sp/>xtrial,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>etrial,<sp/>Array&lt;double&gt;<sp/>xold,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eold)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>test<sp/>:<sp/><ref refid="classmcpele_1_1MC_1aa28a68b36566e4c5e4bb27ae816c37ab" kindref="member">m_accept_tests</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>test-&gt;test(xtrial,<sp/>etrial,<sp/>xold,<sp/>eold,<sp/><ref refid="classmcpele_1_1MC_1ac96652882e0e578172de302578be5b88" kindref="member">m_temperature</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1MC_1a98a00b35b659a559433c7f4bba313c34" kindref="member">m_E_reject_count</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="classmcpele_1_1MC_1ac2f9ac6eaf22fff6d85e3a659658c3c2" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1ac2f9ac6eaf22fff6d85e3a659658c3c2" kindref="member">MC::do_late_conf_tests</ref>(Array&lt;double&gt;<sp/>x)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>test<sp/>:<sp/><ref refid="classmcpele_1_1MC_1a6910233a8f6223c7826eebacb3f48f6c" kindref="member">m_late_conf_tests</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>test-&gt;conf_test(x,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1MC_1a47bd41b121d3fda1ed69281454edd8c9" kindref="member">m_conf_reject_count</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="classmcpele_1_1MC_1afc4426d60374b2d941405d269eb214ed" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1afc4426d60374b2d941405d269eb214ed" kindref="member">MC::do_actions</ref>(Array&lt;double&gt;<sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>energy,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>success)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>action<sp/>:<sp/><ref refid="classmcpele_1_1MC_1a582e528bae7b630e6845628f49ae443d" kindref="member">m_actions</ref>){</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>action-&gt;action(x,<sp/>energy,<sp/>success,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="classmcpele_1_1MC_1ac9f211c253a12cd3e6bed935a0c8c1f2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1ac9f211c253a12cd3e6bed935a0c8c1f2" kindref="member">MC::take_steps</ref>()</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a3d1e08b4757ebbeab14b523b8cecbc54" kindref="member">m_take_step</ref>-&gt;displace(<ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="classmcpele_1_1MC_1aa1528423634e13ade3fcefa525c5ed89" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1aa1528423634e13ade3fcefa525c5ed89" kindref="member">MC::one_iteration</ref>()</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1MC_1a570b47c5f340c2afda0a519f1225eba9" kindref="member">m_niter</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1MC_1a1aac8aa817cf8eecd16eb414717b9205" kindref="member">m_nitercount</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>.assign(<ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>take<sp/>a<sp/>step<sp/>with<sp/>the<sp/>trial<sp/>coords</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//_takestep-&gt;takestep(_trial_coords,<sp/>_stepsize,<sp/>this);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1ac9f211c253a12cd3e6bed935a0c8c1f2" kindref="member">take_steps</ref>();</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>perform<sp/>the<sp/>initial<sp/>configuration<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1a10c67bdbd29525b7cfe4c97f861e5b8f" kindref="member">do_conf_tests</ref>(<ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>the<sp/>trial<sp/>configuration<sp/>is<sp/>OK,<sp/>compute<sp/>the<sp/>energy,<sp/>and<sp/>run<sp/>the<sp/>acceptance<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>the<sp/>energy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a956f949abbf2bd055e72924cb136f3e7" kindref="member">m_trial_energy</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1ab0a769e799bccd46f1e290daf1f4698b" kindref="member">compute_energy</ref>(<ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>perform<sp/>the<sp/>acceptance<sp/>tests.<sp/><sp/>Stop<sp/>as<sp/>soon<sp/>as<sp/>one<sp/>of<sp/>them<sp/>fails</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1ab122e2f3a32b409493043d62a2ad5806" kindref="member">do_accept_tests</ref>(<ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>,<sp/><ref refid="classmcpele_1_1MC_1a956f949abbf2bd055e72924cb136f3e7" kindref="member">m_trial_energy</ref>,<sp/><ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>,<sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref>);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Do<sp/>some<sp/>final<sp/>checks<sp/>to<sp/>ensure<sp/>the<sp/>configuration<sp/>is<sp/>OK.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>come<sp/>last<sp/>because<sp/>they<sp/>might<sp/>be<sp/>computationally<sp/>demanding.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1ac2f9ac6eaf22fff6d85e3a659658c3c2" kindref="member">do_late_conf_tests</ref>(<ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>adapt<sp/>stepsize<sp/>etc.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1a9a8e8b2c4a9e77b5136c9a3c1b67bb9c" kindref="member">get_iterations_count</ref>()<sp/>&lt;=<sp/>m_report_steps)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a3d1e08b4757ebbeab14b523b8cecbc54" kindref="member">m_take_step</ref>-&gt;report(<ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>,<sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref>,<sp/><ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>,<sp/><ref refid="classmcpele_1_1MC_1a956f949abbf2bd055e72924cb136f3e7" kindref="member">m_trial_energy</ref>,<sp/><ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>the<sp/>step<sp/>is<sp/>accepted,<sp/>copy<sp/>the<sp/>coordinates<sp/>and<sp/>energy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>.assign(<ref refid="classmcpele_1_1MC_1ab32722238c16272bf95141b825fd3bf4" kindref="member">m_trial_coords</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1a956f949abbf2bd055e72924cb136f3e7" kindref="member">m_trial_energy</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="classmcpele_1_1MC_1a44e3aeb2ee137f98ec748f589da34250" kindref="member">m_accept_count</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>perform<sp/>the<sp/>actions<sp/>on<sp/>the<sp/>new<sp/>configuration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1afc4426d60374b2d941405d269eb214ed" kindref="member">do_actions</ref>(<ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>,<sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref>,<sp/><ref refid="classmcpele_1_1MC_1ad31e9ad1eca13c1826461ceb915bad23" kindref="member">m_success</ref>);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="classmcpele_1_1MC_1a3682931dc32796af0c7051ce3311c54f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1a3682931dc32796af0c7051ce3311c54f" kindref="member">MC::check_input</ref>(){</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;_conf_tests.size():<sp/>&quot;<sp/>&lt;&lt;<sp/>_conf_tests.size()<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;<sp/>//debug</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;_late_conf_tests.size():<sp/>&quot;<sp/>&lt;&lt;<sp/>_late_conf_tests.size()<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;<sp/>//debug</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;_actions.size():<sp/>&quot;<sp/>&lt;&lt;<sp/>_actions.size()<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;<sp/>//debug</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;_accept_tests.size():<sp/>&quot;<sp/>&lt;&lt;<sp/>_accept_tests.size()<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;<sp/>//debug</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classmcpele_1_1MC_1af0c4c8dcf99b125917644ee5744d4ed6" kindref="member">take_step_specified</ref>())<sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;MC::check_input:<sp/>takestep<sp/>not<sp/>set&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1a444f1a159469de77761abced4a94dc48" kindref="member">m_conf_tests</ref>.size()==0<sp/>&amp;&amp;<sp/><ref refid="classmcpele_1_1MC_1a6910233a8f6223c7826eebacb3f48f6c" kindref="member">m_late_conf_tests</ref>.size()==0)<sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;warning:<sp/>no<sp/>conf<sp/>tests<sp/>set&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1a582e528bae7b630e6845628f49ae443d" kindref="member">m_actions</ref>.size()==0)<sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;warning:<sp/>no<sp/>actions<sp/>set&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1aa28a68b36566e4c5e4bb27ae816c37ab" kindref="member">m_accept_tests</ref>.size()==0)<sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;warning:<sp/>no<sp/>accept<sp/>tests<sp/>set&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="classmcpele_1_1MC_1a5df3e0f95cbe02e4e7ee2e3bb7654dff" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1a5df3e0f95cbe02e4e7ee2e3bb7654dff" kindref="member">MC::set_coordinates</ref>(pele::Array&lt;double&gt;&amp;<sp/>coords,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>energy)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref><sp/>=<sp/>coords.copy();</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref><sp/>=<sp/>energy;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">//this<sp/>function<sp/>is<sp/>necessary<sp/>if<sp/>for<sp/>example<sp/>some<sp/>potential<sp/>parameter<sp/>has<sp/>been<sp/>varied</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155" refid="classmcpele_1_1MC_1ad3ec3d5ae30a44ed5a7f832a1c570b63" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1ad3ec3d5ae30a44ed5a7f832a1c570b63" kindref="member">MC::reset_energy</ref>()</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="classmcpele_1_1MC_1a570b47c5f340c2afda0a519f1225eba9" kindref="member">m_niter</ref><sp/>&gt;<sp/>0){</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;MC::reset_energy<sp/>after<sp/>first<sp/>iteration<sp/>is<sp/>forbidden&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a61af4e6db5014d3ab4251dd38aca68f5" kindref="member">m_energy</ref><sp/>=<sp/><ref refid="classmcpele_1_1MC_1ab0a769e799bccd46f1e290daf1f4698b" kindref="member">compute_energy</ref>(<ref refid="classmcpele_1_1MC_1a3a38fa108292b3e7270ad439ebb2c886" kindref="member">m_coords</ref>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="classmcpele_1_1MC_1a746de23c4d9ddad54a1e9da1dd025033" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classmcpele_1_1MC_1a746de23c4d9ddad54a1e9da1dd025033" kindref="member">MC::run</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>max_iter)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a3682931dc32796af0c7051ce3311c54f" kindref="member">check_input</ref>();</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1progress" kindref="compound">progress</ref><sp/>stat(max_iter);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(<ref refid="classmcpele_1_1MC_1a570b47c5f340c2afda0a519f1225eba9" kindref="member">m_niter</ref><sp/>&lt;<sp/>max_iter)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;done:<sp/>&quot;<sp/>&lt;&lt;<sp/>double(m_niter)<sp/>/<sp/>double(max_iter)<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;m_niter:<sp/>&quot;<sp/>&lt;&lt;<sp/>m_niter<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;max_iter:<sp/>&quot;<sp/>&lt;&lt;<sp/>max_iter<sp/>&lt;&lt;<sp/><sp/>&quot;\n&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="classmcpele_1_1MC_1aa1528423634e13ade3fcefa525c5ed89" kindref="member">one_iteration</ref>();</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classmcpele_1_1MC_1adca6168469b1bac463443a81ae8dde05" kindref="member">m_print_progress</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stat.<ref refid="classmcpele_1_1progress_1aefd26e12135e0b12f7b69ed09ca93822" kindref="member">next</ref>(<ref refid="classmcpele_1_1MC_1a570b47c5f340c2afda0a519f1225eba9" kindref="member">m_niter</ref>);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmcpele_1_1MC_1a570b47c5f340c2afda0a519f1225eba9" kindref="member">m_niter</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight><highlight class="comment">//namespace<sp/>mcpele</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sm958/Work/mcpele/source/mc.cpp"/>
+  </compounddef>
+</doxygen>

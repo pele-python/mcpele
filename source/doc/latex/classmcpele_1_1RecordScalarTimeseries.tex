@@ -1,0 +1,164 @@
+\hypertarget{classmcpele_1_1RecordScalarTimeseries}{\section{mcpele\-:\-:\-Record\-Scalar\-Timeseries \-Class \-Reference}
+\label{classmcpele_1_1RecordScalarTimeseries}\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+}
+
+
+{\ttfamily \#include $<$record\-\_\-scalar\-\_\-timeseries.\-h$>$}
+
+\-Inheritance diagram for mcpele\-:\-:\-Record\-Scalar\-Timeseries\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.836066cm]{classmcpele_1_1RecordScalarTimeseries}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmcpele_1_1RecordScalarTimeseries_af446b764d9a8f16f67c751bfb94a47d1}{\-Record\-Scalar\-Timeseries} (const size\-\_\-t, const size\-\_\-t)
+\item 
+virtual \hyperlink{classmcpele_1_1RecordScalarTimeseries_aba51863fc7829b1fa7a2908ea3b8dd3c}{$\sim$\-Record\-Scalar\-Timeseries} ()
+\item 
+virtual void \hyperlink{classmcpele_1_1RecordScalarTimeseries_a7cc733d8f0b8daebf4da92423793b9c7}{action} (pele\-::\-Array$<$ double $>$ \&coords, double energy, bool accepted, \hyperlink{classmcpele_1_1MC}{\-M\-C} $\ast$mc)
+\item 
+virtual double \hyperlink{classmcpele_1_1RecordScalarTimeseries_a8151f9f679c926d481e7354ac170663a}{get\-\_\-recorded\-\_\-scalar} (pele\-::\-Array$<$ double $>$ \&coords, const double energy, const bool accepted, \hyperlink{classmcpele_1_1MC}{\-M\-C} $\ast$mc)=0
+\item 
+bool \hyperlink{classmcpele_1_1RecordScalarTimeseries_a98fce48e1cc8cd2e73fb0705a4d05cde}{moving\-\_\-average\-\_\-is\-\_\-stable} (const size\-\_\-t nr\-\_\-steps\-\_\-to\-\_\-check=1000, const double rel\-\_\-std\-\_\-threshold=0.\-1)
+\item 
+std\-::pair$<$ double, double $>$ \hyperlink{classmcpele_1_1RecordScalarTimeseries_aa5cce7dde2ec7f096baeefad210ff063}{get\-\_\-moving\-\_\-average\-\_\-mean} (const size\-\_\-t nr\-\_\-steps\-\_\-to\-\_\-check)
+\item 
+std\-::pair$<$ double, double $>$ \hyperlink{classmcpele_1_1RecordScalarTimeseries_a0df1f17ac9304e831f37e7e97bf45b83}{get\-\_\-moving\-\_\-average\-\_\-variance} (const size\-\_\-t nr\-\_\-steps\-\_\-to\-\_\-check)
+\item 
+pele\-::\-Array$<$ double $>$ \hyperlink{classmcpele_1_1RecordScalarTimeseries_ad3c2dbc09a421030dcddff87d96299e5}{get\-\_\-time\-\_\-series} ()
+\item 
+void \hyperlink{classmcpele_1_1RecordScalarTimeseries_a0f616cd3a4e0dea710c0919f22b8f5ce}{clear} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Record scalar time series, every record\-\_\-every-\/th step. 
+
+\-Definition at line 11 of file record\-\_\-scalar\-\_\-timeseries.\-h.
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_af446b764d9a8f16f67c751bfb94a47d1}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!\-Record\-Scalar\-Timeseries@{\-Record\-Scalar\-Timeseries}}
+\index{\-Record\-Scalar\-Timeseries@{\-Record\-Scalar\-Timeseries}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{\-Record\-Scalar\-Timeseries}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::\-Record\-Scalar\-Timeseries} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{niter, }
+\item[{const size\-\_\-t}]{record\-\_\-every}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1RecordScalarTimeseries_af446b764d9a8f16f67c751bfb94a47d1}
+
+
+\-Definition at line 8 of file record\-\_\-scalar\-\_\-timeseries.\-cpp.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_aba51863fc7829b1fa7a2908ea3b8dd3c}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!$\sim$\-Record\-Scalar\-Timeseries@{$\sim$\-Record\-Scalar\-Timeseries}}
+\index{$\sim$\-Record\-Scalar\-Timeseries@{$\sim$\-Record\-Scalar\-Timeseries}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{$\sim$\-Record\-Scalar\-Timeseries}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::$\sim$\-Record\-Scalar\-Timeseries} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classmcpele_1_1RecordScalarTimeseries_aba51863fc7829b1fa7a2908ea3b8dd3c}
+
+
+\-Definition at line 21 of file record\-\_\-scalar\-\_\-timeseries.\-h.
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_a7cc733d8f0b8daebf4da92423793b9c7}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!action@{action}}
+\index{action@{action}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{action}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::action} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{double}]{energy, }
+\item[{bool}]{accepted, }
+\item[{{\bf \-M\-C} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classmcpele_1_1RecordScalarTimeseries_a7cc733d8f0b8daebf4da92423793b9c7}
+
+
+\-Implements \hyperlink{classmcpele_1_1Action_a9500d60c55f0d36ffb6ed0464ea3c68e}{mcpele\-::\-Action}.
+
+
+
+\-Definition at line 17 of file record\-\_\-scalar\-\_\-timeseries.\-cpp.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_a0f616cd3a4e0dea710c0919f22b8f5ce}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!clear@{clear}}
+\index{clear@{clear}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::clear} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1RecordScalarTimeseries_a0f616cd3a4e0dea710c0919f22b8f5ce}
+
+
+\-Definition at line 32 of file record\-\_\-scalar\-\_\-timeseries.\-h.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_aa5cce7dde2ec7f096baeefad210ff063}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!get\-\_\-moving\-\_\-average\-\_\-mean@{get\-\_\-moving\-\_\-average\-\_\-mean}}
+\index{get\-\_\-moving\-\_\-average\-\_\-mean@{get\-\_\-moving\-\_\-average\-\_\-mean}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{get\-\_\-moving\-\_\-average\-\_\-mean}]{\setlength{\rightskip}{0pt plus 5cm}std\-::pair$<$ double, double $>$ {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::get\-\_\-moving\-\_\-average\-\_\-mean} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{nr\-\_\-steps\-\_\-to\-\_\-check}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1RecordScalarTimeseries_aa5cce7dde2ec7f096baeefad210ff063}
+
+
+\-Definition at line 55 of file record\-\_\-scalar\-\_\-timeseries.\-cpp.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_a0df1f17ac9304e831f37e7e97bf45b83}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!get\-\_\-moving\-\_\-average\-\_\-variance@{get\-\_\-moving\-\_\-average\-\_\-variance}}
+\index{get\-\_\-moving\-\_\-average\-\_\-variance@{get\-\_\-moving\-\_\-average\-\_\-variance}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{get\-\_\-moving\-\_\-average\-\_\-variance}]{\setlength{\rightskip}{0pt plus 5cm}std\-::pair$<$ double, double $>$ {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::get\-\_\-moving\-\_\-average\-\_\-variance} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{nr\-\_\-steps\-\_\-to\-\_\-check}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1RecordScalarTimeseries_a0df1f17ac9304e831f37e7e97bf45b83}
+
+
+\-Definition at line 69 of file record\-\_\-scalar\-\_\-timeseries.\-cpp.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_a8151f9f679c926d481e7354ac170663a}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!get\-\_\-recorded\-\_\-scalar@{get\-\_\-recorded\-\_\-scalar}}
+\index{get\-\_\-recorded\-\_\-scalar@{get\-\_\-recorded\-\_\-scalar}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{get\-\_\-recorded\-\_\-scalar}]{\setlength{\rightskip}{0pt plus 5cm}virtual double {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::get\-\_\-recorded\-\_\-scalar} (
+\begin{DoxyParamCaption}
+\item[{pele\-::\-Array$<$ double $>$ \&}]{coords, }
+\item[{const double}]{energy, }
+\item[{const bool}]{accepted, }
+\item[{{\bf \-M\-C} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classmcpele_1_1RecordScalarTimeseries_a8151f9f679c926d481e7354ac170663a}
+
+
+\-Implemented in \hyperlink{classmcpele_1_1RecordLowestEValueTimeseries_affb535be88d9352a5b323e26a7c17bd2}{mcpele\-::\-Record\-Lowest\-E\-Value\-Timeseries}, \hyperlink{classmcpele_1_1RecordDisplacementPerParticleTimeseries_ac049afa25de4847b76910680cb3f1a10}{mcpele\-::\-Record\-Displacement\-Per\-Particle\-Timeseries}, and \hyperlink{classmcpele_1_1RecordEnergyTimeseries_a6cab4a7ab5462ee3ddf0c6eacb88b757}{mcpele\-::\-Record\-Energy\-Timeseries}.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_ad3c2dbc09a421030dcddff87d96299e5}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!get\-\_\-time\-\_\-series@{get\-\_\-time\-\_\-series}}
+\index{get\-\_\-time\-\_\-series@{get\-\_\-time\-\_\-series}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{get\-\_\-time\-\_\-series}]{\setlength{\rightskip}{0pt plus 5cm}pele\-::\-Array$<$double$>$ {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::get\-\_\-time\-\_\-series} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmcpele_1_1RecordScalarTimeseries_ad3c2dbc09a421030dcddff87d96299e5}
+
+
+\-Definition at line 27 of file record\-\_\-scalar\-\_\-timeseries.\-h.
+
+\hypertarget{classmcpele_1_1RecordScalarTimeseries_a98fce48e1cc8cd2e73fb0705a4d05cde}{\index{mcpele\-::\-Record\-Scalar\-Timeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}!moving\-\_\-average\-\_\-is\-\_\-stable@{moving\-\_\-average\-\_\-is\-\_\-stable}}
+\index{moving\-\_\-average\-\_\-is\-\_\-stable@{moving\-\_\-average\-\_\-is\-\_\-stable}!mcpele::RecordScalarTimeseries@{mcpele\-::\-Record\-Scalar\-Timeseries}}
+\subsubsection[{moving\-\_\-average\-\_\-is\-\_\-stable}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf mcpele\-::\-Record\-Scalar\-Timeseries\-::moving\-\_\-average\-\_\-is\-\_\-stable} (
+\begin{DoxyParamCaption}
+\item[{const size\-\_\-t}]{nr\-\_\-steps\-\_\-to\-\_\-check = {\ttfamily 1000}, }
+\item[{const double}]{rel\-\_\-std\-\_\-threshold = {\ttfamily 0.1}}
+\end{DoxyParamCaption}
+)}}\label{classmcpele_1_1RecordScalarTimeseries_a98fce48e1cc8cd2e73fb0705a4d05cde}
+\-Apply a basic check on the behaviour of the moving average of the recorded time series to decide if it is sufficiently stable. \-Parameters\-: nr\-\_\-steps\-\_\-to\-\_\-check is the number of steps, from the present into the past, that are considered for the moving average check. rel\-\_\-std\-\_\-threshold is the relative size of the fluctuations in the moving average that is considered stable. \-Decreasing that number should make the test more sensitive. \-N\-O\-T\-E\-: we do not test the variance because the variance has some functional dependence on the mean var = f(mu). \-In order to remove this one would require a \char`\"{}variance stabilising transformation\char`\"{} which would require the implementation of a different moments class where f(x) si stored giving an approximately constant variance as a function of the mean. \-See \-Ascombe transform for instance. 
+
+\-Definition at line 40 of file record\-\_\-scalar\-\_\-timeseries.\-cpp.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+mcpele/\hyperlink{record__scalar__timeseries_8h}{record\-\_\-scalar\-\_\-timeseries.\-h}\item 
+\hyperlink{record__scalar__timeseries_8cpp}{record\-\_\-scalar\-\_\-timeseries.\-cpp}\end{DoxyCompactItemize}
