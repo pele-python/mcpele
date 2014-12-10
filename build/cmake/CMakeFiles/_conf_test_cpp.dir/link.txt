@@ -1,0 +1,1 @@
+/usr/bin/g++  -fPIC -std=c++0x -Wall -Wextra -pedantic -O3   -shared -Wl,-soname,_conf_test_cpp.so -o _conf_test_cpp.so CMakeFiles/_conf_test_cpp.dir/mcpele/monte_carlo/_conf_test_cpp.cxx.o libmcpele_lib.so -Wl,-rpath,/home/sm958/Work/mcpele/build/cmake 

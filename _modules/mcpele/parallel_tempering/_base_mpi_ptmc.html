@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mcpele.parallel_tempering._base_mpi_ptmc &mdash; mcpele 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mcpele 1.0.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mcpele 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mcpele.parallel_tempering._base_mpi_ptmc</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<div class="viewcode-block" id="_MPI_Parallel_Tempering"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering">[docs]</a><span class="k">class</span> <span class="nc">_MPI_Parallel_Tempering</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Abstract class for MPI Parallel Tempering calculations</span>
+<span class="sd">    </span>
+<span class="sd">    :class:`_MPI_Parallel_Tempering` implements all the basic MPI routines. The initialisation</span>
+<span class="sd">    function and the method to find the swap pattern need to implemented in a specific child method.</span>
+<span class="sd">    </span>
+<span class="sd">    The replica exchange method (REM) or parallel tempering (PT) is a Monte Carlo scheme that targets </span>
+<span class="sd">    the slow equilibration of systems characterised by large barriers in their free energy landscape.</span>
+<span class="sd">    In REM :math:`n` replicas of the system are simulated simultaneously in the canonical (NVT) ensemble. </span>
+<span class="sd">    These systems differ in temperature and, while the high temperature replicas explore the high energy </span>
+<span class="sd">    regions of phase space, easily crossing large free energy barriers, the low temperature replicas </span>
+<span class="sd">    explore the low lying regions of the energy landscape. In the hierarchical picture of the energy landscape, </span>
+<span class="sd">    in which intra-funnel equilibration is fast and inter-funnel is slow, the high temperature replicas explore the </span>
+<span class="sd">    energy landscape hopping between funnels, while the low temperature replicas explore individual funnels </span>
+<span class="sd">    accurately. The idea of REM is to introduce moves that swap configurations between the different replicas, </span>
+<span class="sd">    thus making the high energy regions available to the low temperature simulations and *vice versa*. It </span>
+<span class="sd">    is not hard to see why this makes the exploration of configurational space more efficient, thus accelerating </span>
+<span class="sd">    equilibration.</span>
+<span class="sd">    </span>
+<span class="sd">    The acceptance rule for parallel tempering is  </span>
+<span class="sd">    </span>
+<span class="sd">    .. math:: P( x_i \Rightarrow x_j) = min \{ 1, \exp [- (\\beta_j - \\beta_i) (E_i - E_j)] \}</span>
+<span class="sd">    </span>
+<span class="sd">    The choice of temperature scale is very important for efficient equilibration to occur. From the acceptance rule</span>
+<span class="sd">    we see that the acceptance will be suppressed exponentially by large differences in energy between the two </span>
+<span class="sd">    configurations, just as for the Metropolis algorithm, but also by large differences in temperature. Thus, we </span>
+<span class="sd">    must keep this product of differences as small as possible, to allow for efficient swapping. As a rule of thumb this </span>
+<span class="sd">    can be achieved by using a scale of geometrically increasing temperatures.</span>
+
+<span class="sd">    It is important to note that REM is a truly equilibrium Monte Carlo method: the microscopic equilibrium of each ensemble </span>
+<span class="sd">    is not disturbed by the swaps, hence the ensemble averages for each replica are just as valid as for ordinary Monte Carlo </span>
+<span class="sd">    simulations (unlike simulated annealing, for which ensemble averages are not well defined). In addition, ensemble averages </span>
+<span class="sd">    for the extended ensemble can be obtained by histogram reweighting technique. We also highlight the fact that REM moves are </span>
+<span class="sd">    very cheap to perform since they do not require additional energy evaluations. </span>
+<span class="sd">    </span>
+<span class="sd">    .. note :: An optimal Parallel Tempering strategy should make sure that all MCMC walks take roughly the same amount of time. </span>
+<span class="sd">               Besides this fundamental consideration, note that root (rank=0) is not an evil master but rather an enlightened </span>
+<span class="sd">               dictator that leads by example: root is responsible to assign jobs and control parameters (e.g. temperature) to </span>
+<span class="sd">               the slaves but it also performs MCMC walks along with them. For this reason it might be optimal to give root a </span>
+<span class="sd">               set of control parameters for which the simulation is leaner so that it can start doing its own things while the </span>
+<span class="sd">               slaves finish their work.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mcrunner : :class:`_BaseMCrunner`</span>
+<span class="sd">        object of :class:`_BaseMCrunner` that performs</span>
+<span class="sd">        the MCMC walks</span>
+<span class="sd">    Tmax : double</span>
+<span class="sd">        maximum temperature to simulate (or equivalent control parameters)</span>
+<span class="sd">    Tmin : double</span>
+<span class="sd">        minimum temperature to simulate (or equivalent control parameters)</span>
+<span class="sd">    max_ptiter : int</span>
+<span class="sd">        maximum number of Parallel Tempering iterations</span>
+<span class="sd">    pfreq : int</span>
+<span class="sd">        frequency with which histogram and other information is dumped</span>
+<span class="sd">        to a file</span>
+<span class="sd">    skip : int</span>
+<span class="sd">        number of parallel tempering iteration for which swaps should</span>
+<span class="sd">        not be performed. Swaps should be avoided for instance while</span>
+<span class="sd">        adjusting the step size</span>
+<span class="sd">    print_status : bool</span>
+<span class="sd">        choose whether to print MCrunner status at each iteration</span>
+<span class="sd">    base_directory : string</span>
+<span class="sd">        path to base directory where to save output</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        print verbose output to terminal</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mcrunner : :class:`_BaseMCrunner`</span>
+<span class="sd">        object of :class:`_BaseMCrunner` that performs</span>
+<span class="sd">        the MCMC walks</span>
+<span class="sd">    nproc : int</span>
+<span class="sd">        number of parallel cores</span>
+<span class="sd">    rank : int</span>
+<span class="sd">        MPI rank (identifier of the particular core), master has rank=0</span>
+<span class="sd">    Tmax : double</span>
+<span class="sd">        maximum temperature to simulate (or equivalent control parameters)</span>
+<span class="sd">    Tmin : double</span>
+<span class="sd">        minimum temperature to simulate (or equivalent control parameters)</span>
+<span class="sd">    max_ptiter : int</span>
+<span class="sd">        maximum number of Parallel Tempering iterations</span>
+<span class="sd">    ptiter : int</span>
+<span class="sd">        count of current parallel tempering iteration</span>
+<span class="sd">    pfreq : int</span>
+<span class="sd">        frequency with which histogram and other information is dumped</span>
+<span class="sd">        to a file</span>
+<span class="sd">    no_exchange_int : neg int</span>
+<span class="sd">        this NEGATIVE number in :func:`exchange_pattern` means that no exchange should be attempted</span>
+<span class="sd">    skip : int</span>
+<span class="sd">        number of parallel tempering iteration for which swaps should</span>
+<span class="sd">        not be performed. Swaps should be avoided for instance while</span>
+<span class="sd">        adjusting the step size</span>
+<span class="sd">    swap_accepted_count : int</span>
+<span class="sd">        count of accepted swaps</span>
+<span class="sd">    swap_rejected_count : int</span>
+<span class="sd">        count of rejected swaps</span>
+<span class="sd">    nodelist : list</span>
+<span class="sd">        list of ranks (should be integers from 0 to ``nprocs``)</span>
+<span class="sd">    base_directory : string</span>
+<span class="sd">        path to base directory where to save output</span>
+<span class="sd">    ex_outstream : stream</span>
+<span class="sd">        stream to output exchanges informations</span>
+<span class="sd">    initialised : bool</span>
+<span class="sd">        records whether PT has been initialised</span>
+<span class="sd">    print_status : bool</span>
+<span class="sd">        choose whether to print MCrunner status at each iteration</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        print verbose output to terminal</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__metaclass__</span>  <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mcrunner</span><span class="p">,</span> <span class="n">Tmax</span><span class="p">,</span> <span class="n">Tmin</span><span class="p">,</span> <span class="n">max_ptiter</span><span class="p">,</span> <span class="n">pfreq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">print_status</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">base_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span> <span class="o">=</span> <span class="n">mcrunner</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nproc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span> <span class="c">#total number of processors (replicas)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span> <span class="c">#this is the unique identifier for the process</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tmax</span> <span class="o">=</span> <span class="n">Tmax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tmin</span> <span class="o">=</span> <span class="n">Tmin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_ptiter</span> <span class="o">=</span> <span class="n">max_ptiter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ex_outstream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptiter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print_status</span> <span class="o">=</span> <span class="n">print_status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">=</span> <span class="n">skip</span> <span class="c">#might want to skip the first few swaps to allow for equilibration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pfreq</span> <span class="o">=</span> <span class="n">pfreq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">no_exchange_int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">12345</span> <span class="c">#this NEGATIVE number in exchange pattern means that no exchange should be attempted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialised</span> <span class="o">=</span> <span class="bp">False</span> <span class="c">#flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodelist</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">swap_accepted_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">swap_rejected_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">base_directory</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span><span class="s">&#39;ptmc_results&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span> <span class="o">=</span> <span class="n">base_directory</span>
+        
+        <span class="k">print</span> <span class="s">&quot;processor {0} ready&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+    
+    <span class="nd">@abc.abstractmethod</span>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._find_exchange_buddy"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._find_exchange_buddy">[docs]</a>    <span class="k">def</span> <span class="nf">_find_exchange_buddy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Earray</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Abstract method to determines the exchange pattern, it needs to be overwritten.</span>
+<span class="sd">        </span>
+<span class="sd">        An exchange pattern array is constructed, filled with ``self.no_exchange_int`` which</span>
+<span class="sd">        signifies that no exchange should be attempted. This value is replaced with the</span>
+<span class="sd">        ``rank`` of the processor with which to perform the swap if the swap attempt is successful.</span>
+<span class="sd">        The exchange partner is then scattered to the other processors.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Earray : numpy.array</span>
+<span class="sd">            array of energies (one from each core)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    </div>
+    <span class="nd">@abc.abstractmethod</span>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._initialise"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._initialise">[docs]</a>    <span class="k">def</span> <span class="nf">_initialise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform all the tasks required prior to starting the computation including initialising the output files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    </div>
+    <span class="nd">@abc.abstractmethod</span>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._print_data"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._print_data">[docs]</a>    <span class="k">def</span> <span class="nf">_print_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Abstract method responsible for printing and/or dumping the data, let it be printing the histograms or else&quot;&quot;&quot;</span>
+    </div>
+    <span class="nd">@abc.abstractmethod</span>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._print_status"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._print_status">[docs]</a>    <span class="k">def</span> <span class="nf">_print_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Abstract method responsible for printing and/or dumping the status, let it be printing the histograms or else&quot;&quot;&quot;</span>
+    </div>
+    <span class="nd">@abc.abstractmethod</span>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._close_flush"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._close_flush">[docs]</a>    <span class="k">def</span> <span class="nf">_close_flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Abstract method responsible for printing and/or dumping the all streams at the end of the calculation&quot;&quot;&quot;</span>
+        </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering.one_iteration"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering.one_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">one_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform one parallel tempering iteration</span>
+<span class="sd">        </span>
+<span class="sd">        Each PT iteration consists of the following steps:</span>
+<span class="sd">        </span>
+<span class="sd">        * set the coordinates</span>
+<span class="sd">        * run the MCrunner for a predefined number of steps</span>
+<span class="sd">        * collect the results (energy and new coordinates)</span>
+<span class="sd">        * attempt an exchange</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">#set configuration and temperature at which want to perform run</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+        <span class="c">#now run the MCMC walk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="c">#collect the results</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">energy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptiter</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_attempt_exchange</span><span class="p">()</span>
+            <span class="c">#print and increase parallel tempering count</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptiter</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">pfreq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_print_data</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_status</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_print_status</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptiter</span> <span class="o">+=</span> <span class="mi">1</span>
+         
+            </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering.run"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run multiple single iterations, plus initialisation if MPI_PT has not been initialised yet </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialised</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialise</span><span class="p">()</span>
+        <span class="n">ptiter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">ptiter</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ptiter</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;processor {0} iteration {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span><span class="n">ptiter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">one_iteration</span><span class="p">()</span>
+            <span class="n">ptiter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c">#assure that data are not thrown away since last print</span>
+            <span class="k">if</span> <span class="n">ptiter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ptiter</span><span class="p">:</span>
+                <span class="n">old_max_ptiter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ptiter</span>
+                <span class="c">#here we should call a convergence test, instead of doing so through print_data(hack) </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_print_data</span><span class="p">()</span>
+                <span class="c">#check that on printing of data max_ptiter hasn&#39;t changed due to convergence test</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ptiter</span> <span class="o">==</span> <span class="n">old_max_ptiter</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_print_status</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_close_flush</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">&#39;process {0} terminated&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._scatter_data"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._scatter_data">[docs]</a>    <span class="k">def</span> <span class="nf">_scatter_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_send_array</span><span class="p">,</span> <span class="n">adim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)</span>
+<span class="sd">        </span>
+<span class="sd">        In simple terms it requires that ``adim % nproc = 0``. </span>
+<span class="sd">        If root scatters an array of size ``nproc`` then each core </span>
+<span class="sd">        will receive the rank-th element of the array. </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        in_send_array : numpy.array</span>
+<span class="sd">            incoming array (from the master) to be scattered</span>
+<span class="sd">        adim : int</span>
+<span class="sd">            size of the in_send_array</span>
+<span class="sd">        dtype : dtype</span>
+<span class="sd">            type of the elements of the array</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        recv_array : numpy.array</span>
+<span class="sd">            array of length ``adim/nproc``</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="c"># process 0 is the root, it has data to scatter</span>
+            <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_send_array</span><span class="p">)</span> <span class="o">==</span> <span class="n">adim</span><span class="p">)</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">adim</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">nproc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> 
+            <span class="n">send_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">in_send_array</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># processes other than root do not send</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">adim</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">nproc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> 
+            <span class="n">send_array</span> <span class="o">=</span> <span class="bp">None</span>
+        
+        <span class="n">recv_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">adim</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">send_array</span><span class="p">,</span> <span class="n">recv_array</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
+        <span class="k">return</span> <span class="n">recv_array</span> 
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._scatter_single_value"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._scatter_single_value">[docs]</a>    <span class="k">def</span> <span class="nf">_scatter_single_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">send_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a single value from a scattered array for each replica (e.g. Temperature or swap partner)</span>
+<span class="sd">        </span>
+<span class="sd">        .. note :: send array must be of the same length as the number of processors</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        send_array : numpy.array</span>
+<span class="sd">            incoming array (from the master) to be scattered</span>
+<span class="sd">        dtype : dtype</span>
+<span class="sd">            type of the elements of the array</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dtype</span>
+<span class="sd">            temperature or swap partner or else</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">send_array</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">)</span>
+        
+        <span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scatter_data</span><span class="p">(</span><span class="n">send_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._broadcast_data"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._broadcast_data">[docs]</a>    <span class="k">def</span> <span class="nf">_broadcast_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_data</span><span class="p">,</span> <span class="n">adim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Identical arrays are broadcasted from root to all other processes</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        in_data : numpy.array</span>
+<span class="sd">            incoming array (from the master) to be broadcasted</span>
+<span class="sd">        adim : int</span>
+<span class="sd">            size of the in_data array</span>
+<span class="sd">        dtype : dtype</span>
+<span class="sd">            type of the elements of the array</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bcast_data : numpy.array</span>
+<span class="sd">            array of length ``adim``</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">bcast_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">in_data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bcast_data</span><span class="p">)</span><span class="o">==</span><span class="n">adim</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bcast_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">adim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">Bcast</span><span class="p">(</span><span class="n">bcast_data</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bcast_data</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._gather_data"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._gather_data">[docs]</a>    <span class="k">def</span> <span class="nf">_gather_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_send_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to gather data in equal ordered chunks from replicas (it relies on the rank of the replica)</span>
+<span class="sd">        </span>
+<span class="sd">        .. note :: gather assumes that all the subprocess are sending the same amount of data to root, to send</span>
+<span class="sd">                   variable amounts of data must use the MPI_gatherv directive</span>
+<span class="sd">                   </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        in_send_array : numpy.array</span>
+<span class="sd">            incoming array (from each process) to be sent to master</span>
+<span class="sd">        dtype : dtype</span>
+<span class="sd">            type of the elements of the array</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        recv_array : numpy.array</span>
+<span class="sd">            array of length ``len(in_send_array)) * nproc``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">in_send_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">in_send_array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">recv_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_send_array</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">recv_array</span> <span class="o">=</span> <span class="bp">None</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">Gather</span><span class="p">(</span><span class="n">in_send_array</span><span class="p">,</span> <span class="n">recv_array</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">recv_array</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">recv_array</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._gather_energies"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._gather_energies">[docs]</a>    <span class="k">def</span> <span class="nf">_gather_energies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">E</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;gather energy of configurations from all processors</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        E : double</span>
+<span class="sd">            energy of each processor respectively</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        recv_Earray : numpy.array</span>
+<span class="sd">            array of length ``nproc``</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">send_Earray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">E</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
+        <span class="n">recv_Earray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gather_data</span><span class="p">(</span><span class="n">send_Earray</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">recv_Earray</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._point_to_point_exchange_replace"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._point_to_point_exchange_replace">[docs]</a>    <span class="k">def</span> <span class="nf">_point_to_point_exchange_replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;swap data between two processors</span>
+<span class="sd">        </span>
+<span class="sd">        .. note :: the message sent buffer is replaced with the received message</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dest : int</span>
+<span class="sd">            rank of processor with which to swap</span>
+<span class="sd">        source : int</span>
+<span class="sd">            rank of processor with which to swap</span>
+<span class="sd">        data : numpy.array</span>
+<span class="sd">            array of data to exchage</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : numpy.array</span>
+<span class="sd">            the send data buffer is replaced with the receive data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">dest</span> <span class="o">==</span> <span class="n">source</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">Sendrecv_replace</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._exchange_pairs"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._exchange_pairs">[docs]</a>    <span class="k">def</span> <span class="nf">_exchange_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange_buddy</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return data from the pair exchange, otherwise return the data unaltered.</span>
+<span class="sd">        </span>
+<span class="sd">        .. warning :: the replica sends to exchange_partner and receives from it, </span>
+<span class="sd">                      replacing source with self.rank would cause a deadlock</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exchange_buddy : int</span>
+<span class="sd">            rank of processor with which to swap</span>
+<span class="sd">        data : numpy.array</span>
+<span class="sd">            array of data to exchage</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : numpy.array</span>
+<span class="sd">            the send data buffer is replaced with the receive data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">exchange_buddy</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_exchange_int</span><span class="p">):</span>
+            <span class="c">#print &quot;processor {0} p-to-p exchange, old data {1}&quot;.format(self.rank, data)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_to_point_exchange_replace</span><span class="p">(</span><span class="n">exchange_buddy</span><span class="p">,</span> <span class="n">exchange_buddy</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> 
+            <span class="c">#print &quot;processor {0} p-to-p exchange, new data {1}&quot;.format(self.rank, data)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">swap_accepted_count</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">swap_rejected_count</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">data</span>
+    </div>
+<div class="viewcode-block" id="_MPI_Parallel_Tempering._attempt_exchange"><a class="viewcode-back" href="../../../Base_MPI_Parallel_Tempering.html#mcpele.parallel_tempering._MPI_Parallel_Tempering._attempt_exchange">[docs]</a>    <span class="k">def</span> <span class="nf">_attempt_exchange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This function brings together all the functions necessary to attempt a configuration swap</span>
+<span class="sd">        </span>
+<span class="sd">        This function is structures as follows:</span>
+<span class="sd">        </span>
+<span class="sd">        * root gathers the energies from the slaves</span>
+<span class="sd">        * root decides who will swap with whom</span>
+<span class="sd">        * root to each processor the rank of its chosen partner (buddy)</span>
+<span class="sd">        * processors exchange configuration and energy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">#gather energies, only root will do so</span>
+        <span class="n">Earray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gather_energies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Earray</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;Earray&quot;</span><span class="p">,</span> <span class="n">Earray</span>
+        <span class="c">#find exchange pattern (list of exchange buddies)</span>
+        <span class="n">exchange_pattern</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_exchange_buddy</span><span class="p">(</span><span class="n">Earray</span><span class="p">)</span>
+        <span class="c">#now scatter the exchange pattern so that everybody knows who their buddy is</span>
+        <span class="n">exchange_buddy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scatter_single_value</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">exchange_pattern</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">))</span>
+        <span class="n">exchange_buddy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">exchange_buddy</span><span class="p">)</span>
+        <span class="c">#attempt configurations swap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exchange_pairs</span><span class="p">(</span><span class="n">exchange_buddy</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">))</span>
+        <span class="c">#swap energies</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exchange_pairs</span><span class="p">(</span><span class="n">exchange_buddy</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">energy</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">))</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">E</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            
+            
+            
+    
+    
+    
+        
+                
+            
+              
+                
+                
+                </div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mcpele 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>

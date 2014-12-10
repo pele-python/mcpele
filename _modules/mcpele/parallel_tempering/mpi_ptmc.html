@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mcpele.parallel_tempering.mpi_ptmc &mdash; mcpele 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/scipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mcpele 1.0.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mcpele 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mcpele.parallel_tempering.mpi_ptmc</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+<span class="kn">from</span> <span class="nn">mcpele.parallel_tempering</span> <span class="kn">import</span> <span class="n">_MPI_Parallel_Tempering</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">trymakedir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;this function deals with common race conditions&quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span> 
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="mi">17</span><span class="p">:</span>
+                    <span class="k">raise</span>
+                <span class="c"># time.sleep might help here</span>
+                <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+
+<div class="viewcode-block" id="MPI_PT_RLhandshake"><a class="viewcode-back" href="../../../MPI_Parallel_Tempering.html#mcpele.parallel_tempering.MPI_PT_RLhandshake">[docs]</a><span class="k">class</span> <span class="nc">MPI_PT_RLhandshake</span><span class="p">(</span><span class="n">_MPI_Parallel_Tempering</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform Parallel Tempering by a right-left handshake</span>
+<span class="sd">    </span>
+<span class="sd">    This class performs parallel tempering alternating swaps with right and left neighbours </span>
+<span class="sd">    with geometrically distributed temperatures.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mcrunner : :class:`_BaseMCrunner`</span>
+<span class="sd">        object of :class:`_BaseMCrunner` that performs</span>
+<span class="sd">        the MCMC walks</span>
+<span class="sd">    Tmax : double</span>
+<span class="sd">        maximum temperature to simulate (or equivalent control parameters)</span>
+<span class="sd">    Tmin : double</span>
+<span class="sd">        minimum temperature to simulate (or equivalent control parameters)</span>
+<span class="sd">    max_ptiter : int</span>
+<span class="sd">        maximum number of Parallel Tempering iterations</span>
+<span class="sd">    pfreq : int</span>
+<span class="sd">        frequency with which histogram and other information is dumped</span>
+<span class="sd">        to a file</span>
+<span class="sd">    skip : int</span>
+<span class="sd">        number of parallel tempering iteration for which swaps should</span>
+<span class="sd">        not be performed. Swaps should be avoided for instance while</span>
+<span class="sd">        adjusting the step size</span>
+<span class="sd">    print_status : bool</span>
+<span class="sd">        choose whether to print MCrunner status at each iteration</span>
+<span class="sd">    base_directory : string</span>
+<span class="sd">        path to base directory where to save output</span>
+<span class="sd">    verbose : bool</span>
+<span class="sd">        print verbose output to terminal</span>
+<span class="sd">    suppress_histogram : bool</span>
+<span class="sd">        suppress histogram output</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    exchange_dic : dictionary</span>
+<span class="sd">        assign -1 to left and 1 to right</span>
+<span class="sd">    exchange_choice : int</span>
+<span class="sd">        current swap choice (alternating)</span>
+<span class="sd">        initialised randomlly to be 1 or -1</span>
+<span class="sd">    anyswap : bool</span>
+<span class="sd">        set to True is any of the attempted swaps</span>
+<span class="sd">        have been succesfull</span>
+<span class="sd">    permutation_pattern : numpy.array</span>
+<span class="sd">        record pattern of exchanges, used to print</span>
+<span class="sd">        the exchange permutations</span>
+<span class="sd">    suppress_histgoram : bool</span>
+<span class="sd">        suppress the output of the histogram</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mcrunner</span><span class="p">,</span> <span class="n">Tmax</span><span class="p">,</span> <span class="n">Tmin</span><span class="p">,</span> <span class="n">max_ptiter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pfreq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">print_status</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">base_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">suppress_histogram</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MPI_PT_RLhandshake</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">mcrunner</span><span class="p">,</span> <span class="n">Tmax</span><span class="p">,</span> <span class="n">Tmin</span><span class="p">,</span> <span class="n">max_ptiter</span><span class="p">,</span> <span class="n">pfreq</span><span class="o">=</span><span class="n">pfreq</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="n">skip</span><span class="p">,</span> <span class="n">print_status</span><span class="o">=</span><span class="n">print_status</span><span class="p">,</span> <span class="n">base_directory</span><span class="o">=</span><span class="n">base_directory</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exchange_dic</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="s">&#39;right&#39;</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="s">&#39;left&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_dic</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">anyswap</span> <span class="o">=</span> <span class="bp">False</span> <span class="c">#set to true if any swap will happen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">permutation_pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;int32&#39;</span><span class="p">)</span> <span class="c">#this is useful to print exchange permutations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">suppress_histogram</span> <span class="o">=</span> <span class="n">suppress_histogram</span>
+        
+    <span class="k">def</span> <span class="nf">_print_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all_dump_histogram</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_print_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all_print_status</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_print_initialise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">base_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span>
+        <span class="n">trymakedir</span><span class="p">(</span><span class="n">base_directory</span><span class="p">)</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_directory</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+        <span class="n">trymakedir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_master_print_temperatures</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all_print_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;{0}/{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span><span class="s">&#39;status&#39;</span><span class="p">),</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram_mean_stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;{0}/{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span><span class="s">&#39;hist_mean&#39;</span><span class="p">),</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram_mean_stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:&lt;15}</span><span class="se">\t</span><span class="s">{:&lt;15}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;iteration&#39;</span><span class="p">,</span><span class="s">&#39;&lt;E&gt;&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">permutations_stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">r&#39;{0}/rem_permutations&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_directory</span><span class="p">),</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_close_flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram_mean_stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram_mean_stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">permutations_stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">permutations_stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">_master_print_temperatures</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">base_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="s">&quot;{0}/temperatures&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_directory</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%1.16f</span><span class="s">&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_all_print_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">base_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_directory</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s">&#39;parameters&#39;</span><span class="p">)</span>
+        <span class="c">#init_stepsize = self.mcrunner.stepsize</span>
+        <span class="n">ncount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">niter</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;node:</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;temperature:</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+        <span class="c">#f.write(&#39;initial step size:\t{0}\n&#39;.format(init_stepsize))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;PT iterations:</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_ptiter</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;total MC iterations:</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ncount</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">_master_print_permutations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">anyswap</span> <span class="o">==</span> <span class="bp">True</span><span class="p">):</span>
+            <span class="n">iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">get_iterations_count</span><span class="p">()</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">permutations_stream</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{0}</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iteration</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">permutation_pattern</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{0}</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+   
+    <span class="k">def</span> <span class="nf">_all_dump_histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;for this to work the directory must have been initialised in _print_initialise&quot;&quot;&quot;</span>
+        <span class="n">base_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_directory</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+        <span class="n">iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">get_iterations_count</span><span class="p">()</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="s">&quot;{0}/Visits.his.{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">iteration</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">suppress_histogram</span><span class="p">:</span>
+            <span class="n">mean</span><span class="p">,</span> <span class="n">variance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">dump_histogram</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mean</span><span class="p">,</span> <span class="n">variance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">get_mean_variance</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram_mean_stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:&lt;15}</span><span class="se">\t</span><span class="s">{:&gt;15.15e}</span><span class="se">\t</span><span class="s">{:&gt;15.15e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span><span class="n">mean</span><span class="p">,</span><span class="n">variance</span><span class="p">))</span>
+            
+    
+    <span class="k">def</span> <span class="nf">_all_print_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+        <span class="c">#print float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count)</span>
+        <span class="n">status</span><span class="o">.</span><span class="n">frac_acc_swaps</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">swap_accepted_count</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">swap_accepted_count</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">swap_rejected_count</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_stream</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptiter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;#&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">status</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:&lt;12}</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">status</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:&gt;12.3f}</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_temps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set up the temperatures by distributing them exponentially. We give root the lowest temperature.</span>
+<span class="sd">        This should increase performance when pair lists are used (they are updated less often at low temperature</span>
+<span class="sd">        or when steps involve minimisation, as the low temperatures are closer to the minimum)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">CTE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tmax</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tmin</span> <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+            <span class="n">Tarray</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Tmin</span> <span class="o">*</span> <span class="n">CTE</span><span class="o">**</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">)]</span>
+            <span class="c">#Tarray = np.linspace(self.Tmin,self.Tmax,num=self.nproc)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Tarray</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span> <span class="o">=</span> <span class="bp">None</span>
+    
+    <span class="k">def</span> <span class="nf">_initialise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        perform all the tasks required prior to starting the computation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_temps</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scatter_single_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;processor {0} temperature {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">set_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcrunner</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print_initialise</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialised</span> <span class="o">=</span> <span class="bp">True</span>
+    
+    <span class="k">def</span> <span class="nf">_find_exchange_buddy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Earray</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function determines the exchange pattern alternating swaps with right and left neighbours.</span>
+<span class="sd">        An exchange pattern array is constructed, filled with self.no_exchange_int which</span>
+<span class="sd">        signifies that no exchange should be attempted. This value is replaced with the</span>
+<span class="sd">        rank of the processor with which to perform the swap if the swap attempt is successful.</span>
+<span class="sd">        The exchange partner is then scattered to the other processors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Earray</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span><span class="p">))</span>
+            <span class="n">exchange_pattern</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Earray</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="s">&#39;int32&#39;</span><span class="p">)</span>
+            <span class="n">exchange_pattern</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">no_exchange_int</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anyswap</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nproc</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                    <span class="k">print</span> <span class="s">&#39;exchange choice: &#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_dic</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">]</span> <span class="c">#this is a print statement that has to be removed after initial implementation</span>
+                <span class="n">E1</span> <span class="o">=</span> <span class="n">Earray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">T1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">E2</span> <span class="o">=</span> <span class="n">Earray</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">]</span>
+                <span class="n">T2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tarray</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">]</span>
+                <span class="n">deltaE</span> <span class="o">=</span> <span class="n">E1</span> <span class="o">-</span> <span class="n">E2</span>
+                <span class="n">deltabeta</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T1</span> <span class="o">-</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T2</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span> <span class="mf">1.</span> <span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="n">deltaE</span> <span class="o">*</span> <span class="n">deltabeta</span> <span class="p">)</span> <span class="p">)</span>
+                <span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+                <span class="c">#print &quot;E1 {0} T1 {1} E2 {2} T2 {3} w {4}&quot;.format(E1,T1,E2,T2,w) </span>
+                <span class="k">if</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="n">rand</span><span class="p">:</span>
+                    <span class="c">#accept exchange</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ex_outstream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;accepting exchange </span><span class="si">%d</span><span class="s"> </span><span class="si">%d</span><span class="s"> </span><span class="si">%g</span><span class="s"> </span><span class="si">%g</span><span class="s"> </span><span class="si">%g</span><span class="s"> </span><span class="si">%g</span><span class="s"> </span><span class="si">%d</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodelist</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodelist</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">],</span> <span class="n">E1</span><span class="p">,</span> <span class="n">E2</span><span class="p">,</span> <span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptiter</span><span class="p">))</span>
+                    <span class="k">assert</span><span class="p">(</span><span class="n">exchange_pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_exchange_int</span><span class="p">)</span>                      <span class="c">#verify that is not using the same processor twice for swaps</span>
+                    <span class="k">assert</span><span class="p">(</span><span class="n">exchange_pattern</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_exchange_int</span><span class="p">)</span> <span class="c">#verify that is not using the same processor twice for swaps</span>
+                    <span class="n">exchange_pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodelist</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">]</span>
+                    <span class="n">exchange_pattern</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodelist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">anyswap</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="c">############end of for loop###############</span>
+            <span class="c">#record self.permutation_pattern to print permutations in print function</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anyswap</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">buddy</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">exchange_pattern</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">buddy</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_exchange_int</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">permutation_pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">buddy</span><span class="o">+</span><span class="mi">1</span> <span class="c">#to conform to fortran notation</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">permutation_pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="c">#to conform to fortran notation</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_master_print_permutations</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">exchange_pattern</span> <span class="o">=</span> <span class="bp">None</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">exchange_choice</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span> <span class="c">#swap direction of exchange choice</span>
+        <span class="c">#print &quot;exchange_pattern&quot;,exchange_pattern</span>
+        <span class="k">return</span> <span class="n">exchange_pattern</span>
+            
+            
+            
+    
+    
+    
+        
+                
+            
+              
+                
+                
+                </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mcpele 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2014, Stefano Martiniani, Julian K. Schrenk, Jacob D. Stevenson.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
+    </div>
+  </body>
+</html>
