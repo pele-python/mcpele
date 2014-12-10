@@ -26,7 +26,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" /> 
+    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Base MPI Parallel Tempering" href="Base_MPI_Parallel_Tempering.html" />
+    <link rel="prev" title="Acceptance Tests" href="AcceptTest.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,6 +40,12 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="Base_MPI_Parallel_Tempering.html" title="Base MPI Parallel Tempering"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="AcceptTest.html" title="Acceptance Tests"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -55,40 +63,27 @@
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._action_cpp._Cdef_RecordEnergyHistogram</span></tt></p>
 <p>Bins energies into a resizable histogram</p>
 <p>This class is the Python interface for the c++ RecordEnergyHistogram implementation.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">class:<cite>RecordEnergyHistogram</cite> should only start recording
-entries when the system is equilibrated, set the number of steps
-to skip with the <tt class="docutils literal"><span class="pre">eqsteps</span></tt> parameter.</p>
-</div>
-<dl class="docutils">
-<dt>min <span class="classifier-delimiter">:</span> <span class="classifier">double</span></dt>
-<dd>guess for the minimum energy expected</dd>
-<dt>max <span class="classifier-delimiter">:</span> <span class="classifier">double</span></dt>
-<dd>guess for the maximum energy expected</dd>
-<dt>bin <span class="classifier-delimiter">:</span> <span class="classifier">double</span></dt>
-<dd>choice for the bin size</dd>
-<dt>eqsteps: int</dt>
-<dd>number of iterations to skip before starting to record entries</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val" title="mcpele.monte_carlo.RecordEnergyHistogram.get_bounds_val"><tt class="xref py py-obj docutils literal"><span class="pre">get_bounds_val</span></tt></a></td>
-<td>get energy boundaries of the histogram</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_histogram" title="mcpele.monte_carlo.RecordEnergyHistogram.get_histogram"><tt class="xref py py-obj docutils literal"><span class="pre">get_histogram</span></tt></a></td>
-<td>returns the histogram array</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance" title="mcpele.monte_carlo.RecordEnergyHistogram.get_mean_variance"><tt class="xref py py-obj docutils literal"><span class="pre">get_mean_variance</span></tt></a></td>
-<td>get mean and variance of the histogram</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyHistogram.print_terminal" title="mcpele.monte_carlo.RecordEnergyHistogram.print_terminal"><tt class="xref py py-obj docutils literal"><span class="pre">print_terminal</span></tt></a></td>
-<td>draws histogram on the terminal</td>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>min</strong> : double</p>
+<blockquote>
+<div><p>guess for the minimum energy expected</p>
+</div></blockquote>
+<p><strong>max</strong> : double</p>
+<blockquote>
+<div><p>guess for the maximum energy expected</p>
+</div></blockquote>
+<p><strong>bin</strong> : double</p>
+<blockquote>
+<div><p>choice for the bin size</p>
+</div></blockquote>
+<p><strong>eqsteps: int</strong></p>
+<blockquote class="last">
+<div><p>number of iterations to skip before starting to record entries</p>
+</div></blockquote>
+</td>
 </tr>
 </tbody>
 </table>
@@ -185,21 +180,6 @@ to skip with the <tt class="docutils literal"><span class="pre">eqsteps</span></
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyTimeseries.clear" title="mcpele.monte_carlo.RecordEnergyTimeseries.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
-<td>clear time series container</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series" title="mcpele.monte_carlo.RecordEnergyTimeseries.get_time_series"><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></a></td>
-<td>get a energy time series array</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordEnergyTimeseries.clear">
 <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordEnergyTimeseries.clear" title="Permalink to this definition">¶</a></dt>
@@ -261,24 +241,6 @@ histogram. The <span class="math">\(g(r)\)</span> histogram can be read out at a
 <div><p>after <tt class="docutils literal"><span class="pre">eqsteps</span></tt> steps have been done, record every <tt class="docutils literal"><span class="pre">record_everyth</span></tt> steps</p>
 </div></blockquote>
 </td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps" title="mcpele.monte_carlo.RecordPairDistHistogram.get_eqsteps"><tt class="xref py py-obj docutils literal"><span class="pre">get_eqsteps</span></tt></a></td>
-<td>get number of equilibration steps</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr" title="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_gr"><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_gr</span></tt></a></td>
-<td>get array of <span class="math">\(g(r)\)</span> values for <span class="math">\(g(r)\)</span> measurement</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r" title="mcpele.monte_carlo.RecordPairDistHistogram.get_hist_r"><tt class="xref py py-obj docutils literal"><span class="pre">get_hist_r</span></tt></a></td>
-<td>get array of <span class="math">\(r\)</span> values for <span class="math">\(g(r)\)</span> measurement</td>
 </tr>
 </tbody>
 </table>
@@ -361,7 +323,7 @@ orthogonalised through the Gram-Schmidt orthogonalisation procedure.</p>
 <blockquote>
 <div><p>interval every which the energy is recorded</p>
 </div></blockquote>
-<p><strong>landscape_potential</strong> : pele:BasePotential</p>
+<p><strong>landscape_potential</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">BasePotential</span></tt></a></p>
 <blockquote>
 <div><p>potential associated with particles (so the underlying potential energy surface)</p>
 </div></blockquote>
@@ -379,21 +341,6 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
 <div><p>maximum number of steps for the LBFG-S minimisation of the Rayleigh quotient</p>
 </div></blockquote>
 </td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.clear" title="mcpele.monte_carlo.RecordLowestEValueTimeseries.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
-<td>clear time series container</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series" title="mcpele.monte_carlo.RecordLowestEValueTimeseries.get_time_series"><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></a></td>
-<td>get the lowest eigenvalue time series array</td>
 </tr>
 </tbody>
 </table>
@@ -455,21 +402,6 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear" title="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a></td>
-<td>clear time series container</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series" title="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.get_time_series"><tt class="xref py py-obj docutils literal"><span class="pre">get_time_series</span></tt></a></td>
-<td>return a the root mean square displacement time series array</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear">
 <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.RecordDisplacementPerParticleTimeseries.clear" title="Permalink to this definition">¶</a></dt>
@@ -505,6 +437,12 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="AcceptTest.html"
+                        title="previous chapter">Acceptance Tests</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Base_MPI_Parallel_Tempering.html"
+                        title="next chapter">Base MPI Parallel Tempering</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -531,6 +469,12 @@ required by the Gram-Schmidt orthogonalisation procedure</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="Base_MPI_Parallel_Tempering.html" title="Base MPI Parallel Tempering"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="AcceptTest.html" title="Acceptance Tests"
+             >previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>

@@ -27,6 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Actions" href="Action.html" />
     <link rel="prev" title="Configuration Tests" href="ConfTest.html" /> 
   </head>
   <body>
@@ -39,6 +40,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="Action.html" title="Actions"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ConfTest.html" title="Configuration Tests"
              accesskey="P">previous</a> |</li>
@@ -58,27 +62,12 @@
 <em class="property">class </em><tt class="descclassname">mcpele.monte_carlo.</tt><tt class="descname">MetropolisTest</tt><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">mcpele.monte_carlo._accept_test_cpp._Cdef_Metropolis</span></tt></p>
 <p>Metropolis acceptance criterion</p>
-<p>This class is the Python interface for the c++ pele::MetropolisTest 
+<p>This class is the Python interface for the c++ mcpele::MetropolisTest 
 acceptance test class implementation. The Metropolis acceptance criterion
 accepts each move with probability</p>
 <div class="math">
 \[P( x_{old} \Rightarrow x_{new}) = min \{ 1, \exp [- \beta (E_{new} - E_{old})] \}\]</div>
 <p>where <span class="math">\(\beta\)</span> is the reciprocal of the temperature.</p>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.MetropolisTest.get_seed" title="mcpele.monte_carlo.MetropolisTest.get_seed"><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></a></td>
-<td>return random number generator seed</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.MetropolisTest.set_generator_seed" title="mcpele.monte_carlo.MetropolisTest.set_generator_seed"><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></a></td>
-<td>sets the random number generator seed</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.MetropolisTest.get_seed">
 <tt class="descname">get_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.MetropolisTest.get_seed" title="Permalink to this definition">¶</a></dt>
@@ -128,6 +117,9 @@ accepts each move with probability</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="ConfTest.html"
                         title="previous chapter">Configuration Tests</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Action.html"
+                        title="next chapter">Actions</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -154,6 +146,9 @@ accepts each move with probability</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="Action.html" title="Actions"
+             >next</a> |</li>
         <li class="right" >
           <a href="ConfTest.html" title="Configuration Tests"
              >previous</a> |</li>

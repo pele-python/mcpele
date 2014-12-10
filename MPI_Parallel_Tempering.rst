@@ -1,4 +1,3 @@
-
 MPI Parallel Tempering
 ======================
 

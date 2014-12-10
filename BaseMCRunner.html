@@ -27,6 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Take Step" href="TakeStep.html" />
     <link rel="prev" title="Getting started" href="getting_started.html" /> 
   </head>
   <body>
@@ -39,6 +40,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="TakeStep.html" title="Take Step"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="getting_started.html" title="Getting started"
              accesskey="P">previous</a> |</li>
@@ -78,7 +82,7 @@ constructor will not matter as long as the member is constructed correctly</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>potential</strong> : pele:BasePotential</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>potential</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">BasePotential</span></tt></a></p>
 <blockquote>
 <div><p>the potential (or cost function) return energy, gradient and hessian
 information given a set of coordinates</p>
@@ -98,12 +102,12 @@ information given a set of coordinates</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="9%" />
-<col width="91%" />
+<col width="7%" />
+<col width="93%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>potential</td>
-<td>(pele:BasePotential) the potential (or cost function) return energy, gradient and hessian information given a set of coordinates</td>
+<td>(<a class="reference external" href="https://pele-python.github.io/pele/generated/pele.potentials.BasePotential.html#pele.potentials.BasePotential" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">BasePotential</span></tt></a>) the potential (or cost function) return energy, gradient and hessian information given a set of coordinates</td>
 </tr>
 <tr class="row-even"><td>start_coords</td>
 <td>(numpy.array) initial coordinates array</td>
@@ -118,94 +122,7 @@ information given a set of coordinates</p>
 <td>(int) number of degrees of freedom (which is <tt class="docutils literal"><span class="pre">len(coords)</span></tt>)</td>
 </tr>
 <tr class="row-even"><td>res</td>
-<td>(pele:Result container) dictionary-like container for the results</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.abort" title="mcpele.monte_carlo._BaseMCRunner.abort"><tt class="xref py py-obj docutils literal"><span class="pre">abort</span></tt></a></td>
-<td>abort <a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-func docutils literal"><span class="pre">run()</span></tt></a></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.add_accept_test" title="mcpele.monte_carlo._BaseMCRunner.add_accept_test"><tt class="xref py py-obj docutils literal"><span class="pre">add_accept_test</span></tt></a></td>
-<td>add <tt class="xref py py-class docutils literal"><span class="pre">AcceptTest</span></tt> to MCrunner</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.add_action" title="mcpele.monte_carlo._BaseMCRunner.add_action"><tt class="xref py py-obj docutils literal"><span class="pre">add_action</span></tt></a></td>
-<td>add <tt class="xref py py-class docutils literal"><span class="pre">Action</span></tt> to MCrunner</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.add_conf_test" title="mcpele.monte_carlo._BaseMCRunner.add_conf_test"><tt class="xref py py-obj docutils literal"><span class="pre">add_conf_test</span></tt></a></td>
-<td>add <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt> to MCrunner</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.add_late_conf_test" title="mcpele.monte_carlo._BaseMCRunner.add_late_conf_test"><tt class="xref py py-obj docutils literal"><span class="pre">add_late_conf_test</span></tt></a></td>
-<td>add <tt class="xref py py-class docutils literal"><span class="pre">ConfTest</span></tt> to MCrunner</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_E_rejection_fraction" title="mcpele.monte_carlo._BaseMCRunner.get_E_rejection_fraction"><tt class="xref py py-obj docutils literal"><span class="pre">get_E_rejection_fraction</span></tt></a></td>
-<td>get the fraction of steps rejected by accept tests</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_accepted_fraction" title="mcpele.monte_carlo._BaseMCRunner.get_accepted_fraction"><tt class="xref py py-obj docutils literal"><span class="pre">get_accepted_fraction</span></tt></a></td>
-<td>get the accepted fraction of steps</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_conf_rejection_fraction" title="mcpele.monte_carlo._BaseMCRunner.get_conf_rejection_fraction"><tt class="xref py py-obj docutils literal"><span class="pre">get_conf_rejection_fraction</span></tt></a></td>
-<td>get the fraction of steps rejected by configuration tests</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_config" title="mcpele.monte_carlo._BaseMCRunner.get_config"><tt class="xref py py-obj docutils literal"><span class="pre">get_config</span></tt></a></td>
-<td>Return the coordinates of the current configuration and its associated energy</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_coords" title="mcpele.monte_carlo._BaseMCRunner.get_coords"><tt class="xref py py-obj docutils literal"><span class="pre">get_coords</span></tt></a></td>
-<td>get the coordinates</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_energy" title="mcpele.monte_carlo._BaseMCRunner.get_energy"><tt class="xref py py-obj docutils literal"><span class="pre">get_energy</span></tt></a></td>
-<td>get the energy</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_iterations_count" title="mcpele.monte_carlo._BaseMCRunner.get_iterations_count"><tt class="xref py py-obj docutils literal"><span class="pre">get_iterations_count</span></tt></a></td>
-<td>get the total number of iterations</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_neval" title="mcpele.monte_carlo._BaseMCRunner.get_neval"><tt class="xref py py-obj docutils literal"><span class="pre">get_neval</span></tt></a></td>
-<td>get the total number of energy evaluation (per run)</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_norm_coords" title="mcpele.monte_carlo._BaseMCRunner.get_norm_coords"><tt class="xref py py-obj docutils literal"><span class="pre">get_norm_coords</span></tt></a></td>
-<td>get the norm of the coordinates</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_results" title="mcpele.monte_carlo._BaseMCRunner.get_results"><tt class="xref py py-obj docutils literal"><span class="pre">get_results</span></tt></a></td>
-<td>Must return a result object, generally must contain at least final configuration and energy</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_status" title="mcpele.monte_carlo._BaseMCRunner.get_status"><tt class="xref py py-obj docutils literal"><span class="pre">get_status</span></tt></a></td>
-<td>Returns typical information about the status of the Monte Carlo walker</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.get_temperature" title="mcpele.monte_carlo._BaseMCRunner.get_temperature"><tt class="xref py py-obj docutils literal"><span class="pre">get_temperature</span></tt></a></td>
-<td>get the temperature</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.one_iteration" title="mcpele.monte_carlo._BaseMCRunner.one_iteration"><tt class="xref py py-obj docutils literal"><span class="pre">one_iteration</span></tt></a></td>
-<td>perform a single iteration of the MC loop</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.reset_energy" title="mcpele.monte_carlo._BaseMCRunner.reset_energy"><tt class="xref py py-obj docutils literal"><span class="pre">reset_energy</span></tt></a></td>
-<td>recomputes and resets the energy of the system</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.run" title="mcpele.monte_carlo._BaseMCRunner.run"><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></a></td>
-<td>perform <tt class="docutils literal"><span class="pre">niter</span></tt> iterations of the MC loop</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_config" title="mcpele.monte_carlo._BaseMCRunner.set_config"><tt class="xref py py-obj docutils literal"><span class="pre">set_config</span></tt></a></td>
-<td>sets current configuration and its energy</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_control" title="mcpele.monte_carlo._BaseMCRunner.set_control"><tt class="xref py py-obj docutils literal"><span class="pre">set_control</span></tt></a></td>
-<td>sets the temperature or whichever control parameter that takes</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_coordinates" title="mcpele.monte_carlo._BaseMCRunner.set_coordinates"><tt class="xref py py-obj docutils literal"><span class="pre">set_coordinates</span></tt></a></td>
-<td>set the coordinates</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_report_steps" title="mcpele.monte_carlo._BaseMCRunner.set_report_steps"><tt class="xref py py-obj docutils literal"><span class="pre">set_report_steps</span></tt></a></td>
-<td>set number of steps for which the MC loop should report to :class`TakeStep`</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_takestep" title="mcpele.monte_carlo._BaseMCRunner.set_takestep"><tt class="xref py py-obj docutils literal"><span class="pre">set_takestep</span></tt></a></td>
-<td>add <tt class="xref py py-class docutils literal"><span class="pre">TakeStep</span></tt> to MCrunner</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo._BaseMCRunner.set_temperature" title="mcpele.monte_carlo._BaseMCRunner.set_temperature"><tt class="xref py py-obj docutils literal"><span class="pre">set_temperature</span></tt></a></td>
-<td>set the temperature</td>
+<td>(<a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> container) dictionary-like container for the results</td>
 </tr>
 </tbody>
 </table>
@@ -443,8 +360,9 @@ a single run</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>norm</strong> : double</p>
 <blockquote class="last">
-<div><p>norm of coordinates
-.. math:: sqrt{x dot x}</p>
+<div><p>norm of coordinates</p>
+<div class="math">
+\[\sqrt{x \cdot x}\]</div>
 </div></blockquote>
 </td>
 </tr>
@@ -460,7 +378,7 @@ a single run</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>res</strong> : pele:Result container</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>res</strong> : <a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> container</p>
 <blockquote class="last">
 <div><p>dictionary-like container typically containing 
 coords and energy accessible via:</p>
@@ -480,7 +398,7 @@ coords and energy accessible via:</p>
 <tt class="descname">get_status</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo._BaseMCRunner.get_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns typical information about the status of the Monte Carlo walker</p>
 <dl class="docutils">
-<dt>status <span class="classifier-delimiter">:</span> <span class="classifier">pele:Result container</span></dt>
+<dt>status <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://pele-python.github.io/pele/generated/pele.optimize.Result.html#pele.optimize.Result" title="(in pele v0.1)"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> container</span></dt>
 <dd><p class="first">dictionary-like container typically containing 
 coords and energy accessible via:</p>
 <ul class="last simple">
@@ -655,6 +573,9 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
   <h4>Previous topic</h4>
   <p class="topless"><a href="getting_started.html"
                         title="previous chapter">Getting started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TakeStep.html"
+                        title="next chapter">Take Step</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -681,6 +602,9 @@ and <a class="reference internal" href="TakeStep.html#mcpele.monte_carlo.TakeSte
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="TakeStep.html" title="Take Step"
+             >next</a> |</li>
         <li class="right" >
           <a href="getting_started.html" title="Getting started"
              >previous</a> |</li>

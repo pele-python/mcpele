@@ -26,7 +26,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" /> 
+    <link rel="top" title="mcpele 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Configuration Tests" href="ConfTest.html" />
+    <link rel="prev" title="Base MCRunner" href="BaseMCRunner.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,6 +40,12 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="ConfTest.html" title="Configuration Tests"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="BaseMCRunner.html" title="Base MCRunner"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -97,27 +105,6 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 <div><p>dimensionality of the space (box dimensionality)</p>
 </div></blockquote>
 </td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_count" title="mcpele.monte_carlo.RandomCoordsDisplacement.get_count"><tt class="xref py py-obj docutils literal"><span class="pre">get_count</span></tt></a></td>
-<td>get the total count of the number of steps taken</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_seed" title="mcpele.monte_carlo.RandomCoordsDisplacement.get_seed"><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></a></td>
-<td>return random number generator seed</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.RandomCoordsDisplacement.get_stepsize" title="mcpele.monte_carlo.RandomCoordsDisplacement.get_stepsize"><tt class="xref py py-obj docutils literal"><span class="pre">get_stepsize</span></tt></a></td>
-<td>get the step size</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.RandomCoordsDisplacement.set_generator_seed" title="mcpele.monte_carlo.RandomCoordsDisplacement.set_generator_seed"><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></a></td>
-<td>sets the random number generator seed</td>
 </tr>
 </tbody>
 </table>
@@ -215,27 +202,6 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 <div><p>size of step in each dimension</p>
 </div></blockquote>
 </td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_count" title="mcpele.monte_carlo.GaussianCoordsDisplacement.get_count"><tt class="xref py py-obj docutils literal"><span class="pre">get_count</span></tt></a></td>
-<td>get the total count of the number of steps taken</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_seed" title="mcpele.monte_carlo.GaussianCoordsDisplacement.get_seed"><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></a></td>
-<td>return random number generator seed</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.get_stepsize" title="mcpele.monte_carlo.GaussianCoordsDisplacement.get_stepsize"><tt class="xref py py-obj docutils literal"><span class="pre">get_stepsize</span></tt></a></td>
-<td>get the step size</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.GaussianCoordsDisplacement.set_generator_seed" title="mcpele.monte_carlo.GaussianCoordsDisplacement.set_generator_seed"><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></a></td>
-<td>sets the random number generator seed</td>
 </tr>
 </tbody>
 </table>
@@ -340,21 +306,6 @@ Takes a step by sampling uniformly a <tt class="docutils literal"><span class="p
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.ParticlePairSwap.get_seed" title="mcpele.monte_carlo.ParticlePairSwap.get_seed"><tt class="xref py py-obj docutils literal"><span class="pre">get_seed</span></tt></a></td>
-<td>return random number generator seed</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#mcpele.monte_carlo.ParticlePairSwap.set_generator_seed" title="mcpele.monte_carlo.ParticlePairSwap.set_generator_seed"><tt class="xref py py-obj docutils literal"><span class="pre">set_generator_seed</span></tt></a></td>
-<td>sets the random number generator seed</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.ParticlePairSwap.get_seed">
 <tt class="descname">get_seed</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.ParticlePairSwap.get_seed" title="Permalink to this definition">¶</a></dt>
@@ -404,18 +355,6 @@ takes multiple steps in a repeated deterministic pattern.</p>
 <p class="first admonition-title">Warning</p>
 <p class="last">breaks detailed balance locally</p>
 </div>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.TakeStepPattern.add_step" title="mcpele.monte_carlo.TakeStepPattern.add_step"><tt class="xref py py-obj docutils literal"><span class="pre">add_step</span></tt></a></td>
-<td>add a step to a pattern</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.TakeStepPattern.add_step">
 <tt class="descname">add_step</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.TakeStepPattern.add_step" title="Permalink to this definition">¶</a></dt>
@@ -454,18 +393,6 @@ not affecting the detailed balance condition.</p>
 <p class="last">it does NOT break detailed balance
 hence it is the recommended choice</p>
 </div>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#mcpele.monte_carlo.TakeStepProbabilities.add_step" title="mcpele.monte_carlo.TakeStepProbabilities.add_step"><tt class="xref py py-obj docutils literal"><span class="pre">add_step</span></tt></a></td>
-<td>add a step to a pattern</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mcpele.monte_carlo.TakeStepProbabilities.add_step">
 <tt class="descname">add_step</tt><big>(</big><big>)</big><a class="headerlink" href="#mcpele.monte_carlo.TakeStepProbabilities.add_step" title="Permalink to this definition">¶</a></dt>
@@ -499,6 +426,12 @@ hence it is the recommended choice</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="BaseMCRunner.html"
+                        title="previous chapter">Base MCRunner</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ConfTest.html"
+                        title="next chapter">Configuration Tests</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -525,6 +458,12 @@ hence it is the recommended choice</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="ConfTest.html" title="Configuration Tests"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="BaseMCRunner.html" title="Base MCRunner"
+             >previous</a> |</li>
         <li><a href="index.html">mcpele 1.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
