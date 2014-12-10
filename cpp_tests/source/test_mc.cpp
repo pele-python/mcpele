@@ -16,6 +16,7 @@
 #include "mcpele/adaptive_takestep.h"
 #include "mcpele/take_step_pattern.h"
 #include "mcpele/take_step_probabilities.h"
+#include "mcpele/progress.h"
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
@@ -274,6 +275,14 @@ TEST_F(TestMCMock, LateConfTest_Fails){
     EXPECT_EQ(mc->get_iterations_count(), size_t(10));
     EXPECT_EQ(mc->get_naccept(), size_t(0));
     EXPECT_EQ(mc->get_nreject(), size_t(10));
+}
+
+TEST_F(TestMCMock, Progress_Works){
+    mcpele::progress stat(100);
+    for (size_t i = 0; i < 100; ++i) {
+        stat.next(i + 1);
+        EXPECT_EQ(i + 1, stat.get_current_percentage());
+    }
 }
 
 TEST_F(TestMCMock, PatternStep_Works){

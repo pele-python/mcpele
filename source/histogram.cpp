@@ -103,11 +103,11 @@ std::vector<double> Histogram::get_vecdata_normalized() const
     return result;
 }
 
-void Histogram::print_terminal(const size_t ntot) const
+void Histogram::print_terminal() const
 {
     for(size_t i = 0; i < m_hist.size(); ++i) {
         std::cout << i << "-" << (i + 1) << ": ";
-        std::cout << std::string(m_hist[i] * 10000 / ntot, '*') <<  "\n";
+        std::cout << std::string(m_hist[i] * 10000 / m_niter, '*') <<  "\n";
     }
 }
 

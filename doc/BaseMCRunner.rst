@@ -5,5 +5,7 @@ Base MCRunner
 
 .. autoclass:: _BaseMCRunner
    :members:
+   :inherited-members:
    :undoc-members:
-   :show-inheritance:
+   :show-inheritance: 
+   :exclude-members: niter,start_coords,temperature,potential

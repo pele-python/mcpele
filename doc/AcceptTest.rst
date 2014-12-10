@@ -6,5 +6,6 @@ Acceptance Tests
 
 .. autoclass:: MetropolisTest
    :members:
+   :inherited-members:
    :undoc-members:
    :show-inheritance:

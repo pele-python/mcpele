@@ -70,6 +70,11 @@ Reference
 .. toctree::
    :maxdepth: 2
 	
+   Base_MPI_Parallel_Tempering
+
+.. toctree::
+   :maxdepth: 2
+    
    MPI_Parallel_Tempering
 
 Modules

@@ -16,7 +16,7 @@ cdef extern from "mcpele/record_energy_histogram.h" namespace "mcpele":
     cdef cppclass cppRecordEnergyHistogram "mcpele::RecordEnergyHistogram":
         cppRecordEnergyHistogram(double, double, double, size_t) except +
         _pele.Array[double] get_histogram() except +
-        void print_terminal(size_t) except +
+        void print_terminal() except +
         double get_max() except +
         double get_min() except +
         double get_mean() except +

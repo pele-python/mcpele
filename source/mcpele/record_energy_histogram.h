@@ -21,7 +21,7 @@ public:
     virtual ~RecordEnergyHistogram() {} ;
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
     pele::Array<double> get_histogram() const;
-    void print_terminal(const size_t ntot) const { m_hist.print_terminal(ntot); }
+    void print_terminal() const { m_hist.print_terminal(); }
     double get_max() const { return m_hist.max(); }
     double get_min() const { return m_hist.min(); }
     size_t get_eqsteps() const { return m_eqsteps; }
