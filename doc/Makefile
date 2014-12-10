@@ -193,8 +193,8 @@ gh-pages:
 	mv -fv _build/html/* ../
 	mv -fv -t ../ *.png *.rst _build sphinxext
 	rm -rf conf.py _static _templates
-	mv -fv ../source/doc/html doxygen
 	cd ../ &&\
+	mv -fv source/doc/html doxygen
 	rm -rf $(GH_PAGES_SOURCES) &&\
 	git add -A && \
 	git commit -m "Generated gh-pages for `git log $(BRANCH) -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout $(BRANCH);
