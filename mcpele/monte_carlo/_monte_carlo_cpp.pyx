@@ -147,12 +147,15 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         self.thisptr.get().reset_energy()
         
     def set_print_progress(self):
+        """enables display of progress bar for MC simulation"""
         self.thisptr.get().set_print_progress()
         
     def enable_input_warnings(self):
+        """enables warnings about MC inputs, such as actions and configurational tests"""
         self.thisptr.get().enable_input_warnings()
         
     def disable_input_warnings(self):
+        """disables warnings about MC inputs, such as actions and configurational tests"""
         self.thisptr.get().disable_input_warnings()
     
     def get_energy(self):
