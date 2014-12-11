@@ -32,12 +32,12 @@ the implementation of an idea and reducing the occurrence of bugs.
 mcpele has been authored by Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
 The project is publicly available under the GNU general public licence.
 
-Tutorials
------------
-.. toctree::
-   :maxdepth: 3
-
-   getting_started
+..    Tutorials
+      -----------
+      .. toctree::
+         :maxdepth: 3
+    
+         getting_started
    
 Reference
 ---------
@@ -79,13 +79,13 @@ Reference
 
 * `C++ Class Index <./doxygen/namespacemcpele.html>`_
 
-Modules
-+++++++
-.. toctree::
-   :maxdepth: 1
-
-   monte_carlo
-   parallel_tempering
+..    Modules
+    +++++++
+    .. toctree::
+       :maxdepth: 1
+    
+       monte_carlo
+       parallel_tempering
 
 Indices and tables
 ------------------
