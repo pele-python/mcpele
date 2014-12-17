@@ -161,26 +161,34 @@ TEST_F(TakeStepTest, PairSwapWorks){
 }
 
 TEST_F(TakeStepTest, SwapDisplace_Works) {
-   const size_t box_dimension = 3;
-   const size_t nr_particles = ndof / box_dimension;
-   mcpele::ParticlePairSwap swap(42, nr_particles);
-   const size_t new_seed = 44;
-   EXPECT_EQ(swap.get_seed(), 42u);
-   swap.set_generator_seed(new_seed);
-   EXPECT_EQ(swap.get_seed(), new_seed);
-   auto coor1 = coor.copy();
-   auto coor2 = coor.copy();
-   swap.displace(coor1, NULL);
-   size_t nr_different_elements = 0;
-   size_t nr_identical_elements = 0;
-   for (size_t i = 0; i < coor1.size(); ++i) {
+    bool throws = false;
+    try {
+        mcpele::ParticlePairSwap(42, 0);
+    }
+    catch (...) {
+        throws = true;
+    }
+    EXPECT_TRUE(throws);
+    const size_t box_dimension = 3;
+    const size_t nr_particles = ndof / box_dimension;
+    mcpele::ParticlePairSwap swap(42, nr_particles);
+    const size_t new_seed = 44;
+    EXPECT_EQ(swap.get_seed(), 42u);
+    swap.set_generator_seed(new_seed);
+    EXPECT_EQ(swap.get_seed(), new_seed);
+    auto coor1 = coor.copy();
+    auto coor2 = coor.copy();
+    swap.displace(coor1, NULL);
+    size_t nr_different_elements = 0;
+    size_t nr_identical_elements = 0;
+    for (size_t i = 0; i < coor1.size(); ++i) {
        const bool id = coor1[i] == coor2[i];
        nr_different_elements += !id;
        nr_identical_elements += id;
-   }
-   EXPECT_EQ(nr_different_elements + nr_identical_elements, coor1.size());
-   EXPECT_EQ(nr_different_elements, 2 * box_dimension);
-   EXPECT_EQ(nr_identical_elements, (nr_particles - 2) * box_dimension);
+    }
+    EXPECT_EQ(nr_different_elements + nr_identical_elements, coor1.size());
+    EXPECT_EQ(nr_different_elements, 2 * box_dimension);
+    EXPECT_EQ(nr_identical_elements, (nr_particles - 2) * box_dimension);
 }
 
 struct TrivialTakestep : public mcpele::TakeStep{
