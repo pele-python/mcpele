@@ -170,6 +170,10 @@ TEST_F(TakeStepTest, SwapDisplace_Works) {
    const size_t box_dimension = 3;
    const size_t nr_particles = ndof / box_dimension;
    mcpele::ParticlePairSwap swap(42, nr_particles);
+   const size_t new_seed = 44;
+   EXPECT_EQ(swap.get_seed(), 42u);
+   swap.set_generator_seed(new_seed);
+   EXPECT_EQ(swap.get_seed(), new_seed);
    auto coor1 = coor.copy();
    auto coor2 = coor.copy();
    swap.displace(coor1, NULL);
