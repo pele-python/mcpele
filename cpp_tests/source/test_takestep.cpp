@@ -1,19 +1,19 @@
+#include <cmath>
 #include <iostream>
 #include <stdexcept>
-#include <cmath>
 #include <vector>
+
 #include <gtest/gtest.h>
 
 #include "pele/harmonic.h"
 
-#include "mcpele/random_coords_displacement.h"
-#include "mcpele/particle_pair_swap.h"
-#include "mcpele/metropolis_test.h"
 #include "mcpele/adaptive_takestep.h"
-#include "mcpele/take_step_probabilities.h"
-#include "mcpele/take_step_pattern.h"
 #include "mcpele/histogram.h"
-#include "mcpele/mc.h"
+#include "mcpele/metropolis_test.h"
+#include "mcpele/particle_pair_swap.h"
+#include "mcpele/random_coords_displacement.h"
+#include "mcpele/take_step_pattern.h"
+#include "mcpele/take_step_probabilities.h"
 
 using pele::Array;
 using mcpele::MC;
@@ -21,10 +21,9 @@ using mcpele::TakeStep;
 
 #define EXPECT_NEAR_RELATIVE(A, B, T)  EXPECT_NEAR(fabs(A)/(fabs(A)+fabs(B)+1), fabs(B)/(fabs(A)+fabs(B)+1), T)
 
-class TakeStepTest: public ::testing::Test{
+class TakeStepTest: public ::testing::Test {
 public:
     typedef pele::Array<double> arr_t;
-
     size_t seed;
     size_t nparticles;
     size_t ndim;
@@ -35,12 +34,11 @@ public:
     size_t niterations;
     double f;
     mcpele::MC* mc;
-
     virtual void SetUp(){
         seed = 42;
         nparticles = 10;
         ndim = 3;
-        ndof = nparticles*ndim;
+        ndof = nparticles * ndim;
         coor = Array<double>(ndof);
         for (size_t i = 0; i < ndof; ++i) {
             coor[i] = 4242 + i;
@@ -53,23 +51,23 @@ public:
     }
 };
 
-TEST_F(TakeStepTest, Global_BasicFunctionalityAveragingErasing_OneIteration){
+TEST_F(TakeStepTest, Global_BasicFunctionalityAveragingErasing_OneIteration) {
     //one iteration gives expected variation
     mcpele::RandomCoordsDisplacementAll displ(seed, stepsize);
     displ.displace(coor, mc);
-    for (size_t i = 0; i < ndof; ++i){
-        EXPECT_NEAR( reference[i], coor[i], stepsize*0.5 );
+    for (size_t i = 0; i < ndof; ++i) {
+        EXPECT_NEAR(reference[i], coor[i], stepsize * 0.5);
     }
 }
 
 TEST_F(TakeStepTest, Global_BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
     mcpele::RandomCoordsDisplacementAll displ(seed, stepsize);
-    for (size_t i = 0; i < niterations; ++i){
-    displ.displace(coor, mc);
+    for (size_t i = 0; i < niterations; ++i) {
+        displ.displace(coor, mc);
     }
-    for (size_t i = 0; i < ndof; ++i){
-    EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
+    for (size_t i = 0; i < ndof; ++i) {
+        EXPECT_NEAR(reference[i], coor[i], f * sqrt(niterations));
     }
 }
 
@@ -77,26 +75,25 @@ TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_OneIteration){
     //one iteration gives expected variation
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
     displ.displace(coor, mc);
-    for (size_t i = 0; i < ndof; ++i){
-        EXPECT_NEAR( reference[i], coor[i], stepsize*0.5 );
+    for (size_t i = 0; i < ndof; ++i) {
+        EXPECT_NEAR(reference[i], coor[i], stepsize * 0.5);
     }
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionality_OneParticleMoves){
     //test that only 1 particle moves
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
-
     displ.displace(coor, mc);
     size_t part = displ.get_rand_particle();
     //check that particle i has moved
-    for(size_t j = part*ndim; j < part*ndim+ndim; ++j){
-        EXPECT_NE( reference[j], coor[j]);
+    for (size_t j = part * ndim; j < part * ndim + ndim; ++j) {
+        EXPECT_NE(reference[j], coor[j]);
     }
     //check that all other particles have not moved
-    for (size_t i = 0; i < nparticles; ++i){
-        if (i != part){
-            for (size_t j=0; j<ndim; ++j){
-                EXPECT_EQ( reference[i*ndim+j], coor[i*ndim+j]);
+    for (size_t i = 0; i < nparticles; ++i) {
+        if (i != part) {
+            for (size_t j = 0; j < ndim; ++j) {
+                EXPECT_EQ(reference[i * ndim + j], coor[i * ndim + j]);
             }
         }
     }
@@ -105,38 +102,35 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_OneParticleMoves){
 TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesMove){
     //test that all particles move
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
-
-    for(size_t i=0; i<1000;++i){
+    for (size_t i = 0; i < 1000; ++i) {
         displ.displace(coor, mc);
     }
-
-    for (size_t i = 0; i < ndof; ++i){
-        EXPECT_NE( reference[i], coor[i]);
+    for (size_t i = 0; i < ndof; ++i) {
+        EXPECT_NE(reference[i], coor[i]);
     }
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesSampledUniformly){
     //test that particles are sampled uniformly
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
-    mcpele::Histogram hist_uniform_single(0, nparticles-1, 1);
-    size_t ntot = 5000;
-
-    for(size_t i=0; i<ntot;++i){
+    mcpele::Histogram hist_uniform_single(0, nparticles - 1, 1);
+    const size_t ntot = 5000;
+    for (size_t i = 0; i < ntot; ++i) {
         displ.displace(coor, mc);
         hist_uniform_single.add_entry(displ.get_rand_particle());
     }
-    EXPECT_NEAR_RELATIVE(hist_uniform_single.get_mean(), (nparticles-1)/2, nparticles / sqrt(ntot));
-    EXPECT_NEAR_RELATIVE(hist_uniform_single.get_variance(), (ntot*ntot-1) / 12, (ntot*ntot-1) / (12 * sqrt(ntot)) );
+    EXPECT_NEAR_RELATIVE(hist_uniform_single.get_mean(), (nparticles - 1) / 2, nparticles / sqrt(ntot));
+    EXPECT_NEAR_RELATIVE(hist_uniform_single.get_variance(), (ntot * ntot - 1) / 12, (ntot * ntot - 1) / (12 * sqrt(ntot)));
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
-    for (size_t i = 0; i < niterations; ++i){
-    displ.displace(coor, mc);
+    for (size_t i = 0; i < niterations; ++i) {
+        displ.displace(coor, mc);
     }
-    for (size_t i = 0; i < ndof; ++i){
-    EXPECT_NEAR( reference[i], coor[i], f*sqrt(niterations) );
+    for (size_t i = 0; i < ndof; ++i) {
+        EXPECT_NEAR( reference[i], coor[i], f * sqrt(niterations) );
     }
 }
 
