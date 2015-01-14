@@ -32,8 +32,7 @@ class ComputeGR():
         self.box_length = np.power(np.sum(np.asarray([volume_nball(r, self.boxdim) for r in self.hard_radii])) / self.hard_phi, 1 / self.boxdim)
         self.box_vector = np.ones(self.boxdim) * self.box_length
         # HS-WCA potential.
-        self.rcut = 2 * (1 + alpha) * np.amax(self.hard_radii)
-        self.potential = HS_WCA(use_periodic=True, use_cell_lists=True, ndim=self.boxdim, eps=self.epsilon, sca=self.alpha, radii=self.hard_radii, boxvec=self.box_vector, rcut=self.rcut)
+        self.potential = HS_WCA(use_periodic=True, use_cell_lists=True, ndim=self.boxdim, eps=self.epsilon, sca=self.alpha, radii=self.hard_radii, boxvec=self.box_vector)
         # Initial configuration by minimization.
         self.nr_dof = self.boxdim * self.nr_particles
         self.x = np.random.uniform(-0.5 * self.box_length, 0.5 * self.box_length, self.nr_dof)
