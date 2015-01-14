@@ -8,7 +8,7 @@ namespace mcpele {
 /**
  * Record scalar time series, every record_every-th step.
  */
-class RecordScalarTimeseries : public Action{
+class RecordScalarTimeseries : public Action {
 private:
     const size_t m_record_every;
     std::vector<double> m_time_series;
@@ -20,7 +20,7 @@ public:
     RecordScalarTimeseries(const size_t, const size_t);
     virtual ~RecordScalarTimeseries(){}
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
-    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc) = 0;
+    virtual double get_recorded_scalar(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)=0;
     bool moving_average_is_stable(const size_t nr_steps_to_check=1000, const double rel_std_threshold=0.1);
     std::pair<double, double> get_moving_average_mean(const size_t nr_steps_to_check); //returns first moment of ma
     std::pair<double, double> get_moving_average_variance(const size_t nr_steps_to_check); //returns second central moments of ma
@@ -29,10 +29,7 @@ public:
         m_time_series.shrink_to_fit();
         return pele::Array<double>(m_time_series).copy();
     }
-    void clear()
-    {
-        m_time_series.clear();
-    }
+    void clear() { m_time_series.clear(); }
 };
 
 } // namespace mcpele

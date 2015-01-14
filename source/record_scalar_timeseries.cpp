@@ -63,7 +63,7 @@ std::pair<double,double> RecordScalarTimeseries::get_moving_average_mean(const s
     for (size_t i = 0; i < nr_steps_ma; ++i, moving_average.shift_right()) {
         moving_average_mean.update(moving_average.get_mean());
     }
-    return std::pair<double,double>(moving_average_mean.mean(),moving_average_mean.std());
+    return std::pair<double, double>(moving_average_mean.mean(), moving_average_mean.std());
 }
 
 std::pair<double,double> RecordScalarTimeseries::get_moving_average_variance(const size_t nr_steps_to_check)
@@ -77,7 +77,7 @@ std::pair<double,double> RecordScalarTimeseries::get_moving_average_variance(con
     for (size_t i = 0; i < nr_steps_ma; ++i, moving_average.shift_right()) {
         moving_average_var.update(moving_average.get_variance());
     }
-    return std::pair<double,double>(moving_average_var.mean(),moving_average_var.std());
+    return std::pair<double,double>(moving_average_var.mean(), moving_average_var.std());
 }
 
 } // namespace mcpele
