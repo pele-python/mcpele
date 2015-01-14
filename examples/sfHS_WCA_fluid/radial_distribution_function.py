@@ -14,7 +14,8 @@ class MC(_BaseMCRunner):
         self.set_temperature(temp)
 
 class ComputeGR():
-    def __init__(self, boxdim=2, nr_particles=100, hard_phi=0.4, nr_steps=1e6, epsilon=1, alpha=0.1, verbose=False):
+    def __init__(self, boxdim=2, nr_particles=100, hard_phi=0.4,
+                 nr_steps=1e6, epsilon=1, alpha=0.1, verbose=False):
         # Settings.
         np.random.seed(42)
         # Input parameters.
@@ -32,7 +33,10 @@ class ComputeGR():
         self.box_length = np.power(np.sum(np.asarray([volume_nball(r, self.boxdim) for r in self.hard_radii])) / self.hard_phi, 1 / self.boxdim)
         self.box_vector = np.ones(self.boxdim) * self.box_length
         # HS-WCA potential.
-        self.potential = HS_WCA(use_periodic=True, use_cell_lists=True, ndim=self.boxdim, eps=self.epsilon, sca=self.alpha, radii=self.hard_radii, boxvec=self.box_vector)
+        self.potential = HS_WCA(use_periodic=True, use_cell_lists=True,
+                                ndim=self.boxdim, eps=self.epsilon,
+                                sca=self.alpha, radii=self.hard_radii,
+                                boxvec=self.box_vector)
         # Initial configuration by minimization.
         self.nr_dof = self.boxdim * self.nr_particles
         self.x = np.random.uniform(-0.5 * self.box_length, 0.5 * self.box_length, self.nr_dof)
@@ -79,6 +83,10 @@ if __name__ == "__main__":
     nr_steps = 1e6
     alpha = 1e-5
     verbose = False
-    simulation = ComputeGR(boxdim=box_dimension, nr_particles=nr_particles, hard_phi=hard_volume_fraction, nr_steps=nr_steps, alpha=alpha, verbose=verbose)
+    simulation = ComputeGR(boxdim=box_dimension,
+                           nr_particles=nr_particles,
+                           hard_phi=hard_volume_fraction,
+                           nr_steps=nr_steps,
+                           alpha=alpha, verbose=verbose)
     simulation.run()
     simulation.show_result()
