@@ -206,8 +206,7 @@ class _MPI_Parallel_Tempering(object):
                 self._print_data()
             if self.print_status:
                 self._print_status()
-        self.ptiter += 1
-         
+        self.ptiter += 1    
             
     def run(self):
         """Run multiple single iterations, plus initialisation if MPI_PT has not been initialised yet 
