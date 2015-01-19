@@ -155,3 +155,15 @@ TEST(MovingAverage, Works)
     ma2.shift_right();
     EXPECT_DOUBLE_EQ(0.5, ma2.get_mean());
 }
+
+TEST(RecordEnergyTimeseries, Throws)
+{
+    bool threw = false;
+    try {
+        mcpele::RecordEnergyTimeseries(42, 0);
+    }
+    catch(...) {
+        threw = true;
+    }
+    EXPECT_TRUE(threw);
+}

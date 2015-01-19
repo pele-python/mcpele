@@ -82,6 +82,9 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         double get_norm_coords() except +
         void set_report_steps(const size_t) except +
         void abort() except +
+        void set_print_progress() except +
+        void enable_input_warnings() except+
+        void disable_input_warnings() except +
 
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation
