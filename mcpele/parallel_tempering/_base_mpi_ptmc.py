@@ -176,6 +176,10 @@ class _MPI_Parallel_Tempering(object):
     def _close_flush(self):
         """Abstract method responsible for printing and/or dumping the all streams at the end of the calculation"""
         
+    def _test_convergence(self):
+        """perform a convergence test, if it fails return new max_ptiter, else return self.max_ptiter"""
+        return self.max_ptiter
+        
     def one_iteration(self):
         """Perform one parallel tempering iteration
         
@@ -196,8 +200,9 @@ class _MPI_Parallel_Tempering(object):
         self.config = np.array(result.coords,dtype='d')
         if self.ptiter >= self.skip:
             self._attempt_exchange()
-            #print and increase parallel tempering count
+            #print and increase parallel tempering count and test convergence
             if (self.ptiter % self.pfreq == 0):
+                self.max_ptiter = self._test_convergence()
                 self._print_data()
             if self.print_status:
                 self._print_status()
@@ -217,13 +222,13 @@ class _MPI_Parallel_Tempering(object):
             ptiter += 1
             #assure that data are not thrown away since last print
             if ptiter == self.max_ptiter:
-                old_max_ptiter = self.max_ptiter
-                #here we should call a convergence test, instead of doing so through print_data(hack) 
+                new_max_ptiter = self._test_convergence()
                 self._print_data()
-                #check that on printing of data max_ptiter hasn't changed due to convergence test
-                if self.max_ptiter == old_max_ptiter:
+                if new_max_ptiter == self.max_ptiter:
                     self._print_status()
                     self._close_flush()
+                else:
+                    self.max_ptiter = new_max_ptiter
         print 'process {0} terminated'.format(self.rank)
     
     def _scatter_data(self, in_send_array, adim, dtype='d'):
