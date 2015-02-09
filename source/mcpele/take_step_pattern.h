@@ -36,9 +36,7 @@ public:
         m_step_storage.push_back(step_input);
     }
     void displace(pele::Array<double>& coords, MC* mc);
-    void report(pele::Array<double>& old_coords, const double old_energy,
-            pele::Array<double>& new_coords, const double new_energy,
-            const bool success, MC* mc)
+    void report(pele::Array<double>& old_coords, const double old_energy, pele::Array<double>& new_coords, const double new_energy, const bool success, MC* mc)
     {
         m_step_storage.at(m_steps.get_step_ptr())->report(old_coords, old_energy, new_coords, new_energy, success, mc);
     }
