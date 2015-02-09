@@ -272,6 +272,18 @@ TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
     EXPECT_NEAR(freq2, static_cast<double>(static_cast<tt*>(ts2.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
 }
 
+TEST_F(TakeStepTest, TakeStepProbabilities_Throws){
+    bool threw = false;
+    try {
+        auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
+        step->displace(coor, NULL);
+    }
+    catch (...) {
+        threw = true;
+    }
+    EXPECT_TRUE(threw);
+}
+
 TEST_F(TakeStepTest, TakeStepPattern_Correct){
     typedef TrivialTakestep2 tt;
     auto pot = std::make_shared<TrivialPotential>();
