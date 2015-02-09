@@ -48,7 +48,7 @@ class ComputeGR():
         # Potential and MC rules.
         self.temperature = 1
         self.mc = MC(self.potential, self.x, self.temperature, self.nr_steps)
-        self.step = RandomCoordsDisplacement(42, 1, single=True, nparticles=1, bdim=self.boxdim)
+        self.step = RandomCoordsDisplacement(42, 1, single=True, nparticles=self.nr_particles, bdim=self.boxdim)
         if self.verbose:
             print ("initial MC stepsize")
             print self.step.get_stepsize()
