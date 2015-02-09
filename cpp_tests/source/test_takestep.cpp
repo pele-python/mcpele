@@ -232,9 +232,9 @@ TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
     auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
-    std::shared_ptr<TrivialTakestep> ts0(new TrivialTakestep());
-    std::shared_ptr<TrivialTakestep> ts1(new TrivialTakestep());
-    std::shared_ptr<TrivialTakestep> ts2(new TrivialTakestep());
+    std::shared_ptr<TakeStep> ts0(new TrivialTakestep());
+    std::shared_ptr<TakeStep> ts1(new TrivialTakestep());
+    std::shared_ptr<TakeStep> ts2(new TrivialTakestep());
     const size_t weight0 = 1;
     const size_t weight1 = 2;
     const size_t weight2 = 42;
@@ -248,18 +248,18 @@ TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
     const double freq0 = weight0 / total_input_weight;
     const double freq1 = weight1 / total_input_weight;
     const double freq2 = weight2 / total_input_weight;
-    EXPECT_NEAR(freq0, static_cast<double>(ts0->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
-    EXPECT_NEAR(freq1, static_cast<double>(ts1->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
-    EXPECT_NEAR(freq2, static_cast<double>(ts2->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq0, static_cast<double>(static_cast<TrivialTakestep*>(ts0.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq1, static_cast<double>(static_cast<TrivialTakestep*>(ts1.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq2, static_cast<double>(static_cast<TrivialTakestep*>(ts2.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
 }
 
 TEST_F(TakeStepTest, TakeStepPattern_Correct){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
     auto step = std::make_shared<mcpele::TakeStepPattern>();
-    std::shared_ptr<TrivialTakestep> ts0(new TrivialTakestep());
-    std::shared_ptr<TrivialTakestep> ts1(new TrivialTakestep());
-    std::shared_ptr<TrivialTakestep> ts2(new TrivialTakestep());
+    std::shared_ptr<TakeStep> ts0(new TrivialTakestep());
+    std::shared_ptr<TakeStep> ts1(new TrivialTakestep());
+    std::shared_ptr<TakeStep> ts2(new TrivialTakestep());
     const size_t weight0 = 1;
     const size_t weight1 = 2;
     const size_t weight2 = 42;
@@ -293,20 +293,20 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     for (size_t i = 0; i < pattern.size(); ++i) {
         EXPECT_EQ(pattern.at(i), pattern_direct.at(i));
     }
-    std::cout << "ts0->get_call_count(): " << ts0->get_call_count() << "\n";
-    std::cout << "ts1->get_call_count(): " << ts1->get_call_count() << "\n";
-    std::cout << "ts2->get_call_count(): " << ts2->get_call_count() << "\n";
+    std::cout << "ts0->get_call_count(): " << static_cast<TrivialTakestep*>(ts0.get())->get_call_count() << "\n";
+    std::cout << "ts1->get_call_count(): " << static_cast<TrivialTakestep*>(ts1.get())->get_call_count() << "\n";
+    std::cout << "ts2->get_call_count(): " << static_cast<TrivialTakestep*>(ts2.get())->get_call_count() << "\n";
     std::cout << "total_iterations: " << total_iterations << "\n";
-    EXPECT_NEAR(freq0, static_cast<double>(ts0->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
-    EXPECT_NEAR(freq1, static_cast<double>(ts1->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
-    EXPECT_NEAR(freq2, static_cast<double>(ts2->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
-    std::cout << "ts0->get_report_count(): " << ts0->get_report_count() << "\n";
-    std::cout << "ts1->get_report_count(): " << ts1->get_report_count() << "\n";
-    std::cout << "ts2->get_report_count(): " << ts2->get_report_count() << "\n";
+    EXPECT_NEAR(freq0, static_cast<double>(static_cast<TrivialTakestep*>(ts0.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq1, static_cast<double>(static_cast<TrivialTakestep*>(ts1.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    EXPECT_NEAR(freq2, static_cast<double>(static_cast<TrivialTakestep*>(ts2.get())->get_call_count()) / static_cast<double>(total_iterations), 2e-3);
+    std::cout << "ts0->get_report_count(): " << static_cast<TrivialTakestep*>(ts0.get())->get_report_count() << "\n";
+    std::cout << "ts1->get_report_count(): " << static_cast<TrivialTakestep*>(ts1.get())->get_report_count() << "\n";
+    std::cout << "ts2->get_report_count(): " << static_cast<TrivialTakestep*>(ts2.get())->get_report_count() << "\n";
     std::cout << "report_iterations: " << report_iterations << "\n";
-    EXPECT_NEAR(freq0, static_cast<double>(ts0->get_report_count()) / static_cast<double>(report_iterations), 1e-2);
-    EXPECT_NEAR(freq1, static_cast<double>(ts1->get_report_count()) / static_cast<double>(report_iterations), 1e-2);
-    EXPECT_NEAR(freq2, static_cast<double>(ts2->get_report_count()) / static_cast<double>(report_iterations), 1e-2);
+    EXPECT_NEAR(freq0, static_cast<double>(static_cast<TrivialTakestep*>(ts0.get())->get_report_count()) / static_cast<double>(report_iterations), 1e-2);
+    EXPECT_NEAR(freq1, static_cast<double>(static_cast<TrivialTakestep*>(ts1.get())->get_report_count()) / static_cast<double>(report_iterations), 1e-2);
+    EXPECT_NEAR(freq2, static_cast<double>(static_cast<TrivialTakestep*>(ts2.get())->get_report_count()) / static_cast<double>(report_iterations), 1e-2);
 }
 
 

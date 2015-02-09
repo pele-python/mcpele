@@ -25,17 +25,22 @@ namespace mcpele {
  */
 class TakeStepPattern : public TakeStep {
 private:
-    PatternManager<std::shared_ptr<TakeStep> > m_steps;
+    PatternManager<size_t> m_steps;
+    std::vector<std::shared_ptr<TakeStep> > m_step_storage;
 public:
     virtual ~TakeStepPattern() {}
     void add_step(std::shared_ptr<TakeStep> step_input,
-            const size_t repetitions_input=1) { m_steps.add(step_input, repetitions_input); }
+            const size_t repetitions_input=1)
+    {
+        m_steps.add(m_step_storage.size(), repetitions_input);
+        m_step_storage.push_back(step_input);
+    }
     void displace(pele::Array<double>& coords, MC* mc);
     void report(pele::Array<double>& old_coords, const double old_energy,
             pele::Array<double>& new_coords, const double new_energy,
             const bool success, MC* mc)
     {
-        m_steps.get_step_ptr()->report(old_coords, old_energy, new_coords, new_energy, success, mc);
+        m_step_storage.at(m_steps.get_step_ptr())->report(old_coords, old_energy, new_coords, new_energy, success, mc);
     }
     std::vector<size_t> get_pattern() const { return m_steps.get_pattern(); }
     std::vector<size_t> get_pattern_direct() { return m_steps.get_pattern_direct(); }
