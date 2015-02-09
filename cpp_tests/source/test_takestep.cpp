@@ -191,21 +191,27 @@ TEST_F(TakeStepTest, SwapDisplace_Works) {
     EXPECT_EQ(nr_identical_elements, (nr_particles - 2) * box_dimension);
 }
 
-struct TrivialTakestep : public mcpele::TakeStep{
+class TrivialTakestep : public mcpele::TakeStep {
+private:
     size_t call_count;
-    size_t report_count_;
+    size_t report_count;
+public:
     virtual ~TrivialTakestep() {}
-    TrivialTakestep() : call_count(0), report_count_(10000) {}
+    TrivialTakestep()
+        : call_count(0),
+          report_count(0)
+    {
+        std::cout << "TrivialTakestep::TrivialTakestep" << std::endl;
+    }
     virtual void displace(Array<double> &coords, MC * mc=NULL)
     {
         call_count++;
     }
     size_t get_call_count() const { return call_count; }
-    size_t get_report_count() const { return report_count_; }
-    virtual void report(pele::Array<double>& old_coords, const double old_energy, pele::Array<double>& new_coords, const double new_energy, const bool success, MC* mc)
+    size_t get_report_count() const { return report_count; }
+    virtual void report(pele::Array<double>&, const double, pele::Array<double>&, const double, const bool, MC*)
     {
-        //++report_count_;
-        report_count_ = 42;
+        ++report_count;
     }
 };
 
@@ -226,9 +232,9 @@ TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
     auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
-    auto ts0 = std::make_shared<TrivialTakestep>();
-    auto ts1 = std::make_shared<TrivialTakestep>();
-    auto ts2 = std::make_shared<TrivialTakestep>();
+    std::shared_ptr<TrivialTakestep> ts0(new TrivialTakestep());
+    std::shared_ptr<TrivialTakestep> ts1(new TrivialTakestep());
+    std::shared_ptr<TrivialTakestep> ts2(new TrivialTakestep());
     const size_t weight0 = 1;
     const size_t weight1 = 2;
     const size_t weight2 = 42;
@@ -251,9 +257,9 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     auto pot = std::make_shared<TrivialPotential>();
     auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
     auto step = std::make_shared<mcpele::TakeStepPattern>();
-    auto ts0 = std::make_shared<TrivialTakestep>();
-    auto ts1 = std::make_shared<TrivialTakestep>();
-    auto ts2 = std::make_shared<TrivialTakestep>();
+    std::shared_ptr<TrivialTakestep> ts0(new TrivialTakestep());
+    std::shared_ptr<TrivialTakestep> ts1(new TrivialTakestep());
+    std::shared_ptr<TrivialTakestep> ts2(new TrivialTakestep());
     const size_t weight0 = 1;
     const size_t weight1 = 2;
     const size_t weight2 = 42;
@@ -265,6 +271,7 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     const size_t total_iterations = 1e4;
     const size_t report_iterations(total_iterations / 2);
     mc->set_report_steps(report_iterations);
+    EXPECT_EQ(report_iterations, mc->get_report_steps());
     mc->run(total_iterations);
     const double total_input_weight = weight0 + weight1 + weight2;
     const double freq0 = weight0 / total_input_weight;
