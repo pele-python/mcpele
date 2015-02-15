@@ -158,6 +158,17 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
         """disables warnings about MC inputs, such as actions and configurational tests"""
         self.thisptr.get().disable_input_warnings()
     
+    def get_success(self):
+        """test whether last steps has passed all tests
+        
+        Returns
+        -------
+        success : bool
+            tests outcome
+        """
+        success = self.thisptr.get().get_success()
+        return success
+    
     def get_energy(self):
         """get the energy
         
@@ -180,6 +191,25 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
             array of coordinates
         """
         cdef _pele.Array[double] xi = self.thisptr.get().get_coords()
+        cdef double *xdata = xi.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] x = np.zeros(xi.size())
+        cdef size_t i
+        for i in xrange(xi.size()):
+            x[i] = xdata[i]
+              
+        return x
+    
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_trial_coords(self):
+        """get the trial coordinates
+        
+        Returns
+        -------
+        x : numpy.array
+            array of coordinates
+        """
+        cdef _pele.Array[double] xi = self.thisptr.get().get_trial_coords()
         cdef double *xdata = xi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] x = np.zeros(xi.size())
         cdef size_t i
