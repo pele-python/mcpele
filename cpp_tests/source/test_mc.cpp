@@ -370,3 +370,18 @@ TEST_F(TestMCMock, AdaptiveTakeStep_WorksUp){
     EXPECT_DOUBLE_EQ(rs->get_stepsize(), 1/pow(0.8, 10));
 }
 
+TEST_F(TestMCMock, RecordEnergyHistogram_Works) {
+    const size_t report_steps = 1e2;
+    mcpele::RecordEnergyHistogram* hist_ = new mcpele::RecordEnergyHistogram(0, 42, 2, report_steps);
+    auto hist = std::shared_ptr<mcpele::Action>(hist_);
+    mc->add_action(hist);
+    mc->set_report_steps(report_steps);
+    mc->run(10 * report_steps);
+    pele::Array<double> hd = hist_->get_histogram();
+    EXPECT_EQ(hd.size(), 22);
+    EXPECT_GE(hd[0], 0);
+    for (size_t i = 1; i < hd.size(); ++i) {
+        EXPECT_DOUBLE_EQ(hd[i], 0);
+    }
+}
+
