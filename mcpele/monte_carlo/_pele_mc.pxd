@@ -81,7 +81,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         double get_E_rejection_fraction() except +
         size_t get_neval() except +
         double get_norm_coords() except +
-        void set_report_steps(const size_t) except +
+        void set_report_steps(size_t) except +
         void abort() except +
         void set_print_progress() except +
         void enable_input_warnings() except+
