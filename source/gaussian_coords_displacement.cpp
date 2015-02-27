@@ -22,7 +22,7 @@ GaussianTakeStep::GaussianTakeStep(const size_t rseed, const double stepsize, co
 inline void GaussianTakeStep::m_sample_normal_vec(){
     for(size_t i = 0; i < m_ndim; ++i){
         double randz = m_distribution(m_generator); //this is sample from N(0,1)
-        m_normal_vec[i] = randz;                    //This is sampled from N(0,stepsize)
+        m_normal_vec[i] = randz;
     }
 }
 
