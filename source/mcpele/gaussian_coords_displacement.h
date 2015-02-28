@@ -20,7 +20,13 @@ protected:
     double m_stepsize;
     size_t m_count, m_ndim;
     pele::Array<double> m_normal_vec;
-    inline void m_sample_normal_vec(); //samples a vector or normal random variates ~ N(0,1)
+    /*draw ndim random variates from N(0,1) and fill up the m_normal_vec array with them*/
+    inline void m_sample_normal_vec(){
+        for(size_t i = 0; i < m_ndim; ++i){
+            double randz = m_distribution(m_generator); //this is sample from N(0,1)
+            m_normal_vec[i] = randz;
+        }
+    }
 public:
     GaussianTakeStep(const size_t rseed, const double stepsize, const size_t ndim);
     virtual ~GaussianTakeStep() {}
