@@ -27,10 +27,10 @@ class TestTakeStepProbability(unittest.TestCase):
         self.mc_pattern = MC(self.potential_pattern, self.origin, self.temp, self.nr_steps)
         
     def test_frequencies(self):
-        self.tsA = GaussianCoordsDisplacement(42, 1)
-        self.tsA_pattern = GaussianCoordsDisplacement(42, 1)
-        self.tsB = GaussianCoordsDisplacement(44, 2)
-        self.tsB_pattern = GaussianCoordsDisplacement(44, 2)
+        self.tsA = GaussianCoordsDisplacement(42, 1, self.ndim)
+        self.tsA_pattern = GaussianCoordsDisplacement(42, 1, self.ndim)
+        self.tsB = GaussianCoordsDisplacement(44, 2, self.ndim)
+        self.tsB_pattern = GaussianCoordsDisplacement(44, 2, self.ndim)
         self.step = TakeStepProbabilities(42)
         self.step.add_step(self.tsA, 1)
         self.step.add_step(self.tsB, 3)
