@@ -133,6 +133,12 @@ cxx_modules = [
               extra_compile_args=extra_compile_args,
               language="c++", depends=depends_all,
               ),
+    Extension("mcpele.monte_carlo._nullpotential_cpp", 
+              ["mcpele/monte_carlo/_nullpotential_cpp.cxx"] + include_sources_all,
+              include_dirs=include_dirs,
+              extra_compile_args=extra_compile_args,
+              language="c++", depends=depends_all,
+              ),
                ]
 setup(ext_modules=cxx_modules,
       )
