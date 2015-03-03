@@ -2,6 +2,8 @@
 # distutils: sources = takestep.cpp
 
 import sys
+from pele.potentials import _pele
+from pele.potentials._pele cimport array_wrap_np
 
 #===============================================================================
 # RandomCoordsDisplacement
@@ -99,10 +101,10 @@ class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
 #===============================================================================
 
 cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
-    cdef cppGaussianCoordsDisplacement* newptr
-    def __cinit__(self, rseed, stepsize):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed, stepsize))
-        self.newptr = <cppGaussianCoordsDisplacement*> self.thisptr.get()
+    cdef cppGaussianTakeStep* newptr
+    def __cinit__(self, rseed, stepsize, ndim):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppGaussianCoordsDisplacement(rseed, stepsize, ndim))
+        self.newptr = <cppGaussianTakeStep*> self.thisptr.get()
     
     def get_seed(self):
         """return random number generator seed
@@ -147,10 +149,10 @@ cdef class _Cdef_GaussianCoordsDisplacement(_Cdef_TakeStep):
         return self.newptr.get_stepsize()
     
 class GaussianCoordsDisplacement(_Cdef_GaussianCoordsDisplacement):
-    """Take a uniform random step in a ``bdim`` dimensional hypersphere
+    """Take a uniform random step in a ``bdim`` dimensional hypersphere of radius ``stepsize``
     
     this class is the Python interface for the c++ GaussianCoordsDisplacement implementation.
-    Takes a step by sampling uniformly a ``bdim`` dimensional hypersphere
+    Takes a step by sampling uniformly a ``bdim`` dimensional hypersphere or radius ``stepsize``
     
     Parameters
     ----------
@@ -158,6 +160,73 @@ class GaussianCoordsDisplacement(_Cdef_GaussianCoordsDisplacement):
         seed for the random number generator (std:library 64 bits Merseene Twister)
     stepsize : double
         size of step in each dimension
+    ndim : int
+        dimensionality of coordinates array
+    """
+
+cdef class _Cdef_SampleGaussian(_Cdef_TakeStep):
+    cdef cppGaussianTakeStep* newptr
+    def __cinit__(self, rseed, stepsize, origin):
+        cdef _pele.Array[double] origin_ = array_wrap_np(origin)
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppSampleGaussian(rseed, stepsize, origin_))
+        self.newptr = <cppGaussianTakeStep*> self.thisptr.get()
+    
+    def get_seed(self):
+        """return random number generator seed
+        
+        Returns
+        -------
+        int 
+            random number generator seed
+        """
+        cdef res = self.newptr.get_seed()
+        return res
+    
+    def set_generator_seed(self, input):
+        """sets the random number generator seed
+        
+        Parameters
+        ----------
+        input : pos int
+            random number generator seed
+        """
+        cdef inp = input
+        self.newptr.set_generator_seed(inp)
+        
+    def get_count(self):
+        """get the total count of the number of steps taken
+        
+        Returns
+        -------
+        int
+            total count of steps taken
+        """
+        return self.newptr.get_count()
+    
+    def get_stepsize(self):
+        """get the step size
+        
+        Returns
+        -------
+        double
+            stepsize
+        """
+        return self.newptr.get_stepsize()
+
+class SampleGaussian(_Cdef_SampleGaussian):
+    """Sample directly a Gaussian centered at ``origin`` with standard deviation ``stepsize``
+    
+    this class is the Python interface for the c++ SampleGaussian implementation.
+    Sample directly a Gaussian centered at ``origin`` with standard deviation ``stepsize`` 
+    
+    Parameters
+    ----------
+    rseed : pos int
+        seed for the random number generator (std:library 64 bits Merseene Twister)
+    stepsize : double
+        standard deviation for direct sampling
+    origin : numpy.array
+        coordinates where the gaussian should be centered
     """
     
 #

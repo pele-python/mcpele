@@ -46,8 +46,9 @@ public:
 };
 
 TEST_F(TestHistogram, TestMomentsGlobalMoves){
+    std::fill(displ_gaussian.data(), displ_gaussian.data() + ndof, 0);
+    mcpele::SampleGaussian sampler_gaussian(42, ss, displ_gaussian);
     mcpele::RandomCoordsDisplacementAll sampler_uniform_all(42, ss);
-    mcpele::GaussianCoordsDisplacement sampler_gaussian(42, ss);
     mcpele::Histogram hist_uniform_all(-0.5 * ss, 0.5 * ss, 0.01);
     mcpele::Histogram hist_gaussian(-5, 5, 0.1);
     for (size_t step = 0; step < nsteps; ++step) {
@@ -60,7 +61,6 @@ TEST_F(TestHistogram, TestMomentsGlobalMoves){
             hist_gaussian.add_entry(displ_gaussian[dof]);
         }
     }
-
     EXPECT_EQ(static_cast<size_t>(hist_uniform_all.entries()), ntot);
     EXPECT_EQ(static_cast<size_t>(hist_gaussian.entries()), ntot);
     EXPECT_NEAR_RELATIVE(hist_uniform_all.get_mean(), sampler_uniform_all.expected_mean(), 2 * ss / sqrt(ntot));
@@ -88,13 +88,13 @@ TEST_F(TestHistogram, TestMomentsSingleMoves){
 }
 
 TEST_F(TestHistogram, TestBinning){
-    mcpele::GaussianCoordsDisplacement sampler(42, ss);
+    std::fill(displ_gaussian.data(), displ_gaussian.data() + ndof, 0);
+    mcpele::SampleGaussian sampler(42, ss, displ_gaussian);
     const double min = -42;
     const double max = 42;
     const double bin = 2;
     mcpele::Histogram hist(min, max, bin);
     for (size_t step = 0; step < nsteps; ++step) {
-        std::fill(displ_gaussian.data(), displ_gaussian.data() + ndof, 0);
         sampler.displace(displ_gaussian, mc);
         for (size_t dof = 0; dof < ndof; ++dof) {
             hist.add_entry(displ_gaussian[dof]);
