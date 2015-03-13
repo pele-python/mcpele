@@ -21,7 +21,7 @@ cdef extern from "mcpele/record_energy_histogram.h" namespace "mcpele":
         double get_min() except +
         double get_mean() except +
         double get_variance() except +
-        int get_etrires() except +
+        int get_entries() except +
         
 cdef extern from "mcpele/record_pair_dist_histogram.h" namespace "mcpele":
     cdef cppclass cppRecordPairDistHistogram "mcpele::RecordPairDistHistogram"[ndim]:
