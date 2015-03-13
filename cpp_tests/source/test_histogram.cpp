@@ -61,8 +61,8 @@ TEST_F(TestHistogram, TestMomentsGlobalMoves){
             hist_gaussian.add_entry(displ_gaussian[dof]);
         }
     }
-    EXPECT_EQ(static_cast<size_t>(hist_uniform_all.entries()), ntot);
-    EXPECT_EQ(static_cast<size_t>(hist_gaussian.entries()), ntot);
+    EXPECT_EQ(static_cast<size_t>(hist_uniform_all.get_count()), ntot);
+    EXPECT_EQ(static_cast<size_t>(hist_gaussian.get_count()), ntot);
     EXPECT_NEAR_RELATIVE(hist_uniform_all.get_mean(), sampler_uniform_all.expected_mean(), 2 * ss / sqrt(ntot));
     EXPECT_NEAR_RELATIVE(hist_gaussian.get_mean(), sampler_gaussian.expected_mean(), 2 * ss / sqrt(ntot));
     EXPECT_NEAR_RELATIVE(hist_uniform_all.get_variance(), sampler_uniform_all.expected_variance(ss), 2 * ss / sqrt(ntot));
@@ -82,7 +82,7 @@ TEST_F(TestHistogram, TestMomentsSingleMoves){
         }
     }
 
-    EXPECT_EQ(static_cast<size_t>(hist_uniform_single.entries()), ntot);
+    EXPECT_EQ(static_cast<size_t>(hist_uniform_single.get_count()), ntot);
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_mean(), sampler_uniform_single.expected_mean(), 2 * ss / sqrt(ntot));
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_variance(), sampler_uniform_single.expected_variance(ss), 2 * ss / sqrt(ntot));
 }
@@ -100,15 +100,15 @@ TEST_F(TestHistogram, TestBinning){
             hist.add_entry(displ_gaussian[dof]);
         }
     }
-    EXPECT_EQ(static_cast<size_t>(hist.entries()), ntot);
+    EXPECT_EQ(static_cast<size_t>(hist.get_count()), ntot);
     EXPECT_LE(min, hist.min());
     EXPECT_LE(max, hist.max());
     EXPECT_DOUBLE_EQ(hist.bin(), bin);
-    EXPECT_DOUBLE_EQ(hist.entries(), nsteps * ndof);
-    EXPECT_DOUBLE_EQ(std::accumulate(hist.begin(), hist.end(), double(0)), hist.entries());
+    EXPECT_DOUBLE_EQ(hist.get_count(), nsteps * ndof);
+    EXPECT_DOUBLE_EQ(std::accumulate(hist.begin(), hist.end(), double(0)), hist.get_count());
     const std::vector<double> vecdata = hist.get_vecdata();
     EXPECT_EQ(vecdata.size(), hist.size());
-    EXPECT_DOUBLE_EQ(std::accumulate(vecdata.begin(), vecdata.end(), double(0)), hist.entries());
+    EXPECT_DOUBLE_EQ(std::accumulate(vecdata.begin(), vecdata.end(), double(0)), hist.get_count());
     const std::vector<double> vecdata_normalized = hist.get_vecdata_normalized();
     EXPECT_EQ(vecdata_normalized.size(), hist.size());
     EXPECT_DOUBLE_EQ(std::accumulate(vecdata_normalized.begin(), vecdata_normalized.end(), double(0)) * bin, 1);

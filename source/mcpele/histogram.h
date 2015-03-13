@@ -79,7 +79,7 @@ public:
     double min() const { return m_min; }
     double bin() const { return m_bin; }
     size_t size() const { return m_N; }
-    int entries() const { return m_niter; }
+    int get_count() const { return m_niter; }
     double get_mean() const { return m_moments.mean(); }
     double get_variance() const { return m_moments.variance(); }
     std::vector<double>::iterator begin(){return m_hist.begin(); }

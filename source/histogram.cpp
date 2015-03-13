@@ -88,8 +88,8 @@ std::vector<double> Histogram::get_vecdata_error() const
 {
     std::vector<double> result(m_hist.size(), 0);
     for (size_t i = 0; i < result.size(); ++i) {
-        const double this_fraction = static_cast<double>(m_hist.at(i)) / static_cast<double>(entries());
-        result.at(i) = sqrt(this_fraction * (1 - this_fraction) / m_bin) / sqrt(entries());
+        const double this_fraction = static_cast<double>(m_hist.at(i)) / static_cast<double>(get_count());
+        result.at(i) = sqrt(this_fraction * (1 - this_fraction) / m_bin) / sqrt(get_count());
     }
     return result;
 }
