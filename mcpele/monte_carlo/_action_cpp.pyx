@@ -69,16 +69,16 @@ cdef class _Cdef_RecordEnergyHistogram(_Cdef_Action):
         variance = self.newptr.get_variance()
         return mean, variance
     
-    def get_entries(self):
+    def get_count(self):
         """get number of entries in histogram
         
         Returns
         -------
-        entries : integer
+        count : integer
             number of entries in histogram
         """
-        entries = self.newptr.get_entries()
-        return entries
+        count = self.newptr.get_count()
+        return count
         
 class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
     """Bins energies into a resizable histogram

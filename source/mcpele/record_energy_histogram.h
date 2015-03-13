@@ -27,7 +27,7 @@ public:
     size_t get_eqsteps() const { return m_eqsteps; }
     double get_mean() const { return m_hist.get_mean(); }
     double get_variance() const { return m_hist.get_variance(); }
-    int get_entries() const { return m_hist.entries(); }
+    int get_count() const { return m_hist.get_count(); }
 };
 
 } // namespace mcpele
