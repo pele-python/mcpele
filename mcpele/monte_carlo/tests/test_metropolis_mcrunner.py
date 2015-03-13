@@ -44,8 +44,8 @@ class TestMetropolisGlobal(unittest.TestCase):
         self.assertListEqual(np.ndarray.tolist(hist), np.ndarray.tolist(data[:,1]))
         self.assertEqual(mean, mean2)
         self.assertEqual(variance, variance2)
-        entries = self.mcrunner.histogram.get_entries()
-        self.assertEqual(entries, 1400000)
+        count = self.mcrunner.histogram.get_count()
+        self.assertEqual(count, 1400000)
     
     def test_heat_capacity_3D_com(self):
         self.bdim = 3
