@@ -208,10 +208,10 @@ class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
 #===============================================================================
         
 cdef class _Cdef_RecordEnergyTimeseries(_Cdef_Action):
-    cdef cppRecordEnergyTimeseries* newptr
+    cdef cppRecordScalarTimeseries* newptr
     def __cinit__(self, niter, record_every):
         self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordEnergyTimeseries(niter, record_every))
-        self.newptr = <cppRecordEnergyTimeseries*> self.thisptr.get()
+        self.newptr = <cppRecordScalarTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -258,7 +258,7 @@ class RecordEnergyTimeseries(_Cdef_RecordEnergyTimeseries):
 #===============================================================================
         
 cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
-    cdef cppRecordLowestEValueTimeseries* newptr
+    cdef cppRecordScalarTimeseries* newptr
     cdef ranvec
     def __cinit__(self, niter, record_every, _pele.BasePotential landscape_potential, boxdimension,
                   ranvec, lbfgsniter):
@@ -267,7 +267,7 @@ cdef class _Cdef_RecordLowestEValueTimeseries(_Cdef_Action):
                  cppRecordLowestEValueTimeseries(niter, record_every,
                                                      landscape_potential.thisptr, boxdimension,
                                                      _pele.Array[double](<double*> ranvecc.data, ranvecc.size), lbfgsniter))
-        self.newptr = <cppRecordLowestEValueTimeseries*> self.thisptr.get()
+        self.newptr = <cppRecordScalarTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -327,7 +327,7 @@ class RecordLowestEValueTimeseries(_Cdef_RecordLowestEValueTimeseries):
 #===============================================================================
         
 cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
-    cdef cppRecordDisplacementPerParticleTimeseries* newptr
+    cdef cppRecordScalarTimeseries* newptr
     cdef initial_coords
     def __cinit__(self, niter, record_every, initial_coords, boxdimension):
         cdef np.ndarray[double, ndim=1] initialc = initial_coords
@@ -335,7 +335,7 @@ cdef class _Cdef_RecordDisplacementPerParticleTimeseries(_Cdef_Action):
                  cppRecordDisplacementPerParticleTimeseries(niter, record_every,
                                                             _pele.Array[double](<double*> initialc.data, initialc.size), 
                                                             boxdimension))
-        self.newptr = <cppRecordDisplacementPerParticleTimeseries*> self.thisptr.get()
+        self.newptr = <cppRecordScalarTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)

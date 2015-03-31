@@ -22,33 +22,32 @@ cdef extern from "mcpele/record_energy_histogram.h" namespace "mcpele":
         double get_mean() except +
         double get_variance() except +
         int get_count() except +
-        
+
 cdef extern from "mcpele/record_pair_dist_histogram.h" namespace "mcpele":
     cdef cppclass cppRecordPairDistHistogram "mcpele::RecordPairDistHistogram"[ndim]:
         cppRecordPairDistHistogram(_pele.Array[double], size_t, size_t, size_t) except +
         _pele.Array[double] get_hist_r() except +
         _pele.Array[double] get_hist_gr(double, size_t) except +
         size_t get_eqsteps() except +
+
+cdef extern from "mcpele/record_scalar_timeseries.h" namespace "mcpele":
+    cdef cppclass cppRecordScalarTimeseries "mcpele::RecordScalarTimeseries":
+        _pele.Array[double] get_time_series() except +
+        void clear() except +
+        cbool moving_average_is_stable(size_t, double) except +
         
 cdef extern from "mcpele/record_energy_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
         cppRecordEnergyTimeseries(size_t, size_t) except +
-        _pele.Array[double] get_time_series() except +
-        void clear() except +
         
 cdef extern from "mcpele/record_lowest_evalue_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordLowestEValueTimeseries "mcpele::RecordLowestEValueTimeseries":
         cppRecordLowestEValueTimeseries(size_t, size_t,
             shared_ptr[_pele.cBasePotential], size_t, _pele.Array[double]
             , size_t) except +
-        _pele.Array[double] get_time_series() except +
-        void clear() except +
     
 cdef extern from "mcpele/record_displacement_per_particle_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordDisplacementPerParticleTimeseries "mcpele::RecordDisplacementPerParticleTimeseries":
         cppRecordDisplacementPerParticleTimeseries(size_t, size_t,
             _pele.Array[double], size_t) except +
-        _pele.Array[double] get_time_series() except +
-        void clear() except +
-        cbool moving_average_is_stable(size_t, double) except +
         
