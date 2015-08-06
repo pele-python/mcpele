@@ -4,7 +4,7 @@ from _conf_test_cpp import CheckSphericalContainerConfig
 from _takestep_cpp import RandomCoordsDisplacement, SampleGaussian
 from _takestep_cpp import GaussianCoordsDisplacement, ParticlePairSwap
 from _takestep_cpp import TakeStepPattern, TakeStepProbabilities
-from _takestep_cpp import UniformSphericalSampling
+from _takestep_cpp import UniformSphericalSampling, UniformCubicSampling
 from _monte_carlo_cpp import _BaseMCRunner
 from _action_cpp import RecordEnergyHistogram, RecordEnergyTimeseries, RecordPairDistHistogram, RecordLowestEValueTimeseries, RecordDisplacementPerParticleTimeseries
 from _nullpotential_cpp import NullPotential

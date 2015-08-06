@@ -43,10 +43,10 @@ class ComputePi(object):
         self.pi = get_pi(self.p, self.ndim)
         
 if __name__ == "__main__":
-    nsamples = 1e4
+    nsamples = 1e5
     ndim_ = []
     res = []
-    for ndim in xrange(2, 10):
+    for ndim in xrange(2, 16):
         print("computing pi in {} dimensions".format(ndim))
         c = ComputePi(ndim=ndim, nsamples=nsamples)
         res.append(c.pi)
@@ -54,4 +54,4 @@ if __name__ == "__main__":
     for (i, p) in zip(ndim_, res):
         print("dimension", i)
         print("pi", p)
-        print("pi/np.pi", p / np.pi)
+        print("pi / np.pi", p / np.pi)
