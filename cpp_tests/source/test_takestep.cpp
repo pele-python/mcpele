@@ -6,6 +6,7 @@
 #include <gtest/gtest.h>
 
 #include "pele/harmonic.h"
+#include "pele/meta_pow.h"
 
 #include "mcpele/adaptive_takestep.h"
 #include "mcpele/histogram.h"
@@ -146,12 +147,24 @@ TEST_F(TakeStepTest, UniformCubic_CorrectMoments){
     }
 }
 
-/*
 TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
-    // test that first two moments of uniform spherical are correct
-    
+    // test uniform spherical is OK in 2d
+    const size_t nsamples = 1e5;
+    const double radius = 42.42;
+    mcpele::Histogram hist(0, nparticles - 1, 1);
+    mcpele::UniformSphericalSampling sampler(42, radius);
+    pele::Array<double> x2(2);
+    for (size_t i = 0; i < nsamples; ++i) {
+        sampler.displace(x2, NULL);
+        hist.add_entry(pele::dot(x2, x2));
+    }
+    /**For a random walk in a disk of radius R, the mean of the squared
+     * displacement from the origin is R^/2 and the variance of the
+     * squared displacement is R^4/12.
+     */
+    EXPECT_NEAR_RELATIVE(radius * radius / 2, hist.get_mean(), 1e-3);
+    EXPECT_NEAR_RELATIVE(pele::pos_int_pow<4>(radius) / 12, hist.get_variance(), 1e-3);
 }
-*/
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
