@@ -152,18 +152,29 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
     const size_t nsamples = 1e5;
     const double radius = 42.42;
     mcpele::Histogram hist(0, nparticles - 1, 1);
+    mcpele::Histogram hist3(0, nparticles - 1, 1);
     mcpele::UniformSphericalSampling sampler(42, radius);
     pele::Array<double> x2(2);
+    pele::Array<double> x3(3);
     for (size_t i = 0; i < nsamples; ++i) {
         sampler.displace(x2, NULL);
         hist.add_entry(pele::dot(x2, x2));
+        sampler.displace(x3, NULL);
+        hist3.add_entry(pele::dot(x3, x3));
     }
     /**For a random walk in a disk of radius R, the mean of the squared
      * displacement from the origin is R^/2 and the variance of the
      * squared displacement is R^4/12.
      */
     EXPECT_NEAR_RELATIVE(radius * radius / 2, hist.get_mean(), 1e-3);
-    EXPECT_NEAR_RELATIVE(pele::pos_int_pow<4>(radius) / 12, hist.get_variance(), 1e-3);
+    EXPECT_NEAR_RELATIVE(pele::pos_int_pow<4>(radius) / 12, hist.get_variance(), 1e-2);
+    /**For a random walk in a 3d sphere of radius R, the mean of the
+     * squared displacement from the origin is 3 * R^2 / 5 and the
+     * variance of the squared displacement from the origin is
+     * 12 * R^4 / 175.
+     */
+     EXPECT_NEAR_RELATIVE(3 * pele::pos_int_pow<2>(radius) / 5, hist3.get_mean(), 1e-3);
+     EXPECT_NEAR_RELATIVE(12 * pele::pos_int_pow<4>(radius) / 175, hist3.get_variance(), 1e-2);
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
