@@ -14,6 +14,8 @@
 #include "mcpele/random_coords_displacement.h"
 #include "mcpele/take_step_pattern.h"
 #include "mcpele/take_step_probabilities.h"
+#include "mcpele/uniform_cubic_sampling.h"
+#include "mcpele/uniform_spherical_sampling.h"
 
 using pele::Array;
 using mcpele::MC;
@@ -122,6 +124,34 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesSampledUniformly){
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_mean(), (nparticles - 1) / 2, nparticles / sqrt(ntot));
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_variance(), (ntot * ntot - 1) / 12, (ntot * ntot - 1) / (12 * sqrt(ntot)));
 }
+
+TEST_F(TakeStepTest, UniformCubic_CorrectMoments){
+    // test that first two moments of uniform cubic are correct
+    // http://mathworld.wolfram.com/UniformDistribution.html
+    const size_t ndim = 20;
+    const size_t nsamples = 1e4;
+    const double delta = 42.42;
+    std::vector<std::shared_ptr<mcpele::Histogram> > hist(100, std::make_shared<mcpele::Histogram>(0, nparticles - 1, 1));
+    mcpele::UniformCubicSampling sampler(42, delta);
+    pele::Array<double> x(ndim);
+    for (size_t i = 0; i < nsamples; ++i) {
+        sampler.displace(x, NULL);
+        for (size_t k = 0; k < ndim; ++k) {
+            hist[k]->add_entry(x[k]);
+        }
+    }
+    for (size_t i = 0; i < ndim; ++i) {
+        EXPECT_NEAR_RELATIVE(hist[i]->get_mean(), 0, 2 / sqrt(nsamples));
+        EXPECT_NEAR_RELATIVE(hist[i]->get_variance(), delta * delta / 3, 2 / sqrt(nsamples));
+    }
+}
+
+/*
+TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
+    // test that first two moments of uniform spherical are correct
+    
+}
+*/
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
