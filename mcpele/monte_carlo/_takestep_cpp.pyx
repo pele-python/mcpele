@@ -97,6 +97,36 @@ class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
     """
 
 #===============================================================================
+# UniformSphericalSampling
+#===============================================================================
+
+cdef class _Cdef_UniformSphericalSampling(_Cdef_TakeStep):
+    cdef cppUniformSphericalSampling* newptr
+    def __cinit__(self, rseed=42, radius=1):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformSphericalSampling(rseed, radius))
+        self.newptr = <cppUniformSphericalSampling*> self.thisptr.get()
+    def set_generator_seed(self, input):
+        """sets the random number generator seed
+        
+        Parameters
+        ----------
+        input : pos int
+            random number generator seed
+        """
+        cdef inp = input
+        self.newptr.set_generator_seed(inp)
+        
+class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
+    """Sample uniformly at random inside N-ball.
+    Parameters
+    ----------
+    rseed : pos int
+        seed for the random number generator (std:library 64 bits Merseene Twister)
+    radius : double
+        radius of ball
+    """
+
+#===============================================================================
 # GaussianCoordsDisplacement
 #===============================================================================
 
