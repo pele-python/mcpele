@@ -123,6 +123,7 @@ class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
     http://math.stackexchange.com/questions/87230/picking-random-points-in-the-volume-of-sphere-with-uniform-probability
     Variates $X_1$ to $X_N$ are sampled independently from a standard
     normal distribution and then rescaled as described in the reference.
+    See also, e.g. Numerical Recipes, 3rd ed, page 1129.
     
     Parameters
     ----------
