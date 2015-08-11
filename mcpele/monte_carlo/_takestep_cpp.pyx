@@ -118,6 +118,12 @@ cdef class _Cdef_UniformSphericalSampling(_Cdef_TakeStep):
         
 class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
     """Sample uniformly at random inside N-ball.
+    
+    Implements the method described here:
+    http://math.stackexchange.com/questions/87230/picking-random-points-in-the-volume-of-sphere-with-uniform-probability
+    Variates $X_1$ to $X_N$ are sampled independently from a standard
+    normal distribution and then rescaled as described in the reference.
+    
     Parameters
     ----------
     rseed : pos int
