@@ -46,3 +46,33 @@ class CheckSphericalContainerConfig(_Cdef_CheckSphericalContainerConfig):
     radius : double
         radius of the spherical container, centered at **0**
     """
+
+#===============================================================================
+# Union of configurational tests
+#===============================================================================
+
+cdef class _Cdef_ConfTestOR(_Cdef_ConfTest):
+    cdef cppConfTestOR* newptr
+    def __cinit__(self):
+        self.thisptr = shared_ptr[cppConfTest](<cppConfTest*> new cppConfTestOR())
+        self.newptr = <cppConfTestOR*> self.thisptr.get()
+    
+    def add_test(self, _Cdef_ConfTest test):
+        """add a conf test to the union
+        
+        Parameters
+        ----------
+        step : :class:`ConfTest`
+            object of class :class:`ConfTest` constructed beforehand
+        """
+        self.newptr.add_test(test.thisptr)
+        
+class ConfTestOR(_Cdef_ConfTestOR):
+    """Creates a union of multiple configurational tests
+    
+    Python interface for c++ ConfTestOR. This configurational
+    test takes multiple conf tests and generates an union,
+    therefore it is sufficient to satisfy one of these
+    subtests to pass their union.
+    
+    """
