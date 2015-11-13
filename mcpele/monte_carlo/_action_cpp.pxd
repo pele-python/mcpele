@@ -50,4 +50,11 @@ cdef extern from "mcpele/record_displacement_per_particle_timeseries.h" namespac
     cdef cppclass cppRecordDisplacementPerParticleTimeseries "mcpele::RecordDisplacementPerParticleTimeseries":
         cppRecordDisplacementPerParticleTimeseries(size_t, size_t,
             _pele.Array[double], size_t) except +
-        
+
+cdef extern from "mcpele/record_mean_coord_vector.h" namespace "mcpele": 
+    cdef cppclass cppRecordMeanCoordVector "mcpele::RecordMeanCoordVector":
+        cppRecordMeanCoordVector(size_t, size_t) except +
+        _pele.Array[double] get_mean_coordinate_vector() except +
+        _pele.Array[double] get_mean2_coordinate_vector() except +
+        _pele.Array[double] get_variance_coordinate_vector() except +
+        size_t get_count() except +
