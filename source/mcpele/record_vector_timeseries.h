@@ -12,7 +12,7 @@ namespace mcpele {
  */
 class RecordVectorTimeseries : public Action {
 private:
-    const size_t m_record_every;
+    const size_t m_record_every, m_eqsteps;
     std::deque<pele::Array<double>> m_time_series;
     void m_record_vector_value(pele::Array<double> input)
     {
@@ -25,7 +25,7 @@ private:
         }
     }
 public:
-    RecordVectorTimeseries(const size_t record_every);
+    RecordVectorTimeseries(const size_t record_every, const size_t eqsteps);
     virtual ~RecordVectorTimeseries(){}
     virtual void action(pele::Array<double> &coords, double energy, bool accepted, MC* mc);
     virtual pele::Array<double> get_recorded_vector(pele::Array<double> &coords, const double energy, const bool accepted, MC* mc)=0;

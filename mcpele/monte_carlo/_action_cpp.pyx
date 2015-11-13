@@ -442,8 +442,8 @@ class RecordMeanCoordVector(_Cdef_RecordMeanCoordVector):
 
 cdef class _Cdef_RecordCoordsTimeseries(_Cdef_Action):
     cdef cppRecordVectorTimeseries* newptr
-    def __cinit__(self, record_every):
-        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordCoordsTimeseries(record_every))
+    def __cinit__(self, record_every, eqsteps):
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordCoordsTimeseries(record_every, eqsteps))
         self.newptr = <cppRecordVectorTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)

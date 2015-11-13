@@ -7,8 +7,8 @@ namespace mcpele {
 
 class RecordCoordsTimeseries : public RecordVectorTimeseries {
 public:
-    RecordCoordsTimeseries(const size_t record_every)
-        : RecordVectorTimeseries(record_every)
+    RecordCoordsTimeseries(const size_t record_every, const size_t eqsteps)
+        : RecordVectorTimeseries(record_every, eqsteps)
     {}
     virtual ~RecordCoordsTimeseries() {}
     virtual pele::Array<double> get_recorded_vector(pele::Array<double> &coords,

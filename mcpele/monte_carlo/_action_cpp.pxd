@@ -68,4 +68,4 @@ cdef extern from "mcpele/record_vector_timeseries.h" namespace "mcpele":
 
 cdef extern from "mcpele/record_coords_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordCoordsTimeseries "mcpele::RecordCoordsTimeseries":
-        cppRecordCoordsTimeseries(size_t) except +
+        cppRecordCoordsTimeseries(size_t, size_t) except +
