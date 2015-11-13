@@ -439,3 +439,48 @@ class RecordMeanCoordVector(_Cdef_RecordMeanCoordVector):
         number of iterations to skip before starting to record entries
         
     """
+
+cdef class _Cdef_RecordCoordsTimeseries(_Cdef_Action):
+    cdef cppRecordVectorTimeseries* newptr
+    def __cinit__(self, record_every):
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordCoordsTimeseries(record_every))
+        self.newptr = <cppRecordVectorTimeseries*> self.thisptr.get()
+        
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_time_series(self):
+        """get a trajectory
+        
+        Returns
+        -------
+        numpy.array
+            deque of arrays
+        """
+        cdef deque[_pele.Array[double]] dq = self.newptr.get_time_series()
+        cdef double *seriesdata
+        cdef np.ndarray[double, ndim=2, mode="c"] series = np.zeros((dq.size(), dq[0].size()))
+        cdef size_t i, j
+        for i in xrange(dq.size()):
+            seriesdata = dq[i].data()
+            for j in xrange(dq[i].size()):
+                series[i][j] = seriesdata[j]
+        return series
+    
+    def clear(self):
+        """clear time series container
+        
+        deletes the entries in the c++ container
+        """
+        self.newptr.clear()
+    
+class RecordCoordsTimeseries(_Cdef_RecordCoordsTimeseries):
+    """Record a trajectory of the system coordinates
+       
+    This class is the Python interface for the c++ bv::RecordCoordsTimeseries 
+    :class:`Action` class implementation.
+    
+    Parameters
+    ----------
+    record_every : int
+        interval every which the coordinates are recorded
+    """
