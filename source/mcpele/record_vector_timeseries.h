@@ -11,7 +11,7 @@ namespace mcpele {
  * Record vector time series, every record_every-th step.
  */
 class RecordVectorTimeseries : public Action {
-private:
+protected:
     const size_t m_record_every, m_eqsteps;
     std::deque<pele::Array<double>> m_time_series;
     void m_record_vector_value(pele::Array<double> input)

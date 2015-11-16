@@ -381,70 +381,13 @@ class RecordDisplacementPerParticleTimeseries(_Cdef_RecordDisplacementPerParticl
         dimensionality of the space (dimensionality of box)
     """
 
-cdef class _Cdef_RecordMeanCoordVector(_Cdef_Action):
-    cdef cppRecordMeanCoordVector* newptr
-    def __cinit__(self, ndof, eqsteps):
-        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordMeanCoordVector(ndof, eqsteps))
-        self.newptr = <cppRecordMeanCoordVector*> self.thisptr.get()
-    
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
-    def get_mean_variance_coordinate_vector(self):
-        """returns the mean coordinate vector
-        
-        Returns
-        -------
-        numpy.array
-            mean coordinate vector
-        numpy.array
-            element-wise variance coordinate vector
-        """
-        cdef _pele.Array[double] coordi = self.newptr.get_mean_coordinate_vector()
-        cdef _pele.Array[double] vari = self.newptr.get_variance_coordinate_vector()
-        cdef double *coorddata = coordi.data()
-        cdef double *vardata = vari.data()
-        cdef np.ndarray[double, ndim=1, mode="c"] coord = np.zeros(coordi.size())
-        cdef np.ndarray[double, ndim=1, mode="c"] var = np.zeros(vari.size())
-        cdef size_t i
-        for i in xrange(coordi.size()):
-            coord[i] = coorddata[i]
-            var[i] = vardata[i]
-        return coord, var
-
-    def get_count(self):
-        """get number of steps over which the average was computed
-        
-        Returns
-        -------
-        count : integer
-            sample size
-        """
-        count = self.newptr.get_count()
-        return count
-
-class RecordMeanCoordVector(_Cdef_RecordMeanCoordVector):
-    """Record average position during random walk
-    
-    This class is the Python interface for the c++ RecordMeanCoordVector implementation.
-    
-    .. warning :: :class:`RecordMeanCoordVector` should only start recording
-                  entries when the system is equilibrated, set the number of steps
-                  to skip with the ``eqsteps`` parameter.
-    
-    Parameters
-    ----------
-    ndof: int
-        size of coordinate vector
-    eqsteps: int
-        number of iterations to skip before starting to record entries
-        
-    """
-
 cdef class _Cdef_RecordCoordsTimeseries(_Cdef_Action):
     cdef cppRecordVectorTimeseries* newptr
-    def __cinit__(self, record_every, eqsteps):
-        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordCoordsTimeseries(record_every, eqsteps))
+    cdef cppRecordCoordsTimeseries* newptr2
+    def __cinit__(self, ndof, record_every=1, eqsteps=0):
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordCoordsTimeseries(ndof, record_every, eqsteps))
         self.newptr = <cppRecordVectorTimeseries*> self.thisptr.get()
+        self.newptr2 = <cppRecordCoordsTimeseries*> self.thisptr.get()
         
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -466,6 +409,41 @@ cdef class _Cdef_RecordCoordsTimeseries(_Cdef_Action):
                 series[i][j] = seriesdata[j]
         return series
     
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_mean_variance_time_series(self):
+        """returns the mean coordinate vector
+        
+        Returns
+        -------
+        numpy.array
+            mean coordinate vector
+        numpy.array
+            element-wise variance coordinate vector
+        """
+        cdef _pele.Array[double] coordi = self.newptr2.get_mean_coordinate_vector()
+        cdef _pele.Array[double] vari = self.newptr2.get_variance_coordinate_vector()
+        cdef double *coorddata = coordi.data()
+        cdef double *vardata = vari.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] coord = np.zeros(coordi.size())
+        cdef np.ndarray[double, ndim=1, mode="c"] var = np.zeros(vari.size())
+        cdef size_t i
+        for i in xrange(coordi.size()):
+            coord[i] = coorddata[i]
+            var[i] = vardata[i]
+        return coord, var
+
+    def get_avg_count(self):
+        """get number of steps over which the average and variance were computed
+        
+        Returns
+        -------
+        count : integer
+            sample size
+        """
+        count = self.newptr2.get_count()
+        return count
+    
     def clear(self):
         """clear time series container
         
@@ -481,6 +459,10 @@ class RecordCoordsTimeseries(_Cdef_RecordCoordsTimeseries):
     
     Parameters
     ----------
+    ndof : int
+        dimensionality of coordinate array
     record_every : int
         interval every which the coordinates are recorded
+    eqsteps : int
+        number of equilibration steps to skip when computing averages
     """

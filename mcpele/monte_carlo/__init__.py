@@ -4,7 +4,7 @@ from _conf_test_cpp import CheckSphericalContainerConfig, ConfTestOR
 from _takestep_cpp import RandomCoordsDisplacement, SampleGaussian, GaussianCoordsDisplacement, ParticlePairSwap, TakeStepPattern, TakeStepProbabilities
 from _monte_carlo_cpp import _BaseMCRunner
 from _action_cpp import RecordEnergyHistogram, RecordEnergyTimeseries, RecordPairDistHistogram, RecordLowestEValueTimeseries, RecordDisplacementPerParticleTimeseries
-from _action_cpp import RecordMeanCoordVector, RecordCoordsTimeseries
+from _action_cpp import RecordCoordsTimeseries
 from _nullpotential_cpp import NullPotential
 from mcrunner import Metropolis_MCrunner
 
