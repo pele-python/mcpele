@@ -29,10 +29,7 @@ public:
             coords[i] = m_dist_normal(m_gen);
         }
         const double tmp = std::pow(pele::dot(coords, coords), -0.5) * m_radius * std::pow(m_dist_uniform(m_gen), 1 / static_cast<double>(coords.size()));
-        for (size_t i = 0; i < coords.size(); ++i) {
-            coords[i] *= tmp;
-        }
-        
+        coords *= tmp;
     }
 };
     
