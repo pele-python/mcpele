@@ -28,8 +28,20 @@ public:
         for (size_t i = 0; i < coords.size(); ++i) {
             coords[i] = m_dist_normal(m_gen);
         }
+        /**
+         * From Numerical Recipes:
+         * Picking a random point on a sphere:
+         * 1) generate n independent, identically distributed, normal random numbers, y_0, ..., y_{n-1}
+         * 2) get point {x} on unit sphere in n dimensions by {x} = {y} / norm({y})
+         * Picking a random point inside a sphere:
+         * 3) generate an additional uniform random number u in [0,1]
+         * 4) compute point x_i = u^{1/n} / norm({y})
+         */
+        // This computes 1 / norm({y}).
         double tmp = 1.0 / norm(coords);
+        // This computes u^{1/n} / norm({y}) and rescales to a sphere of radius m_radius.
         tmp *= m_radius * std::pow(m_dist_uniform(m_gen), 1.0 / coords.size());
+        // This computes the sampled random point in the sphere.
         coords *= tmp;
     }
 };
