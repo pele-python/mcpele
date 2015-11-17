@@ -35,7 +35,7 @@ public:
          * 2) get point {x} on unit sphere in n dimensions by {x} = {y} / norm({y})
          * Picking a random point inside a sphere:
          * 3) generate an additional uniform random number u in [0,1]
-         * 4) compute point x_i = u^{1/n} / norm({y})
+         * 4) compute point x_i = y_i * u^{1/n} / norm({y})
          */
         // This computes 1 / norm({y}).
         double tmp = 1.0 / norm(coords);
