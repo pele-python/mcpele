@@ -6,6 +6,7 @@
 #include <gtest/gtest.h>
 
 #include "pele/harmonic.h"
+#include "pele/meta_pow.h"
 
 #include "mcpele/adaptive_takestep.h"
 #include "mcpele/histogram.h"
@@ -14,6 +15,8 @@
 #include "mcpele/random_coords_displacement.h"
 #include "mcpele/take_step_pattern.h"
 #include "mcpele/take_step_probabilities.h"
+#include "mcpele/uniform_cubic_sampling.h"
+#include "mcpele/uniform_spherical_sampling.h"
 
 using pele::Array;
 using mcpele::MC;
@@ -121,6 +124,57 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesSampledUniformly){
     }
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_mean(), (nparticles - 1) / 2, nparticles / sqrt(ntot));
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_variance(), (ntot * ntot - 1) / 12, (ntot * ntot - 1) / (12 * sqrt(ntot)));
+}
+
+TEST_F(TakeStepTest, UniformCubic_CorrectMoments){
+    // test that first two moments of uniform cubic are correct
+    // http://mathworld.wolfram.com/UniformDistribution.html
+    const size_t ndim = 20;
+    const size_t nsamples = 1e4;
+    const double delta = 42.42;
+    std::vector<std::shared_ptr<mcpele::Histogram> > hist(100, std::make_shared<mcpele::Histogram>(0, nparticles - 1, 1));
+    mcpele::UniformCubicSampling sampler(42, delta);
+    pele::Array<double> x(ndim);
+    for (size_t i = 0; i < nsamples; ++i) {
+        sampler.displace(x, NULL);
+        for (size_t k = 0; k < ndim; ++k) {
+            hist[k]->add_entry(x[k]);
+        }
+    }
+    for (size_t i = 0; i < ndim; ++i) {
+        EXPECT_NEAR_RELATIVE(hist[i]->get_mean(), 0, 2 / sqrt(nsamples));
+        EXPECT_NEAR_RELATIVE(hist[i]->get_variance(), delta * delta / 3, 2 / sqrt(nsamples));
+    }
+}
+
+TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
+    // test uniform spherical is OK in 2d
+    const size_t nsamples = 1e5;
+    const double radius = 42.42;
+    mcpele::Histogram hist(0, nparticles - 1, 1);
+    mcpele::Histogram hist3(0, nparticles - 1, 1);
+    mcpele::UniformSphericalSampling sampler(42, radius);
+    pele::Array<double> x2(2);
+    pele::Array<double> x3(3);
+    for (size_t i = 0; i < nsamples; ++i) {
+        sampler.displace(x2, NULL);
+        hist.add_entry(pele::dot(x2, x2));
+        sampler.displace(x3, NULL);
+        hist3.add_entry(pele::dot(x3, x3));
+    }
+    /**For a random walk in a disk of radius R, the mean of the squared
+     * displacement from the origin is R^/2 and the variance of the
+     * squared displacement is R^4/12.
+     */
+    EXPECT_NEAR_RELATIVE(radius * radius / 2, hist.get_mean(), 1e-3);
+    EXPECT_NEAR_RELATIVE(pele::pos_int_pow<4>(radius) / 12, hist.get_variance(), 1e-2);
+    /**For a random walk in a 3d sphere of radius R, the mean of the
+     * squared displacement from the origin is 3 * R^2 / 5 and the
+     * variance of the squared displacement from the origin is
+     * 12 * R^4 / 175.
+     */
+     EXPECT_NEAR_RELATIVE(3 * pele::pos_int_pow<2>(radius) / 5, hist3.get_mean(), 1e-3);
+     EXPECT_NEAR_RELATIVE(12 * pele::pos_int_pow<4>(radius) / 175, hist3.get_variance(), 1e-2);
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){

@@ -109,7 +109,7 @@ TEST(EVTimeseries, Works) {
     EXPECT_EQ(series.size(), niter / record_every);
     const double eigenvalue_reference = series[0];
     for (size_t i = 0; i < series.size(); ++i) {
-        EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-10);
+        EXPECT_NEAR_RELATIVE(series[i], eigenvalue_reference, 1e-9);
     }
 }
 

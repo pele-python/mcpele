@@ -97,6 +97,73 @@ class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
     """
 
 #===============================================================================
+# UniformSphericalSampling
+#===============================================================================
+
+cdef class _Cdef_UniformSphericalSampling(_Cdef_TakeStep):
+    cdef cppUniformSphericalSampling* newptr
+    def __cinit__(self, rseed=42, radius=1):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformSphericalSampling(rseed, radius))
+        self.newptr = <cppUniformSphericalSampling*> self.thisptr.get()
+    def set_generator_seed(self, input):
+        """sets the random number generator seed
+        
+        Parameters
+        ----------
+        input : pos int
+            random number generator seed
+        """
+        cdef inp = input
+        self.newptr.set_generator_seed(inp)
+        
+class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
+    """Sample uniformly at random inside N-ball.
+    
+    Implements the method described here:
+    http://math.stackexchange.com/questions/87230/picking-random-points-in-the-volume-of-sphere-with-uniform-probability
+    Variates $X_1$ to $X_N$ are sampled independently from a standard
+    normal distribution and then rescaled as described in the reference.
+    See also, e.g. Numerical Recipes, 3rd ed, page 1129.
+    
+    Parameters
+    ----------
+    rseed : pos int
+        seed for the random number generator (std:library 64 bits Merseene Twister)
+    radius : double
+        radius of ball
+    """
+    
+#===============================================================================
+# UniformCubicSampling
+#===============================================================================
+
+cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
+    cdef cppUniformCubicSampling* newptr
+    def __cinit__(self, rseed=42, delta=1):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
+        self.newptr = <cppUniformCubicSampling*> self.thisptr.get()
+    def set_generator_seed(self, input):
+        """sets the random number generator seed
+        
+        Parameters
+        ----------
+        input : pos int
+            random number generator seed
+        """
+        cdef inp = input
+        self.newptr.set_generator_seed(inp)
+        
+class UniformCubicSampling(_Cdef_UniformCubicSampling):
+    """Sample uniformly at random inside cube.
+    Parameters
+    ----------
+    rseed : pos int
+        seed for the random number generator (std:library 64 bits Merseene Twister)
+    delta : double
+        half side length of cube
+    """
+
+#===============================================================================
 # GaussianCoordsDisplacement
 #===============================================================================
 
