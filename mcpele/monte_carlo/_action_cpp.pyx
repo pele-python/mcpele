@@ -111,7 +111,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     cdef cppRecordPairDistHistogramQuench[INT2]* newptr4
     cdef cppRecordPairDistHistogramQuench[INT3]* newptr5
     cdef _pele_opt.GradientOptimizer optimizer
-    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every, opt=None):
+    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every, optimizer=None):
         ndim = len(boxvec)
         assert(ndim == 2 or ndim == 3)
         assert(len(boxvec)==ndim)
@@ -128,7 +128,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
                 self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
         else:
             self.quench = True
-            self.optimizer = opt
+            self.optimizer = optimizer
             if ndim == 2:
                 bv = np.array(boxvec, dtype=float)
                 self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogramQuench[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every, self.optimizer.thisptr))
@@ -229,8 +229,8 @@ class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
         number of equilibration steps to be excluded from :math:`g(r)` computation
     record_every : int
         after ``eqsteps`` steps have been done, record every ``record_everyth`` steps
-    opt : pele graident optimizer (optimal)
-        If opt is passed, this will quench the snapshot of coords before
+    optimizer : pele graident optimizer (optional)
+        If an optimizer is passed, this will quench the snapshot of coords before
         accumulating the distances to the g(r) histogram. This is
         intended to give the quenched g(r) mentioned here:
         http://dx.doi.org/10.1063/1.449840
