@@ -108,19 +108,35 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
 cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     cdef cppRecordPairDistHistogram[INT2]* newptr2
     cdef cppRecordPairDistHistogram[INT3]* newptr3
-    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every):
+    cdef cppRecordPairDistHistogramQuench[INT2]* newptr4
+    cdef cppRecordPairDistHistogramQuench[INT3]* newptr5
+    cdef _pele_opt.GradientOptimizer optimizer
+    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every, opt=None):
         ndim = len(boxvec)
         assert(ndim == 2 or ndim == 3)
         assert(len(boxvec)==ndim)
         cdef np.ndarray[double, ndim=1] bv
-        if ndim == 2:
-            bv = np.array(boxvec, dtype=float)
-            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
-            self.newptr2 = <cppRecordPairDistHistogram[INT2]*> self.thisptr.get()
+        if opt is None:
+            self.quench = False
+            if ndim == 2:
+                bv = np.array(boxvec, dtype=float)
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
+                self.newptr2 = <cppRecordPairDistHistogram[INT2]*> self.thisptr.get()
+            else:
+                bv = np.array(boxvec, dtype=float)
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
+                self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
         else:
-            bv = np.array(boxvec, dtype=float)
-            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
-            self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
+            self.quench = True
+            self.optimizer = opt
+            if ndim == 2:
+                bv = np.array(boxvec, dtype=float)
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogramQuench[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every, self.optimizer.thisptr))
+                self.newptr4 = <cppRecordPairDistHistogramQuench[INT2]*> self.thisptr.get()
+            else:
+                bv = np.array(boxvec, dtype=float)
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogramQuench[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every, self.optimizer.thisptr))
+                self.newptr5 = <cppRecordPairDistHistogramQuench[INT3]*> self.thisptr.get()
         self.ndim = ndim
         
     def get_hist_r(self):
@@ -132,10 +148,14 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
             array of :math:`r` values for :math:`g(r)` histogram
         """
         cdef _pele.Array[double] histi
-        if self.ndim == 2:
+        if self.ndim == 2 and not self.quench:
             histi = self.newptr2.get_hist_r()
-        elif self.ndim == 3:
-            histi = self.newptr3.get_hist_r()        
+        elif self.ndim == 3 and not self.quench:
+            histi = self.newptr3.get_hist_r()
+        elif self.ndim == 2 and self.quench:
+            histi = self.newptr4.get_hist_r()
+        elif self.ndim == 3 and self.quench:
+            histi = self.newptr5.get_hist_r()
         cdef double *histdata = histi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
         cdef size_t i
@@ -152,10 +172,14 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
             array of array of :math:`g(r)` values for :math:`g(r)`
         """
         cdef _pele.Array[double] histi
-        if self.ndim == 2:
+        if self.ndim == 2 and not self.quench:
             histi = self.newptr2.get_hist_gr(number_density, nr_particles)
-        elif self.ndim == 3:
+        elif self.ndim == 3 and not self.quench:
             histi = self.newptr3.get_hist_gr(number_density, nr_particles)        
+        elif self.ndim == 2 and self.quench:
+            histi = self.newptr4.get_hist_gr(number_density, nr_particles) 
+        elif self.ndim == 3 and self.quench:
+            histi = self.newptr5.get_hist_gr(number_density, nr_particles) 
         cdef double *histdata = histi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
         cdef size_t i
@@ -171,10 +195,14 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         int
             number of equilibration steps
         """
-        if self.ndim == 2:
+        if self.ndim == 2 and not self.quench:
             return self.newptr2.get_eqsteps()
-        elif self.ndim == 3:
+        elif self.ndim == 3 and not self.quench:
             return self.newptr3.get_eqsteps()
+        elif self.ndim == 2 and self.quench:
+            return self.newptr4.get_eqsteps()
+        elif self.ndim == 3 and self.quench:
+            return self.newptr5.get_eqsteps()
         else:
             raise Exception("_Cdef_RecordPairDistHistogram: boxdim fail")
 
@@ -201,6 +229,11 @@ class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
         number of equilibration steps to be excluded from :math:`g(r)` computation
     record_every : int
         after ``eqsteps`` steps have been done, record every ``record_everyth`` steps
+    opt : pele graident optimizer (optimal)
+        If opt is passed, this will quench the snapshot of coords before
+        accumulating the distances to the g(r) histogram. This is
+        intended to give the quenched g(r) mentioned here:
+        http://dx.doi.org/10.1063/1.449840
     """
     
 #===============================================================================

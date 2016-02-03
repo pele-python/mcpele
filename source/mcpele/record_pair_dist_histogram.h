@@ -1,6 +1,8 @@
 #ifndef _MCPELE_RECORD_PAIR_DIST_HISTOGRAM_H__
 #define _MCPELE_RECORD_PAIR_DIST_HISTOGRAM_H__
 
+#include "pele/optimizer.h"
+
 #include "mc.h"
 #include "pair_dist_histogram.h"
 
@@ -41,9 +43,13 @@ public:
         const size_t count = mc->get_iterations_count();
         if (count > m_eqsteps) {
             if (count % m_record_every == 0) {
-                m_hist_gr.add_configuration(coords);
+                process_add_configuration(coords);
             }
         }
+    }
+    virtual void process_add_configuration(pele::Array<double>& coords)
+    {
+        m_hist_gr.add_configuration(coords);
     }
     size_t get_eqsteps() const
     {
@@ -58,6 +64,25 @@ public:
     {
         std::vector<double> vecdata(m_hist_gr.get_vecdata_gr(number_density, nr_particles));
         return pele::Array<double>(vecdata).copy();
+    }
+};
+
+template<size_t BOXDIM>
+class RecordPairDistHistogramQuench : public RecordPairDistHistogram<BOXDIM> {
+private:
+    std::shared_ptr<pele::GradientOptimizer> m_opt;
+public:
+    RecordPairDistHistogramQuench(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every, std::shared_ptr<pele::GradientOptimizer> opt)
+        : RecordPairDistHistogram<BOXDIM>(boxvector, nr_bins, eqsteps, record_every),
+          m_opt(opt)
+    {}
+    void process_add_configuration(pele::Array<double>& coords)
+    {
+        auto c = coords.copy();
+        m_opt->reset(c);
+        m_opt->run();
+        pele::Array<double> tmp = m_opt->get_x();
+        RecordPairDistHistogram<BOXDIM>::process_add_configuration(tmp);
     }
 };
 
