@@ -116,7 +116,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         assert(ndim == 2 or ndim == 3)
         assert(len(boxvec)==ndim)
         cdef np.ndarray[double, ndim=1] bv
-        if opt is None:
+        if optimizer is None:
             self.quench = False
             if ndim == 2:
                 bv = np.array(boxvec, dtype=float)
