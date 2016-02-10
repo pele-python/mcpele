@@ -380,3 +380,89 @@ class RecordDisplacementPerParticleTimeseries(_Cdef_RecordDisplacementPerParticl
     boxdimension: int
         dimensionality of the space (dimensionality of box)
     """
+
+cdef class _Cdef_RecordCoordsTimeseries(_Cdef_Action):
+    cdef cppRecordVectorTimeseries* newptr
+    cdef cppRecordCoordsTimeseries* newptr2
+    def __cinit__(self, ndof, record_every=1, eqsteps=0):
+        self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordCoordsTimeseries(ndof, record_every, eqsteps))
+        self.newptr = <cppRecordVectorTimeseries*> self.thisptr.get()
+        self.newptr2 = <cppRecordCoordsTimeseries*> self.thisptr.get()
+        
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_time_series(self):
+        """get a trajectory
+        
+        Returns
+        -------
+        numpy.array
+            deque of arrays
+        """
+        cdef deque[_pele.Array[double]] dq = self.newptr.get_time_series()
+        cdef double *seriesdata
+        cdef np.ndarray[double, ndim=2, mode="c"] series = np.zeros((dq.size(), dq[0].size()))
+        cdef size_t i, j
+        for i in xrange(dq.size()):
+            seriesdata = dq[i].data()
+            for j in xrange(dq[i].size()):
+                series[i][j] = seriesdata[j]
+        return series
+    
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    def get_mean_variance_time_series(self):
+        """returns the mean coordinate vector
+        
+        Returns
+        -------
+        numpy.array
+            mean coordinate vector
+        numpy.array
+            element-wise variance coordinate vector
+        """
+        cdef _pele.Array[double] coordi = self.newptr2.get_mean_coordinate_vector()
+        cdef _pele.Array[double] vari = self.newptr2.get_variance_coordinate_vector()
+        cdef double *coorddata = coordi.data()
+        cdef double *vardata = vari.data()
+        cdef np.ndarray[double, ndim=1, mode="c"] coord = np.zeros(coordi.size())
+        cdef np.ndarray[double, ndim=1, mode="c"] var = np.zeros(vari.size())
+        cdef size_t i
+        for i in xrange(coordi.size()):
+            coord[i] = coorddata[i]
+            var[i] = vardata[i]
+        return coord, var
+
+    def get_avg_count(self):
+        """get number of steps over which the average and variance were computed
+        
+        Returns
+        -------
+        count : integer
+            sample size
+        """
+        count = self.newptr2.get_count()
+        return count
+    
+    def clear(self):
+        """clear time series container
+        
+        deletes the entries in the c++ container
+        """
+        self.newptr.clear()
+    
+class RecordCoordsTimeseries(_Cdef_RecordCoordsTimeseries):
+    """Record a trajectory of the system coordinates
+       
+    This class is the Python interface for the c++ bv::RecordCoordsTimeseries 
+    :class:`Action` class implementation.
+    
+    Parameters
+    ----------
+    ndof : int
+        dimensionality of coordinate array
+    record_every : int
+        interval every which the coordinates are recorded
+    eqsteps : int
+        number of equilibration steps to skip when computing averages
+    """

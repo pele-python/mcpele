@@ -2,6 +2,7 @@ cimport pele.potentials._pele as _pele
 #from pele.potentials._pele cimport array_wrap_np
 from _pele_mc cimport cppAction,_Cdef_Action, shared_ptr
 from libcpp cimport bool as cbool
+from libcpp.deque cimport deque
 
 # cython has no support for integer template argument.  This is a hack to get around it
 # https://groups.google.com/forum/#!topic/cython-users/xAZxdCFw6Xs
@@ -35,7 +36,7 @@ cdef extern from "mcpele/record_scalar_timeseries.h" namespace "mcpele":
         _pele.Array[double] get_time_series() except +
         void clear() except +
         cbool moving_average_is_stable(size_t, double) except +
-        
+
 cdef extern from "mcpele/record_energy_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
         cppRecordEnergyTimeseries(size_t, size_t) except +
@@ -50,4 +51,17 @@ cdef extern from "mcpele/record_displacement_per_particle_timeseries.h" namespac
     cdef cppclass cppRecordDisplacementPerParticleTimeseries "mcpele::RecordDisplacementPerParticleTimeseries":
         cppRecordDisplacementPerParticleTimeseries(size_t, size_t,
             _pele.Array[double], size_t) except +
-        
+
+cdef extern from "mcpele/record_vector_timeseries.h" namespace "mcpele":
+    cdef cppclass cppRecordVectorTimeseries "mcpele::RecordVectorTimeseries":
+        deque[_pele.Array[double]] get_time_series() except +
+        void clear() except +
+        size_t get_record_every() except +
+
+cdef extern from "mcpele/record_coords_timeseries.h" namespace "mcpele":
+    cdef cppclass cppRecordCoordsTimeseries "mcpele::RecordCoordsTimeseries":
+        cppRecordCoordsTimeseries(size_t, size_t, size_t) except +
+        _pele.Array[double] get_mean_coordinate_vector() except +
+        _pele.Array[double] get_mean2_coordinate_vector() except +
+        _pele.Array[double] get_variance_coordinate_vector() except +
+        size_t get_count() except +
