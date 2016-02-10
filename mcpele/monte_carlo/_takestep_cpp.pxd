@@ -18,6 +18,16 @@ cdef extern from "mcpele/random_coords_displacement.h" namespace "mcpele":
         size_t get_seed() except +
         void set_generator_seed(size_t) except +
         double get_stepsize() except +
+        
+cdef extern from "mcpele/uniform_spherical_sampling.h" namespace "mcpele":
+    cdef cppclass cppUniformSphericalSampling "mcpele::UniformSphericalSampling":
+        cppUniformSphericalSampling(size_t, double) except +
+        void set_generator_seed(size_t) except +
+        
+cdef extern from "mcpele/uniform_cubic_sampling.h" namespace "mcpele":
+    cdef cppclass cppUniformCubicSampling "mcpele::UniformCubicSampling":
+        cppUniformCubicSampling(size_t, double) except +
+        void set_generator_seed(size_t) except +
 
 cdef extern from "mcpele/gaussian_coords_displacement.h" namespace "mcpele":
     cdef cppclass cppGaussianTakeStep "mcpele::GaussianTakeStep":
