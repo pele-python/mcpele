@@ -153,7 +153,12 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
     const double radius = 42.42;
     mcpele::Histogram hist(0, nparticles - 1, 1);
     mcpele::Histogram hist3(0, nparticles - 1, 1);
+    mcpele::Histogram hist_rectangle_2d(0, nparticles -1, 1);
     mcpele::UniformSphericalSampling sampler(42, radius);
+    mcpele::UniformCubicSampling sampler_rectangle(42, 1);
+    const double lx = 42.42;
+    const double ly = 3;
+    sampler_rectangle.set_boxvec({lx, ly});
     pele::Array<double> x2(2);
     pele::Array<double> x3(3);
     for (size_t i = 0; i < nsamples; ++i) {
@@ -161,6 +166,8 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
         hist.add_entry(pele::dot(x2, x2));
         sampler.displace(x3, NULL);
         hist3.add_entry(pele::dot(x3, x3));
+        sampler_rectangle.displace(x2, NULL);
+        hist_rectangle_2d.add_entry(pele::dot(x2, x2));
     }
     /**For a random walk in a disk of radius R, the mean of the squared
      * displacement from the origin is R^/2 and the variance of the
@@ -175,6 +182,12 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
      */
      EXPECT_NEAR_RELATIVE(3 * pele::pos_int_pow<2>(radius) / 5, hist3.get_mean(), 1e-3);
      EXPECT_NEAR_RELATIVE(12 * pele::pos_int_pow<4>(radius) / 175, hist3.get_variance(), 1e-2);
+    /**Random walk in a rectangle.
+     * 
+     */
+     std::cout << "1. / 3. * (lx * lx + ly * ly): " << 1. / 3. * (lx * lx + ly * ly) << "\n";
+     std::cout << "hist_rectangle_2d.get_mean(): " << hist_rectangle_2d.get_mean() << "\n";
+     EXPECT_NEAR_RELATIVE(1. / 3. * (lx * lx + ly * ly), hist_rectangle_2d.get_mean(), 1e-3);
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
