@@ -141,12 +141,11 @@ cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
     cdef cppUniformCubicSampling* newptr
     cdef _pele.Array[double] bv
     def __cinit__(self, rseed=42, delta=1, boxvec=None):
-        if boxvec is None:
-            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
-        else:
-            bv = array_wrap_np(boxvec)
-            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, 1, bv));
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
         self.newptr = <cppUniformCubicSampling*> self.thisptr.get()
+        if boxvec is not None:
+            bv = array_wrap_np(boxvec)
+            self.newptr.set_boxvec(bv)
     def set_generator_seed(self, input):
         """sets the random number generator seed
         
