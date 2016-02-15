@@ -139,8 +139,13 @@ class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
 
 cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
     cdef cppUniformCubicSampling* newptr
-    def __cinit__(self, rseed=42, delta=1):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
+    cdef _pele.Array[double] bv
+    def __cinit__(self, rseed=42, delta=1, boxvec=None):
+        if boxvec is None:
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
+        else:
+            bv = array_wrap_np(boxvec)
+            self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, 1, bv));
         self.newptr = <cppUniformCubicSampling*> self.thisptr.get()
     def set_generator_seed(self, input):
         """sets the random number generator seed
@@ -161,6 +166,8 @@ class UniformCubicSampling(_Cdef_UniformCubicSampling):
         seed for the random number generator (std:library 64 bits Merseene Twister)
     delta : double
         half side length of cube
+    boxvec : array (optional)
+        if set, sampling will be uniform in box volume
     """
 
 #===============================================================================
