@@ -2,6 +2,8 @@
 # distutils: sources = takestep.cpp
 
 import sys
+import numpy as np
+cimport numpy as np
 from pele.potentials import _pele
 from pele.potentials._pele cimport array_wrap_np
 
@@ -140,12 +142,12 @@ class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
 cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
     cdef cppUniformCubicSampling* newptr
     cdef _pele.Array[double] bv
-    def __cinit__(self, rseed=42, delta=1, boxvec=None):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
+    def __cinit__(self, rseed=42, delta=1, np.ndarray[double, ndim=1] boxvec=None):
+        if boxvec is None:
+            boxvec = np.array([2. * delta])
+        bv = array_wrap_np(boxvec)
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, bv))
         self.newptr = <cppUniformCubicSampling*> self.thisptr.get()
-        if boxvec is not None:
-            bv = array_wrap_np(boxvec)
-            self.newptr.set_boxvec(bv)
     def set_generator_seed(self, input):
         """sets the random number generator seed
         

@@ -26,9 +26,8 @@ cdef extern from "mcpele/uniform_spherical_sampling.h" namespace "mcpele":
         
 cdef extern from "mcpele/uniform_cubic_sampling.h" namespace "mcpele":
     cdef cppclass cppUniformCubicSampling "mcpele::UniformCubicSampling":
-        cppUniformCubicSampling(size_t, double) except +
+        cppUniformCubicSampling(size_t, _pele.Array[double]) except +
         void set_generator_seed(size_t) except +
-        void set_boxvec(_pele.Array[double]) except +
 
 cdef extern from "mcpele/gaussian_coords_displacement.h" namespace "mcpele":
     cdef cppclass cppGaussianTakeStep "mcpele::GaussianTakeStep":

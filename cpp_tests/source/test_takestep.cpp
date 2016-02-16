@@ -133,7 +133,7 @@ TEST_F(TakeStepTest, UniformCubic_CorrectMoments){
     const size_t nsamples = 1e4;
     const double delta = 42.42;
     std::vector<std::shared_ptr<mcpele::Histogram> > hist(100, std::make_shared<mcpele::Histogram>(0, nparticles - 1, 1));
-    mcpele::UniformCubicSampling sampler(42, delta);
+    mcpele::UniformCubicSampling sampler(42, {2 * delta});
     pele::Array<double> x(ndim);
     for (size_t i = 0; i < nsamples; ++i) {
         sampler.displace(x, NULL);
@@ -155,10 +155,9 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
     mcpele::Histogram hist3(0, nparticles - 1, 1);
     mcpele::Histogram hist_rectangle_2d(0, nparticles -1, 1);
     mcpele::UniformSphericalSampling sampler(42, radius);
-    mcpele::UniformCubicSampling sampler_rectangle(42, 1);
     const double lx = 42.42;
     const double ly = 3;
-    sampler_rectangle.set_boxvec({lx, ly});
+    mcpele::UniformCubicSampling sampler_rectangle(42, {lx, ly});
     pele::Array<double> x2(2);
     pele::Array<double> x3(3);
     for (size_t i = 0; i < nsamples; ++i) {
