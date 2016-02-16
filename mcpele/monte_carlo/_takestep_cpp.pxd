@@ -24,9 +24,9 @@ cdef extern from "mcpele/uniform_spherical_sampling.h" namespace "mcpele":
         cppUniformSphericalSampling(size_t, double) except +
         void set_generator_seed(size_t) except +
         
-cdef extern from "mcpele/uniform_cubic_sampling.h" namespace "mcpele":
-    cdef cppclass cppUniformCubicSampling "mcpele::UniformCubicSampling":
-        cppUniformCubicSampling(size_t, _pele.Array[double]) except +
+cdef extern from "mcpele/uniform_rectangular_sampling.h" namespace "mcpele":
+    cdef cppclass cppUniformRectangularSampling "mcpele::UniformRectangularSampling":
+        cppUniformRectangularSampling(size_t, _pele.Array[double]) except +
         void set_generator_seed(size_t) except +
 
 cdef extern from "mcpele/gaussian_coords_displacement.h" namespace "mcpele":

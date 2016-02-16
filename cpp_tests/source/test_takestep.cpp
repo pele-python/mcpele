@@ -15,7 +15,7 @@
 #include "mcpele/random_coords_displacement.h"
 #include "mcpele/take_step_pattern.h"
 #include "mcpele/take_step_probabilities.h"
-#include "mcpele/uniform_cubic_sampling.h"
+#include "mcpele/uniform_rectangular_sampling.h"
 #include "mcpele/uniform_spherical_sampling.h"
 
 using pele::Array;
@@ -133,7 +133,7 @@ TEST_F(TakeStepTest, UniformCubic_CorrectMoments){
     const size_t nsamples = 1e4;
     const double delta = 42.42;
     std::vector<std::shared_ptr<mcpele::Histogram> > hist(100, std::make_shared<mcpele::Histogram>(0, nparticles - 1, 1));
-    mcpele::UniformCubicSampling sampler(42, {2 * delta});
+    mcpele::UniformRectangularSampling sampler(42, {2 * delta});
     pele::Array<double> x(ndim);
     for (size_t i = 0; i < nsamples; ++i) {
         sampler.displace(x, NULL);
@@ -157,7 +157,7 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
     mcpele::UniformSphericalSampling sampler(42, radius);
     const double lx = 42.42;
     const double ly = 3;
-    mcpele::UniformCubicSampling sampler_rectangle(42, {lx, ly});
+    mcpele::UniformRectangularSampling sampler_rectangle(42, {lx, ly});
     pele::Array<double> x2(2);
     pele::Array<double> x3(3);
     for (size_t i = 0; i < nsamples; ++i) {

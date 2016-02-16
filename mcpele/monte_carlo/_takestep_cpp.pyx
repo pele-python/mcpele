@@ -136,18 +136,18 @@ class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
     """
     
 #===============================================================================
-# UniformCubicSampling
+# UniformRectangularSampling
 #===============================================================================
 
-cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
-    cdef cppUniformCubicSampling* newptr
+cdef class _Cdef_UniformRectangularSampling(_Cdef_TakeStep):
+    cdef cppUniformRectangularSampling* newptr
     cdef _pele.Array[double] bv
     def __cinit__(self, rseed=42, delta=1, np.ndarray[double, ndim=1] boxvec=None):
         if boxvec is None:
             boxvec = np.array([2. * delta])
         bv = array_wrap_np(boxvec)
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, bv))
-        self.newptr = <cppUniformCubicSampling*> self.thisptr.get()
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformRectangularSampling(rseed, bv))
+        self.newptr = <cppUniformRectangularSampling*> self.thisptr.get()
     def set_generator_seed(self, input):
         """sets the random number generator seed
         
@@ -159,8 +159,9 @@ cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
         
-class UniformCubicSampling(_Cdef_UniformCubicSampling):
-    """Sample uniformly at random inside cube centred at zero.
+class UniformRectangularSampling(_Cdef_UniformRectangularSampling):
+    """Sample uniformly at random inside rectangle (prism etc.) centred
+    at zero.
     
     If parameter delta is given (see below), coordinates are sampled
     uniformly at random in a n-dim cube of side length 2*delta. If
@@ -176,7 +177,8 @@ class UniformCubicSampling(_Cdef_UniformCubicSampling):
     Parameters
     ----------
     rseed : pos int
-        seed for the random number generator (std:library 64 bits Merseene Twister)
+        seed for the random number generator (std-library 64 bits
+        Merseene Twister)
     delta : double
         half side length of cube
     boxvec : array (optional)
