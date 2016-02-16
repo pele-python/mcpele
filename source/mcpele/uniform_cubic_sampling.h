@@ -1,6 +1,8 @@
 #ifndef _MCPELE_UNIFORM_CUBIC_SAMPLING_H__
 #define _MCPELE_UNIFORM_CUBIC_SAMPLING_H__
 
+#include "pele/array.h"
+
 namespace mcpele {
     
 class UniformCubicSampling : public TakeStep {
