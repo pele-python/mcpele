@@ -183,11 +183,13 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
      EXPECT_NEAR_RELATIVE(3 * pele::pos_int_pow<2>(radius) / 5, hist3.get_mean(), 1e-3);
      EXPECT_NEAR_RELATIVE(12 * pele::pos_int_pow<4>(radius) / 175, hist3.get_variance(), 1e-2);
     /**Random walk in a rectangle.
-     * 
+     * Mean of squared displacement is 1/12 * (lx^2 + ly^2).
+     * Variance of the squared displacement is 1/180 * (lx^4 + ly^4).
      */
-     std::cout << "1. / 3. * (lx * lx + ly * ly): " << 1. / 3. * (lx * lx + ly * ly) << "\n";
-     std::cout << "hist_rectangle_2d.get_mean(): " << hist_rectangle_2d.get_mean() << "\n";
-     EXPECT_NEAR_RELATIVE(1. / 3. * (lx * lx + ly * ly), hist_rectangle_2d.get_mean(), 1e-3);
+     const double displ2_rw = 1. / 12. * (lx * lx + ly * ly);
+     const double var_displ2_rw = 1. / 180. * (pele::pos_int_pow<4>(lx) + pele::pos_int_pow<4>(ly));
+     EXPECT_NEAR_RELATIVE(displ2_rw, hist_rectangle_2d.get_mean(), 1e-2);
+     EXPECT_NEAR_RELATIVE(var_displ2_rw, hist_rectangle_2d.get_variance(), 1e-2);
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
