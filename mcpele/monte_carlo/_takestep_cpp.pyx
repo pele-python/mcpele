@@ -160,7 +160,19 @@ cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
         self.newptr.set_generator_seed(inp)
         
 class UniformCubicSampling(_Cdef_UniformCubicSampling):
-    """Sample uniformly at random inside cube.
+    """Sample uniformly at random inside cube centred at zero.
+    
+    If parameter delta is given (see below), coordinates are sampled
+    uniformly at random in a n-dim cube of side length 2*delta. If
+    instead boxvec is given (see below), coordinates of particles in
+    len(boxvec)-dim space are sampled uniformly in the len(boxvec)-dim
+    box specified by boxvec.
+    
+    Warning: There is no correlation between the coordinates at
+    different MC steps. For a take-step module which at each step adds
+    random displacements of a certain (average) stepsize to the
+    coodinates, see, e.g. RandomCoordsDisplacement.
+    
     Parameters
     ----------
     rseed : pos int
