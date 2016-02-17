@@ -55,7 +55,9 @@ class ComputeGR():
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
+        self.gr_quench = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles, optimizer=optimizer)
         self.gr = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles)
+        self.mc.add_action(self.gr_quench)
         self.mc.add_action(self.gr)
         self.test = MetropolisTest(44)
         self.mc.add_accept_test(self.test)
@@ -71,22 +73,26 @@ class ComputeGR():
         r = self.gr.get_hist_r()
         number_density = self.nr_particles / np.prod(self.box_vector)
         gr = self.gr.get_hist_gr(number_density, self.nr_particles)
-        plt.plot(r, gr, "o-")
+        grq = self.gr_quench.get_hist_gr(number_density, self.nr_particles)
+        plt.plot(r, gr, "o-", label="Equilibrium")
+        plt.plot(r, grq, "x-", label="Quench")
         plt.xlabel(r"Distance $r$")
         plt.ylabel(r"Radial distr. function $g(r)$")
+        plt.legend()
         plt.show()
         
 if __name__ == "__main__":
     box_dimension = 2
     nr_particles = 100
     hard_volume_fraction = 0.4
-    nr_steps = 1e6
-    alpha = 1e-5
+    nr_steps = 1e5
+    alpha = 0.48
     verbose = False
     simulation = ComputeGR(boxdim=box_dimension,
                            nr_particles=nr_particles,
                            hard_phi=hard_volume_fraction,
                            nr_steps=nr_steps,
-                           alpha=alpha, verbose=verbose)
+                           alpha=alpha,
+                           verbose=verbose)
     simulation.run()
     simulation.show_result()

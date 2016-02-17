@@ -7,6 +7,8 @@ cimport numpy as np
 import numpy as np
 import sys
 
+from pele.potentials._pele cimport array_wrap_np
+
 #===============================================================================
 # Record Energy Histogram
 #===============================================================================        
@@ -108,18 +110,29 @@ class RecordEnergyHistogram(_Cdef_RecordEnergyHistogram):
 cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
     cdef cppRecordPairDistHistogram[INT2]* newptr2
     cdef cppRecordPairDistHistogram[INT3]* newptr3
-    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every):
+    cdef _pele_opt.GradientOptimizer optimizer
+    def __cinit__(self, boxvec, nr_bins, eqsteps, record_every, optimizer=None):
+        cdef np.ndarray[double, ndim=1] bv = np.array(boxvec, dtype=float)
+        bv_ = array_wrap_np(bv)
         ndim = len(boxvec)
         assert(ndim == 2 or ndim == 3)
         assert(len(boxvec)==ndim)
-        cdef np.ndarray[double, ndim=1] bv
+        if optimizer is None:
+            self.quench = False
+            if ndim == 2:
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](bv_, nr_bins, eqsteps, record_every))
+            else:
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](bv_, nr_bins, eqsteps, record_every))
+        else:
+            self.quench = True
+            self.optimizer = optimizer
+            if ndim == 2:
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](bv_, nr_bins, eqsteps, record_every, self.optimizer.thisptr))
+            else:
+                self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](bv_, nr_bins, eqsteps, record_every, self.optimizer.thisptr))
         if ndim == 2:
-            bv = np.array(boxvec, dtype=float)
-            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT2](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
             self.newptr2 = <cppRecordPairDistHistogram[INT2]*> self.thisptr.get()
         else:
-            bv = np.array(boxvec, dtype=float)
-            self.thisptr = shared_ptr[cppAction](<cppAction*> new cppRecordPairDistHistogram[INT3](_pele.Array[double](<double*> bv.data, bv.size), nr_bins, eqsteps, record_every))
             self.newptr3 = <cppRecordPairDistHistogram[INT3]*> self.thisptr.get()
         self.ndim = ndim
         
@@ -134,8 +147,8 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         cdef _pele.Array[double] histi
         if self.ndim == 2:
             histi = self.newptr2.get_hist_r()
-        elif self.ndim == 3:
-            histi = self.newptr3.get_hist_r()        
+        else:
+            histi = self.newptr3.get_hist_r()
         cdef double *histdata = histi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
         cdef size_t i
@@ -154,7 +167,7 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         cdef _pele.Array[double] histi
         if self.ndim == 2:
             histi = self.newptr2.get_hist_gr(number_density, nr_particles)
-        elif self.ndim == 3:
+        else:
             histi = self.newptr3.get_hist_gr(number_density, nr_particles)        
         cdef double *histdata = histi.data()
         cdef np.ndarray[double, ndim=1, mode="c"] hist = np.zeros(histi.size())
@@ -173,10 +186,8 @@ cdef class  _Cdef_RecordPairDistHistogram(_Cdef_Action):
         """
         if self.ndim == 2:
             return self.newptr2.get_eqsteps()
-        elif self.ndim == 3:
-            return self.newptr3.get_eqsteps()
         else:
-            raise Exception("_Cdef_RecordPairDistHistogram: boxdim fail")
+            return self.newptr3.get_eqsteps()
 
 class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
     """Record a pair distribution function histogram
@@ -201,6 +212,11 @@ class RecordPairDistHistogram(_Cdef_RecordPairDistHistogram):
         number of equilibration steps to be excluded from :math:`g(r)` computation
     record_every : int
         after ``eqsteps`` steps have been done, record every ``record_everyth`` steps
+    optimizer : pele graident optimizer (optional)
+        If an optimizer is passed, this will quench the snapshot of coords before
+        accumulating the distances to the g(r) histogram. This is
+        intended to give the quenched g(r) mentioned here:
+        http://dx.doi.org/10.1063/1.449840
     """
     
 #===============================================================================

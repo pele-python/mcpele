@@ -6,6 +6,8 @@
 #include <utility>
 #include <gtest/gtest.h>
 
+#include "pele/lbfgs.h"
+
 #include "mcpele/record_pair_dist_histogram.h"
 
 using pele::Array;
@@ -76,10 +78,14 @@ TEST_F(TestPairDistHist, BasicFunctionality){
     mc->set_takestep(step);
     const size_t eqsteps(max_iter/1e1);
     std::shared_ptr<mcpele::RecordPairDistHistogram<boxdim> > record_gr = std::make_shared<mcpele::RecordPairDistHistogram<boxdim> >(boxvector, nr_bins, eqsteps, 1);
+    std::shared_ptr<pele::GradientOptimizer> opt = std::make_shared<pele::LBFGS>(potential, x);
+    std::shared_ptr<mcpele::RecordPairDistHistogram<boxdim> > record_gr_quench = std::make_shared<mcpele::RecordPairDistHistogram<boxdim> >(boxvector, nr_bins, eqsteps, 1, opt);
     mc->add_action(record_gr);
+    mc->add_action(record_gr_quench);
     mc->run(max_iter);
     EXPECT_EQ(mc->get_iterations_count(), max_iter);
     EXPECT_TRUE(record_gr->get_eqsteps() == eqsteps);
+    EXPECT_TRUE(record_gr_quench->get_eqsteps() == eqsteps);
     const double number_density = nparticles / pow(boxlength, boxdim);
     pele::Array<double> r = record_gr->get_hist_r();
     pele::Array<double> gr = record_gr->get_hist_gr(number_density, nparticles);
