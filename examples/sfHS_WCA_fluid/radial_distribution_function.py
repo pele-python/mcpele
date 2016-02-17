@@ -55,7 +55,7 @@ class ComputeGR():
         self.mc.set_takestep(self.step)
         self.eq_steps = self.nr_steps / 2
         self.mc.set_report_steps(self.eq_steps)
-        self.gr_quench = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles, opt=optimizer)
+        self.gr_quench = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles, optimizer=optimizer)
         self.gr = RecordPairDistHistogram(self.box_vector, 50, self.eq_steps, self.nr_particles)
         self.mc.add_action(self.gr_quench)
         self.mc.add_action(self.gr)

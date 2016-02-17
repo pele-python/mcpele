@@ -79,7 +79,7 @@ TEST_F(TestPairDistHist, BasicFunctionality){
     const size_t eqsteps(max_iter/1e1);
     std::shared_ptr<mcpele::RecordPairDistHistogram<boxdim> > record_gr = std::make_shared<mcpele::RecordPairDistHistogram<boxdim> >(boxvector, nr_bins, eqsteps, 1);
     std::shared_ptr<pele::GradientOptimizer> opt = std::make_shared<pele::LBFGS>(potential, x);
-    std::shared_ptr<mcpele::RecordPairDistHistogramQuench<boxdim> > record_gr_quench = std::make_shared<mcpele::RecordPairDistHistogramQuench<boxdim> >(boxvector, nr_bins, eqsteps, 1, opt);
+    std::shared_ptr<mcpele::RecordPairDistHistogram<boxdim> > record_gr_quench = std::make_shared<mcpele::RecordPairDistHistogram<boxdim> >(boxvector, nr_bins, eqsteps, 1, opt);
     mc->add_action(record_gr);
     mc->add_action(record_gr_quench);
     mc->run(max_iter);

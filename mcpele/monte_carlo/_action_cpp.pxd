@@ -28,11 +28,7 @@ cdef extern from "mcpele/record_energy_histogram.h" namespace "mcpele":
 cdef extern from "mcpele/record_pair_dist_histogram.h" namespace "mcpele":
     cdef cppclass cppRecordPairDistHistogram "mcpele::RecordPairDistHistogram"[ndim]:
         cppRecordPairDistHistogram(_pele.Array[double], size_t, size_t, size_t) except +
-        _pele.Array[double] get_hist_r() except +
-        _pele.Array[double] get_hist_gr(double, size_t) except +
-        size_t get_eqsteps() except +
-    cdef cppclass cppRecordPairDistHistogramQuench "mcpele::RecordPairDistHistogramQuench"[ndim]:
-        cppRecordPairDistHistogramQuench(_pele.Array[double], size_t, size_t, size_t, shared_ptr[_pele_opt.cGradientOptimizer]) except +
+        cppRecordPairDistHistogram(_pele.Array[double], size_t, size_t, size_t, shared_ptr[_pele_opt.cGradientOptimizer]) except +
         _pele.Array[double] get_hist_r() except +
         _pele.Array[double] get_hist_gr(double, size_t) except +
         size_t get_eqsteps() except +

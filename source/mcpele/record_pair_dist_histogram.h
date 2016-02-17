@@ -31,11 +31,21 @@ private:
     mcpele::PairDistHistogram<BOXDIM> m_hist_gr;
     const size_t m_eqsteps;
     const size_t m_record_every;
+    const bool m_quench;
+    std::shared_ptr<pele::GradientOptimizer> m_optimizer;
 public:
     RecordPairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every)
         : m_hist_gr(boxvector, nr_bins),
           m_eqsteps(eqsteps),
-          m_record_every(record_every)
+          m_record_every(record_every),
+          m_quench(false)
+    {}
+    RecordPairDistHistogram(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every, std::shared_ptr<pele::GradientOptimizer> optimizer)
+        : m_hist_gr(boxvector, nr_bins),
+          m_eqsteps(eqsteps),
+          m_record_every(record_every),
+          m_quench(true),
+          m_optimizer(optimizer)
     {}
     virtual ~RecordPairDistHistogram() {}
     virtual void action(pele::Array<double>& coords, double energy, bool accepted, MC* mc)
@@ -49,7 +59,13 @@ public:
     }
     virtual void process_add_configuration(pele::Array<double>& coords)
     {
-        m_hist_gr.add_configuration(coords);
+        pele::Array<double> tmp = coords.copy();
+        if (m_quench) {
+            m_optimizer->reset(tmp);
+            m_optimizer->run();
+            tmp = m_optimizer->get_x().copy();
+        }
+        m_hist_gr.add_configuration(tmp);
     }
     size_t get_eqsteps() const
     {
@@ -64,25 +80,6 @@ public:
     {
         std::vector<double> vecdata(m_hist_gr.get_vecdata_gr(number_density, nr_particles));
         return pele::Array<double>(vecdata).copy();
-    }
-};
-
-template<size_t BOXDIM>
-class RecordPairDistHistogramQuench : public RecordPairDistHistogram<BOXDIM> {
-private:
-    std::shared_ptr<pele::GradientOptimizer> m_opt;
-public:
-    RecordPairDistHistogramQuench(pele::Array<double> boxvector, const size_t nr_bins, const size_t eqsteps, const size_t record_every, std::shared_ptr<pele::GradientOptimizer> opt)
-        : RecordPairDistHistogram<BOXDIM>(boxvector, nr_bins, eqsteps, record_every),
-          m_opt(opt)
-    {}
-    void process_add_configuration(pele::Array<double>& coords)
-    {
-        auto c = coords.copy();
-        m_opt->reset(c);
-        m_opt->run();
-        pele::Array<double> tmp = m_opt->get_x();
-        RecordPairDistHistogram<BOXDIM>::process_add_configuration(tmp);
     }
 };
 
