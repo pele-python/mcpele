@@ -10,7 +10,7 @@ import copy
 from scipy.special import gamma
 from mcpele.monte_carlo import _BaseMCRunner
 from mcpele.monte_carlo import NullPotential
-from mcpele.monte_carlo import UniformCubicSampling
+from mcpele.monte_carlo import UniformRectangularSampling
 from mcpele.monte_carlo import CheckSphericalContainerConfig
 
 def volume_nball(radius, n):
@@ -32,7 +32,7 @@ class ComputePi(object):
         self.radius = 44
         self.potential = NullPotential()
         self.mc = MC(self.potential, np.ones(self.ndim), 1, self.nsamples)
-        self.step = UniformCubicSampling(42, self.radius)
+        self.step = UniformRectangularSampling(42, self.radius)
         self.mc.set_takestep(self.step)
         self.mc.set_report_steps(0)
         self.conftest_check_spherical_container = CheckSphericalContainerConfig(self.radius)

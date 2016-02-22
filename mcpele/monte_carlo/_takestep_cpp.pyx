@@ -2,6 +2,8 @@
 # distutils: sources = takestep.cpp
 
 import sys
+import numpy as np
+cimport numpy as np
 from pele.potentials import _pele
 from pele.potentials._pele cimport array_wrap_np
 
@@ -134,14 +136,18 @@ class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
     """
     
 #===============================================================================
-# UniformCubicSampling
+# UniformRectangularSampling
 #===============================================================================
 
-cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
-    cdef cppUniformCubicSampling* newptr
-    def __cinit__(self, rseed=42, delta=1):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformCubicSampling(rseed, delta))
-        self.newptr = <cppUniformCubicSampling*> self.thisptr.get()
+cdef class _Cdef_UniformRectangularSampling(_Cdef_TakeStep):
+    cdef cppUniformRectangularSampling* newptr
+    cdef _pele.Array[double] bv
+    def __cinit__(self, rseed=42, delta=1, np.ndarray[double, ndim=1] boxvec=None):
+        if boxvec is None:
+            boxvec = np.array([2. * delta])
+        bv = array_wrap_np(boxvec)
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformRectangularSampling(rseed, bv))
+        self.newptr = <cppUniformRectangularSampling*> self.thisptr.get()
     def set_generator_seed(self, input):
         """sets the random number generator seed
         
@@ -153,14 +159,30 @@ cdef class _Cdef_UniformCubicSampling(_Cdef_TakeStep):
         cdef inp = input
         self.newptr.set_generator_seed(inp)
         
-class UniformCubicSampling(_Cdef_UniformCubicSampling):
-    """Sample uniformly at random inside cube.
+class UniformRectangularSampling(_Cdef_UniformRectangularSampling):
+    """Sample uniformly at random inside rectangle (prism etc.) centred
+    at zero.
+    
+    If parameter delta is given (see below), coordinates are sampled
+    uniformly at random in a n-dim cube of side length 2*delta. If
+    instead boxvec is given (see below), coordinates of particles in
+    len(boxvec)-dim space are sampled uniformly in the len(boxvec)-dim
+    box specified by boxvec.
+    
+    Warning: There is no correlation between the coordinates at
+    different MC steps. For a take-step module which at each step adds
+    random displacements of a certain (average) stepsize to the
+    coodinates, see, e.g. RandomCoordsDisplacement.
+    
     Parameters
     ----------
     rseed : pos int
-        seed for the random number generator (std:library 64 bits Merseene Twister)
+        seed for the random number generator (std-library 64 bits
+        Merseene Twister)
     delta : double
         half side length of cube
+    boxvec : array (optional)
+        if set, sampling will be uniform in box volume
     """
 
 #===============================================================================

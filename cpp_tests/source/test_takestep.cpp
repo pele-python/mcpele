@@ -15,7 +15,7 @@
 #include "mcpele/random_coords_displacement.h"
 #include "mcpele/take_step_pattern.h"
 #include "mcpele/take_step_probabilities.h"
-#include "mcpele/uniform_cubic_sampling.h"
+#include "mcpele/uniform_rectangular_sampling.h"
 #include "mcpele/uniform_spherical_sampling.h"
 
 using pele::Array;
@@ -133,7 +133,7 @@ TEST_F(TakeStepTest, UniformCubic_CorrectMoments){
     const size_t nsamples = 1e4;
     const double delta = 42.42;
     std::vector<std::shared_ptr<mcpele::Histogram> > hist(100, std::make_shared<mcpele::Histogram>(0, nparticles - 1, 1));
-    mcpele::UniformCubicSampling sampler(42, delta);
+    mcpele::UniformRectangularSampling sampler(42, {2 * delta});
     pele::Array<double> x(ndim);
     for (size_t i = 0; i < nsamples; ++i) {
         sampler.displace(x, NULL);
@@ -153,7 +153,11 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
     const double radius = 42.42;
     mcpele::Histogram hist(0, nparticles - 1, 1);
     mcpele::Histogram hist3(0, nparticles - 1, 1);
+    mcpele::Histogram hist_rectangle_2d(0, nparticles -1, 1);
     mcpele::UniformSphericalSampling sampler(42, radius);
+    const double lx = 42.42;
+    const double ly = 3;
+    mcpele::UniformRectangularSampling sampler_rectangle(42, {lx, ly});
     pele::Array<double> x2(2);
     pele::Array<double> x3(3);
     for (size_t i = 0; i < nsamples; ++i) {
@@ -161,6 +165,8 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
         hist.add_entry(pele::dot(x2, x2));
         sampler.displace(x3, NULL);
         hist3.add_entry(pele::dot(x3, x3));
+        sampler_rectangle.displace(x2, NULL);
+        hist_rectangle_2d.add_entry(pele::dot(x2, x2));
     }
     /**For a random walk in a disk of radius R, the mean of the squared
      * displacement from the origin is R^/2 and the variance of the
@@ -175,6 +181,14 @@ TEST_F(TakeStepTest, UniformSpherical_CorrectMoments){
      */
      EXPECT_NEAR_RELATIVE(3 * pele::pos_int_pow<2>(radius) / 5, hist3.get_mean(), 1e-3);
      EXPECT_NEAR_RELATIVE(12 * pele::pos_int_pow<4>(radius) / 175, hist3.get_variance(), 1e-2);
+    /**Random walk in a rectangle.
+     * Mean of squared displacement is 1/12 * (lx^2 + ly^2).
+     * Variance of the squared displacement is 1/180 * (lx^4 + ly^4).
+     */
+     const double displ2_rw = 1. / 12. * (lx * lx + ly * ly);
+     const double var_displ2_rw = 1. / 180. * (pele::pos_int_pow<4>(lx) + pele::pos_int_pow<4>(ly));
+     EXPECT_NEAR_RELATIVE(displ2_rw, hist_rectangle_2d.get_mean(), 1e-2);
+     EXPECT_NEAR_RELATIVE(var_displ2_rw, hist_rectangle_2d.get_variance(), 1e-2);
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
