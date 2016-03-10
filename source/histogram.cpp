@@ -104,6 +104,15 @@ std::vector<double> Histogram::get_vecdata_normalized() const
     return result;
 }
 
+std::vector<double> Histogram::get_vectics() const
+{
+    std::vector<double> result(m_hist.size(), 0);
+    for (size_t i = 0; i < m_hist.size(); ++i) {
+        result.at(i) = get_position(i);
+    }
+    return result;
+}
+
 void Histogram::print_terminal() const
 {
     for(size_t i = 0; i < m_hist.size(); ++i) {
@@ -111,6 +120,5 @@ void Histogram::print_terminal() const
         std::cout << std::string(m_hist[i] * 10000 / m_niter, '*') <<  "\n";
     }
 }
-
 
 }//namespace mcpele
