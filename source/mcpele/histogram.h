@@ -82,10 +82,11 @@ public:
     int get_count() const { return m_niter; }
     double get_mean() const { return m_moments.mean(); }
     double get_variance() const { return m_moments.variance(); }
-    std::vector<double>::iterator begin(){return m_hist.begin(); }
-    std::vector<double>::iterator end(){return m_hist.end(); }
+    std::vector<double>::iterator begin(){ return m_hist.begin(); }
+    std::vector<double>::iterator end(){ return m_hist.end(); }
     double get_position(const size_t bin_index) const { return m_min + (0.5 + bin_index) * m_bin; }
-    std::vector<double> get_vecdata() const {return m_hist; }
+    std::vector<double> get_vectics() const;
+    std::vector<double> get_vecdata() const { return m_hist; }
     double get_entry(const size_t bin_index) const { return m_hist.at(bin_index); }
     std::vector<double> get_vecdata_error() const;
     std::vector<double> get_vecdata_normalized() const;

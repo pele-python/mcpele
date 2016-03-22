@@ -121,4 +121,10 @@ TEST_F(TestHistogram, TestBinning){
             EXPECT_NEAR(vecdata_normalized.at(ii), true_i, 2 * error.at(ii));
         }
     }
+    // Test ticks function returns bin centers
+    const std::vector<double> vectics = hist.get_vectics();
+    size_t i = 0;
+    for (const double x : vectics) {
+        EXPECT_DOUBLE_EQ(-42 + (0.5 + i++) * 2, x);
+    }
 }
