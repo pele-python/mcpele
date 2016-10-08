@@ -10,7 +10,7 @@ FindLowestEigenvalue::FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> 
       m_ranvec((ranvec.copy() /= norm(ranvec))),
       m_lbfgs(m_lowesteigpot, m_ranvec.copy())
 {
-    if (isinf(double(1) / norm(ranvec))) {
+  if (std::isinf(double(1) / norm(ranvec))) {
         throw std::runtime_error("FindLowestEigenvalue: 1/norm(ranvec) is isinf");
     }
     m_lbfgs.set_max_iter(lbfgsniter);
