@@ -31,7 +31,7 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, co
 /**
  * perform the configuration tests.  Stop as soon as one of them fails
  */
-bool MC::do_conf_tests(Array<double> x)
+bool MC::do_conf_tests(Array<double> & x)
 {
     bool result;
     for (auto & test : m_conf_tests) {
@@ -47,7 +47,7 @@ bool MC::do_conf_tests(Array<double> x)
 /**
  * perform the acceptance tests.  Stop as soon as one of them fails
  */
-bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
+bool MC::do_accept_tests(Array<double> & xtrial, double etrial, Array<double> & xold, double eold)
 {
     bool result;
     for (auto & test : m_accept_tests) {
@@ -63,7 +63,7 @@ bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold
 /**
  * perform the configuration tests.  Stop as soon as one of them fails
  */
-bool MC::do_late_conf_tests(Array<double> x)
+bool MC::do_late_conf_tests(Array<double> & x)
 {
     bool result;
     for (auto & test : m_late_conf_tests) {
@@ -76,7 +76,7 @@ bool MC::do_late_conf_tests(Array<double> x)
     return true;
 }
 
-void MC::do_actions(Array<double> x, double energy, bool success)
+void MC::do_actions(Array<double> & x, double energy, bool success)
 {
     for (auto & action : m_actions) {
         action->action(x, energy, success, this);

@@ -157,15 +157,15 @@ public:
     void enable_input_warnings() { m_enable_input_warnings = true; }
     void disable_input_warnings() { m_enable_input_warnings = false; }
 protected:
-    inline double compute_energy(pele::Array<double> x)
+    inline double compute_energy(pele::Array<double> & x)
     {
         ++m_neval;
         return m_potential->get_energy(x);
     }
-    bool do_conf_tests(pele::Array<double> x);
-    bool do_accept_tests(pele::Array<double> xtrial, double etrial, pele::Array<double> xold, double eold);
-    bool do_late_conf_tests(pele::Array<double> x);
-    void do_actions(pele::Array<double> x, double energy, bool success);
+    bool do_conf_tests(pele::Array<double> & x);
+    bool do_accept_tests(pele::Array<double> & xtrial, double etrial, pele::Array<double> & xold, double eold);
+    bool do_late_conf_tests(pele::Array<double> & x);
+    void do_actions(pele::Array<double> & x, double energy, bool success);
     void take_steps();
 };
 

@@ -184,7 +184,7 @@ struct TrivialPotential : public pele::BasePotential{
     TrivialPotential()
         : call_count(0)
     {}
-    virtual double get_energy(Array<double> coords)
+    virtual double get_energy(Array<double> & coords)
     {
         call_count++;
         return 0.;
@@ -384,4 +384,3 @@ TEST_F(TestMCMock, RecordEnergyHistogram_Works) {
         EXPECT_DOUBLE_EQ(hd[i], 0);
     }
 }
-
