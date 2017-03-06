@@ -10,16 +10,16 @@ Source code: https://github.com/pele-python/mcpele
 
 Documentation: http://pele-python.github.io/mcpele/
 
-Flexible and efficient Monte Carlo general purpose framework 
-and MPI/mpi4py based Replica Exchange Method, built on the `pele <https://github.com/pele-python/pele>`_ 
+Flexible and efficient Monte Carlo general purpose framework
+and MPI/mpi4py based Replica Exchange Method, built on the `pele <https://github.com/pele-python/pele>`_
 foundations. mcpele provides a seamless integration of the
-tools for energy landscape exploration built in pele. 
+tools for energy landscape exploration built in pele.
 The package also acts as a plugin for the `Nested Sampling  <https://github.com/js850/nested_sampling>`_ project.
 
-Through its c++ interface, mcpele makes Monte Carlo simulations available to 
+Through its c++ interface, mcpele makes Monte Carlo simulations available to
 researchers with little programming experience, without having to compromise
-on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo 
-simulation eliminating the need for frequent code rewriting that experienced 
+on efficiency. Furthermore mcpele abstracts each element of a Monte Carlo
+simulation eliminating the need for frequent code rewriting that experienced
 Monte Carlo developers typically go through, thus reducing the time required for
 the implementation of an idea and reducing the occurrence of bugs.
 
@@ -29,7 +29,7 @@ the implementation of an idea and reducing the occurrence of bugs.
   is a hard spheres fluid equilibrated by uniform sampling in a cubic box with
   periodic boundary conditions.
 
-mcpele has been authored by Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
+mcpele has been authored by Johannes Klicpera, Stefano Martiniani, Ken J Schrenk and Jacob Stevenson at the University of Cambridge.
 The project is publicly available under the GNU general public licence.
 
 Tutorials
@@ -38,43 +38,43 @@ Tutorials
    :maxdepth: 3
 
    getting_started
-   
+
 Reference
 ---------
 
 .. toctree::
    :maxdepth: 2
-	
+
    BaseMCRunner
-	
+
 .. toctree::
    :maxdepth: 2
-	
+
    TakeStep
 
 .. toctree::
    :maxdepth: 2
-   
+
    ConfTest
 
 .. toctree::
    :maxdepth: 2
-   
+
    AcceptTest
 
 .. toctree::
    :maxdepth: 2
-	
+
    Action
 
 .. toctree::
    :maxdepth: 2
-	
+
    Base_MPI_Parallel_Tempering
 
 .. toctree::
    :maxdepth: 2
-    
+
    MPI_Parallel_Tempering
 
 Modules
@@ -91,4 +91,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
