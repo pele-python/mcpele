@@ -16,7 +16,7 @@ private:
 public:
     FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> landscape_potential, const size_t boxdimension,
             const pele::Array<double> ranvec, const size_t lbfgsniter);
-    double compute_lowest_eigenvalue(pele::Array<double> coords);
+    double compute_lowest_eigenvalue(pele::Array<double> const & coords);
 };
 
 
