@@ -14,6 +14,7 @@ FindLowestEigenvalue::FindLowestEigenvalue(std::shared_ptr<pele::BasePotential> 
         throw std::runtime_error("FindLowestEigenvalue: 1/norm(ranvec) is isinf");
     }
     m_lbfgs.set_max_iter(lbfgsniter);
+    m_lowesteigpot->set_x_opt(m_lbfgs.get_x());
 }
 
 double FindLowestEigenvalue::compute_lowest_eigenvalue(pele::Array<double> coords)
