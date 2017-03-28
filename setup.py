@@ -83,11 +83,11 @@ depends_pele = [os.path.join(pelepath+"/source/pele", f) for f in os.listdir(pel
 # I run it through valgrind, valgrind complains about an unrecognized
 # instruction.  I don't have a clue what is causing this, but it's probably
 # better to be on the safe side and not use -march=native
-#extra_compile_args = ['-I/home/sm958/Work/pele/source','-std=c++0x',"-Wall", "-Wextra", "-O3", '-funroll-loops', "-fopenmp"]
+#extra_compile_args = ['-I/home/sm958/Work/pele/source','-std=c++0x',"-Wall", "-Wextra", "-O3", '-funroll-loops', "-fopenmp", "-mavx"]
 # uncomment the next line to add extra optimization options
 
 include_pele_source = '-I'+ pelepath + '/source'
-extra_compile_args = [include_pele_source,'-std=c++0x',"-Wall", '-Wextra','-pedantic','-O3', "-fopenmp"] #,'-DDEBUG'
+extra_compile_args = [include_pele_source,'-std=c++0x',"-Wall", '-Wextra','-pedantic','-O3', "-fopenmp", "-mavx"] #,'-DDEBUG'
 
 # note: to compile with debug on and to override extra_compile_args use, e.g.
 # OPT="-g -O2 -march=native" python setup.py ...

@@ -53,7 +53,7 @@ else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
 
 #extra compiler args
-cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3", "-fopenmp"]
+cmake_compiler_extra_args=["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3", "-fopenmp", "-mavx"]
 
 
 #
@@ -144,7 +144,7 @@ setup(name='mcpele',
 # I run it through valgrind, valgrind complains about an unrecognized
 # instruction.  I don't have a clue what is causing this, but it's probably
 # better to be on the safe side and not use -march=native
-#extra_compile_args = ['-I/home/sm958/Work/pele/source','-std=c++0x',"-Wall", "-Wextra", "-O3", '-funroll-loops', "-fopenmp"]
+#extra_compile_args = ['-I/home/sm958/Work/pele/source','-std=c++0x',"-Wall", "-Wextra", "-O3", '-funroll-loops', "-fopenmp", "-mavx"]
 # uncomment the next line to add extra optimization options
 
 # note: to compile with debug on and to override extra_compile_args use, e.g.
