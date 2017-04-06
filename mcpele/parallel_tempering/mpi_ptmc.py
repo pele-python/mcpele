@@ -76,7 +76,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         self.exchange_dic = {1:'right',-1:'left'}
         self.exchange_choice = random.choice(self.exchange_dic.keys())
         self.anyswap = False #set to true if any swap will happen
-        self.permutation_pattern = np.zeros(self.nproc,dtype='int32') #this is useful to print exchange permutations
+        self.permutation_pattern = np.zeros(self.nprocs,dtype='int32') #this is useful to print exchange permutations
         self.suppress_histogram = suppress_histogram
 
     def _print_data(self):
@@ -171,9 +171,9 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         or when steps involve minimisation, as the low temperatures are closer to the minimum)
         """
         if (self.rank == 0):
-            CTE = np.exp( np.log( self.Tmax / self.Tmin ) / (self.nproc-1) )
-            Tarray = [self.Tmin * CTE**i for i in range(self.nproc)]
-            #Tarray = np.linspace(self.Tmin,self.Tmax,num=self.nproc)
+            CTE = np.exp( np.log( self.Tmax / self.Tmin ) / (self.nprocs-1) )
+            Tarray = [self.Tmin * CTE**i for i in range(self.nprocs)]
+            #Tarray = np.linspace(self.Tmin,self.Tmax,num=self.nprocs)
             self.Tarray = np.array(Tarray[::-1],dtype='d')
         else:
             self.Tarray = None
@@ -196,8 +196,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         This function determines the exchange pattern alternating swaps with right and left neighbours.
         An exchange pattern array is constructed, filled with self.no_exchange_int which
         signifies that no exchange should be attempted. This value is replaced with the
-        rank of the processor with which to perform the swap if the swap attempt is successful.
-        The exchange partner is then scattered to the other processors.
+        rank of the process with which to perform the swap if the swap attempt is successful.
+        The exchange partner is then scattered to the other processes.
         """
         if (self.rank == 0):
             assert(len(Earray)==len(self.Tarray))

@@ -78,8 +78,8 @@ class _MPI_Parallel_Tempering(object):
     mcrunner : :class:`_BaseMCrunner`
         object of :class:`_BaseMCrunner` that performs
         the MCMC walks
-    nproc : int
-        number of parallel cores
+    nprocs : int
+        number of ranks
     rank : int
         MPI rank (identifier of the particular core), master has rank=0
     Tmax : double
@@ -121,7 +121,7 @@ class _MPI_Parallel_Tempering(object):
     def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
-        self.nproc = self.comm.Get_size() #total number of processors (replicas)
+        self.nprocs = self.comm.Get_size() #total number of processes (replicas)
         self.rank = self.comm.Get_rank() #this is the unique identifier for the process
         self.Tmax = Tmax
         self.Tmin = Tmin
@@ -134,7 +134,7 @@ class _MPI_Parallel_Tempering(object):
         self.pfreq = pfreq
         self.no_exchange_int = -12345 #this NEGATIVE number in exchange pattern means that no exchange should be attempted
         self.initialised = False #flag
-        self.nodelist = [i for i in xrange(self.nproc)]
+        self.nodelist = [i for i in xrange(self.nprocs)]
         self.swap_accepted_count = 0
         self.swap_rejected_count = 0
         if base_directory is None:
@@ -150,8 +150,8 @@ class _MPI_Parallel_Tempering(object):
 
         An exchange pattern array is constructed, filled with ``self.no_exchange_int`` which
         signifies that no exchange should be attempted. This value is replaced with the
-        ``rank`` of the processor with which to perform the swap if the swap attempt is successful.
-        The exchange partner is then scattered to the other processors.
+        ``rank`` of the process with which to perform the swap if the swap attempt is successful.
+        The exchange partner is then scattered to the other processes.
 
         Parameters
         ----------
@@ -249,27 +249,27 @@ class _MPI_Parallel_Tempering(object):
         Returns
         -------
         recv_array : numpy.array
-            array of length ``adim/nproc``
+            array of length ``adim/nprocs``
 
         """
         if (self.rank == 0):
             # process 0 is the root, it has data to scatter
             assert(len(in_send_array) == adim)
-            assert(adim % self.nproc == 0)
+            assert(adim % self.nprocs == 0)
             send_array = np.array(in_send_array,dtype=dtype)
         else:
             # processes other than root do not send
-            assert(adim % self.nproc == 0)
+            assert(adim % self.nprocs == 0)
             send_array = None
 
-        recv_array = np.empty(adim/self.nproc,dtype=dtype)
+        recv_array = np.empty(int(adim/self.nprocs),dtype=dtype)
         self.comm.Scatter(send_array, recv_array, root=0)
         return recv_array
 
     def _scatter_single_value(self, send_array, dtype='d'):
         """Returns a single value from a scattered array for each replica (e.g. Temperature or swap partner)
 
-        .. note :: send array must be of the same length as the number of processors
+        .. note :: send array must be of the same length as the number of processes
 
         Parameters
         ----------
@@ -284,9 +284,9 @@ class _MPI_Parallel_Tempering(object):
             temperature or swap partner or else
         """
         if (self.rank == 0):
-            assert(len(send_array) == self.nproc)
+            assert(len(send_array) == self.nprocs)
 
-        T = self._scatter_data(send_array, self.nproc, dtype=dtype)
+        T = self._scatter_data(send_array, self.nprocs, dtype=dtype)
         assert(len(T) == 1)
         return T[0]
 
@@ -332,11 +332,11 @@ class _MPI_Parallel_Tempering(object):
         Returns
         -------
         recv_array : numpy.array
-            array of length ``len(in_send_array)) * nproc``
+            array of length ``len(in_send_array)) * nprocs``
         """
         in_send_array = np.array(in_send_array, dtype=dtype)
         if (self.rank == 0):
-            recv_array = np.empty(len(in_send_array) * self.nproc, dtype=dtype)
+            recv_array = np.empty(len(in_send_array) * self.nprocs, dtype=dtype)
         else:
             recv_array = None
 
@@ -348,17 +348,17 @@ class _MPI_Parallel_Tempering(object):
         return recv_array
 
     def _gather_energies(self, E):
-        """gather energy of configurations from all processors
+        """gather energy of configurations from all processes
 
         Parameters
         ----------
         E : double
-            energy of each processor respectively
+            energy of each process respectively
 
         Returns
         -------
         recv_Earray : numpy.array
-            array of length ``nproc``
+            array of length ``nprocs``
 
         """
         send_Earray = np.array([E],dtype='d')
@@ -366,16 +366,16 @@ class _MPI_Parallel_Tempering(object):
         return recv_Earray
 
     def _point_to_point_exchange_replace(self, dest, source, data):
-        """swap data between two processors
+        """swap data between two processes
 
         .. note :: the message sent buffer is replaced with the received message
 
         Parameters
         ----------
         dest : int
-            rank of processor with which to swap
+            rank of process with which to swap
         source : int
-            rank of processor with which to swap
+            rank of process with which to swap
         data : numpy.array
             array of data to exchage
 
@@ -398,7 +398,7 @@ class _MPI_Parallel_Tempering(object):
         Parameters
         ----------
         exchange_buddy : int
-            rank of processor with which to swap
+            rank of process with which to swap
         data : numpy.array
             array of data to exchage
 
@@ -408,9 +408,9 @@ class _MPI_Parallel_Tempering(object):
             the send data buffer is replaced with the receive data
         """
         if (exchange_buddy != self.no_exchange_int):
-            #print "processor {0} p-to-p exchange, old data {1}".format(self.rank, data)
+            #print "process {0} p-to-p exchange, old data {1}".format(self.rank, data)
             data = self._point_to_point_exchange_replace(exchange_buddy, exchange_buddy, data)
-            #print "processor {0} p-to-p exchange, new data {1}".format(self.rank, data)
+            #print "process {0} p-to-p exchange, new data {1}".format(self.rank, data)
             self.swap_accepted_count+=1
         else:
             self.swap_rejected_count+=1
@@ -423,8 +423,8 @@ class _MPI_Parallel_Tempering(object):
 
         * root gathers the energies from the slaves
         * root decides who will swap with whom
-        * root to each processor the rank of its chosen partner (buddy)
-        * processors exchange configuration and energy
+        * root to each process the rank of its chosen partner (buddy)
+        * processes exchange configuration and energy
         """
         #gather energies, only root will do so
         Earray = self._gather_energies(self.energy)
