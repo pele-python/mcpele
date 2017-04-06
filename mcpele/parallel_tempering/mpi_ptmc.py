@@ -6,6 +6,7 @@ import os
 from mpi4py import MPI
 from mcpele.parallel_tempering import _MPI_Parallel_Tempering
 import time
+import logging
 
 def trymakedir(path):
     """this function deals with common race conditions"""
@@ -50,8 +51,6 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         choose whether to print MCrunner status at each iteration
     base_directory : string
         path to base directory where to save output
-    verbose : bool
-        print verbose output to terminal
     suppress_histogram : bool
         suppress histogram output
 
@@ -71,8 +70,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     suppress_histgoram : bool
         suppress the output of the histogram
     """
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False, suppress_histogram=True):
-        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, print_status=print_status, base_directory=base_directory, verbose=verbose)
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, print_status=True, base_directory=None, suppress_histogram=True):
+        super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, print_status=print_status, base_directory=base_directory)
         self.exchange_dic = {1:'right',-1:'left'}
         self.exchange_choice = random.choice(self.exchange_dic.keys())
         self.anyswap = False #set to true if any swap will happen
@@ -152,7 +151,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
 
     def _all_print_status(self):
         status = self.mcrunner.get_status()
-        #print float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count)
+        #logging.debug(float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count))
         status.frac_acc_swaps = float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count)
         f = self.status_stream
         if self.ptiter == self.skip:
@@ -184,8 +183,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         """
         self._get_temps()
         self.T = self._scatter_single_value(self.Tarray)
-        if self.verbose:
-            print "processor {0} temperature {1}".format(self.rank,self.T)
+        logging.debug("process {0} temperature {1}".format(self.rank,self.T))
         self.mcrunner.set_control(self.T)
         self.config, self.energy = self.mcrunner.get_config()
         self._print_initialise()
@@ -204,9 +202,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             exchange_pattern = np.empty(len(Earray),dtype='int32')
             exchange_pattern.fill(self.no_exchange_int)
             self.anyswap = False
-            for i in xrange(0,self.nproc,2):
-                if self.verbose:
-                    print 'exchange choice: ',self.exchange_dic[self.exchange_choice] #this is a print statement that has to be removed after initial implementation
+            for i in xrange(0,self.nprocs,2):
+                logging.debug("Exchange choice: {}".format(self.exchange_dic[self.exchange_choice])) #this is a print statement that has to be removed after initial implementation
                 E1 = Earray[i]
                 T1 = self.Tarray[i]
                 E2 = Earray[i+self.exchange_choice]
@@ -215,13 +212,13 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
                 deltabeta = 1./T1 - 1./T2
                 w = min( 1. , np.exp( deltaE * deltabeta ) )
                 rand = np.random.rand()
-                #print "E1 {0} T1 {1} E2 {2} T2 {3} w {4}".format(E1,T1,E2,T2,w)
+                #logging.debug("E1 {0} T1 {1} E2 {2} T2 {3} w {4}".format(E1,T1,E2,T2,w))
                 if w > rand:
                     #accept exchange
-                    if self.verbose:
+                    if logging.getLogger().isEnabledFor(logging.DEBUG):
                         self.ex_outstream.write("accepting exchange %d %d %g %g %g %g %d\n" % (self.nodelist[i], self.nodelist[i+self.exchange_choice], E1, E2, T1, T2, self.ptiter))
-                    assert(exchange_pattern[i] == self.no_exchange_int)                      #verify that is not using the same processor twice for swaps
-                    assert(exchange_pattern[i+self.exchange_choice] == self.no_exchange_int) #verify that is not using the same processor twice for swaps
+                    assert(exchange_pattern[i] == self.no_exchange_int)                      #verify that is not using the same process twice for swaps
+                    assert(exchange_pattern[i+self.exchange_choice] == self.no_exchange_int) #verify that is not using the same process twice for swaps
                     exchange_pattern[i] = self.nodelist[i+self.exchange_choice]
                     exchange_pattern[i+self.exchange_choice] = self.nodelist[i]
                     self.anyswap = True
@@ -238,5 +235,5 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             exchange_pattern = None
 
         self.exchange_choice *= -1 #swap direction of exchange choice
-        #print "exchange_pattern",exchange_pattern
+        #logging.debug("exchange_pattern: {}".format(exchange_pattern))
         return exchange_pattern

@@ -5,6 +5,7 @@ import random
 import os
 from mpi4py import MPI
 import copy
+import logging
 
 class _MPI_Parallel_Tempering(object):
     """Abstract class for MPI Parallel Tempering calculations
@@ -70,8 +71,6 @@ class _MPI_Parallel_Tempering(object):
         choose whether to print MCrunner status at each iteration
     base_directory : string
         path to base directory where to save output
-    verbose : bool
-        print verbose output to terminal
 
     Attributes
     ----------
@@ -113,12 +112,10 @@ class _MPI_Parallel_Tempering(object):
         records whether PT has been initialised
     print_status : bool
         choose whether to print MCrunner status at each iteration
-    verbose : bool
-        print verbose output to terminal
     """
     __metaclass__  = abc.ABCMeta
 
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None, verbose=False):
+    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
         self.nprocs = self.comm.Get_size() #total number of processes (replicas)
@@ -127,7 +124,6 @@ class _MPI_Parallel_Tempering(object):
         self.Tmin = Tmin
         self.max_ptiter = max_ptiter
         self.ex_outstream = open("exchanges", "w")
-        self.verbose = verbose
         self.ptiter = 0
         self.print_status = print_status
         self.skip = skip #might want to skip the first few swaps to allow for equilibration
@@ -142,7 +138,7 @@ class _MPI_Parallel_Tempering(object):
         else:
             self.base_directory = base_directory
 
-        print "processor {0} ready".format(self.rank)
+        logging.info("process {0} ready".format(self.rank))
 
     @abc.abstractmethod
     def _find_exchange_buddy(self, Earray):
@@ -215,8 +211,7 @@ class _MPI_Parallel_Tempering(object):
             self._initialise()
         ptiter = 0
         while (ptiter < self.max_ptiter):
-            if self.verbose:
-                print "processor {0} iteration {1}".format(self.rank,ptiter)
+            logging.debug("process {0} iteration {1}".format(self.rank,ptiter))
             self.one_iteration()
             ptiter += 1
             #assure that data are not thrown away since last print
@@ -228,13 +223,13 @@ class _MPI_Parallel_Tempering(object):
                     self._close_flush()
                 else:
                     self.max_ptiter = new_max_ptiter
-        print 'process {0} terminated'.format(self.rank)
+        logging.info('process {0} terminated'.format(self.rank))
 
     def _scatter_data(self, in_send_array, adim, dtype='d'):
         """Method to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)
 
-        In simple terms it requires that ``adim % nproc = 0``.
-        If root scatters an array of size ``nproc`` then each core
+        In simple terms it requires that ``adim % nprocs = 0``.
+        If root scatters an array of size ``nprocs`` then each core
         will receive the rank-th element of the array.
 
         Parameters
@@ -408,9 +403,9 @@ class _MPI_Parallel_Tempering(object):
             the send data buffer is replaced with the receive data
         """
         if (exchange_buddy != self.no_exchange_int):
-            #print "process {0} p-to-p exchange, old data {1}".format(self.rank, data)
+            #logging.debug("process {0} p-to-p exchange, old data {1}".format(self.rank, data))
             data = self._point_to_point_exchange_replace(exchange_buddy, exchange_buddy, data)
-            #print "process {0} p-to-p exchange, new data {1}".format(self.rank, data)
+            #logging.debug("process {0} p-to-p exchange, new data {1}".format(self.rank, data))
             self.swap_accepted_count+=1
         else:
             self.swap_rejected_count+=1
@@ -428,9 +423,8 @@ class _MPI_Parallel_Tempering(object):
         """
         #gather energies, only root will do so
         Earray = self._gather_energies(self.energy)
-        if self.verbose:
-            if Earray is not None:
-                print "Earray", Earray
+        if Earray is not None:
+            logging.debug("Earray: {}".format(Earray))
         #find exchange pattern (list of exchange buddies)
         exchange_pattern = self._find_exchange_buddy(Earray)
         #now scatter the exchange pattern so that everybody knows who their buddy is
