@@ -22,11 +22,12 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
         Array<double>& old_coords, double old_energy, double temperature,
         MC * mc)
 {
+    double w, rand;
     bool success = true;
     double dE = trial_energy - old_energy;
     if (dE > 0.){
-        double w = exp(-dE / temperature);
-        double rand = m_distribution(m_generator);
+        w = exp(-dE / temperature);
+        rand = m_distribution(m_generator);
         if (rand > w) {
             success = false;
         }
