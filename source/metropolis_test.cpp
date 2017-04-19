@@ -24,7 +24,7 @@ bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
 {
     bool success = true;
     double dE = trial_energy - old_energy;
-    if (dE > 0.)
+    if (dE > 0.){
         double w = exp(-dE / temperature);
         double rand = m_distribution(m_generator);
         if (rand > w) {
