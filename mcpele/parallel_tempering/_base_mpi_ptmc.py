@@ -169,6 +169,10 @@ class _MPI_Parallel_Tempering(object):
         """Abstract method responsible for printing and/or dumping the status, let it be printing the histograms or else"""
 
     @abc.abstractmethod
+    def _print_exchanges(self):
+        """Abstract method responsible for printing and/or dumping the number of exchanges per replica pair"""
+
+    @abc.abstractmethod
     def _close_flush(self):
         """Abstract method responsible for printing and/or dumping the all streams at the end of the calculation"""
 
@@ -220,6 +224,7 @@ class _MPI_Parallel_Tempering(object):
                 self._print_data()
                 if new_max_ptiter == self.max_ptiter:
                     self._print_status()
+                    self._print_exchanges()
                     self._close_flush()
                 else:
                     self.max_ptiter = new_max_ptiter

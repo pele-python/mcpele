@@ -67,6 +67,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     permutation_pattern : numpy.array
         record pattern of exchanges, used to print
         the exchange permutations
+    exchange_cnts : numpy.array
+        record number of exchanges per replica pair
     suppress_histgoram : bool
         suppress the output of the histogram
     """
@@ -76,6 +78,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         self.exchange_choice = random.choice(self.exchange_dic.keys())
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nprocs,dtype='int32') #this is useful to print exchange permutations
+        self.exchange_cnts = np.zeros(self.nprocs, dtype='int32')
         self.suppress_histogram = suppress_histogram
 
     def _print_data(self):
@@ -163,6 +166,13 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             f.write('{:>12.3f}\t'.format(value))
         f.write('\n')
 
+    def _print_exchanges(self):
+        if self.rank == 0:
+            logging.info("Number of exchanges:")
+            for i in xrange(self.nprocs):
+                logging.info("{0:>2} <-> {1:>2}:{2:>6}"
+                             .format(i, i+1, self.exchange_cnts[i]))
+
     def _get_temps(self):
         """
         set up the temperatures by distributing them exponentially. We give root the lowest temperature.
@@ -214,6 +224,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
                 rand = np.random.rand()
                 #logging.debug("E1 {0} T1 {1} E2 {2} T2 {3} w {4}".format(E1,T1,E2,T2,w))
                 if w > rand:
+                    self.exchange_cnts[i + min(0, self.exchange_choice)] += 1
                     #accept exchange
                     if logging.getLogger().isEnabledFor(logging.DEBUG):
                         self.ex_outstream.write("accepting exchange %d %d %g %g %g %g %d\n" % (self.nodelist[i], self.nodelist[i+self.exchange_choice], E1, E2, T1, T2, self.ptiter))
