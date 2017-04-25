@@ -4,6 +4,7 @@
 *.pyc
 *.out
 *.log
+*.pyo
 gtest*.zip
 build/
 cpp_tests/build/
