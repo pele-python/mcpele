@@ -213,22 +213,17 @@ class _MPI_Parallel_Tempering(object):
         """
         if self.initialised is False:
             self._initialise()
-        ptiter = 0
-        while (ptiter < self.max_ptiter):
-            logging.debug("Rank {0} iteration {1}".format(self.rank,ptiter))
+        while (self.ptiter < self.max_ptiter):
+            if self.rank == 0:
+                logging.debug("Iteration {}".format(self.ptiter))
             self.one_iteration()
-            ptiter += 1
-            #assure that data are not thrown away since last print
-            if ptiter == self.max_ptiter:
-                new_max_ptiter = self._test_convergence()
+            if self.ptiter >= self.max_ptiter:
+                self.max_ptiter = self._test_convergence()
                 self._print_data()
-                if new_max_ptiter == self.max_ptiter:
-                    self._print_status()
-                    self._print_exchanges()
-                    self._close_flush()
-                else:
-                    self.max_ptiter = new_max_ptiter
-        logging.info('Rank {0} terminated'.format(self.rank))
+        self._print_status()
+        self._print_exchanges()
+        self._close_flush()
+        logging.info('Terminated')
 
     def _scatter_data(self, in_send_array, adim, dtype='d'):
         """Method to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)
