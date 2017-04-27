@@ -78,7 +78,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         self.exchange_choice = random.choice(self.exchange_dic.keys())
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nprocs,dtype='int32') #this is useful to print exchange permutations
-        self.exchange_cnts = np.zeros(self.nprocs, dtype='int32')
+        self.exchange_cnts = np.zeros(self.nprocs - 1, dtype='int32')
         self.suppress_histogram = suppress_histogram
 
     def _print_data(self):
@@ -169,8 +169,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     def _print_exchanges(self):
         if self.rank == 0:
             logging.info("Number of exchanges:")
-            for i in xrange(self.nprocs):
-                logging.info("{0:>2} <-> {1:>2}:{2:>6}"
+            for i in xrange(self.nprocs - 1):
+                logging.info("{0:>2} <-> {1:<2}:{2:>6}"
                              .format(i, i+1, self.exchange_cnts[i]))
 
     def _get_temps(self):
