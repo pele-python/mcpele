@@ -193,7 +193,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         """
         self._get_temps()
         self.T = self._scatter_single_value(self.Tarray)
-        logging.debug("process {0} temperature {1}".format(self.rank,self.T))
+        logging.debug("Temperature {}".format(self.T))
         self.mcrunner.set_control(self.T)
         self.config, self.energy = self.mcrunner.get_config()
         self._print_initialise()

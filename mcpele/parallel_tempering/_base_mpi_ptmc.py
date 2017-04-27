@@ -138,7 +138,7 @@ class _MPI_Parallel_Tempering(object):
         else:
             self.base_directory = base_directory
 
-        logging.info("process {0} ready".format(self.rank))
+        logging.info("Ready")
 
     @abc.abstractmethod
     def _find_exchange_buddy(self, Earray):
@@ -408,9 +408,9 @@ class _MPI_Parallel_Tempering(object):
             the send data buffer is replaced with the receive data
         """
         if (exchange_buddy != self.no_exchange_int):
-            #logging.debug("process {0} p-to-p exchange, old data {1}".format(self.rank, data))
+            #logging.debug("p-to-p exchange, old data {}".format(data))
             data = self._point_to_point_exchange_replace(exchange_buddy, exchange_buddy, data)
-            #logging.debug("process {0} p-to-p exchange, new data {1}".format(self.rank, data))
+            #logging.debug("p-to-p exchange, new data {}".format(data))
             self.swap_accepted_count+=1
         else:
             self.swap_rejected_count+=1
