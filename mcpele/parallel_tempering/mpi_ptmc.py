@@ -121,7 +121,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         fname = "{0}/{1}".format(directory, 'parameters')
         #init_stepsize = self.mcrunner.stepsize
         ncount = self.mcrunner.niter
-        f = open(fname,'a')
+        f = open(fname,'w')
         f.write('node:\t{0}\n'.format(self.rank))
         f.write('temperature:\t{0}\n'.format(self.T))
         #f.write('initial step size:\t{0}\n'.format(init_stepsize))
