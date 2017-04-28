@@ -214,7 +214,7 @@ class _MPI_Parallel_Tempering(object):
         if self.initialised is False:
             self._initialise()
         while (self.ptiter < self.max_ptiter):
-            if self.rank == 0:
+            if self.rank == self.nprocs - 1:
                 logging.debug("Iteration {}".format(self.ptiter))
             self.one_iteration()
             if self.ptiter >= self.max_ptiter:
