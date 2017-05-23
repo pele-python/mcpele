@@ -1,7 +1,6 @@
 from __future__ import division
 import abc
 import numpy as np
-import random
 import os
 from mpi4py import MPI
 import copy

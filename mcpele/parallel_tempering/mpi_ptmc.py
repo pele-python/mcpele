@@ -74,8 +74,11 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     """
     def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, print_status=True, base_directory=None, suppress_histogram=True):
         super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, print_status=print_status, base_directory=base_directory)
+        self.seed_exchanges = random.randint(0, i32max)
+        np.random.seed(self.seed_exchanges)
+        logging.info("seed_exchanges: %i" % self.seed_exchanges)
         self.exchange_dic = {1:'right',-1:'left'}
-        self.exchange_choice = random.choice(self.exchange_dic.keys())
+        self.exchange_choice = np.random.choice(self.exchange_dic.keys())
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nprocs,dtype='int32') #this is useful to print exchange permutations
         self.exchange_cnts = np.zeros(self.nprocs - 1, dtype='int32')
