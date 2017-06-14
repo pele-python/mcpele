@@ -74,6 +74,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     """
     def __init__(self, mcrunner, Tmax, Tmin, max_ptiter=10, pfreq=1, skip=0, print_status=True, base_directory=None, suppress_histogram=True):
         super(MPI_PT_RLhandshake,self).__init__(mcrunner, Tmax, Tmin, max_ptiter, pfreq=pfreq, skip=skip, print_status=print_status, base_directory=base_directory)
+        i32max = np.iinfo(np.int32).max
         self.seed_exchanges = random.randint(0, i32max)
         np.random.seed(self.seed_exchanges)
         logging.info("seed_exchanges: %i" % self.seed_exchanges)
