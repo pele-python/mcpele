@@ -16,19 +16,19 @@ cdef class _Cdef_TakeStep(object):
     """This class is the python interface for the c++ mcpele::TakeStep base class implementation
     """
     cdef shared_ptr[cppTakeStep] thisptr
-    
+
 #===============================================================================
 # mcpele::AcceptTest
 #===============================================================================
 
 cdef extern from "mcpele/mc.h" namespace "mcpele":
     cdef cppclass cppAcceptTest "mcpele::AcceptTest"
-        
+
 cdef class _Cdef_AcceptTest(object):
     """This class is the python interface for the c++ mcpele::AcceptTest base class implementation
     """
     cdef shared_ptr[cppAcceptTest] thisptr
-        
+
 #===============================================================================
 # mcpele::ConfTest
 #===============================================================================
@@ -47,7 +47,7 @@ cdef class _Cdef_ConfTest(object):
 
 cdef extern from "mcpele/mc.h" namespace "mcpele":
     cdef cppclass cppAction "mcpele::Action"
-        
+
 cdef class _Cdef_Action(object):
     """This class is the python interface for the c++ mcpele::Action base class implementation
     """
@@ -86,7 +86,9 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         void set_print_progress() except +
         void enable_input_warnings() except+
         void disable_input_warnings() except +
-        cbool get_success() except+
+        cbool get_success() except +
+        _pele.Array[size_t] get_counters() except +
+        void set_counters(_pele.Array[size_t]) except +
 
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation

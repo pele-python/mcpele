@@ -150,6 +150,24 @@ public:
     void set_print_progress(const bool input) { m_print_progress = input; }
     void set_print_progress() { set_print_progress(true); }
     bool get_success() const { return m_success; }
+    pele::Array<size_t> get_counters() const
+    {
+        pele::Array<size_t> counters(5);
+        counters[0] = m_nitercount;
+        counters[1] = m_accept_count;
+        counters[2] = m_E_reject_count;
+        counters[3] = m_conf_reject_count;
+        counters[4] = m_neval;
+        return counters;
+    }
+    void set_counters(pele::Array<size_t> const & counters)
+    {
+        m_nitercount = counters[0];
+        m_accept_count = counters[1];
+        m_E_reject_count = counters[2];
+        m_conf_reject_count = counters[3];
+        m_neval = counters[4];
+    }
     /**
      * this will trigger premature exit from the MC run loop
      */

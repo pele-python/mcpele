@@ -28,6 +28,7 @@ public:
     void set_generator_seed(const size_t inp) { m_generator.seed(inp); }
     double expected_mean() const { return 0; }
     double get_stepsize() const { return m_stepsize; }
+    void set_stepsize(const double input) { m_stepsize = input; }
     /**
      * Reference: http://mathworld.wolfram.com/UniformDistribution.html
      */
@@ -35,6 +36,7 @@ public:
     void increase_acceptance(const double factor) { m_stepsize *= factor; }
     void decrease_acceptance(const double factor) { m_stepsize /= factor; }
     size_t get_count() const { return m_count; }
+    void set_count(const size_t input) { m_count = input; }
 };
 
 class RandomCoordsDisplacementAll : public RandomCoordsDisplacement {
