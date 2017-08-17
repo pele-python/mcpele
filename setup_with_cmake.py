@@ -58,7 +58,7 @@ if idcompiler.lower() == 'unix':
     cmake_compiler_extra_args += ['-march=native', '-flto', '-fopenmp']
 else:
     cmake_compiler_extra_args += ['-axCORE-AVX2', '-ipo', '-qopenmp', '-ip', '-unroll',
-                                  '-qopt-report-stdout', '-qopt-report-phase=openmp']
+                                  '-qopt-report']
 
 
 #
