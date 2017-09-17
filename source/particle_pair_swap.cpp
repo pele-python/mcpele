@@ -24,6 +24,8 @@ void ParticlePairSwap::displace(pele::Array<double>& coords, MC* mc)
     assert(particle_a < m_nr_particles && particle_b < m_nr_particles);
     assert(particle_a != particle_b);
     swap_coordinates(particle_a, particle_b, coords);
+    changed_atoms[0] = particle_a;
+    changed_atoms[1] = particle_b;
 }
 
 void ParticlePairSwap::swap_coordinates(const size_t particle_a, const size_t particle_b, pele::Array<double>& coords)

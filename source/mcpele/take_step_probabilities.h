@@ -33,6 +33,7 @@ public:
             pele::Array<double>& new_coords, const double new_energy,
             const bool success, MC* mc);
     std::vector<double> get_weights() const { return m_weights; }
+    const std::vector<size_t> get_changed_atoms() const { return m_steps.at(m_current_index)->get_changed_atoms(); }
 };
 
 } // namespace mcpele
