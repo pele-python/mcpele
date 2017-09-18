@@ -100,7 +100,7 @@ protected:
     size_t m_accept_count;
     size_t m_E_reject_count;
     size_t m_conf_reject_count;
-    bool m_success;
+    bool m_success, m_last_success;
     /*nitercount is the cumulative count, it does not get reset at the end of run*/
     bool m_print_progress;
 public:
@@ -152,6 +152,7 @@ public:
     void set_print_progress(const bool input) { m_print_progress = input; }
     void set_print_progress() { set_print_progress(true); }
     bool get_success() const { return m_success; }
+    bool get_last_success() const { return m_last_success; }
     pele::Array<size_t> get_counters() const
     {
         pele::Array<size_t> counters(5);
