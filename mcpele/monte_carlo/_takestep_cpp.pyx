@@ -479,7 +479,7 @@ cdef class _Cdef_TakeStepProbabilities(_Cdef_TakeStep):
         ----------
         step : :class:`TakeStep`
             object of class :class:`TakeStep` constructed beforehand
-        weight: double or int
+        weight: double
             weight to assign to each move
         """
         self.newptr.add_step(step.thisptr, weight)
