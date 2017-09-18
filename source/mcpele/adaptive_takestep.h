@@ -37,7 +37,8 @@ public:
         m_total_steps = counters[0];
         m_accepted_steps = counters[1];
     }
-    const std::vector<size_t> get_changed_atoms() const { return m_ts->get_changed_atoms(); }
+    const std::vector<long> get_changed_atoms() const { return m_ts->get_changed_atoms(); }
+    const std::vector<double> get_changed_coords_old() const { return m_ts->get_changed_coords_old(); }
 };
 
 } // namespace mcpele

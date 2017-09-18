@@ -64,7 +64,8 @@ public:
             pele::Array<double>&, const double, const bool, MC*) {}
     virtual void increase_acceptance(const double) {}
     virtual void decrease_acceptance(const double) {}
-    virtual const std::vector<size_t> get_changed_atoms() const { return std::vector<size_t>(); }
+    virtual const std::vector<long> get_changed_atoms() const { return std::vector<long>(); }
+    virtual const std::vector<double> get_changed_coords_old() const { return std::vector<double>(); }
 };
 
 /**
@@ -169,7 +170,8 @@ public:
         m_conf_reject_count = counters[3];
         m_neval = counters[4];
     }
-    const std::vector<size_t> get_changed_atoms() const { return m_take_step->get_changed_atoms(); }
+    const std::vector<long> get_changed_atoms() const { return m_take_step->get_changed_atoms(); }
+    const std::vector<double> get_changed_coords_old() const { return m_take_step->get_changed_coords_old(); }
     /**
      * this will trigger premature exit from the MC run loop
      */

@@ -49,13 +49,15 @@ public:
 class RandomCoordsDisplacementSingle : public RandomCoordsDisplacement {
     size_t m_nparticles, m_ndim;
     std::uniform_int_distribution<size_t> m_int_distribution;
-    std::vector<size_t> changed_atoms = std::vector<size_t>(1);
+    std::vector<long> m_changed_atoms = std::vector<long>(1);
+    std::vector<double> m_changed_coords_old;
 public:
     RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize=1);
     virtual ~RandomCoordsDisplacementSingle() {}
     virtual void displace(pele::Array<double>& coords, MC* mc);
-    size_t get_rand_particle(){ return changed_atoms[0]; } //dangerous function, should be used only for testing purposes
-    const std::vector<size_t> get_changed_atoms() const { return changed_atoms; }
+    size_t get_rand_particle(){ return m_changed_atoms[0]; } //dangerous function, should be used only for testing purposes
+    const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+    const std::vector<double> get_changed_coords_old() const { return m_changed_coords_old; }
 };
 
 } // namespace mcpele

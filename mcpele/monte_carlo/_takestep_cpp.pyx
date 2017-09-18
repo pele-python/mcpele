@@ -387,8 +387,8 @@ class SampleGaussian(_Cdef_SampleGaussian):
 
 cdef class _Cdef_ParticlePairSwap(_Cdef_TakeStep):
     cdef cppParticlePairSwap* newptr
-    def __cinit__(self, seed, nr_particles):
-        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppParticlePairSwap(seed, nr_particles))
+    def __cinit__(self, seed, nr_particles, bdim):
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppParticlePairSwap(seed, nr_particles, bdim))
         self.newptr = <cppParticlePairSwap*> self.thisptr.get()
 
     def get_seed(self):

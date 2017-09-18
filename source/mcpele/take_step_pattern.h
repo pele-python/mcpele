@@ -45,7 +45,8 @@ public:
     }
     std::vector<size_t> get_pattern() const { return m_steps.get_pattern(); }
     std::vector<size_t> get_pattern_direct() { return m_steps.get_pattern_direct(); }
-    const std::vector<size_t> get_changed_atoms() const { return m_step_storage.at(m_steps.get_step_ptr())->get_changed_atoms(); }
+    const std::vector<long> get_changed_atoms() const { return m_step_storage.at(m_steps.get_step_ptr())->get_changed_atoms(); }
+    const std::vector<double> get_changed_coords_old() const { return m_step_storage.at(m_steps.get_step_ptr())->get_changed_coords_old(); }
 };
 
 } // namespace mcpele

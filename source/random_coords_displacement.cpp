@@ -36,15 +36,18 @@ RandomCoordsDisplacementSingle::RandomCoordsDisplacementSingle(const size_t rsee
     : RandomCoordsDisplacement(rseed, stepsize),
       m_nparticles(nparticles),
       m_ndim(ndim),
-      m_int_distribution(0, m_nparticles-1){}
+      m_int_distribution(0, m_nparticles-1),
+      m_changed_coords_old(ndim)
+    {}
 
 void RandomCoordsDisplacementSingle::displace(pele::Array<double>& coords, MC* mc)
 {
-    changed_atoms[0] = m_int_distribution(m_generator);
-    size_t rand_particle_dof = changed_atoms[0] * m_ndim;
-    for (size_t i = rand_particle_dof; i < rand_particle_dof + m_ndim; ++i) {
+    m_changed_atoms[0] = m_int_distribution(m_generator);
+    size_t offset = m_changed_atoms[0] * m_ndim;
+    for (size_t i = 0; i < m_ndim; ++i) {
         double rand = m_real_distribution(m_generator);
-        coords[i] += (0.5 - rand) * m_stepsize;
+        m_changed_coords_old[i] = coords[offset + i];
+        coords[offset + i] += (0.5 - rand) * m_stepsize;
     }
     ++m_count;
 }
