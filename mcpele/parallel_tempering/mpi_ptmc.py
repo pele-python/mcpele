@@ -159,7 +159,11 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
     def _all_print_status(self):
         status = self.mcrunner.get_status()
         #logging.debug(float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count))
-        status.frac_acc_swaps = float(self.swap_accepted_count) / (self.swap_accepted_count+self.swap_rejected_count)
+        nswaps = self.swap_accepted_count + self.swap_rejected_count
+        if nswaps == 0:
+            status.frac_acc_swaps = 1.
+        else:
+            status.frac_acc_swaps = float(self.swap_accepted_count) / nswaps
         f = self.status_stream
         if self.ptiter == self.skip:
             f.write('#')
