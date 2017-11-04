@@ -31,6 +31,7 @@ cdef extern from "mcpele/uniform_spherical_sampling.h" namespace "mcpele":
     cdef cppclass cppUniformSphericalSampling "mcpele::UniformSphericalSampling":
         cppUniformSphericalSampling(size_t, double) except +
         void set_generator_seed(size_t) except +
+        void set_origin(_pele.Array[double]) except +
 
 cdef extern from "mcpele/uniform_rectangular_sampling.h" namespace "mcpele":
     cdef cppclass cppUniformRectangularSampling "mcpele::UniformRectangularSampling":

@@ -147,9 +147,15 @@ class RandomCoordsDisplacement(_Cdef_RandomCoordsDisplacement):
 
 cdef class _Cdef_UniformSphericalSampling(_Cdef_TakeStep):
     cdef cppUniformSphericalSampling* newptr
-    def __cinit__(self, rseed=42, radius=1):
+    cdef _pele.Array[double] corigin
+    def __cinit__(self, rseed=42, radius=1, origin=None):
+        self.radius = radius
         self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*> new cppUniformSphericalSampling(rseed, radius))
         self.newptr = <cppUniformSphericalSampling*> self.thisptr.get()
+        if origin is not None:
+            corigin = array_wrap_np(origin)
+            self.newptr.set_origin(corigin)
+
     def set_generator_seed(self, input):
         """sets the random number generator seed
 
@@ -160,6 +166,9 @@ cdef class _Cdef_UniformSphericalSampling(_Cdef_TakeStep):
         """
         cdef inp = input
         self.newptr.set_generator_seed(inp)
+
+    def get_stepsize(self):
+        return self.radius
 
 class UniformSphericalSampling(_Cdef_UniformSphericalSampling):
     """Sample uniformly at random inside N-ball.
