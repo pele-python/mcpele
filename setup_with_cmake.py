@@ -32,6 +32,8 @@ except:
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("-j", type=int, default=4)
 parser.add_argument("-c", "--compiler", type=str, default=None)
+parser.add_argument("--opt-report", action='store_true',
+                    help="Print optimization report (for Intel compiler). Default: False", default=False)
 jargs, remaining_args = parser.parse_known_args(sys.argv)
 
 # record c compiler choice. use unix (gcc) by default
@@ -57,8 +59,9 @@ cmake_compiler_extra_args = ["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3"
 if idcompiler.lower() == 'unix':
     cmake_compiler_extra_args += ['-march=native', '-flto', '-fopenmp']
 else:
-    cmake_compiler_extra_args += ['-axCORE-AVX2', '-ipo', '-qopenmp', '-ip', '-unroll',
-                                  '-qopt-report']
+    cmake_compiler_extra_args += ['-axCORE-AVX2', '-ipo', '-qopenmp', '-ip', '-unroll']
+    if jargs.opt_report:
+        cmake_compiler_extra_args += ['-qopt-report=5']
 
 
 #
