@@ -147,17 +147,6 @@ setup(name='mcpele',
 # build the c++ files
 #
 
-# note: on my computer (ubuntu 12.04 gcc version 4.6.3), when compiled with the
-# flag -march=native I run into problems.  Everything seems to run ok, but when
-# I run it through valgrind, valgrind complains about an unrecognized
-# instruction.  I don't have a clue what is causing this, but it's probably
-# better to be on the safe side and not use -march=native
-#extra_compile_args = ['-I/home/sm958/Work/pele/source','-std=c++0x',"-Wall", "-Wextra", "-O3", '-funroll-loops', "-fopenmp", "-mavx"]
-# uncomment the next line to add extra optimization options
-
-# note: to compile with debug on and to override extra_compile_args use, e.g.
-# OPT="-g -O2 -march=native" python setup.py ...
-
 cmake_build_dir = "build/cmake"
 
 cxx_files = ["mcpele/monte_carlo/_pele_mc.cxx",
