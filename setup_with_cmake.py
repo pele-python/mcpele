@@ -54,12 +54,12 @@ if jargs.j is None:
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
 
-#extra compiler args
+# extra compiler args
 cmake_compiler_extra_args = ["-std=c++0x","-Wall", "-Wextra", "-pedantic", "-O3", "-fPIC"]
 if idcompiler.lower() == 'unix':
     cmake_compiler_extra_args += ['-march=native', '-flto', '-fopenmp']
 else:
-    cmake_compiler_extra_args += ['-axCORE-AVX2', '-ipo', '-qopenmp', '-ip', '-unroll']
+    cmake_compiler_extra_args += ['-axCORE-AVX2', '-ipo', '-qopenmp', '-ip', '-unroll', '-fp-model precise']
     if jargs.opt_report:
         cmake_compiler_extra_args += ['-qopt-report=5']
 
