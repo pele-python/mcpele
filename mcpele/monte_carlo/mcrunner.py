@@ -1,10 +1,14 @@
+from __future__ import print_function
+from __future__ import division
+from builtins import range
+from past.utils import old_div
 import numpy as np
 from mcpele.monte_carlo import _BaseMCRunner, RandomCoordsDisplacement, MetropolisTest 
 from mcpele.monte_carlo import CheckSphericalContainer, RecordEnergyHistogram
 try:
     import matplotlib.pyplot as plt
 except ImportError as err:
-    print err
+    print(err)
 
 """
 pele::MCrunner
@@ -56,7 +60,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         #construct takestep: random step
         self.step = RandomCoordsDisplacement(self.seeds['takestep'], stepsize, report_interval=adjustf_navg, 
                                              factor=adjustf, min_acc_ratio=acceptance, max_acc_ratio=acceptance,
-                                             single=single, nparticles=int(len(coords)/bdim), bdim=bdim)
+                                             single=single, nparticles=int(old_div(len(coords),bdim)), bdim=bdim)
         #construct early configuration test: check within spherical container
         self.conftest = CheckSphericalContainer(radius, bdim)
         #construct accept test: Metropolis
@@ -85,7 +89,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         histl = self.histogram.get_histogram()
         hist = np.array(histl)
         Energies, step = np.linspace(Emin,Emax,num=len(hist),endpoint=False,retstep=True)
-        assert(abs(step - self.binsize) < self.binsize/100)
+        assert(abs(step - self.binsize) < old_div(self.binsize,100))
         np.savetxt(fname, np.column_stack((Energies,hist)), delimiter='\t')
         mean, variance = self.histogram.get_mean_variance()
         return mean, variance
@@ -97,13 +101,13 @@ class Metropolis_MCrunner(_BaseMCRunner):
         hist = np.array(histl)
         Energies, step = np.linspace(Emin,Emax,num=len(hist),endpoint=False,retstep=True)
         mean, variance = self.histogram.get_mean_variance()
-        assert(abs(step - self.binsize) < self.binsize/100)
+        assert(abs(step - self.binsize) < old_div(self.binsize,100))
         return Energies, hist, mean, variance
         
     def show_histogram(self):
         """shows the histogram"""
         hist = self.histogram.get_histogram()
-        val = [i*self.binsize for i in xrange(len(hist))]
+        val = [i*self.binsize for i in range(len(hist))]
         plt.hist(val, weights=hist,bins=len(hist))
         plt.show()
     

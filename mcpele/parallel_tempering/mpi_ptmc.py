@@ -1,4 +1,5 @@
 from __future__ import division
+from builtins import range
 import abc
 import numpy as np
 import random
@@ -15,7 +16,7 @@ def trymakedir(path):
             try:
                 os.makedirs(path)
                 break
-            except OSError, e:
+            except OSError as e:
                 if e.errno != 17:
                     raise
                 # time.sleep might help here
@@ -79,7 +80,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         np.random.seed(self.seed_exchanges)
         logging.info("seed_exchanges: %i" % self.seed_exchanges)
         self.exchange_dic = {1:'right',-1:'left'}
-        self.exchange_choice = np.random.choice(self.exchange_dic.keys())
+        self.exchange_choice = np.random.choice(list(self.exchange_dic.keys()))
         self.anyswap = False #set to true if any swap will happen
         self.permutation_pattern = np.zeros(self.nprocs,dtype='int32') #this is useful to print exchange permutations
         self.exchange_cnts = np.zeros(self.nprocs - 1, dtype='int32')
@@ -167,17 +168,17 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         f = self.status_stream
         if self.ptiter == self.skip:
             f.write('#')
-            for key, value in status.iteritems():
+            for key, value in status.items():
                 f.write('{:<12}\t'.format(key))
             f.write('\n')
-        for key, value in status.iteritems():
+        for key, value in status.items():
             f.write('{:>12.3f}\t'.format(value))
         f.write('\n')
 
     def _print_exchanges(self):
         if self.rank == 0:
             logging.info("Number of exchanges:")
-            for i in xrange(self.nprocs - 1):
+            for i in range(self.nprocs - 1):
                 logging.info("{0:>2} <-> {1:<2}:{2:>6}"
                              .format(i, i+1, self.exchange_cnts[i]))
 
@@ -220,7 +221,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             exchange_pattern = np.empty(len(Earray),dtype='int32')
             exchange_pattern.fill(self.no_exchange_int)
             self.anyswap = False
-            for i in xrange(0,self.nprocs,2):
+            for i in range(0,self.nprocs,2):
                 logging.debug("Exchange choice: {}".format(self.exchange_dic[self.exchange_choice])) #this is a print statement that has to be removed after initial implementation
                 E1 = Earray[i]
                 T1 = self.Tarray[i]
@@ -253,6 +254,6 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         else:
             exchange_pattern = None
 
-        self.exchange_choice *= -1 #swap direction of exchange choice
-        #logging.debug("exchange_pattern: {}".format(exchange_pattern))
+        self.exchange_choice *= -1 #swap direction of exchange choice 
+       #logging.debug("exchange_pattern: {}".format(exchange_pattern))
         return exchange_pattern

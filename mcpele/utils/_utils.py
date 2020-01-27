@@ -1,4 +1,5 @@
 from __future__ import division
+from builtins import range
 import numpy as np
 import pandas as pd
 
@@ -9,8 +10,8 @@ def write_2d_array_to_hdf5(array, key, path):
     """
     assert array.ndim == 2
     nind , ncol = array.shape
-    ind = [i for i in xrange(nind)]
-    col = [i for i in xrange(ncol)]
+    ind = [i for i in range(nind)]
+    col = [i for i in range(ncol)]
     df = pd.DataFrame(np.array(array), index=ind, columns=col)
     df.to_hdf(path, key)
 

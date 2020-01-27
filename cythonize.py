@@ -169,7 +169,7 @@ def find_process_files(root_dir):
     hash_db = load_hashes(HASH_FILE)
     for cur_dir, dirs, files in os.walk(root_dir):
         for filename in files:
-            for fromext, function in rules.items():
+            for fromext, function in list(rules.items()):
                 if filename.endswith(fromext):
                     toext = ".c"
                     with open(os.path.join(cur_dir, filename), 'rb') as f:
