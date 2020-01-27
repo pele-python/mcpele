@@ -1,12 +1,15 @@
 from __future__ import division
+from builtins import range
+from builtins import object
 import abc
 import numpy as np
 import os
 from mpi4py import MPI
 import copy
 import logging
+from future.utils import with_metaclass
 
-class _MPI_Parallel_Tempering(object):
+class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
     """Abstract class for MPI Parallel Tempering calculations
 
     :class:`_MPI_Parallel_Tempering` implements all the basic MPI routines. The initialisation
@@ -112,7 +115,6 @@ class _MPI_Parallel_Tempering(object):
     print_status : bool
         choose whether to print MCrunner status at each iteration
     """
-    __metaclass__  = abc.ABCMeta
 
     def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None):
         self.mcrunner = mcrunner
@@ -129,7 +131,7 @@ class _MPI_Parallel_Tempering(object):
         self.pfreq = pfreq
         self.no_exchange_int = -12345 #this NEGATIVE number in exchange pattern means that no exchange should be attempted
         self.initialised = False #flag
-        self.nodelist = [i for i in xrange(self.nprocs)]
+        self.nodelist = [i for i in range(self.nprocs)]
         self.swap_accepted_count = 0
         self.swap_rejected_count = 0
         if base_directory is None:
