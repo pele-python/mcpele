@@ -23,8 +23,8 @@ public:
     void swap_coordinates(const size_t particle_a, const size_t particle_b, pele::Array<double>& coords);
     size_t get_seed() const { return m_seed; }
     void set_generator_seed(const size_t inp);
-    const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
-    const std::vector<double> get_changed_coords_old() const { return m_changed_coords_old; }
+  const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+  const std::vector<double> get_changed_coords_old() const { return m_changed_coords_old; }
 };
 
 } // namespace mcpele

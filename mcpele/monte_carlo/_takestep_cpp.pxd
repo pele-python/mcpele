@@ -11,7 +11,7 @@ cdef extern from "mcpele/random_coords_displacement.h" namespace "mcpele":
         double get_stepsize() except +
         void set_stepsize(double) except +
     cdef cppclass cppRandomCoordsDisplacementAll "mcpele::RandomCoordsDisplacementAll":
-        cppRandomCoordsDisplacementAll(size_t, double) except +
+        cppRandomCoordsDisplacementAll(size_t, size_t, size_t, double) except +
         size_t get_seed() except +
         void set_generator_seed(size_t) except +
         size_t get_count() except +

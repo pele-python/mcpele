@@ -18,7 +18,7 @@ cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
                   min_acc_ratio=0.2, max_acc_ratio=0.5, single=False,
                   nparticles=0, bdim=0):
         if not single:
-            self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementAll(rseed, stepsize)
+            self.newptr = <cppRandomCoordsDisplacement*> new cppRandomCoordsDisplacementAll(rseed, nparticles, bdim, stepsize)
             self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*>
                    new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr),
                                            report_interval, factor, min_acc_ratio, max_acc_ratio))

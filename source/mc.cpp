@@ -100,37 +100,44 @@ void MC::one_iteration()
 
     // take a step with the trial coords
     //_takestep->takestep(_trial_coords, _stepsize, this);
+
     take_steps();
 
     // perform the initial configuration tests
+
     m_success = do_conf_tests(m_trial_coords);
 
+    
     // if the trial configuration is OK, compute the energy, and run the acceptance tests
-    if (m_success) {
-        // compute the energy
-        m_trial_energy = compute_energy(m_trial_coords);
 
-        // perform the acceptance tests.  Stop as soon as one of them fails
-        m_success = do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
+    if (m_success) {
+      // compute the energy
+
+      m_trial_energy = compute_energy(m_trial_coords);
+
+      // perform the acceptance tests.  Stop as soon as one of them fails
+      m_success = do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
     }
 
     // Do some final checks to ensure the configuration is OK.
     // These come last because they might be computationally demanding.
     if (m_success) {
-        m_success = do_late_conf_tests(m_trial_coords);
+
+      m_success = do_late_conf_tests(m_trial_coords);
     }
 
     // adapt stepsize etc.
     if (get_iterations_count() <= m_report_steps) {
-        m_take_step->report(m_coords, m_energy, m_trial_coords, m_trial_energy, m_success, this);
+      m_take_step->report(m_coords, m_energy, m_trial_coords, m_trial_energy, m_success, this);
     }
 
     // if the step is accepted, copy the coordinates and energy
     if (m_success) {
-        m_coords.assign(m_trial_coords);
-        m_energy = m_trial_energy;
-        ++m_accept_count;
+      m_coords.assign(m_trial_coords);
+      m_energy = m_trial_energy;
+      ++m_accept_count;
     }
+
 
     // perform the actions on the new configuration
     do_actions(m_coords, m_energy, m_success);
@@ -176,10 +183,10 @@ void MC::run(size_t max_iter)
     check_input();
     progress stat(max_iter);
     while(m_niter < max_iter) {
-        this->one_iteration();
-        if (m_print_progress) {
-            stat.next(m_niter);
-        }
+      this->one_iteration();
+      if (m_print_progress) {
+        stat.next(m_niter);
+      }
     }
     m_niter = 0;
 }
