@@ -5,12 +5,23 @@ set(PYTHON_INCLUDE_DIRS __PYTHON_INCLUDE__)
 set(PYTHON_LDFLAGS "__PYTHON_LDFLAGS__")
 set(pele_include __PELE_INCLUDE__)
 
+# osx makes the suffix for shared object libraries .dylib
+IF(APPLE)
+  SET(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
+ENDIF(APPLE)
+
 message("python include dirs: ${PYTHON_INCLUDE_DIRS}")
+message("python ldflags: ${PYTHON_LDFLAGS}")
 message("numpy include dirs: ${numpy_include}")
 message("pele include dirs: ${pele_include}")
 include_directories(${numpy_include})
 include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(${pele_include})
+# note: We set CMAKE_SHARED_LINKER_FLAGS because I couldn't get it to work using
+# target_link_librarires().  CMake kept interpreting the flag CoreFoundation
+# as a library and appending -l to it and the compiler would complain
+unset(CMAKE_SHARED_LINKER_FLAGS CACHE)
+set(CMAKE_SHARED_LINKER_FLAGS ${PYTHON_LDFLAGS} CACHE type string)
 
 cmake_minimum_required(VERSION 2.8)
 
