@@ -1,4 +1,4 @@
-#include "pele/array.h"
+#include "pele/array.hpp"
 
 #include "mcpele/energy_window_test.h"
 

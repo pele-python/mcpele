@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <utility>
 
-#include "pele/distance.h"
+#include "pele/distance.hpp"
 
 #include "mcpele/histogram.h"
 

@@ -1,9 +1,9 @@
 #ifndef _MCPELE_LOWEST_EIGENVALUE_H
 #define _MCPELE_LOWEST_EIGENVALUE_H
 
-#include "pele/base_potential.h"
-#include "pele/lbfgs.h"
-#include "pele/lowest_eig_potential.h"
+#include "pele/base_potential.hpp"
+#include "pele/lbfgs.hpp"
+#include "pele/lowest_eig_potential.hpp"
 
 namespace mcpele{
 

@@ -1,7 +1,7 @@
 #ifndef _MCPELE_UNIFORM_RECTANGULAR_SAMPLING_H__
 #define _MCPELE_UNIFORM_RECTANGULAR_SAMPLING_H__
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 
 namespace mcpele {
 

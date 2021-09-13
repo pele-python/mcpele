@@ -7,7 +7,7 @@
 #include <iostream>
 #include <limits>
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 
 namespace mcpele {
 

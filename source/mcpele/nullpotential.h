@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <functional>
 
-#include "pele/base_potential.h"
+#include "pele/base_potential.hpp"
 
 namespace mcpele {
 

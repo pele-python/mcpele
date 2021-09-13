@@ -6,8 +6,8 @@
 #include <memory>
 #include <stdexcept>
 
-#include "pele/array.h"
-#include "pele/base_potential.h"
+#include "pele/array.hpp"
+#include "pele/base_potential.hpp"
 
 namespace mcpele{
 
