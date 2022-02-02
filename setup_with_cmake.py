@@ -171,7 +171,7 @@ def get_ldflags(opt="--ldflags"):
     # shared library in prefix/lib/.
     if opt == '--ldflags':
         if not getvar('Py_ENABLE_SHARED'):
-            libs.insert(0, '-L' + getvar('LIBPL'))
+            libs.insert(0, '-L' + getvar('LIBDIR'))
         if not getvar('PYTHONFRAMEWORK'):
             libs.extend(getvar('LINKFORSHARED').split())
     return ' '.join(libs)
