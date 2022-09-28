@@ -1,7 +1,7 @@
 #ifndef _MCPELE_RECORD_PAIR_DIST_HISTOGRAM_H__
 #define _MCPELE_RECORD_PAIR_DIST_HISTOGRAM_H__
 
-#include "pele/optimizer.h"
+#include "pele/optimizer.hpp"
 
 #include "mc.h"
 #include "pair_dist_histogram.h"

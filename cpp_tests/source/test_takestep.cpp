@@ -285,13 +285,13 @@ struct TrivialTakestep2 : public mcpele::TakeStep {
     size_t call_counter;
     size_t report_counter;
     size_t get_call_count() const { return call_counter; }
-    size_t get_report_count() const { return report_counter; } 
+    size_t get_report_count() const { return report_counter; }
     virtual ~TrivialTakestep2() {}
     TrivialTakestep2()
         : call_counter(0),
           report_counter(0)
     {}
-    virtual void displace(Array<double>&, MC*) 
+    virtual void displace(Array<double>&, MC*)
     {
         ++call_counter;
     }
@@ -307,7 +307,7 @@ struct TrivialPotential : public pele::BasePotential{
     TrivialPotential()
         : call_count(0)
     {}
-    virtual double get_energy(Array<double> coords)
+    virtual double get_energy(Array<double> & coords)
     {
         call_count++;
         return 0.;
@@ -388,7 +388,7 @@ TEST_F(TakeStepTest, TakeStepPattern_Correct){
     for (size_t w = 0; w < weights.size(); ++w) {
        for (size_t b = 0; b < weights.at(w); ++b) {
            EXPECT_EQ(*i++, w);
-       } 
+       }
     }
     for (size_t i = 0; i < pattern.size(); ++i) {
         EXPECT_EQ(pattern.at(i), pattern_direct.at(i));

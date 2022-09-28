@@ -14,7 +14,7 @@ cdef extern from *:
     ctypedef int INT2 "2"    # a fake type
     ctypedef int INT3 "3"    # a fake type
 
-cdef extern from "mcpele/record_energy_histogram.h" namespace "mcpele": 
+cdef extern from "mcpele/record_energy_histogram.h" namespace "mcpele":
     cdef cppclass cppRecordEnergyHistogram "mcpele::RecordEnergyHistogram":
         cppRecordEnergyHistogram(double, double, double, size_t) except +
         _pele.Array[double] get_histogram() except +
@@ -42,13 +42,13 @@ cdef extern from "mcpele/record_scalar_timeseries.h" namespace "mcpele":
 cdef extern from "mcpele/record_energy_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordEnergyTimeseries "mcpele::RecordEnergyTimeseries":
         cppRecordEnergyTimeseries(size_t, size_t) except +
-        
+
 cdef extern from "mcpele/record_lowest_evalue_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordLowestEValueTimeseries "mcpele::RecordLowestEValueTimeseries":
         cppRecordLowestEValueTimeseries(size_t, size_t,
             shared_ptr[_pele.cBasePotential], size_t, _pele.Array[double]
             , size_t) except +
-    
+
 cdef extern from "mcpele/record_displacement_per_particle_timeseries.h" namespace "mcpele":
     cdef cppclass cppRecordDisplacementPerParticleTimeseries "mcpele::RecordDisplacementPerParticleTimeseries":
         cppRecordDisplacementPerParticleTimeseries(size_t, size_t,

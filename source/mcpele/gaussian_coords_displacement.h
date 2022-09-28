@@ -36,6 +36,7 @@ public:
     double get_stepsize() const { return m_stepsize; }
     void set_stepsize(const double input) { m_stepsize = input; }
     size_t get_count() const { return m_count; }
+    void set_count(const size_t input) { m_count = input; }
     /*Reference: http://mathworld.wolfram.com/NormalDistribution.html*/
     double expected_mean() const { return 0; }
     double expected_variance(const double ss) const { return ss * ss; }

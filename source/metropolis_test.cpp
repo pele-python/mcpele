@@ -13,7 +13,7 @@ MetropolisTest::MetropolisTest(const size_t rseed)
       m_distribution(0.0, 1.0)
 {
     #ifdef DEBUG
-        std::cout << "seed Metropolis:" << _seed << "\n";
+        std::cout << "seed Metropolis:" << m_seed << "\n";
         //std::chrono::system_clock::now().time_since_epoch().count()
     #endif
 }

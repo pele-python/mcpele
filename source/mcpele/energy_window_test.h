@@ -1,7 +1,7 @@
 #ifndef _MCPELE_ENERGY_WINDOW_TEST_H__
 #define _MCPELE_ENERGY_WINDOW_TEST_H__
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 #include "mc.h"
 
 namespace mcpele {

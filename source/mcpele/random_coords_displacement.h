@@ -25,33 +25,48 @@ public:
     virtual ~RandomCoordsDisplacement() {}
     virtual void displace(pele::Array<double>& coords, MC* mc) =0;
     size_t get_seed() const {return m_seed;}
-    void set_generator_seed(const size_t inp) { m_generator.seed(inp); }
-    double expected_mean() const { return 0; }
-    double get_stepsize() const { return m_stepsize; }
-    /**
-     * Reference: http://mathworld.wolfram.com/UniformDistribution.html
-     */
-    double expected_variance(const double ss) const { return ss * ss / static_cast<double>(12); }
-    void increase_acceptance(const double factor) { m_stepsize *= factor; }
-    void decrease_acceptance(const double factor) { m_stepsize /= factor; }
-    size_t get_count() const { return m_count; }
+  void set_generator_seed(const size_t inp) { m_generator.seed(inp); }
+  double expected_mean() const { return 0; }
+  double get_stepsize() const { return m_stepsize; }
+  void set_stepsize(const double input) { m_stepsize = input; }
+  /**
+   * Reference: http://mathworld.wolfram.com/UniformDistribution.html
+   */
+  double expected_variance(const double ss) const { return ss * ss / static_cast<double>(12); }
+  void increase_acceptance(const double factor) { m_stepsize *= factor; }
+  void decrease_acceptance(const double factor) { m_stepsize /= factor; }
+  size_t get_count() const { return m_count; }
+  void set_count(const size_t input) { m_count = input; }
 };
 
-class RandomCoordsDisplacementAll : public RandomCoordsDisplacement {
+class
+
+RandomCoordsDisplacementAll : public RandomCoordsDisplacement {
+  std::vector<long> m_changed_atoms;
+  std::vector<double> m_changed_coords_old;
 public:
-    RandomCoordsDisplacementAll(const size_t rseed, const double stepsize=1);
-    virtual ~RandomCoordsDisplacementAll() {}
-    virtual void displace(pele::Array<double>& coords, MC* mc);
+  RandomCoordsDisplacementAll(const size_t rseed, const double stepsize=1);
+  // The overloaded constructor helps return changed atoms and particles for 
+  RandomCoordsDisplacementAll(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize=1);
+  virtual ~RandomCoordsDisplacementAll() {}
+  virtual void displace(pele::Array<double>& coords, MC* mc);
+  const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+  const std::vector<double> get_changed_coords_old() const { return m_changed_coords_old; }
+  
 };
 
 class RandomCoordsDisplacementSingle : public RandomCoordsDisplacement {
-    size_t m_nparticles, m_ndim, m_rand_particle;
+    size_t m_nparticles, m_ndim;
     std::uniform_int_distribution<size_t> m_int_distribution;
+    std::vector<long> m_changed_atoms = std::vector<long>(1);
+    std::vector<double> m_changed_coords_old;
 public:
     RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles, const size_t ndim, const double stepsize=1);
     virtual ~RandomCoordsDisplacementSingle() {}
     virtual void displace(pele::Array<double>& coords, MC* mc);
-    size_t get_rand_particle(){return m_rand_particle;} //dangerous function, should be used only for testing purposes
+    size_t get_rand_particle(){ return m_changed_atoms[0]; } //dangerous function, should be used only for testing purposes
+  const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+  const std::vector<double> get_changed_coords_old() const { return m_changed_coords_old; }
 };
 
 } // namespace mcpele

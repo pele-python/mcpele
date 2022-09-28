@@ -1,3 +1,6 @@
+from __future__ import division
+from builtins import range
+from past.utils import old_div
 import os
 import tempfile
 import numpy as np
@@ -22,7 +25,7 @@ class TestPTRun(unittest.TestCase):
         #print('created temporary directory', tmpdir)
         os.system(self.cmd)
         temperatures = np.genfromtxt(os.path.join(tmpdir, 'temperatures'), delimiter='\t')
-        for i in xrange(self.nprocs):
+        for i in range(self.nprocs):
             d = tmpdir + '/{}'.format(i)
             pre = 'Visits.his.'
             files = os.listdir(d)
@@ -44,7 +47,7 @@ class TestPTRun(unittest.TestCase):
                         
             average2 = np.average(np.square(ener), weights=hist)
                         
-            cv =  (average2 - average ** 2) / (T ** 2)
+            cv =  old_div((average2 - average ** 2), (T ** 2))
             cv_true = self.natoms * self.bdim / 2.0
             
             self.assertLess(cv - cv_true, 0.1, 'failed for replica of rank {} cv = {}'.format(i, cv))

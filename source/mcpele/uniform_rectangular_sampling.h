@@ -1,10 +1,10 @@
 #ifndef _MCPELE_UNIFORM_RECTANGULAR_SAMPLING_H__
 #define _MCPELE_UNIFORM_RECTANGULAR_SAMPLING_H__
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 
 namespace mcpele {
-    
+
 class UniformRectangularSampling : public TakeStep {
 protected:
     std::mt19937_64 m_gen;
@@ -22,7 +22,7 @@ public:
     virtual void displace(pele::Array<double>& coords, MC* mc)
     {
         if (coords.size() % m_boxvec.size()) {
-            throw std::runtime_error("UniformRectangularSampling::displace: coods size incompatible with boxvec size");
+            throw std::runtime_error("UniformRectangularSampling::displace: coords size incompatible with boxvec size");
         }
         const size_t nr_particles = coords.size() / m_boxvec.size();
         const size_t dim = m_boxvec.size();
@@ -32,8 +32,8 @@ public:
             }
         }
     }
-};    
-    
+};
+
 } // namespace mcpele
 
 #endif // #ifndef _MCPELE_UNIFORM_RECTANGULAR_SAMPLING_H__

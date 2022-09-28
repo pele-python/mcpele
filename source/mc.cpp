@@ -20,7 +20,8 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, co
       m_neval(0),
       m_temperature(temperature),
       m_report_steps(0),
-      m_enable_input_warnings(true)
+      m_enable_input_warnings(true),
+      m_last_success(true)
 {
     m_energy = compute_energy(m_coords);
     m_trial_energy = m_energy;
@@ -31,7 +32,7 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double>& coords, co
 /**
  * perform the configuration tests.  Stop as soon as one of them fails
  */
-bool MC::do_conf_tests(Array<double> x)
+bool MC::do_conf_tests(Array<double> & x)
 {
     bool result;
     for (auto & test : m_conf_tests) {
@@ -47,7 +48,7 @@ bool MC::do_conf_tests(Array<double> x)
 /**
  * perform the acceptance tests.  Stop as soon as one of them fails
  */
-bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold, double eold)
+bool MC::do_accept_tests(Array<double> & xtrial, double etrial, Array<double> & xold, double eold)
 {
     bool result;
     for (auto & test : m_accept_tests) {
@@ -63,7 +64,7 @@ bool MC::do_accept_tests(Array<double> xtrial, double etrial, Array<double> xold
 /**
  * perform the configuration tests.  Stop as soon as one of them fails
  */
-bool MC::do_late_conf_tests(Array<double> x)
+bool MC::do_late_conf_tests(Array<double> & x)
 {
     bool result;
     for (auto & test : m_late_conf_tests) {
@@ -76,7 +77,7 @@ bool MC::do_late_conf_tests(Array<double> x)
     return true;
 }
 
-void MC::do_actions(Array<double> x, double energy, bool success)
+void MC::do_actions(Array<double> & x, double energy, bool success)
 {
     for (auto & action : m_actions) {
         action->action(x, energy, success, this);
@@ -99,40 +100,49 @@ void MC::one_iteration()
 
     // take a step with the trial coords
     //_takestep->takestep(_trial_coords, _stepsize, this);
+
     take_steps();
 
     // perform the initial configuration tests
+
     m_success = do_conf_tests(m_trial_coords);
 
+    
     // if the trial configuration is OK, compute the energy, and run the acceptance tests
-    if (m_success) {
-        // compute the energy
-        m_trial_energy = compute_energy(m_trial_coords);
 
-        // perform the acceptance tests.  Stop as soon as one of them fails
-        m_success = do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
+    if (m_success) {
+      // compute the energy
+
+      m_trial_energy = compute_energy(m_trial_coords);
+
+      // perform the acceptance tests.  Stop as soon as one of them fails
+      m_success = do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
     }
 
     // Do some final checks to ensure the configuration is OK.
     // These come last because they might be computationally demanding.
     if (m_success) {
-        m_success = do_late_conf_tests(m_trial_coords);
+
+      m_success = do_late_conf_tests(m_trial_coords);
     }
 
     // adapt stepsize etc.
     if (get_iterations_count() <= m_report_steps) {
-        m_take_step->report(m_coords, m_energy, m_trial_coords, m_trial_energy, m_success, this);
+      m_take_step->report(m_coords, m_energy, m_trial_coords, m_trial_energy, m_success, this);
     }
 
     // if the step is accepted, copy the coordinates and energy
     if (m_success) {
-        m_coords.assign(m_trial_coords);
-        m_energy = m_trial_energy;
-        ++m_accept_count;
+      m_coords.assign(m_trial_coords);
+      m_energy = m_trial_energy;
+      ++m_accept_count;
     }
+
 
     // perform the actions on the new configuration
     do_actions(m_coords, m_energy, m_success);
+
+    m_last_success = m_success;
 }
 
 void MC::check_input()
@@ -173,10 +183,10 @@ void MC::run(size_t max_iter)
     check_input();
     progress stat(max_iter);
     while(m_niter < max_iter) {
-        this->one_iteration();
-        if (m_print_progress) {
-            stat.next(m_niter);
-        }
+      this->one_iteration();
+      if (m_print_progress) {
+        stat.next(m_niter);
+      }
     }
     m_niter = 0;
 }

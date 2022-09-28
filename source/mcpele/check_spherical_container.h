@@ -7,9 +7,9 @@
 #include <random>
 #include <chrono>
 
-#include "pele/array.h"
-#include "pele/optimizer.h"
-#include "pele/distance.h"
+#include "pele/array.hpp"
+#include "pele/optimizer.hpp"
+#include "pele/distance.hpp"
 
 #include "mc.h"
 

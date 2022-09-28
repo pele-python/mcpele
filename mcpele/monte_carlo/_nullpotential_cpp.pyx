@@ -15,11 +15,11 @@ cdef class _Cdef_NullPotential(BasePotential):
     this is the null potential
     """
     cdef cNullPotential* newptr
-    
+
     def __cinit__(self):
         self.thisptr = shared_ptr[_pele.cBasePotential]( <_pele.cBasePotential*>new cNullPotential() )
         self.newptr = <cNullPotential*> self.thisptr.get()
 
 class NullPotential(_Cdef_NullPotential):
     """
-    """       
+    """

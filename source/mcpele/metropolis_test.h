@@ -3,7 +3,7 @@
 
 #include <random>
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 #include "mc.h"
 
 namespace mcpele {

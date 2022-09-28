@@ -10,8 +10,8 @@ void TakeStepProbabilities::add_step(std::shared_ptr<TakeStep> step_input, const
 {
     m_steps.push_back(step_input);
     m_weights.push_back(weight_input);
-    m_steps.swap(m_steps);
-    m_weights.swap(m_weights);
+    m_steps.shrink_to_fit();
+    m_weights.shrink_to_fit();
     m_distribution = std::discrete_distribution<size_t>(m_weights.begin(), m_weights.end());
 }
 

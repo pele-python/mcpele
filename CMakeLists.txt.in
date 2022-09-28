@@ -12,6 +12,40 @@ include_directories(${numpy_include})
 include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(${pele_include})
 
+
+##################################### sundials #######################################
+# TODO: figure out how to remove the extra setup for sundials
+
+# set(SUNDIALS_EXTRA_LIBS  -lm /home/praharsh/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib/librt.so CACHE STRING "Additional libraries")
+set(SUNDIALS_INCLUDE_DIR
+  /home/praharsh/Dropbox/research/bv-libraries/sunnnew/sundials/SN_EXT/include
+  CACHE PATH "Location of SUNDIALS header files")
+set(SUNDIALS_LIBRARY_DIR
+  /home/praharsh/Dropbox/research/bv-libraries/sunnnew/sundials/SN_EXT/lib
+  CACHE PATH "Location of SUNDIALS libraries")
+
+# Find the SUNDIALS libraries
+find_library(SUNDIALS_SOLVER_LIB
+  sundials_cvode ${SUNDIALS_LIBRARY_DIR}
+  DOC "CVODE library")
+
+find_library(SUNDIALS_NVEC_LIB
+  sundials_nvecserial ${SUNDIALS_LIBRARY_DIR}
+  DOC "NVECTOR_SERIAL library")
+
+find_library(SUNDIALS_MANYVEC_LIB
+  sundials_nvecmanyvector ${SUNDIALS_LIBRARY_DIR}
+  DOC "NVECTOR_MANYVECTOR library")
+
+set(SUNDIALS_LIBRARIES
+  -L${SUNDIALS_LIBRARY_DIR}
+  ${SUNDIALS_SOLVER_LIB}
+  ${SUNDIALS_NVEC_LIB}
+  ${SUNDIALS_MANYVEC_LIB}
+  ${SUNDIALS_EXTRA_LIBS})
+#####################################################################################
+
+
 cmake_minimum_required(VERSION 2.8)
 
 enable_language(CXX)
@@ -22,6 +56,7 @@ SET(CMAKE_CXX_FLAGS __COMPILER_EXTRA_ARGS__)
 # set the mcpele include directory
 set(mcpele_include ${CMAKE_SOURCE_DIR}/source)
 include_directories(${mcpele_include})
+include_directories(${SUNDIALS_INCLUDE_DIR})
 message("mcpele include directory: ${mcpele_include}")
 
 # build the mcpele library
@@ -34,6 +69,7 @@ function(make_cython_lib cython_cxx_source)
   string(REGEX REPLACE ".cxx$" "" library_name ${library_name})
   add_library(${library_name} SHARED ${cython_cxx_source})
   target_link_libraries(${library_name} mcpele_lib)
+  target_link_libraries(${library_name} ${SUNDIALS_LIBRARIES})
   set_target_properties(${library_name} PROPERTIES PREFIX "")
   message("making library ${library_name} from source ${cython_cxx_source}")
 endfunction(make_cython_lib)

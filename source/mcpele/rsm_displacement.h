@@ -1,7 +1,7 @@
 #ifndef _MCPELE_RSM_DISPLACEMENT_H
 #define _MCPELE_RSM_DISPLACEMENT_H
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 
 namespace mcpele{
 

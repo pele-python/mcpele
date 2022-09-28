@@ -25,6 +25,20 @@ public:
             const bool success, MC* mc);
     double get_min_acceptance_ratio() const { return m_min_acceptance_ratio; }
     double get_max_acceptance_ratio() const { return m_max_acceptance_ratio; }
+    pele::Array<size_t> get_counters() const
+    {
+        pele::Array<size_t> counters(2);
+        counters[0] = m_total_steps;
+        counters[1] = m_accepted_steps;
+        return counters;
+    }
+    void set_counters(pele::Array<size_t> const & counters)
+    {
+        m_total_steps = counters[0];
+        m_accepted_steps = counters[1];
+    }
+    const std::vector<long> get_changed_atoms() const { return m_ts->get_changed_atoms(); }
+    const std::vector<double> get_changed_coords_old() const { return m_ts->get_changed_coords_old(); }
 };
 
 } // namespace mcpele

@@ -22,7 +22,7 @@ using mcpele::MC;
 
 struct TrivialPotential : public pele::BasePotential{
     size_t call_count;
-    virtual double get_energy(Array<double> coords)
+    virtual double get_energy(Array<double> & coords)
     {
         call_count++;
         return 0.;
@@ -102,4 +102,3 @@ TEST_F(TestPairDistHist, BasicFunctionality){
         EXPECT_EQ(gr[i], 0);
     }
 }
-
