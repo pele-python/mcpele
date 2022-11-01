@@ -64,7 +64,11 @@ set(SUNDIALS_LIBRARIES
   ${SUNDIALS_NVEC_LIB}
   ${SUNDIALS_MANYVEC_LIB}
   ${SUNDIALS_EXTRA_LIBS})
+
 #####################################################################################
+
+find_package(BLAS REQUIRED)
+find_package(LAPACK REQUIRED)
 
 
 cmake_minimum_required(VERSION 2.8)
@@ -91,6 +95,7 @@ function(make_cython_lib cython_cxx_source)
   add_library(${library_name} SHARED ${cython_cxx_source})
   target_link_libraries(${library_name} mcpele_lib)
   target_link_libraries(${library_name} ${SUNDIALS_LIBRARIES})
+  target_link_libraries(${library_name} ${LAPACK_LIBRARIES})
   set_target_properties(${library_name} PROPERTIES PREFIX "")
   message("making library ${library_name} from source ${cython_cxx_source}")
 endfunction(make_cython_lib)
