@@ -4,7 +4,7 @@ set(numpy_include __NUMPY_INCLUDE__)
 set(PYTHON_INCLUDE_DIRS __PYTHON_INCLUDE__)
 set(PYTHON_LDFLAGS "__PYTHON_LDFLAGS__")
 set(pele_dir __PELE_DIR__)
-set(pele_include "${pele_dir}/include")
+set(pele_include "${pele_dir}/source")
 
 # osx makes the suffix for shared object libraries .dylib
 IF(APPLE)
@@ -81,8 +81,8 @@ include_directories(${SUNDIALS_INCLUDE_DIR})
 message("mcpele include directory: ${mcpele_include}")
 
 # build the mcpele library
-FILE(GLOB pele_sources ${pele_include}/*.cpp)
-FILE(GLOB mcpele_sources ${mcpele_include}/*.cpp)
+FILE(GLOB pele_sources ${pele_include}/*.c*)
+FILE(GLOB mcpele_sources ${mcpele_include}/*.c*)
 add_library(mcpele_lib SHARED ${mcpele_sources} ${pele_sources})
 
 function(make_cython_lib cython_cxx_source)
