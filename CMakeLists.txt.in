@@ -3,7 +3,8 @@
 set(numpy_include __NUMPY_INCLUDE__)
 set(PYTHON_INCLUDE_DIRS __PYTHON_INCLUDE__)
 set(PYTHON_LDFLAGS "__PYTHON_LDFLAGS__")
-set(pele_include __PELE_INCLUDE__)
+set(pele_dir __PELE_DIR__)
+set(pele_include "${pele_dir}/include")
 
 # osx makes the suffix for shared object libraries .dylib
 IF(APPLE)
@@ -27,13 +28,22 @@ set(CMAKE_SHARED_LINKER_FLAGS ${PYTHON_LDFLAGS} CACHE type string)
 ##################################### sundials #######################################
 # TODO: figure out how to remove the extra setup for sundials
 
-# set(SUNDIALS_EXTRA_LIBS  -lm /home/praharsh/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib/librt.so CACHE STRING "Additional libraries")
+# #################################### sundials #######################################
+set(EXT_INSTALL_PATH "${pele_dir}/extern/install")
+
 set(SUNDIALS_INCLUDE_DIR
-  /home/praharsh/Dropbox/research/bv-libraries/sunnnew/sundials/SN_EXT/include
+  ${EXT_INSTALL_PATH}/include
   CACHE PATH "Location of SUNDIALS header files")
-set(SUNDIALS_LIBRARY_DIR
-  /home/praharsh/Dropbox/research/bv-libraries/sunnnew/sundials/SN_EXT/lib
-  CACHE PATH "Location of SUNDIALS libraries")
+
+if(EXISTS "${EXT_INSTALL_PATH}/lib")
+  set(SUNDIALS_LIBRARY_DIR
+    ${EXT_INSTALL_PATH}/lib
+    CACHE PATH "Location of SUNDIALS libraries")
+else()
+  set(SUNDIALS_LIBRARY_DIR
+    ${EXT_INSTALL_PATH}/lib64
+    CACHE PATH "Location of SUNDIALS libraries")
+endif()
 
 # Find the SUNDIALS libraries
 find_library(SUNDIALS_SOLVER_LIB

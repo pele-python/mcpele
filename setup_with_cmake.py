@@ -183,7 +183,7 @@ def get_ldflags(opt="--ldflags"):
 with open("CMakeLists.txt.in", "r") as fin:
     cmake_txt = fin.read()
 # We first tell cmake where the include directories are
-cmake_txt = cmake_txt.replace("__PELE_INCLUDE__", pelepath + "/source")
+cmake_txt = cmake_txt.replace("__PELE_DIR__", pelepath)
 # note: the code to find python_includes was taken from the python-config executable
 python_includes = [sysconfig.get_python_inc(),
                    sysconfig.get_python_inc(plat_specific=True)]
