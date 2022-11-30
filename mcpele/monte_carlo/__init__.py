@@ -20,4 +20,3 @@ from ._action_cpp import RecordDisplacementPerParticleTimeseries
 from ._action_cpp import RecordCoordsTimeseries
 from ._nullpotential_cpp import NullPotential
 from .mcrunner import Metropolis_MCrunner
-

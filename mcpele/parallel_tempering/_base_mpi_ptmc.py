@@ -9,6 +9,7 @@ import copy
 import logging
 from future.utils import with_metaclass
 
+
 class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
     """Abstract class for MPI Parallel Tempering calculations
 
@@ -116,26 +117,42 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         choose whether to print MCrunner status at each iteration
     """
 
-    def __init__(self, mcrunner, Tmax, Tmin, max_ptiter, pfreq=1, skip=0, print_status=True, base_directory=None):
+    def __init__(
+        self,
+        mcrunner,
+        Tmax,
+        Tmin,
+        max_ptiter,
+        pfreq=1,
+        skip=0,
+        print_status=True,
+        base_directory=None,
+    ):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
-        self.nprocs = self.comm.Get_size() #total number of processes (replicas)
-        self.rank = self.comm.Get_rank() #this is the unique identifier for the process
+        self.nprocs = (
+            self.comm.Get_size()
+        )  # total number of processes (replicas)
+        self.rank = (
+            self.comm.Get_rank()
+        )  # this is the unique identifier for the process
         self.Tmax = Tmax
         self.Tmin = Tmin
         self.max_ptiter = max_ptiter
         self.ex_outstream = open("exchanges", "w")
         self.ptiter = 0
         self.print_status = print_status
-        self.skip = skip #might want to skip the first few swaps to allow for equilibration
+        self.skip = skip  # might want to skip the first few swaps to allow for equilibration
         self.pfreq = pfreq
-        self.no_exchange_int = -12345 #this NEGATIVE number in exchange pattern means that no exchange should be attempted
-        self.initialised = False #flag
+        self.no_exchange_int = (
+            -12345
+        )  # this NEGATIVE number in exchange pattern means that no exchange should be attempted
+        self.initialised = False  # flag
         self.nodelist = [i for i in range(self.nprocs)]
         self.swap_accepted_count = 0
         self.swap_rejected_count = 0
         if base_directory is None:
-            self.base_directory = os.path.join(os.getcwd(),'ptmc_results')
+            self.base_directory = os.path.join(os.getcwd(), "ptmc_results")
         else:
             self.base_directory = base_directory
 
@@ -158,8 +175,7 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
 
     @abc.abstractmethod
     def _initialise(self):
-        """Perform all the tasks required prior to starting the computation including initialising the output files
-        """
+        """Perform all the tasks required prior to starting the computation including initialising the output files"""
 
     @abc.abstractmethod
     def _print_data(self):
@@ -191,18 +207,18 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         * collect the results (energy and new coordinates)
         * attempt an exchange
         """
-        #set configuration and temperature at which want to perform run
-        self.mcrunner.set_config(np.array(self.config,dtype='d'), self.energy)
-        #now run the MCMC walk
+        # set configuration and energy at which want to perform run
+        self.mcrunner.set_config(np.array(self.config, dtype="d"), self.energy)
+        # now run the MCMC walk
         self.mcrunner.run()
-        #collect the results
+        # collect the results
         result = self.mcrunner.get_results()
         self.energy = result.energy
-        self.config = np.array(result.coords,dtype='d')
+        self.config = np.array(result.coords, dtype="d")
         if self.ptiter >= self.skip:
             self._attempt_exchange()
-            #print and increase parallel tempering count and test convergence
-            if (self.ptiter % self.pfreq == 0):
+            # print and increase parallel tempering count and test convergence
+            if self.ptiter % self.pfreq == 0:
                 self.max_ptiter = self._test_convergence()
                 self._print_data()
             if self.print_status:
@@ -210,11 +226,10 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         self.ptiter += 1
 
     def run(self):
-        """Run multiple single iterations, plus initialisation if MPI_PT has not been initialised yet
-        """
+        """Run multiple single iterations, plus initialisation if MPI_PT has not been initialised yet"""
         if self.initialised is False:
             self._initialise()
-        while (self.ptiter < self.max_ptiter):
+        while self.ptiter < self.max_ptiter:
             if self.rank == self.nprocs - 1:
                 logging.debug("Iteration {}".format(self.ptiter))
             self.one_iteration()
@@ -224,9 +239,9 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         self._print_status()
         self._print_exchanges()
         self._close_flush()
-        logging.info('Terminated')
+        logging.info("Terminated")
 
-    def _scatter_data(self, in_send_array, adim, dtype='d'):
+    def _scatter_data(self, in_send_array, adim, dtype="d"):
         """Method to scatter data in equal ordered chunks among replica (it relies on the rank of the replica)
 
         In simple terms it requires that ``adim % nprocs = 0``.
@@ -248,21 +263,21 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
             array of length ``adim/nprocs``
 
         """
-        if (self.rank == 0):
+        if self.rank == 0:
             # process 0 is the root, it has data to scatter
-            assert(len(in_send_array) == adim)
-            assert(adim % self.nprocs == 0)
-            send_array = np.array(in_send_array,dtype=dtype)
+            assert len(in_send_array) == adim
+            assert adim % self.nprocs == 0
+            send_array = np.array(in_send_array, dtype=dtype)
         else:
             # processes other than root do not send
-            assert(adim % self.nprocs == 0)
+            assert adim % self.nprocs == 0
             send_array = None
 
-        recv_array = np.empty(int(adim/self.nprocs),dtype=dtype)
+        recv_array = np.empty(int(adim / self.nprocs), dtype=dtype)
         self.comm.Scatter(send_array, recv_array, root=0)
         return recv_array
 
-    def _scatter_single_value(self, send_array, dtype='d'):
+    def _scatter_single_value(self, send_array, dtype="d"):
         """Returns a single value from a scattered array for each replica (e.g. Temperature or swap partner)
 
         .. note :: send array must be of the same length as the number of processes
@@ -279,14 +294,14 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         dtype
             temperature or swap partner or else
         """
-        if (self.rank == 0):
-            assert(len(send_array) == self.nprocs)
+        if self.rank == 0:
+            assert len(send_array) == self.nprocs
 
         T = self._scatter_data(send_array, self.nprocs, dtype=dtype)
-        assert(len(T) == 1)
+        assert len(T) == 1
         return T[0]
 
-    def _broadcast_data(self, in_data, adim, dtype='d'):
+    def _broadcast_data(self, in_data, adim, dtype="d"):
         """Identical arrays are broadcasted from root to all other processes
 
         Parameters
@@ -304,15 +319,15 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
             array of length ``adim``
 
         """
-        if(self.rank == 0):
+        if self.rank == 0:
             bcast_data = np.array(in_data, dtype=dtype)
-            assert(len(bcast_data)==adim)
+            assert len(bcast_data) == adim
         else:
             bcast_data = np.empty(adim, dtype=dtype)
         self.comm.Bcast(bcast_data, root=0)
         return bcast_data
 
-    def _gather_data(self, in_send_array, dtype='d'):
+    def _gather_data(self, in_send_array, dtype="d"):
         """Method to gather data in equal ordered chunks from replicas (it relies on the rank of the replica)
 
         .. note :: gather assumes that all the subprocess are sending the same amount of data to root, to send
@@ -331,15 +346,15 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
             array of length ``len(in_send_array)) * nprocs``
         """
         in_send_array = np.array(in_send_array, dtype=dtype)
-        if (self.rank == 0):
+        if self.rank == 0:
             recv_array = np.empty(len(in_send_array) * self.nprocs, dtype=dtype)
         else:
             recv_array = None
 
         self.comm.Gather(in_send_array, recv_array, root=0)
 
-        if (self.rank != 0):
-            assert(recv_array is None)
+        if self.rank != 0:
+            assert recv_array is None
 
         return recv_array
 
@@ -357,7 +372,7 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
             array of length ``nprocs``
 
         """
-        send_Earray = np.array([E],dtype='d')
+        send_Earray = np.array([E], dtype="d")
         recv_Earray = self._gather_data(send_Earray)
         return recv_Earray
 
@@ -380,9 +395,9 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         data : numpy.array
             the send data buffer is replaced with the receive data
         """
-        assert(dest == source)
-        data = np.array(data,dtype='d')
-        self.comm.Sendrecv_replace(data, dest=dest,source=source)
+        assert dest == source
+        data = np.array(data, dtype="d")
+        self.comm.Sendrecv_replace(data, dest=dest, source=source)
         return data
 
     def _exchange_pairs(self, exchange_buddy, data):
@@ -403,13 +418,15 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         data : numpy.array
             the send data buffer is replaced with the receive data
         """
-        if (exchange_buddy != self.no_exchange_int):
-            #logging.debug("p-to-p exchange, old data {}".format(data))
-            data = self._point_to_point_exchange_replace(exchange_buddy, exchange_buddy, data)
-            #logging.debug("p-to-p exchange, new data {}".format(data))
-            self.swap_accepted_count+=1
+        if exchange_buddy != self.no_exchange_int:
+            # logging.debug("p-to-p exchange, old data {}".format(data))
+            data = self._point_to_point_exchange_replace(
+                exchange_buddy, exchange_buddy, data
+            )
+            # logging.debug("p-to-p exchange, new data {}".format(data))
+            self.swap_accepted_count += 1
         else:
-            self.swap_rejected_count+=1
+            self.swap_rejected_count += 1
         return data
 
     def _attempt_exchange(self):
@@ -422,18 +439,24 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         * root to each process the rank of its chosen partner (buddy)
         * processes exchange configuration and energy
         """
-        #gather energies, only root will do so
+        # gather energies, only root will do so
         Earray = self._gather_energies(self.energy)
         if Earray is not None:
             logging.debug("Earray: {}".format(Earray))
-        #find exchange pattern (list of exchange buddies)
+        # find exchange pattern (list of exchange buddies)
         exchange_pattern = self._find_exchange_buddy(Earray)
-        #now scatter the exchange pattern so that everybody knows who their buddy is
-        exchange_buddy = self._scatter_single_value(np.array(exchange_pattern,dtype='d'))
+        # now scatter the exchange pattern so that everybody knows who their buddy is
+        exchange_buddy = self._scatter_single_value(
+            np.array(exchange_pattern, dtype="d")
+        )
         exchange_buddy = int(exchange_buddy)
-        #attempt configurations swap
-        self.config = self._exchange_pairs(exchange_buddy, np.array(self.config,dtype='d'))
-        #swap energies
-        E = self._exchange_pairs(exchange_buddy, np.array([self.energy],dtype='d'))
-        assert(len(E)==1)
+        # attempt configurations swap
+        self.config = self._exchange_pairs(
+            exchange_buddy, np.array(self.config, dtype="d")
+        )
+        # swap energies
+        E = self._exchange_pairs(
+            exchange_buddy, np.array([self.energy], dtype="d")
+        )
+        assert len(E) == 1
         self.energy = E[0]

@@ -17,15 +17,21 @@ from mcpele.monte_carlo import NullPotential
 from mcpele.monte_carlo import UniformRectangularSampling
 from mcpele.monte_carlo import CheckSphericalContainerConfig
 
+
 def volume_nball(radius, n):
     return np.power(np.pi, n / 2) * np.power(radius, n) / gamma(n / 2 + 1)
 
+
 def get_pi(accepted_fraction, ndim):
-    return np.power(2 ** ndim * accepted_fraction * gamma(ndim / 2 + 1), 2 / ndim)
-    
+    return np.power(
+        2**ndim * accepted_fraction * gamma(ndim / 2 + 1), 2 / ndim
+    )
+
+
 class MC(_BaseMCRunner):
     def set_control(self, temp):
         self.set_temperature(temp)
+
 
 class ComputePi(object):
     def __init__(self, ndim=2, nsamples=1e4):
@@ -39,13 +45,16 @@ class ComputePi(object):
         self.step = UniformRectangularSampling(42, self.radius)
         self.mc.set_takestep(self.step)
         self.mc.set_report_steps(0)
-        self.conftest_check_spherical_container = CheckSphericalContainerConfig(self.radius)
+        self.conftest_check_spherical_container = CheckSphericalContainerConfig(
+            self.radius
+        )
         self.mc.add_conf_test(self.conftest_check_spherical_container)
         self.mc.set_print_progress()
         self.mc.run()
         self.p = self.mc.get_accepted_fraction()
         self.pi = get_pi(self.p, self.ndim)
-        
+
+
 if __name__ == "__main__":
     nsamples = 1e5
     ndim_ = []
