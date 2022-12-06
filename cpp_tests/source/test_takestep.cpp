@@ -31,7 +31,7 @@ public:
     size_t nparticles;
     size_t ndim;
     size_t ndof;
-    arr_t coor;
+    arr_t coords;
     arr_t reference;
     double stepsize;
     size_t niterations;
@@ -42,11 +42,11 @@ public:
         nparticles = 10;
         ndim = 3;
         ndof = nparticles * ndim;
-        coor = Array<double>(ndof);
+        coords = Array<double>(ndof);
         for (size_t i = 0; i < ndof; ++i) {
-            coor[i] = 4242 + i;
+            coords[i] = 4242 + i;
         }
-        reference = coor.copy();
+        reference = coords.copy();
         stepsize = 0.1;
         niterations = 10000;
         f = 0.1;
@@ -57,9 +57,9 @@ public:
 TEST_F(TakeStepTest, Global_BasicFunctionalityAveragingErasing_OneIteration) {
     //one iteration gives expected variation
     mcpele::RandomCoordsDisplacementAll displ(seed, stepsize);
-    displ.displace(coor, mc);
+    displ.displace(coords, mc);
     for (size_t i = 0; i < ndof; ++i) {
-        EXPECT_NEAR(reference[i], coor[i], stepsize * 0.5);
+        EXPECT_NEAR(reference[i], coords[i], stepsize * 0.5);
     }
 }
 
@@ -67,36 +67,36 @@ TEST_F(TakeStepTest, Global_BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
     mcpele::RandomCoordsDisplacementAll displ(seed, stepsize);
     for (size_t i = 0; i < niterations; ++i) {
-        displ.displace(coor, mc);
+        displ.displace(coords, mc);
     }
     for (size_t i = 0; i < ndof; ++i) {
-        EXPECT_NEAR(reference[i], coor[i], f * sqrt(niterations));
+        EXPECT_NEAR(reference[i], coords[i], f * sqrt(niterations));
     }
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_OneIteration){
     //one iteration gives expected variation
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
-    displ.displace(coor, mc);
+    displ.displace(coords, mc);
     for (size_t i = 0; i < ndof; ++i) {
-        EXPECT_NEAR(reference[i], coor[i], stepsize * 0.5);
+        EXPECT_NEAR(reference[i], coords[i], stepsize * 0.5);
     }
 }
 
 TEST_F(TakeStepTest, Single_BasicFunctionality_OneParticleMoves){
     //test that only 1 particle moves
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
-    displ.displace(coor, mc);
+    displ.displace(coords, mc);
     size_t part = displ.get_rand_particle();
     //check that particle i has moved
     for (size_t j = part * ndim; j < part * ndim + ndim; ++j) {
-        EXPECT_NE(reference[j], coor[j]);
+        EXPECT_NE(reference[j], coords[j]);
     }
     //check that all other particles have not moved
     for (size_t i = 0; i < nparticles; ++i) {
         if (i != part) {
             for (size_t j = 0; j < ndim; ++j) {
-                EXPECT_EQ(reference[i * ndim + j], coor[i * ndim + j]);
+                EXPECT_EQ(reference[i * ndim + j], coords[i * ndim + j]);
             }
         }
     }
@@ -106,10 +106,10 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesMove){
     //test that all particles move
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
     for (size_t i = 0; i < 1000; ++i) {
-        displ.displace(coor, mc);
+        displ.displace(coords, mc);
     }
     for (size_t i = 0; i < ndof; ++i) {
-        EXPECT_NE(reference[i], coor[i]);
+        EXPECT_NE(reference[i], coords[i]);
     }
 }
 
@@ -119,7 +119,7 @@ TEST_F(TakeStepTest, Single_BasicFunctionality_AllParticlesSampledUniformly){
     mcpele::Histogram hist_uniform_single(0, nparticles - 1, 1);
     const size_t ntot = 5000;
     for (size_t i = 0; i < ntot; ++i) {
-        displ.displace(coor, mc);
+        displ.displace(coords, mc);
         hist_uniform_single.add_entry(displ.get_rand_particle());
     }
     EXPECT_NEAR_RELATIVE(hist_uniform_single.get_mean(), (nparticles - 1) / 2, nparticles / sqrt(ntot));
@@ -195,66 +195,58 @@ TEST_F(TakeStepTest, Single_BasicFunctionalityAveragingErasing_NIterations){
     //n iterations give expected variation
     mcpele::RandomCoordsDisplacementSingle displ(seed, nparticles, ndim, stepsize);
     for (size_t i = 0; i < niterations; ++i) {
-        displ.displace(coor, mc);
+        displ.displace(coords, mc);
     }
     for (size_t i = 0; i < ndof; ++i) {
-        EXPECT_NEAR( reference[i], coor[i], f * sqrt(niterations) );
+        EXPECT_NEAR( reference[i], coords[i], f * sqrt(niterations) );
     }
 }
 
 TEST_F(TakeStepTest, PairSwapWorks){
     const size_t box_dimension = 3;
     const size_t nr_particles = ndof / box_dimension;
-    mcpele::ParticlePairSwap swap(42, nr_particles);
-    auto coor1 = coor.copy();
-    auto coor2 = coor.copy();
+    mcpele::ParticlePairSwap swap(42, nr_particles, box_dimension);
+    auto coords_1 = coords.copy();
+    auto coords_2 = coords.copy();
     const size_t a = 1;
     const size_t b = 4;
-    swap.swap_coordinates(a, b, coor1);
+    swap.swap_coordinates(a, b, coords_1);
     for (size_t i = 0; i < ndof; ++i) {
         if (i >= a * box_dimension && i < (a + 1) * box_dimension) {
-            EXPECT_DOUBLE_EQ(coor1[i], coor[(i + b * box_dimension) - a * box_dimension]);
+            EXPECT_DOUBLE_EQ(coords_1[i], coords[(i + b * box_dimension) - a * box_dimension]);
         }
         else if (i >= b * box_dimension && i < (b + 1) * box_dimension) {
-            EXPECT_DOUBLE_EQ(coor1[i], coor[(i + a * box_dimension) - b * box_dimension]);
+            EXPECT_DOUBLE_EQ(coords_1[i], coords[(i + a * box_dimension) - b * box_dimension]);
         }
         else {
-            EXPECT_DOUBLE_EQ(coor1[i], coor[i]);
+            EXPECT_DOUBLE_EQ(coords_1[i], coords[i]);
         }
     }
-    swap.swap_coordinates(8, 8, coor2);
+    swap.swap_coordinates(8, 8, coords_2);
     for (size_t i = 0; i < ndof; ++i) {
-        EXPECT_DOUBLE_EQ(coor2[i], coor[i]);
+        EXPECT_DOUBLE_EQ(coords_2[i], coords[i]);
     }
 }
 
 TEST_F(TakeStepTest, SwapDisplace_Works) {
-    bool throws = false;
-    try {
-        mcpele::ParticlePairSwap(42, 0);
-    }
-    catch (...) {
-        throws = true;
-    }
-    EXPECT_TRUE(throws);
     const size_t box_dimension = 3;
     const size_t nr_particles = ndof / box_dimension;
-    mcpele::ParticlePairSwap swap(42, nr_particles);
+    mcpele::ParticlePairSwap swap(42, nr_particles, box_dimension);
     const size_t new_seed = 44;
     EXPECT_EQ(swap.get_seed(), 42u);
     swap.set_generator_seed(new_seed);
     EXPECT_EQ(swap.get_seed(), new_seed);
-    auto coor1 = coor.copy();
-    auto coor2 = coor.copy();
-    swap.displace(coor1, NULL);
+    auto coords_1 = coords.copy();
+    auto coords_2 = coords.copy();
+    swap.displace(coords_1, NULL);
     size_t nr_different_elements = 0;
     size_t nr_identical_elements = 0;
-    for (size_t i = 0; i < coor1.size(); ++i) {
-       const bool id = coor1[i] == coor2[i];
+    for (size_t i = 0; i < coords_1.size(); ++i) {
+       const bool id = coords_1[i] == coords_2[i];
        nr_different_elements += !id;
        nr_identical_elements += id;
     }
-    EXPECT_EQ(nr_different_elements + nr_identical_elements, coor1.size());
+    EXPECT_EQ(nr_different_elements + nr_identical_elements, coords_1.size());
     EXPECT_EQ(nr_different_elements, 2 * box_dimension);
     EXPECT_EQ(nr_identical_elements, (nr_particles - 2) * box_dimension);
 }
@@ -317,7 +309,7 @@ struct TrivialPotential : public pele::BasePotential{
 TEST_F(TakeStepTest, TakeStepProbabilities_Correct){
     typedef TrivialTakestep2 tt;
     auto pot = std::make_shared<TrivialPotential>();
-    auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
+    auto mc = std::make_shared<mcpele::MC>(pot, coords, 1);
     auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
     std::shared_ptr<TakeStep> ts0(new tt());
     std::shared_ptr<TakeStep> ts1(new tt());
@@ -344,7 +336,7 @@ TEST_F(TakeStepTest, TakeStepProbabilities_Throws){
     bool threw = false;
     try {
         auto step = std::make_shared<mcpele::TakeStepProbabilities>(42);
-        step->displace(coor, NULL);
+        step->displace(coords, NULL);
     }
     catch (...) {
         threw = true;
@@ -355,7 +347,7 @@ TEST_F(TakeStepTest, TakeStepProbabilities_Throws){
 TEST_F(TakeStepTest, TakeStepPattern_Correct){
     typedef TrivialTakestep2 tt;
     auto pot = std::make_shared<TrivialPotential>();
-    auto mc = std::make_shared<mcpele::MC>(pot, coor, 1);
+    auto mc = std::make_shared<mcpele::MC>(pot, coords, 1);
     auto step = std::make_shared<mcpele::TakeStepPattern>();
     std::shared_ptr<TakeStep> ts0(new tt());
     std::shared_ptr<TakeStep> ts1(new tt());
