@@ -11,3 +11,6 @@ cpp_tests/build/
 cythonize.dat
 CMakeLists.txt
 mcpele/version.py
+**/CMakeFiles/
+**/CMakeCache.txt
+**/generated/
