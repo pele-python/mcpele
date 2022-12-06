@@ -14,3 +14,9 @@ mcpele/version.py
 **/CMakeFiles/
 **/CMakeCache.txt
 **/generated/
+cpp_tests/source/googletest/*
+cpp_tests/source/lib/*
+**/Makefile
+cpp_tests/source/libpele_lib.a
+cpp_tests/source/libmcpele_lib.a
+**/cmake_install.cmake
