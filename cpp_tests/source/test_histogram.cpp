@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <gtest/gtest.h>
 
-#include "pele/array.h"
+#include "pele/array.hpp"
 
 #include "mcpele/random_coords_displacement.h"
 #include "mcpele/gaussian_coords_displacement.h"

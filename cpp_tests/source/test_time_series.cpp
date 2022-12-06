@@ -5,10 +5,10 @@
 #include <memory>
 #include <gtest/gtest.h>
 
-#include "pele/array.h"
-#include "pele/harmonic.h"
-#include "pele/hs_wca.h"
-#include "pele/lj.h"
+#include "pele/array.hpp"
+#include "pele/harmonic.hpp"
+#include "pele/hs_wca.hpp"
+#include "pele/lj.hpp"
 
 #include "mcpele/moving_average.h"
 #include "mcpele/record_energy_timeseries.h"

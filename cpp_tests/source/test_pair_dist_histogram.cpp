@@ -6,7 +6,7 @@
 #include <utility>
 #include <gtest/gtest.h>
 
-#include "pele/lbfgs.h"
+#include "pele/lbfgs.hpp"
 
 #include "mcpele/record_pair_dist_histogram.h"
 

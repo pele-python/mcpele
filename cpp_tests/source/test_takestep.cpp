@@ -5,8 +5,8 @@
 
 #include <gtest/gtest.h>
 
-#include "pele/harmonic.h"
-#include "pele/meta_pow.h"
+#include "pele/harmonic.hpp"
+#include "pele/meta_pow.hpp"
 
 #include "mcpele/adaptive_takestep.h"
 #include "mcpele/histogram.h"

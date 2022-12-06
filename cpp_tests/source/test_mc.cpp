@@ -7,7 +7,7 @@
 #include <string>
 #include <gtest/gtest.h>
 
-#include "pele/harmonic.h"
+#include "pele/harmonic.hpp"
 
 #include "mcpele/random_coords_displacement.h"
 #include "mcpele/metropolis_test.h"
