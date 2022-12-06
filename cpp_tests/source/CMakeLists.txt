@@ -6,7 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 
 enable_language(CXX)
-SET(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -std=c++0x -O3")
+SET(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -std=c++1z -O3")
 
 #cmake_policy(SET CMP0015 NEW)
 
@@ -29,21 +29,37 @@ message("mcpele include directory ${mcpele_include}")
 FILE(GLOB mcpele_sources ${mcpele_include}/*.cpp)
 add_library(mcpele_lib ${mcpele_sources})
 
+set(PELE_DIR ../../../pele)
+
 # set the pele include directory
-set(pele_include ../../../pele/source CACHE STRING "the pele c++ source directory")
-if (EXISTS ${pele_include}/pele/array.h)
+set(pele_include ${PELE_DIR}/source CACHE STRING "the pele c++ source directory")
+if (EXISTS ${pele_include}/pele/array.hpp)
   message("pele include directory: ${pele_include}")
 else()
   message(FATAL_ERROR "pele include directory is not correct: ${pele_include} : use ccmake to set it")
 endif()
+
+
+set(PELE_EXTERN_DIR	${PELE_DIR}/extern/install)
+set(EXTERN_INCLUDE_DIR ${PELE_EXTERN_DIR}/include/) # FOR EIGEN, CVODE etc
+set(LAPACKE_INCLUDE_DIR ${PELE_EXTERN_DIR}/include/Eigen/src/misc)
+
+
+
 include_directories(${pele_include})
+include_directories(${EXTERN_INCLUDE_DIR})
+include_directories(${LAPACKE_INCLUDE_DIR})
+
+
+
+
 
 # build the pele library
-FILE(GLOB pele_sources ${pele_include}/*.cpp)
+FILE(GLOB pele_sources ${pele_include}/*.c*)
 add_library(pele_lib ${pele_sources})
 
 # get all the source files
-FILE(GLOB sources *.cpp)
+FILE(GLOB sources *.c*)
 
 add_executable(test_main ${sources})
 target_link_libraries(test_main pele_lib mcpele_lib gtest gtest_main pthread)
