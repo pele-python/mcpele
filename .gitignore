@@ -20,3 +20,4 @@ cpp_tests/source/lib/*
 cpp_tests/source/libpele_lib.a
 cpp_tests/source/libmcpele_lib.a
 **/cmake_install.cmake
+.cache
