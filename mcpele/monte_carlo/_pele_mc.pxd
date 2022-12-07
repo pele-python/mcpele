@@ -63,7 +63,7 @@ cdef class _Cdef_Action(object):
 
 cdef extern from "mcpele/success_container.h":
     cdef cppclass cppSuccessAccumulator "mcpele::SuccessAccumulator":
-        vector[cbool] get_success_rates() except +
+        vector[double] get_success_rates() except +
         vector[string] get_step_names() except +
 
 
