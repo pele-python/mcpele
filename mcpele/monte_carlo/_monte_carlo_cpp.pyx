@@ -111,7 +111,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     def get_success_rates(self):
         success_rate_dictionary = {}
         success_rates = self.thisptr.get().get_success_accumulator().get_success_rates()
-        step_names = self.thisptr.get().get_success_accumulator().get_step_names()        
+        step_names = self.thisptr.get().get_success_accumulator().get_step_names()
         for i in range(success_rates.size()):
             success_rate_dictionary[step_names[i]] = success_rates[i]
         return success_rate_dictionary
