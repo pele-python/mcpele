@@ -155,6 +155,7 @@ public:
     size_t get_naccept() const { return m_accept_count; }
     size_t get_nreject() const { return m_nitercount - m_accept_count; }
 
+
     // get acceptance and rejection fractions
     double get_accepted_fraction() const { return static_cast<double>(m_accept_count) /
             static_cast<double>(m_nitercount); }
@@ -179,6 +180,7 @@ public:
     // Assuming that these are running one iteration
     bool get_success() const { return m_success_accumulator.get_current_success(); }
     bool get_last_success() const { return m_success_accumulator.get_last_success(); }
+    SuccessAccumulator get_success_accumulator() const { return m_success_accumulator; }
 
     // this helps map the step name to the success accumulator
     void add_step_name_to_success_accumulator(const std::string& name) { m_success_accumulator.add_step_taken(name); }

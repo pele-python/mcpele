@@ -4,6 +4,8 @@
 cimport pele.potentials._pele as _pele
 from pele.potentials._pele cimport shared_ptr
 from libcpp cimport bool as cbool
+from libcpp.vector cimport vector
+from libcpp.string cimport string
 
 #===============================================================================
 # mcpele::TakeStep
@@ -53,6 +55,22 @@ cdef class _Cdef_Action(object):
     """
     cdef shared_ptr[cppAction] thisptr
 
+
+#===============================================================================
+# mcpele::SuccessAccumulator
+#===============================================================================
+
+
+cdef extern from "mcpele/success_container.h":
+    cdef cppclass cppSuccessAccumulator "mcpele::SuccessAccumulator":
+        vector[cbool] get_success_rates() except +
+        vector[string] get_step_names() except +
+
+
+
+        
+
+
 #===============================================================================
 # mcpele::MC
 #===============================================================================
@@ -89,6 +107,7 @@ cdef extern from "mcpele/mc.h" namespace "mcpele":
         cbool get_success() except +
         _pele.Array[size_t] get_counters() except +
         void set_counters(_pele.Array[size_t]) except +
+        cppSuccessAccumulator get_success_accumulator() except +
 
 cdef class _Cdef_BaseMC(object):
     """This class is the python interface for the c++ mcpele::MC base class implementation
