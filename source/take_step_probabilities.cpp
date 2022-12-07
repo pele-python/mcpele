@@ -22,6 +22,7 @@ void TakeStepProbabilities::displace(pele::Array<double>& coords, MC* mc)
     }
     m_current_index = m_distribution(m_generator);
     m_steps.at(m_current_index)->displace(coords, mc);
+    m_steps.at(m_current_index)->set_current_step_name(mc);
 }
 
 void TakeStepProbabilities::report(pele::Array<double>& old_coords, const double old_energy, pele::Array<double>& new_coords, const double new_energy, const bool success, MC* mc)

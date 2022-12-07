@@ -86,7 +86,12 @@ void MC::do_actions(Array<double> & x, double energy, bool success)
 
 void MC::take_steps()
 {
+    // This should be called before displace 
+    // because displace may call set_current_step_name
+    m_take_step->set_current_step_name(this);
+
     m_take_step->displace(m_trial_coords, this);
+    
 }
 
 void MC::one_iteration()
