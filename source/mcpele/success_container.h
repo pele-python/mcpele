@@ -1,8 +1,12 @@
+#ifndef _MCPELE_SUCCESS_CONTAINER_H
+#define _MCPELE_SUCCESS_CONTAINER_H
+
 #include <cstddef>
 #include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <iostream>
 
 namespace mcpele {
 
@@ -78,7 +82,7 @@ public:
 
   bool get_last_success() const { return last_success; }
 
-  ull get_n_success(std::string step) {
+  ull get_n_successes(std::string step) {
     return success_map[step].get_n_success();
   }
 
@@ -90,7 +94,7 @@ public:
     return success_map[step].get_n_failures();
   }
 
-  std::vector<std::string> get_steps() {
+  std::vector<std::string> get_step_names() {
     std::vector<std::string> steps;
     for (auto it = success_map.begin(); it != success_map.end(); ++it) {
       steps.push_back(it->first);
@@ -98,5 +102,31 @@ public:
     return steps;
   }
 
+
+  // For easy access to the success rates from cython
+  // otherwise we would have returned std::map
+  // get steps and get success rates should
+  // allow us to reconstruct the map from the python
+  // side
+  std::vector<double> get_success_rates() {
+    std::vector<double> successes;
+    for (auto it = success_map.begin(); it != success_map.end(); ++it) {
+      successes.push_back(it->second.get_success_rate());
+    }
+    return successes;
+  }
+
+  
+
+  void print_success_rates() {
+    std::cout << "Step Success Rate" << std::endl;
+    for (auto it = success_map.begin(); it != success_map.end(); ++it) {
+      std::cout << it->first << " " << it->second.get_success_rate() << std::endl;
+    }
+    std::cout << "----------------" << std::endl;
+  }
+
 };
 } // namespace mcpele
+
+#endif // #ifndef _MCPELE_SUCCESS_CONTAINER_H
