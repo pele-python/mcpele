@@ -5,10 +5,12 @@
 #include <algorithm>
 #include <memory>
 #include <stdexcept>
+#include <typeinfo>
+#include <cxxabi.h>
 
 #include "pele/array.hpp"
 #include "pele/base_potential.hpp"
-
+#include "success_container.h"
 namespace mcpele{
 
 class MC;
@@ -52,6 +54,17 @@ public:
     virtual bool conf_test(pele::Array<double> &trial_coords, MC * mc) =0;
 };
 
+
+
+inline std::string demangle(const char* mangled)
+{
+      int status;
+      std::unique_ptr<char[], void (*)(void*)> result(
+        abi::__cxa_demangle(mangled, 0, 0, &status), std::free);
+      return result.get() ? std::string(result.get()) : "error occurred";
+}
+
+
 /*
  * Take Step
  */
@@ -66,6 +79,8 @@ public:
     virtual void decrease_acceptance(const double) {}
     virtual const std::vector<long> get_changed_atoms() const { return std::vector<long>(); }
     virtual const std::vector<double> get_changed_coords_old() const { return std::vector<double>(); }
+    virtual void set_current_step_name(MC * mc);
+
 };
 
 /**
@@ -96,6 +111,7 @@ protected:
     conf_t m_conf_tests;
     conf_t m_late_conf_tests;
     std::shared_ptr<TakeStep> m_take_step;
+    SuccessAccumulator m_success_container;
     size_t m_nitercount;
     size_t m_accept_count;
     size_t m_E_reject_count;
@@ -117,6 +133,7 @@ public:
     MC(std::shared_ptr<pele::BasePotential> potential, pele::Array<double>& coords, const double temperature);
     virtual ~MC() {}
     void one_iteration();
+
     void run(const size_t max_iter);
     void set_temperature(const double T) { m_temperature = T; }
     double get_temperature() const { return m_temperature; }
@@ -153,6 +170,11 @@ public:
     void set_print_progress() { set_print_progress(true); }
     bool get_success() const { return m_success; }
     bool get_last_success() const { return m_last_success; }
+
+    void add_step_taken(const std::string& name) { m_success_container.add_step_taken(name); }
+
+
+
     pele::Array<size_t> get_counters() const
     {
         pele::Array<size_t> counters(5);

@@ -89,7 +89,6 @@ void MC::take_steps()
     m_take_step->displace(m_trial_coords, this);
 }
 
-
 void MC::one_iteration()
 {
     m_success = true;
