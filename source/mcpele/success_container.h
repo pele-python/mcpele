@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <map>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -36,6 +37,7 @@ public:
 
 };
 
+
 class SuccessAccumulator {
 private:
   // Use std::map to store the step taken to the success of the step determined
@@ -44,14 +46,23 @@ private:
   std::string current_step;
   bool current_success;
   bool last_success;
+  bool step_being_taken;
 
 public:
   // Add a new string and boolean to the map.
-  SuccessAccumulator() {}
+  // SuccessAccumulator() {}
 
-  void add_step_taken(std::string step) { current_step = step; }
+  SuccessAccumulator() : current_success(false), last_success(false), step_being_taken(false) {}
+
+  void add_step_taken(std::string step) { current_step = step; 
+    step_being_taken = true;
+  }
 
   void add_success(bool success) {
+    if (!step_being_taken) {
+      throw std::runtime_error("Current step not set.");
+    }
+    step_being_taken = false;
 
     if (success_map.find(current_step) == success_map.end()) {
       success_map[current_step] = SuccessContainer();
@@ -63,9 +74,9 @@ public:
     success_map[current_step].log_success(success);
   }
 
-  bool get_current_success() { return current_success; }
+  bool get_current_success() const { return current_success; }
 
-  bool get_last_success() { return last_success; }
+  bool get_last_success() const { return last_success; }
 
   ull get_n_success(std::string step) {
     return success_map[step].get_n_success();

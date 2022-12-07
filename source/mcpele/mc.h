@@ -111,16 +111,16 @@ protected:
     conf_t m_conf_tests;
     conf_t m_late_conf_tests;
     std::shared_ptr<TakeStep> m_take_step;
-    SuccessAccumulator m_success_container;
+    SuccessAccumulator m_success_accumulator;
     size_t m_nitercount;
     size_t m_accept_count;
     size_t m_E_reject_count;
     size_t m_conf_reject_count;
     bool m_success, m_last_success;
-    /*nitercount is the cumulative count, it does not get reset at the end of run*/
     bool m_print_progress;
 public:
     /*need to keep these public to make them accessible to tests and actions, be careful though!*/
+    /*nitercount is the cumulative count, it does not get reset at the end of run*/
     size_t m_niter;
     size_t m_neval;
     double m_temperature;
@@ -154,24 +154,34 @@ public:
     double get_norm_coords() const { return norm(m_coords); }
     size_t get_naccept() const { return m_accept_count; }
     size_t get_nreject() const { return m_nitercount - m_accept_count; }
+
+    // get acceptance and rejection fractions
     double get_accepted_fraction() const { return static_cast<double>(m_accept_count) /
             static_cast<double>(m_nitercount); }
     double get_conf_rejection_fraction() const { return static_cast<double>(m_conf_reject_count) /
             static_cast<double>(m_nitercount); }
     double get_E_rejection_fraction() const { return static_cast<double>(m_E_reject_count) /
             static_cast<double>(m_nitercount); }
+
+    double get_norm_trial_coords() const { return norm(m_trial_coords); }
+    
+
     size_t get_iterations_count() const { return m_nitercount; }
     size_t get_neval() const { return m_neval; }
     std::shared_ptr<pele::BasePotential> get_potential_ptr() { return m_potential; }
     bool take_step_specified() const { return m_take_step != NULL; }
     bool report_steps_specified() const { return get_report_steps() > 0; }
     void check_input();
+
     void set_print_progress(const bool input) { m_print_progress = input; }
     void set_print_progress() { set_print_progress(true); }
-    bool get_success() const { return m_success; }
-    bool get_last_success() const { return m_last_success; }
 
-    void add_step_taken(const std::string& name) { m_success_container.add_step_taken(name); }
+    // Assuming that these are running one iteration
+    bool get_success() const { return m_success_accumulator.get_current_success(); }
+    bool get_last_success() const { return m_success_accumulator.get_last_success(); }
+
+    // this helps map the step name to the success accumulator
+    void add_step_name_to_success_accumulator(const std::string& name) { m_success_accumulator.add_step_taken(name); }
 
 
 
