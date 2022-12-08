@@ -20,12 +20,11 @@ namespace mcpele {
  */
 class DiscreteUniformDistribution {
 private:
-  size_t m_seed;
   std::mt19937_64 m_generator;
   std::uniform_real_distribution<double> m_real_distribution;
   
 public:
-  DiscreteUniformDistribution(const size_t rseed) : m_seed(rseed), m_generator(rseed), m_real_distribution(0, 1) {};
+  DiscreteUniformDistribution(const size_t rseed) : m_generator(rseed), m_real_distribution(0, 1) {};
 
   /*
   *  Gets a random integer between lower and upper, inclusive of lower. does not include upper
@@ -39,7 +38,7 @@ public:
   /*
   * Samples but ignores a specific value. 
   */
-  int sample_ignoring(const int lower, const int upper, const int ignore) {
+  int sample_ignoring_value(const int lower, const int upper, const int ignore) {
     int uniform_sample = sample(lower, upper - 1);
     if (uniform_sample == ignore) {
       uniform_sample = upper - 1;
