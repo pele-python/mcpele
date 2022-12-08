@@ -1,6 +1,9 @@
 #include <algorithm>
+#include <limits>
+#include <memory>
 
 #include "mcpele/particle_pair_swap.h"
+#include "pele/pairwise_potential_interface.hpp"
 
 namespace mcpele {
 
@@ -10,7 +13,8 @@ ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles,
       m_distribution(0, nr_particles - 1),
       m_nr_particles(nr_particles),
       m_ndim(ndim),
-      m_changed_coords_old(2 * ndim)
+      m_changed_coords_old(2 * ndim),
+      m_radii(nr_particles)
 {
     if (nr_particles == 0) {
         throw std::runtime_error("ParticlePairSwap: illegal input");
@@ -19,6 +23,20 @@ ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles,
 
 void ParticlePairSwap::displace(pele::Array<double>& coords, MC* mc)
 {
+    if (!m_radii_set) {
+        auto pairwise_ptr = static_pointer_cast<pele::PairwisePotentialInterface>(mc->get_potential_ptr());
+        if (pairwise_ptr == nullptr) {
+            throw std::runtime_error("ParticlePairSwap: potential must be pairwise");
+        }
+        m_radii = pairwise_ptr->get_radii();
+
+        auto [min, max] = std::minmax_element(m_radii.begin(), m_radii.end());
+        max_radii_diff = *max - *min;
+        max_diff_to_swap_radii = max_radii_diff + std::numeric_limits<double>::epsilon();
+
+        m_radii_set = true;
+    }
+
     size_t particle_a = 42;
     size_t particle_b = 42;
     while (particle_a == particle_b) {
