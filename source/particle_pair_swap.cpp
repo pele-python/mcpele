@@ -62,7 +62,7 @@ void ParticlePairSwap::swap_coordinates(const size_t particle_a, const size_t pa
 
 void ParticlePairSwap::set_generator_seed(const size_t inp)
 {
-    m_generator.seed(inp);
+    m_uniform_distribution.set_seed(inp);
     m_seed = inp;
 }
 

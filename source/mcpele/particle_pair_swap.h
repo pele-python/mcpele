@@ -45,6 +45,7 @@ public:
     }
     return uniform_sample;
   }
+  void set_seed(const size_t rseed) { m_generator.seed(rseed); }
 
 };
 
