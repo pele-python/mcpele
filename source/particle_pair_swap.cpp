@@ -39,12 +39,8 @@ void ParticlePairSwap::displace(pele::Array<double>& coords, MC* mc)
 
     size_t particle_a = 42;
     size_t particle_b = 42;
-    while (particle_a == particle_b) {
-        particle_a = m_distribution(m_generator);
-        particle_b = m_distribution(m_generator);
-    }
-    assert(particle_a < m_nr_particles && particle_b < m_nr_particles);
-    assert(particle_a != particle_b);
+    particle_a = m_uniform_distribution.sample(0, m_nr_particles);
+    particle_b = m_uniform_distribution.sample_ignoring_value(0, m_nr_particles, particle_a);
     m_changed_atoms[0] = particle_a;
     m_changed_atoms[1] = particle_b;
     swap_coordinates(particle_a, particle_b, coords);
