@@ -14,7 +14,7 @@ AdaptiveTakeStep::AdaptiveTakeStep(std::shared_ptr<TakeStep> ts,
       m_max_acceptance_ratio(max_acceptance_ratio)
 {
     if (factor <= 0 || factor >= 1) {
-        throw std::runtime_error("AdaptiveTakeStep::AdaptiveTakeStep: input factor has illegal value");
+        throw std::runtime_error("AdaptiveTakeStep::AdaptiveTakeStep: should be between 0 and 1");
     }
 }
 
