@@ -228,28 +228,6 @@ TEST_F(TakeStepTest, PairSwapWorks){
     }
 }
 
-TEST_F(TakeStepTest, SwapDisplace_Works) {
-    const size_t box_dimension = 3;
-    const size_t nr_particles = ndof / box_dimension;
-    mcpele::ParticlePairSwap swap(42, nr_particles, box_dimension);
-    const size_t new_seed = 44;
-    EXPECT_EQ(swap.get_seed(), 42u);
-    swap.set_generator_seed(new_seed);
-    EXPECT_EQ(swap.get_seed(), new_seed);
-    auto coords_1 = coords.copy();
-    auto coords_2 = coords.copy();
-    swap.displace(coords_1, NULL);
-    size_t nr_different_elements = 0;
-    size_t nr_identical_elements = 0;
-    for (size_t i = 0; i < coords_1.size(); ++i) {
-       const bool id = coords_1[i] == coords_2[i];
-       nr_different_elements += !id;
-       nr_identical_elements += id;
-    }
-    EXPECT_EQ(nr_different_elements + nr_identical_elements, coords_1.size());
-    EXPECT_EQ(nr_different_elements, 2 * box_dimension);
-    EXPECT_EQ(nr_identical_elements, (nr_particles - 2) * box_dimension);
-}
 
 class TrivialTakestep : public mcpele::TakeStep {
 private:

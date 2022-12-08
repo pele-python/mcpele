@@ -67,6 +67,9 @@ void ParticlePairSwap::set_generator_seed(const size_t inp) {
   m_seed = inp;
 }
 
+/*
+ * add all radii that are within min_radius and max_radius.
+ */
 inline void ParticlePairSwap::add_allowed_radii(
     std::vector<size_t> &allowed_radii, double min_radius, double max_radius,
     pele::Array<double> const &radii, const size_t particle_a) {
