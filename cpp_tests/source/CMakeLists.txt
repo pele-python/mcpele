@@ -6,7 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 
 enable_language(CXX)
-SET(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -std=c++1z -O3")
+SET(CMAKE_CXX_FLAGS "-Wall -ansi -pedantic -std=c++1z -O0 -ggdb3")
 
 #cmake_policy(SET CMP0015 NEW)
 
