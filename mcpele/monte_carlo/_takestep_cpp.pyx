@@ -389,6 +389,19 @@ class SampleGaussian(_Cdef_SampleGaussian):
     origin : numpy.array
         coordinates where the gaussian should be centered
     """
+    
+
+
+# Adaptive Swap
+cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
+    cdef cppRandomCoordsDisplacement* newptr
+    def __cinit__(self, rseed, report_interval=100, factor=0.9,
+                  min_acc_ratio=0.2, max_acc_ratio=0.5
+                  nparticles=0, bdim=0):
+        self.newptr = <cppRandomCoordsDisplacement*> new cppParticlePairSwap(rseed, nparticles, bdim)
+        self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*>
+        new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr),
+                                report_interval, factor, min_acc_ratio, max_acc_ratio))
 
 #
 # ParticlePairSwap
