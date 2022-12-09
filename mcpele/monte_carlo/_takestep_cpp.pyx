@@ -389,23 +389,58 @@ class SampleGaussian(_Cdef_SampleGaussian):
     origin : numpy.array
         coordinates where the gaussian should be centered
     """
-    
-
 
 # Adaptive Swap
-cdef class _Cdef_RandomCoordsDisplacement(_Cdef_TakeStep):
-    cdef cppRandomCoordsDisplacement* newptr
-    def __cinit__(self, rseed, report_interval=100, factor=0.9,
-                  min_acc_ratio=0.2, max_acc_ratio=0.5
-                  nparticles=0, bdim=0):
-        self.newptr = <cppRandomCoordsDisplacement*> new cppParticlePairSwap(rseed, nparticles, bdim)
+cdef class _Cdef_AdaptiveSwap(_Cdef_TakeStep):
+    cdef cppTakeStep* newptr
+    def __cinit__(self, seed, n_particles, dim, report_interval=100, factor=0.9,
+                  min_acc_ratio=0.2, max_acc_ratio=0.5):
+        self.newptr = <cppTakeStep*> new cppParticlePairSwap(seed, n_particles, dim)
         self.thisptr = shared_ptr[cppTakeStep](<cppTakeStep*>
         new cppAdaptiveTakeStep(shared_ptr[cppTakeStep](<cppTakeStep*> self.newptr),
                                 report_interval, factor, min_acc_ratio, max_acc_ratio))
+        
 
-#
-# ParticlePairSwap
-#
+class AdaptiveSwap(_Cdef_AdaptiveSwap):
+    """Adaptive Swap
+
+    this class is the Python interface for the c++ AdaptiveSwap implementation.
+    Takes a step by swapping two particles. The swaps are only chosen.
+    if the difference between the radii of the two particles being swapped
+    is less than a certain threshold i.e radius1 - radius2 < threshold.
+    
+    
+    This threshold is adaptively adjusted
+    until the acceptance ratio is between min_acc_ratio and max_acc_ratio.
+    
+    If the acceptance ratio is above max_acc_ratio, and the maximum radius
+    difference between any two particles **is less or equal** to the threshold
+    then the threshold is not increased, because doing so will not increase the
+    acceptance ratio.
+    if the acceptance ratio is below min_acc_ratio, and the threshold is so 
+    small that no other particle has a radius that meets the criterion
+    radius1 - radius2 < threshold, then the particle 1 is deterministically 
+    swapped with the particle with the closest radius
+    
+
+    Parameters
+    ----------
+    seed : pos int
+        seed for the random number generator (std:library 64 bits Merseene Twister)
+    n_particles : int
+        number of particles
+    dim : int
+        dimensionality of coordinates array
+    report_interval : int
+        interval for reporting the acceptance ratio
+    factor : double
+        factor for adjusting the stepsize
+    min_acc_ratio : double
+        minimum acceptance ratio
+    max_acc_ratio : double
+        maximum acceptance ratio
+"""
+
 
 cdef class _Cdef_ParticlePairSwap(_Cdef_TakeStep):
     cdef cppParticlePairSwap* newptr
