@@ -65,16 +65,17 @@ class TestParticlePairSwap : public::testing::Test {
     double phi = 1.2;
     double box_length = get_box_length(radii, dim, phi);
     Array<double> boxvec = {box_length, box_length};
-    double ncellsx_scale = 1.0;
 
     Array<double> coordinates =
         generate_random_coordinates(box_length, n_particles, dim);
-
-    
-
     potential =
         std::make_shared<InverseIntPowerPeriodic<dim, pow>>(
             eps, radii, boxvec, exact_sum, non_additivity);
+
+    double temperature = 1.0;
+    mc = MC(potential, coordinates, temperature);
+    int seed = 0;
+    mc.add_accept_test(std::make_shared<mcpele::MetropolisTest>(seed));
     }
 };
 
