@@ -12,9 +12,11 @@
 #include <ctime>
 #include <iostream>
 #include <memory>
+#include <numeric>
 #include <omp.h>
 #include <random>
 #include <stdexcept>
+#include <unordered_map>
 #include <vector>
 
 #include "pele/inversepower.hpp"
@@ -97,7 +99,92 @@ TEST_F(TestParticlePairSwap, test_swap) {
     nr_different_elements += !id;
     nr_identical_elements += id;
   }
-  EXPECT_EQ(nr_different_elements + nr_identical_elements, coordinates_1.size());
+  EXPECT_EQ(nr_different_elements + nr_identical_elements,
+            coordinates_1.size());
   EXPECT_EQ(nr_different_elements, 2 * runtime_dim);
   EXPECT_EQ(nr_identical_elements, (n_particles - 2) * runtime_dim);
 }
+
+/// Tests on random number generator
+
+class TestDiscreteUniform : public ::testing::Test {
+public:
+  mcpele::DiscreteUniformDistribution dist;
+  TestDiscreteUniform() : dist(0) {}
+};
+
+TEST_F(TestDiscreteUniform, Sample) {
+  const size_t n_samples = 100000;
+  std::vector<size_t> samples(n_samples);
+
+  size_t lower = 0;
+  size_t upper = 10;
+  std::vector<size_t> histogram(upper - lower, 0);
+  double probability;
+
+  for (size_t i = 0; i < n_samples; ++i) {
+    EXPECT_GE(samples[i], lower);
+    EXPECT_LT(samples[i], upper);
+    samples[i] = dist.sample(lower, upper);
+    ++histogram[samples[i]];
+  }
+  for (size_t i = 0; i < histogram.size(); ++i) {
+    probability = static_cast<double>(histogram[i]) / n_samples;
+    EXPECT_NEAR(probability, 1. / (upper - lower), 1e-2);
+  }
+}
+
+TEST_F(TestDiscreteUniform, SampleIgnoringValue) {
+  const size_t n_samples = 100000;
+  std::vector<size_t> samples(n_samples);
+
+  size_t lower = 0;
+  size_t upper = 10;
+  size_t ignore = 5;
+  std::vector<size_t> histogram(upper - lower, 0);
+  double probability;
+
+  for (size_t i = 0; i < n_samples; ++i) {
+    EXPECT_GE(samples[i], lower);
+    EXPECT_LT(samples[i], upper);
+    samples[i] = dist.sample_ignoring_value(lower, upper, ignore);
+    ++histogram[samples[i]];
+  }
+  for (size_t i = 0; i < histogram.size(); ++i) {
+    probability = static_cast<double>(histogram[i]) / n_samples;
+    if (i == ignore) {
+      EXPECT_EQ(histogram[i], 0u);
+      EXPECT_EQ(probability, 0.0);
+    } else {
+      EXPECT_NEAR(probability, 1.0 / (upper - lower - 1), 1e-2);
+    }
+  }
+}
+
+TEST_F(TestDiscreteUniform, SelectRandom) {
+  const size_t n_samples = 100000;
+  std::vector<size_t> samples(n_samples);
+
+  std::vector<size_t> vec = {5, 6, 1, 2};
+
+  std::unordered_map<size_t, size_t> histogram;
+  for (size_t i = 0; i < vec.size(); ++i) {
+    histogram[vec[i]] = 0u;
+  }
+  double probability;
+
+  for (size_t i = 0; i < n_samples; ++i) {
+    samples[i] = dist.select_random(vec);
+    ++histogram[samples[i]];
+  }
+  for (size_t i = 0; i < histogram.size(); ++i) {
+    probability = static_cast<double>(histogram[vec[i]]) / n_samples;
+    EXPECT_NEAR(probability, 1.0 / vec.size(), 1e-2);
+  }
+}
+
+// Test to check whether swapping works with a specific preset window
+
+// Test to check whether the swap dictionary is being built correctly
+
+// End to end test to check that the swap works

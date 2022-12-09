@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 
+# Export compile commands for clang tools
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # if not specified by user, the standard build type is release
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build, options are: None Debug Release Coverage." FORCE)
