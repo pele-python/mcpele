@@ -32,16 +32,12 @@ void ParticlePairSwap::displace(pele::Array<double> &coords, MC *mc) {
     max_radii_diff = *max - *min;
     max_diff_to_swap_radii =
         max_radii_diff + std::numeric_limits<double>::epsilon();
-
     m_radii_set = true;
   }
-
   size_t first_particle = 42;
   size_t second_particle = 42;
   first_particle = m_uniform_distribution.sample(0, m_nr_particles);
-
-  second_particle = m_uniform_distribution.sample_ignoring_value(
-      0, m_nr_particles, first_particle);
+  second_particle = find_swap_partner(first_particle);
   m_changed_atoms[0] = first_particle;
   m_changed_atoms[1] = second_particle;
   swap_coordinates(first_particle, second_particle, coords);
