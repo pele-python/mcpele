@@ -185,8 +185,8 @@ TEST_F(TestParticlePairSwap, test_swap) {
   EXPECT_EQ(nr_identical_elements, (n_particles - 2) * runtime_dim);
 }
 
-// Test to check whether swapping works with a specific window
-TEST_F(TestParticlePairSwap, CheckSwapWindow) {
+
+TEST_F(TestParticlePairSwap, CheckSwapWindowDictionary) {
   double temperature = 1.0;
   MC mc = MC(potential, coordinates, temperature);
   int seed = 0;
@@ -257,6 +257,3 @@ TEST_F(TestParticlePairSwap, CheckSwapWindow) {
   }
 
 }
-// Test to check whether the swap dictionary is being built correctly
-
-// End to end test to check that the swap works
