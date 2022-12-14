@@ -18,5 +18,6 @@ from ._action_cpp import RecordPairDistHistogram
 from ._action_cpp import RecordLowestEValueTimeseries
 from ._action_cpp import RecordDisplacementPerParticleTimeseries
 from ._action_cpp import RecordCoordsTimeseries
+from ._takestep_cpp import AdaptiveSwap
 from ._nullpotential_cpp import NullPotential
 from .mcrunner import Metropolis_MCrunner
