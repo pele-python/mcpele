@@ -113,14 +113,8 @@ public:
   void decrease_acceptance(const double window_decreasing_factor) {
     assert(m_radii_set); // Radii needs to be set for max_radii_diff to be
                          // initialized
-    if (max_diff_to_swap_radii < max_radii_diff) {
       max_diff_to_swap_radii /= window_decreasing_factor;
       m_particle_to_allowed_swaps.clear();
-    } else {
-      std::cout << "max_diff_to_swap_radii is already at maximum value of "
-                << max_radii_diff << std::endl;
-      std::cout << "not increasing it further" << std::endl;
-    }
   }
   double get_max_diff_to_swap_radii() const { return max_diff_to_swap_radii; }
 
