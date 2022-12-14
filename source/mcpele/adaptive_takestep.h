@@ -19,7 +19,11 @@ public:
     AdaptiveTakeStep(std::shared_ptr<TakeStep> ts, const size_t interval=100,
             const double factor=0.9, const double min_acceptance_ratio=0.2,
             const double max_acceptance_ratio=0.5);
-    void displace(pele::Array<double> &coords, MC * mc) { m_ts->displace(coords, mc); }
+    void displace(pele::Array<double> &coords, MC * mc) { 
+
+        m_ts->displace(coords, mc);
+        m_ts->set_current_step_name(mc, "Adaptive");
+        }
     void report(pele::Array<double>& old_coords, const double old_energy,
             pele::Array<double>& new_coords, const double new_energy,
             const bool success, MC* mc);

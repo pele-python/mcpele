@@ -21,13 +21,14 @@ void TakeStepProbabilities::displace(pele::Array<double>& coords, MC* mc)
         throw std::runtime_error("TakeStepProbabilities::displace: no step specified");
     }
     m_current_index = m_distribution(m_generator);
-    m_steps.at(m_current_index)->displace(coords, mc);
     m_steps.at(m_current_index)->set_current_step_name(mc);
+    m_steps.at(m_current_index)->displace(coords, mc);
 }
+
+
 
 void TakeStepProbabilities::report(pele::Array<double>& old_coords, const double old_energy, pele::Array<double>& new_coords, const double new_energy, const bool success, MC* mc)
 {
     m_steps.at(m_current_index)->report(old_coords, old_energy, new_coords, new_energy, success, mc);
 }
-
 } // namespace mcpele
