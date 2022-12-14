@@ -59,6 +59,9 @@ public:
 inline std::string demangle(const char* mangled)
 {
       int status;
+      // Demangling the name can be really slow
+      // Can be the rate limiting step in the code
+      // so turning it on makes sense when debugging
       std::unique_ptr<char[], void (*)(void*)> result(
         abi::__cxa_demangle(mangled, 0, 0, &status), std::free);
       return result.get() ? std::string(result.get()) : "error occurred";
@@ -77,9 +80,9 @@ public:
             pele::Array<double>&, const double, const bool, MC*) {}
     virtual void increase_acceptance(const double) {}
     virtual void decrease_acceptance(const double) {}
-    virtual const std::vector<long> get_changed_atoms() const { return std::vector<long>(); }
+    virtual const std::vector<long> get_changed_atoms() const { return std::vector<long>(); } // TODO: needs to be overridden for cell lists potentials
     virtual const std::vector<double> get_changed_coords_old() const { return std::vector<double>(); }
-    virtual void set_current_step_name(MC * mc);
+    virtual void set_current_step_name(MC * mc, std::string prefix="");
 
 };
 
@@ -126,6 +129,7 @@ public:
     double m_temperature;
     double m_energy;
     double m_trial_energy;
+    bool m_record_acceptance_rate; // recording acceptance rates can be really slow depending on the potential
 private:
     size_t m_report_steps;
     bool m_enable_input_warnings;
