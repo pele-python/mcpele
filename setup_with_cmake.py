@@ -67,8 +67,7 @@ else:
 # extra compiler args
 cmake_compiler_extra_args = [
     "-std=c++20",
-    "-Wall",
-    "-Wextra",
+    "-march=native",
     "-pedantic",
     "-O3",
     "-fPIC",
@@ -103,9 +102,7 @@ def git_version():
         env["LANGUAGE"] = "C"
         env["LANG"] = "C"
         env["LC_ALL"] = "C"
-        out = subprocess.Popen(
-            cmd, stdout=subprocess.PIPE, env=env
-        ).communicate()[0]
+        out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
         return out
 
     try:
@@ -254,45 +251,29 @@ def set_compiler_env(compiler_id):
     if compiler_id.lower() in ("unix"):
         print(env, "eeenv")
         env["CC"] = (
-            (subprocess.check_output(["which", "gcc"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "gcc"])).decode(encoding).rstrip("\n")
         )
         env["CXX"] = (
-            (subprocess.check_output(["which", "g++"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "g++"])).decode(encoding).rstrip("\n")
         )
         env["LD"] = (
-            (subprocess.check_output(["which", "ld"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "ld"])).decode(encoding).rstrip("\n")
         )
         env["AR"] = (
-            (subprocess.check_output(["which", "ar"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "ar"])).decode(encoding).rstrip("\n")
         )
     elif compiler_id.lower() in ("intel"):
         env["CC"] = (
-            (subprocess.check_output(["which", "icc"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "icc"])).decode(encoding).rstrip("\n")
         )
         env["CXX"] = (
-            (subprocess.check_output(["which", "icpc"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "icpc"])).decode(encoding).rstrip("\n")
         )
         env["LD"] = (
-            (subprocess.check_output(["which", "xild"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "xild"])).decode(encoding).rstrip("\n")
         )
         env["AR"] = (
-            (subprocess.check_output(["which", "xiar"]))
-            .decode(encoding)
-            .rstrip("\n")
+            (subprocess.check_output(["which", "xiar"])).decode(encoding).rstrip("\n")
         )
     else:
         raise Exception("compiler_id not known")
@@ -346,9 +327,7 @@ class build_ext_precompiled(old_build_ext):
         ext_path = self.get_ext_fullpath(ext.name)
         pre_compiled_library = ext.sources[0]
         if pre_compiled_library[-3:] != ".so":
-            raise RuntimeError(
-                "library is not a .so file: " + pre_compiled_library
-            )
+            raise RuntimeError("library is not a .so file: " + pre_compiled_library)
         if not os.path.isfile(pre_compiled_library):
             raise RuntimeError(
                 "file does not exist: "
