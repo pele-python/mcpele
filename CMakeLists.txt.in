@@ -31,6 +31,15 @@ set(CMAKE_SHARED_LINKER_FLAGS ${PYTHON_LDFLAGS} CACHE type string)
 # #################################### sundials #######################################
 set(EXT_INSTALL_PATH "${pele_dir}/extern/install")
 
+
+
+# lapacke.h comes with Eigen
+set(LAPACKE_INCLUDE_DIR
+${EXT_INSTALL_PATH}/include/Eigen/src/misc
+  CACHE PATH "Location of lapacke include")
+
+message("lapacke include directory: ${LAPACKE_INCLUDE_DIR}")
+
 set(SUNDIALS_INCLUDE_DIR
   ${EXT_INSTALL_PATH}/include
   CACHE PATH "Location of SUNDIALS header files")
@@ -82,6 +91,7 @@ SET(CMAKE_CXX_FLAGS __COMPILER_EXTRA_ARGS__)
 set(mcpele_include ${CMAKE_SOURCE_DIR}/source)
 include_directories(${mcpele_include})
 include_directories(${SUNDIALS_INCLUDE_DIR})
+include_directories(${LAPACKE_INCLUDE_DIR})
 message("mcpele include directory: ${mcpele_include}")
 
 # build the mcpele library
