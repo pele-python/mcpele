@@ -102,7 +102,6 @@ void MC::one_iteration() {
     // compute the energy
 
     m_trial_energy = compute_energy(m_trial_coords);
-
     // perform the acceptance tests.  Stop as soon as one of them fails
     m_success =
         do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
@@ -131,6 +130,11 @@ void MC::one_iteration() {
     m_coords.assign(m_trial_coords);
     m_energy = m_trial_energy;
     ++m_accept_count;
+  }
+
+  if (m_coords.get_max() > 1e9) {
+    std::cout << "WARNING: this can lead to errors in the energy calculation "
+                 "due to overflow";
   }
 
   // perform the actions on the new configuration

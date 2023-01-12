@@ -7,12 +7,14 @@ namespace mcpele {
 
 class RecordEnergyTimeseries : public RecordScalarTimeseries {
 public:
-    RecordEnergyTimeseries(const size_t niter, const size_t record_every)
-        : RecordScalarTimeseries(niter, record_every)
-    {}
-    virtual ~RecordEnergyTimeseries() {}
-    virtual double get_recorded_scalar(pele::Array<double> &coords,
-            const double energy, const bool accepted, MC* mc) { return energy; }
+  RecordEnergyTimeseries(const size_t niter, const size_t record_every)
+      : RecordScalarTimeseries(niter, record_every) {}
+  virtual ~RecordEnergyTimeseries() {}
+  virtual double get_recorded_scalar(pele::Array<double> &coords,
+                                     const double energy, const bool accepted,
+                                     MC *mc) {
+    return energy;
+  }
 };
 
 } // namespace mcpele
