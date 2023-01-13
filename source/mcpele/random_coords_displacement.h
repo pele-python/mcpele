@@ -39,13 +39,13 @@ public:
   double expected_variance(const double ss) const {
     return ss * ss / static_cast<double>(12);
   }
-  void increase_acceptance(const double factor) {
-    // 0 means the max stepsize has not been set
+  void increase_acceptance(const double factor) { m_stepsize *= factor; }
+  void decrease_acceptance(const double factor) {
     if (m_max_stepsize == 0 or m_stepsize < m_max_stepsize) {
-      m_stepsize *= factor;
+      // 0 means the max stepsize has not been set
+      m_stepsize /= factor;
     }
   }
-  void decrease_acceptance(const double factor) { m_stepsize /= factor; }
   size_t get_count() const { return m_count; }
   void set_count(const size_t input) { m_count = input; }
 };

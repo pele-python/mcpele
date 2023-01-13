@@ -54,7 +54,6 @@ void RandomCoordsDisplacementSingle::displace(pele::Array<double> &coords,
                                               MC *mc) {
   m_changed_atoms[0] = m_int_distribution(m_generator);
   size_t offset = m_changed_atoms[0] * m_ndim;
-  std::cout << "stepsize" << m_stepsize << std::endl;
   for (size_t i = 0; i < m_ndim; ++i) {
     double rand = m_real_distribution(m_generator);
     m_changed_coords_old[i] = coords[offset + i];
