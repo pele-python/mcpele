@@ -63,7 +63,7 @@ class TestTakeStepProbability(unittest.TestCase):
         )
 
 
-class TestTakeStepProbabilityHarmoinc(unittest.TestCase):
+class TestTakeStepProbabilityHarmonic(unittest.TestCase):
     def setUp(self):
         self.box_dimension = 3
         self.nr_particles = 10
