@@ -9,7 +9,7 @@ RandomCoordsDisplacement::RandomCoordsDisplacement(const size_t rseed,
                                                    const double stepsize,
                                                    const double max_stepsize)
     : m_seed(rseed), m_generator(rseed), m_real_distribution(0.0, 1.0),
-      m_stepsize(stepsize), m_count(0) {
+      m_stepsize(stepsize), m_count(0), m_max_stepsize(max_stepsize) {
 #ifdef DEBUG
   std::cout << "seed TakeStep:" << _seed << "\n";
 #endif
