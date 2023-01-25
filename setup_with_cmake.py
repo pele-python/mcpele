@@ -44,6 +44,13 @@ parser.add_argument(
     help="Print optimization report (for Intel compiler). Default: False",
     default=False,
 )
+parser.add_argument(
+    "--build-type",
+    type=str,
+    default="Release",
+    help="Build type. Default: Release,  types Release, Debug, RelWithDebInfo, MemCheck, Coverage",
+)
+
 jargs, remaining_args = parser.parse_known_args(sys.argv)
 
 # record c compiler choice. use unix (gcc) by default
@@ -64,14 +71,52 @@ if jargs.j is None:
 else:
     cmake_parallel_args = ["-j" + str(jargs.j)]
 
-# extra compiler args
-cmake_compiler_extra_args = [
-    "-std=c++20",
-    "-march=native",
-    "-pedantic",
-    "-O3",
-    "-fPIC",
-]
+build_type = jargs.build_type
+if build_type == "Release":
+    cmake_compiler_extra_args = [
+        "-std=c++2a",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-O3",
+        "-fPIC",
+        "-DNDEBUG",
+        "-march=native",
+    ]
+elif build_type == "Debug":
+    cmake_compiler_extra_args = [
+        "-std=c++2a",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-ggdb3",
+        "-O0",
+        "-fPIC",
+    ]
+elif build_type == "RelWithDebInfo":
+    cmake_compiler_extra_args = [
+        "-std=c++2a",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-g",
+        "-O3",
+        "-fPIC",
+    ]
+elif build_type == "MemCheck":
+    cmake_compiler_extra_args = [
+        "-std=c++2a",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-g",
+        "-O0",
+        "-fPIC",
+        "-fsanitize=address",
+        "-fsanitize=leak",
+    ]
+else:
+    raise ValueError("Unknown build type: " + build_type)
 if idcompiler.lower() == "unix":
     cmake_compiler_extra_args += ["-march=native", "-flto", "-fopenmp"]
 else:
@@ -102,7 +147,9 @@ def git_version():
         env["LANGUAGE"] = "C"
         env["LANG"] = "C"
         env["LC_ALL"] = "C"
-        out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
+        out = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, env=env
+        ).communicate()[0]
         return out
 
     try:
@@ -251,29 +298,45 @@ def set_compiler_env(compiler_id):
     if compiler_id.lower() in ("unix"):
         print(env, "eeenv")
         env["CC"] = (
-            (subprocess.check_output(["which", "gcc"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "gcc"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
         env["CXX"] = (
-            (subprocess.check_output(["which", "g++"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "g++"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
         env["LD"] = (
-            (subprocess.check_output(["which", "ld"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "ld"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
         env["AR"] = (
-            (subprocess.check_output(["which", "ar"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "ar"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
     elif compiler_id.lower() in ("intel"):
         env["CC"] = (
-            (subprocess.check_output(["which", "icc"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "icc"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
         env["CXX"] = (
-            (subprocess.check_output(["which", "icpc"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "icpc"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
         env["LD"] = (
-            (subprocess.check_output(["which", "xild"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "xild"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
         env["AR"] = (
-            (subprocess.check_output(["which", "xiar"])).decode(encoding).rstrip("\n")
+            (subprocess.check_output(["which", "xiar"]))
+            .decode(encoding)
+            .rstrip("\n")
         )
     else:
         raise Exception("compiler_id not known")
@@ -327,7 +390,9 @@ class build_ext_precompiled(old_build_ext):
         ext_path = self.get_ext_fullpath(ext.name)
         pre_compiled_library = ext.sources[0]
         if pre_compiled_library[-3:] != ".so":
-            raise RuntimeError("library is not a .so file: " + pre_compiled_library)
+            raise RuntimeError(
+                "library is not a .so file: " + pre_compiled_library
+            )
         if not os.path.isfile(pre_compiled_library):
             raise RuntimeError(
                 "file does not exist: "
