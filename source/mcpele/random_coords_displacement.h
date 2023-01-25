@@ -1,6 +1,7 @@
 #ifndef _MCPELE_RANDOM_COORDS_DISPLACEMENT_H__
 #define _MCPELE_RANDOM_COORDS_DISPLACEMENT_H__
 
+#include <cstddef>
 #include <random>
 
 #include "mc.h"
@@ -53,7 +54,7 @@ public:
 class
 
     RandomCoordsDisplacementAll : public RandomCoordsDisplacement {
-  std::vector<long> m_changed_atoms;
+  std::vector<size_t> m_changed_atoms;
   std::vector<double> m_changed_coords_old;
 
 public:
@@ -65,7 +66,9 @@ public:
                               double max_stepsize = 0);
   virtual ~RandomCoordsDisplacementAll() {}
   virtual void displace(pele::Array<double> &coords, MC *mc);
-  const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+  const std::vector<size_t> get_changed_atoms() const {
+    return m_changed_atoms;
+  }
   const std::vector<double> get_changed_coords_old() const {
     return m_changed_coords_old;
   }
@@ -74,7 +77,7 @@ public:
 class RandomCoordsDisplacementSingle : public RandomCoordsDisplacement {
   size_t m_nparticles, m_ndim;
   std::uniform_int_distribution<size_t> m_int_distribution;
-  std::vector<long> m_changed_atoms = std::vector<long>(1);
+  std::vector<size_t> m_changed_atoms = std::vector<size_t>(1);
   std::vector<double> m_changed_coords_old;
   double max_stepsize;
 
@@ -87,7 +90,9 @@ public:
   size_t get_rand_particle() {
     return m_changed_atoms[0];
   } // dangerous function, should be used only for testing purposes
-  const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+  const std::vector<size_t> get_changed_atoms() const {
+    return m_changed_atoms;
+  }
   const std::vector<double> get_changed_coords_old() const {
     return m_changed_coords_old;
   }

@@ -3,10 +3,12 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <cxxabi.h>
 #include <memory>
 #include <stdexcept>
 #include <typeinfo>
+#include <vector>
 
 #include "pele/array.hpp"
 #include "pele/base_potential.hpp"
@@ -76,8 +78,8 @@ public:
                       pele::Array<double> &, const double, const bool, MC *) {}
   virtual void increase_acceptance(const double) {}
   virtual void decrease_acceptance(const double) {}
-  virtual const std::vector<long> get_changed_atoms() const {
-    return std::vector<long>();
+  virtual const std::vector<size_t> get_changed_atoms() const {
+    return std::vector<size_t>();
   } // TODO: needs to be overridden for cell lists potentials
   virtual const std::vector<double> get_changed_coords_old() const {
     return std::vector<double>();
@@ -238,7 +240,7 @@ public:
     m_conf_reject_count = counters[3];
     m_neval = counters[4];
   }
-  const std::vector<long> get_changed_atoms() const {
+  const std::vector<size_t> get_changed_atoms() const {
     return m_take_step->get_changed_atoms();
   }
   const std::vector<double> get_changed_coords_old() const {
@@ -256,6 +258,14 @@ protected:
     ++m_neval;
     return m_potential->get_energy(x);
   }
+  inline double compute_energy_change(pele::Array<double> &old_coords,
+                                      pele::Array<double> &new_coords,
+                                      std::vector<size_t> &changed_atoms) {
+    ++m_neval;
+    return m_potential->get_energy_change(old_coords, new_coords,
+                                          changed_atoms);
+  }
+
   bool do_conf_tests(pele::Array<double> &x);
   bool do_accept_tests(pele::Array<double> &xtrial, double etrial,
                        pele::Array<double> &xold, double eold);

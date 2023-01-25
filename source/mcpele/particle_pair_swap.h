@@ -68,7 +68,7 @@ private:
   DiscreteUniformDistribution m_uniform_distribution;
   const size_t m_nr_particles;
   const size_t m_ndim;
-  std::vector<long> m_changed_atoms = std::vector<long>(2);
+  std::vector<size_t> m_changed_atoms = std::vector<size_t>(2);
 
   std::vector<double> m_changed_coords_old;
   pele::Array<double> m_radii;
@@ -87,7 +87,9 @@ public:
                         pele::Array<double> &coords);
   size_t get_seed() const { return m_seed; }
   void set_generator_seed(const size_t inp);
-  const std::vector<long> get_changed_atoms() const { return m_changed_atoms; }
+  const std::vector<size_t> get_changed_atoms() const {
+    return m_changed_atoms;
+  }
   const std::vector<double> get_changed_coords_old() const {
     return m_changed_coords_old;
   }
@@ -96,7 +98,7 @@ public:
    * Decreases the maximum difference in radii allowed between swaps
    * window_decreasing_factor must be between 0 and 1
    * The larger the difference the less likely a move will be accepted
-  */
+   */
   void increase_acceptance(const double window_decreasing_factor) {
     assert(m_radii_set); // Radii needs to be set for max_radii_diff to be
                          // initialized
@@ -113,8 +115,8 @@ public:
   void decrease_acceptance(const double window_decreasing_factor) {
     assert(m_radii_set); // Radii needs to be set for max_radii_diff to be
                          // initialized
-      max_diff_to_swap_radii /= window_decreasing_factor;
-      m_particle_to_allowed_swaps.clear();
+    max_diff_to_swap_radii /= window_decreasing_factor;
+    m_particle_to_allowed_swaps.clear();
   }
   double get_max_diff_to_swap_radii() const { return max_diff_to_swap_radii; }
 
