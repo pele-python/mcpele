@@ -1,0 +1,13 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+IncludeCategories:
+  - Regex: '^"(llvm|llvm-c|clang|clang-c)/'
+    Priority: 2
+    SortPriority: 0
+  - Regex: '^(<|"(gtest|gmock|isl|json)/)'
+    Priority: 0 # Note: this will otherwise lead to compilation errors
+    SortPriority: 0 # gtest should always be included first
+  - Regex: ".*"
+    Priority: 1
+    SortPriority: 1
