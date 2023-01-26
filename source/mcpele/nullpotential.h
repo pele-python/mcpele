@@ -9,13 +9,22 @@
 namespace mcpele {
 
 class NullPotential : public pele::BasePotential {
-public:
-    NullPotential() {};
-    virtual ~NullPotential(){}
-    virtual double inline get_energy(pele::Array<double> const & x){return 0.;};
-    virtual double inline get_energy_gradient(pele::Array<double> const & x, pele::Array<double> & grad){return 0.;};
+ public:
+  NullPotential(){};
+  virtual ~NullPotential() {}
+  virtual double inline get_energy(pele::Array<double> const &x) { return 0.; };
+  virtual double inline get_energy_gradient(pele::Array<double> const &x,
+                                            pele::Array<double> &grad) {
+    return 0.;
+  };
+  virtual double inline get_energy_change(
+      pele::Array<double> const &old_coords,
+      pele::Array<double> const &new_coords,
+      std::vector<size_t> const &moved_atoms) {
+    return 0;
+  }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_NULLPOTENTIAL_H
+#endif  // #ifndef _MCPELE_NULLPOTENTIAL_H

@@ -22,7 +22,7 @@ class MC;
  */
 
 class Action {
-public:
+ public:
   // Action(){std::cout<< "Action()" <<  "\n";}
   // virtual ~Action(){std::cout << "~Action()" <<  "\n";}
   virtual ~Action() {}
@@ -35,7 +35,7 @@ public:
  */
 
 class AcceptTest {
-public:
+ public:
   // AcceptTest(){std::cout << "AcceptTest()" <<  "\n";}
   // virtual ~AcceptTest(){std::cout << "~AcceptTest()" <<  "\n";}
   virtual ~AcceptTest() {}
@@ -49,7 +49,7 @@ public:
  */
 
 class ConfTest {
-public:
+ public:
   // ConfTest(){std::cout << "ConfTest()" <<  "\n";}
   // virtual ~ConfTest(){std::cout << "~ConfTest()" <<  "\n";}
   virtual ~ConfTest() {}
@@ -71,7 +71,7 @@ inline std::string demangle(const char *mangled) {
  */
 
 class TakeStep {
-public:
+ public:
   virtual ~TakeStep() {}
   virtual void displace(pele::Array<double> &coords, MC *mc) = 0;
   virtual void report(pele::Array<double> &, const double,
@@ -80,7 +80,7 @@ public:
   virtual void decrease_acceptance(const double) {}
   virtual const std::vector<size_t> get_changed_atoms() const {
     return std::vector<size_t>();
-  } // TODO: needs to be overridden for cell lists potentials
+  }  // TODO: needs to be overridden for cell lists potentials
   virtual const std::vector<double> get_changed_coords_old() const {
     return std::vector<double>();
   }
@@ -103,12 +103,12 @@ public:
  */
 
 class MC {
-public:
+ public:
   typedef std::vector<std::shared_ptr<Action>> actions_t;
   typedef std::vector<std::shared_ptr<AcceptTest>> accept_t;
   typedef std::vector<std::shared_ptr<ConfTest>> conf_t;
 
-protected:
+ protected:
   std::shared_ptr<pele::BasePotential> m_potential;
   pele::Array<double> m_coords;
   pele::Array<double> m_trial_coords;
@@ -125,7 +125,7 @@ protected:
   bool m_success, m_last_success;
   bool m_print_progress;
 
-public:
+ public:
   /*need to keep these public to make them accessible to tests and actions, be
    * careful though!*/
   /*nitercount is the cumulative count, it does not get reset at the end of
@@ -135,13 +135,13 @@ public:
   double m_temperature;
   double m_energy;
   double m_trial_energy;
-  bool m_record_acceptance_rate; // recording acceptance rates can be really
-                                 // slow depending on the potential
-private:
+  bool m_record_acceptance_rate;  // recording acceptance rates can be really
+                                  // slow depending on the potential
+ private:
   size_t m_report_steps;
   bool m_enable_input_warnings;
 
-public:
+ public:
   MC(std::shared_ptr<pele::BasePotential> potential,
      pele::Array<double> &coords, const double temperature);
   virtual ~MC() {}
@@ -209,12 +209,8 @@ public:
   void set_print_progress() { set_print_progress(true); }
 
   // Assuming that these are running one iteration
-  bool get_success() const {
-    return m_success_accumulator.get_current_success();
-  }
-  bool get_last_success() const {
-    return m_success_accumulator.get_last_success();
-  }
+  bool get_success() const { return m_last_success; }
+  bool get_last_success() const { return m_last_success; }
   SuccessAccumulator get_success_accumulator() const {
     return m_success_accumulator;
   }
@@ -253,14 +249,15 @@ public:
   void enable_input_warnings() { m_enable_input_warnings = true; }
   void disable_input_warnings() { m_enable_input_warnings = false; }
 
-protected:
-  inline double compute_energy(pele::Array<double> &x) {
+ protected:
+  inline double compute_energy(pele::Array<double> const &x) {
     ++m_neval;
     return m_potential->get_energy(x);
   }
-  inline double compute_energy_change(pele::Array<double> &old_coords,
-                                      pele::Array<double> &new_coords,
-                                      std::vector<size_t> &changed_atoms) {
+  inline double compute_energy_change(
+      pele::Array<double> const &old_coords,
+      pele::Array<double> const &new_coords,
+      std::vector<size_t> const &changed_atoms) {
     ++m_neval;
     return m_potential->get_energy_change(old_coords, new_coords,
                                           changed_atoms);
@@ -274,6 +271,6 @@ protected:
   void take_steps();
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif //#ifndef _MCPELE_MC_H
+#endif  //#ifndef _MCPELE_MC_H

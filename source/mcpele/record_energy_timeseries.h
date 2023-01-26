@@ -6,7 +6,7 @@
 namespace mcpele {
 
 class RecordEnergyTimeseries : public RecordScalarTimeseries {
-public:
+ public:
   RecordEnergyTimeseries(const size_t niter, const size_t record_every)
       : RecordScalarTimeseries(niter, record_every) {}
   virtual ~RecordEnergyTimeseries() {}
@@ -17,6 +17,6 @@ public:
   }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_RECORD_ENERGY_TIMESERIES_H__
+#endif  // #ifndef _MCPELE_RECORD_ENERGY_TIMESERIES_H__

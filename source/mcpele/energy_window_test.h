@@ -1,8 +1,8 @@
 #ifndef _MCPELE_ENERGY_WINDOW_TEST_H__
 #define _MCPELE_ENERGY_WINDOW_TEST_H__
 
-#include "pele/array.hpp"
 #include "mc.h"
+#include "pele/array.hpp"
 
 namespace mcpele {
 
@@ -12,17 +12,18 @@ namespace mcpele {
  * window
  */
 class EnergyWindowTest : public AcceptTest {
-protected:
-    double m_min_energy;
-    double m_max_energy;
-public:
-    EnergyWindowTest(const double min_energy, const double max_energy);
-    virtual ~EnergyWindowTest() {}
-    virtual bool test(pele::Array<double> &trial_coords, double trial_energy,
-            pele::Array<double> & old_coords, double old_energy, double temperature,
-            MC * mc);
+ protected:
+  double m_min_energy;
+  double m_max_energy;
+
+ public:
+  EnergyWindowTest(const double min_energy, const double max_energy);
+  virtual ~EnergyWindowTest() {}
+  virtual bool test(pele::Array<double> &trial_coords, double trial_energy,
+                    pele::Array<double> &old_coords, double old_energy,
+                    double temperature, MC *mc);
 };
 
-} // namesapce mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_ENERGY_WINDOW_TEST_H__
+#endif  // #ifndef _MCPELE_ENERGY_WINDOW_TEST_H__

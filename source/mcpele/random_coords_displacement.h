@@ -15,7 +15,7 @@ namespace mcpele {
  * sqrt(N) * stepsize.
  */
 class RandomCoordsDisplacement : public TakeStep {
-protected:
+ protected:
   size_t m_seed;
   std::mt19937_64 m_generator;
   std::uniform_real_distribution<double> m_real_distribution;
@@ -24,7 +24,7 @@ protected:
   // if max stepsize is 0, then no max stepsize is set
   double m_max_stepsize;
 
-public:
+ public:
   RandomCoordsDisplacement(const size_t rseed, const double stepsize = 1,
                            const double max_stepsize = 0);
   virtual ~RandomCoordsDisplacement() {}
@@ -57,7 +57,7 @@ class
   std::vector<size_t> m_changed_atoms;
   std::vector<double> m_changed_coords_old;
 
-public:
+ public:
   RandomCoordsDisplacementAll(const size_t rseed, const double stepsize = 1,
                               double max_stepsize = 0);
   // The overloaded constructor helps return changed atoms and particles for
@@ -81,7 +81,7 @@ class RandomCoordsDisplacementSingle : public RandomCoordsDisplacement {
   std::vector<double> m_changed_coords_old;
   double max_stepsize;
 
-public:
+ public:
   RandomCoordsDisplacementSingle(const size_t rseed, const size_t nparticles,
                                  const size_t ndim, const double stepsize = 1,
                                  const double max_stepsize = 0.0);
@@ -89,7 +89,7 @@ public:
   virtual void displace(pele::Array<double> &coords, MC *mc);
   size_t get_rand_particle() {
     return m_changed_atoms[0];
-  } // dangerous function, should be used only for testing purposes
+  }  // dangerous function, should be used only for testing purposes
   const std::vector<size_t> get_changed_atoms() const {
     return m_changed_atoms;
   }
@@ -98,6 +98,6 @@ public:
   }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_RANDOM_COORDS_DISPLACEMENT_H__
+#endif  // #ifndef _MCPELE_RANDOM_COORDS_DISPLACEMENT_H__

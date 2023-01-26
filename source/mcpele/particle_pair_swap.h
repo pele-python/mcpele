@@ -21,11 +21,11 @@ namespace mcpele {
  * it requires respecifying the distribution if the limits are changed
  */
 class DiscreteUniformDistribution {
-private:
+ private:
   std::mt19937_64 m_generator;
   std::uniform_real_distribution<double> m_real_distribution;
 
-public:
+ public:
   DiscreteUniformDistribution(const size_t rseed)
       : m_generator(rseed), m_real_distribution(0, 1){};
 
@@ -36,7 +36,6 @@ public:
    * Also lower has to be greater than 0
    */
   size_t sample(const size_t lower, const size_t upper) {
-
     return static_cast<size_t>(
         std::floor(m_real_distribution(m_generator) * (upper - lower) + lower));
   }
@@ -63,7 +62,7 @@ public:
 };
 
 class ParticlePairSwap : public TakeStep {
-private:
+ private:
   size_t m_seed;
   DiscreteUniformDistribution m_uniform_distribution;
   const size_t m_nr_particles;
@@ -75,10 +74,10 @@ private:
   bool m_radii_set = false;
   double max_radii_diff = 0;
   double max_diff_to_swap_radii =
-      0; // maximum difference in radii allowed between swaps
+      0;  // maximum difference in radii allowed between swaps
   std::unordered_map<size_t, std::vector<size_t>> m_particle_to_allowed_swaps;
 
-public:
+ public:
   virtual ~ParticlePairSwap() {}
   ParticlePairSwap(const size_t seed, const size_t nr_particles,
                    const size_t ndim);
@@ -100,8 +99,8 @@ public:
    * The larger the difference the less likely a move will be accepted
    */
   void increase_acceptance(const double window_decreasing_factor) {
-    assert(m_radii_set); // Radii needs to be set for max_radii_diff to be
-                         // initialized
+    assert(m_radii_set);  // Radii needs to be set for max_radii_diff to be
+                          // initialized
     max_diff_to_swap_radii *= window_decreasing_factor;
     m_particle_to_allowed_swaps.clear();
   }
@@ -113,8 +112,8 @@ public:
    * decrease it further
    */
   void decrease_acceptance(const double window_decreasing_factor) {
-    assert(m_radii_set); // Radii needs to be set for max_radii_diff to be
-                         // initialized
+    assert(m_radii_set);  // Radii needs to be set for max_radii_diff to be
+                          // initialized
     max_diff_to_swap_radii /= window_decreasing_factor;
     m_particle_to_allowed_swaps.clear();
   }
@@ -130,9 +129,9 @@ public:
                          pele::Array<double> const &radii,
                          const size_t particle_a);
 
-  std::vector<size_t>
-  find_allowed_radii_to_swap(const pele::Array<double> &radii,
-                             const double max_diff, const size_t particle_a);
+  std::vector<size_t> find_allowed_radii_to_swap(
+      const pele::Array<double> &radii, const double max_diff,
+      const size_t particle_a);
   size_t find_swap_partner(size_t particle_a);
   std::unordered_map<size_t, std::vector<size_t>>
   get_particle_to_allowed_swaps() const {
@@ -150,6 +149,6 @@ public:
   }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_PARTICLE_PAIR_SWAP_H__
+#endif  // #ifndef _MCPELE_PARTICLE_PAIR_SWAP_H__

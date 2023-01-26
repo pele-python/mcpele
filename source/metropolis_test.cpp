@@ -1,5 +1,4 @@
 #include "mcpele/metropolis_test.h"
-
 #include <cmath>
 //#include <chrono>
 
@@ -8,31 +7,27 @@ using pele::Array;
 namespace mcpele {
 
 MetropolisTest::MetropolisTest(const size_t rseed)
-    : m_seed(rseed),
-      m_generator(rseed),
-      m_distribution(0.0, 1.0)
-{
-    #ifdef DEBUG
-        std::cout << "seed Metropolis:" << m_seed << "\n";
-        //std::chrono::system_clock::now().time_since_epoch().count()
-    #endif
+    : m_seed(rseed), m_generator(rseed), m_distribution(0.0, 1.0) {
+#ifdef DEBUG
+  std::cout << "seed Metropolis:" << m_seed << "\n";
+  // std::chrono::system_clock::now().time_since_epoch().count()
+#endif
 }
 
 bool MetropolisTest::test(Array<double> &trial_coords, double trial_energy,
-        Array<double>& old_coords, double old_energy, double temperature,
-        MC * mc)
-{
-    double w, rand;
-    bool success = true;
-    double dE = trial_energy - old_energy;
-    if (dE > 0.){
-        w = exp(-dE / temperature);
-        rand = m_distribution(m_generator);
-        if (rand > w) {
-            success = false;
-        }
+                          Array<double> &old_coords, double old_energy,
+                          double temperature, MC *mc) {
+  double w, rand;
+  bool success = true;
+  double dE = trial_energy - old_energy;
+  if (dE > 0.) {
+    w = exp(-dE / temperature);
+    rand = m_distribution(m_generator);
+    if (rand > w) {
+      success = false;
     }
-    return success;
+  }
+  return success;
 }
 
-} // namespace mcpele
+}  // namespace mcpele

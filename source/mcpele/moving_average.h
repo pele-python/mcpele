@@ -24,61 +24,62 @@ namespace mcpele {
  * average window returns to the initial position.
  */
 class MovingAverageAcc {
-private:
-    const std::vector<double>& m_time_series;
-    const size_t m_nr_steps_total;
-    const size_t m_window_size;
-    const size_t m_nr_steps_ma;
-    std::vector<double>::const_iterator m_begin;
-    std::vector<double>::const_iterator m_end;
-    mcpele::Moments m_moments;
-public:
-    MovingAverageAcc(const std::vector<double>& time_series, const size_t nr_steps_total, const size_t nr_steps_ma)
-        : m_time_series(time_series),
-          m_nr_steps_total(nr_steps_total),
-          m_window_size(nr_steps_ma), //window size
-          m_nr_steps_ma(nr_steps_total - m_window_size + 1), //number of steps to move window from left to right end
-          m_begin(m_time_series.end() - nr_steps_total),
-          m_end(m_begin + m_window_size),
-          m_moments()
-    {
-        if (nr_steps_ma % 2 != 0) {
-            throw std::runtime_error("MovingAverageAcc: illegal input: nr_steps_ma");
-        }
-        if (time_series.size() < nr_steps_total) {
-            throw std::runtime_error("MovingAverageAcc: illegal input: time series too short");
-        }
-        //initialise moments
-        for(auto it = m_begin; it != m_end; ++it) {
-            m_moments(*it);
-        }
+ private:
+  const std::vector<double> &m_time_series;
+  const size_t m_nr_steps_total;
+  const size_t m_window_size;
+  const size_t m_nr_steps_ma;
+  std::vector<double>::const_iterator m_begin;
+  std::vector<double>::const_iterator m_end;
+  mcpele::Moments m_moments;
+
+ public:
+  MovingAverageAcc(const std::vector<double> &time_series,
+                   const size_t nr_steps_total, const size_t nr_steps_ma)
+      : m_time_series(time_series),
+        m_nr_steps_total(nr_steps_total),
+        m_window_size(nr_steps_ma),  // window size
+        m_nr_steps_ma(
+            nr_steps_total - m_window_size +
+            1),  // number of steps to move window from left to right end
+        m_begin(m_time_series.end() - nr_steps_total),
+        m_end(m_begin + m_window_size),
+        m_moments() {
+    if (nr_steps_ma % 2 != 0) {
+      throw std::runtime_error("MovingAverageAcc: illegal input: nr_steps_ma");
     }
-    double get_mean() const { return m_moments.mean(); }
-    double get_variance() const { return m_moments.variance(); }
-    size_t get_nr_steps_ma() const { return m_nr_steps_ma; }
-    void shift_right()
-    {
-        ++m_begin;
-        ++m_end;
-        if (m_end == m_time_series.end()) {
-            reset();
-        }
-        else {
-            m_moments.replace(*(m_begin - 1), *(m_end - 1));
-        }
+    if (time_series.size() < nr_steps_total) {
+      throw std::runtime_error(
+          "MovingAverageAcc: illegal input: time series too short");
     }
-    void reset()
-    {
-        m_begin = m_time_series.end() - m_nr_steps_total;
-        m_end = m_begin + m_window_size;
-        m_moments = mcpele::Moments();
-        //initialise moments
-        for(auto it = m_begin; it != m_end; ++it) {
-            m_moments(*it);
-        }
+    // initialise moments
+    for (auto it = m_begin; it != m_end; ++it) {
+      m_moments(*it);
     }
+  }
+  double get_mean() const { return m_moments.mean(); }
+  double get_variance() const { return m_moments.variance(); }
+  size_t get_nr_steps_ma() const { return m_nr_steps_ma; }
+  void shift_right() {
+    ++m_begin;
+    ++m_end;
+    if (m_end == m_time_series.end()) {
+      reset();
+    } else {
+      m_moments.replace(*(m_begin - 1), *(m_end - 1));
+    }
+  }
+  void reset() {
+    m_begin = m_time_series.end() - m_nr_steps_total;
+    m_end = m_begin + m_window_size;
+    m_moments = mcpele::Moments();
+    // initialise moments
+    for (auto it = m_begin; it != m_end; ++it) {
+      m_moments(*it);
+    }
+  }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_MOVING_AVERAGE_H
+#endif  // #ifndef _MCPELE_MOVING_AVERAGE_H

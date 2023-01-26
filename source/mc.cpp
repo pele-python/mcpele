@@ -1,4 +1,5 @@
 #include "mcpele/mc.h"
+
 #include "mcpele/progress.h"
 
 using pele::Array;
@@ -7,12 +8,22 @@ namespace mcpele {
 
 MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double> &coords,
        const double temperature)
-    : m_potential(potential), m_coords(coords.copy()),
-      m_trial_coords(m_coords.copy()), m_take_step(NULL), m_nitercount(0),
-      m_accept_count(0), m_E_reject_count(0), m_conf_reject_count(0),
-      m_success(true), m_last_success(true), m_print_progress(false),
-      m_niter(0), m_neval(0), m_temperature(temperature),
-      m_record_acceptance_rate(false), m_report_steps(0),
+    : m_potential(potential),
+      m_coords(coords.copy()),
+      m_trial_coords(m_coords.copy()),
+      m_take_step(NULL),
+      m_nitercount(0),
+      m_accept_count(0),
+      m_E_reject_count(0),
+      m_conf_reject_count(0),
+      m_success(true),
+      m_last_success(true),
+      m_print_progress(false),
+      m_niter(0),
+      m_neval(0),
+      m_temperature(temperature),
+      m_record_acceptance_rate(false),
+      m_report_steps(0),
       m_enable_input_warnings(true) {
   m_energy = compute_energy(m_coords);
   m_trial_energy = m_energy;
@@ -112,7 +123,6 @@ void MC::one_iteration() {
   // Do some final checks to ensure the configuration is OK.
   // These come last because they might be computationally demanding.
   if (m_success) {
-
     m_success = do_late_conf_tests(m_trial_coords);
   }
 
@@ -192,4 +202,4 @@ void MC::run(size_t max_iter) {
   m_niter = 0;
 }
 
-} // namespace mcpele
+}  // namespace mcpele

@@ -12,8 +12,12 @@ namespace mcpele {
 
 ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles,
                                    const size_t ndim)
-    : m_seed(seed), m_uniform_distribution(0), m_nr_particles(nr_particles),
-      m_ndim(ndim), m_changed_coords_old(2 * ndim), m_radii(nr_particles) {
+    : m_seed(seed),
+      m_uniform_distribution(0),
+      m_nr_particles(nr_particles),
+      m_ndim(ndim),
+      m_changed_coords_old(2 * ndim),
+      m_radii(nr_particles) {
   if (nr_particles == 0) {
     throw std::runtime_error("ParticlePairSwap: illegal input");
   }
@@ -79,10 +83,9 @@ inline void ParticlePairSwap::add_allowed_radii(
   }
 }
 
-inline void
-ParticlePairSwap::add_closest_radii(std::vector<size_t> &allowed_radii,
-                                    const pele::Array<double> &radii,
-                                    const size_t particle_a) {
+inline void ParticlePairSwap::add_closest_radii(
+    std::vector<size_t> &allowed_radii, const pele::Array<double> &radii,
+    const size_t particle_a) {
   double min_diff = std::numeric_limits<double>::max();
   for (size_t i = 0; i < radii.size(); ++i) {
     if (i != particle_a) {
@@ -104,11 +107,9 @@ ParticlePairSwap::add_closest_radii(std::vector<size_t> &allowed_radii,
  * If no radii are found, find the closest radius. and add all indices
  * of radii that have the same distance to particle_a.
  */
-std::vector<size_t>
-ParticlePairSwap::find_allowed_radii_to_swap(const pele::Array<double> &radii,
-                                             const double max_diff,
-                                             const size_t particle_a) {
-
+std::vector<size_t> ParticlePairSwap::find_allowed_radii_to_swap(
+    const pele::Array<double> &radii, const double max_diff,
+    const size_t particle_a) {
   const double radius_a = radii[particle_a];
   const double min_radius = radius_a - max_diff;
   const double max_radius = radius_a + max_diff;
@@ -142,4 +143,4 @@ size_t ParticlePairSwap::find_swap_partner(const size_t particle_a) {
   return m_uniform_distribution.select_random(allowed_radii_to_swap);
 }
 
-} // namespace mcpele
+}  // namespace mcpele

@@ -8,8 +8,12 @@ namespace mcpele {
 RandomCoordsDisplacement::RandomCoordsDisplacement(const size_t rseed,
                                                    const double stepsize,
                                                    const double max_stepsize)
-    : m_seed(rseed), m_generator(rseed), m_real_distribution(0.0, 1.0),
-      m_stepsize(stepsize), m_count(0), m_max_stepsize(max_stepsize) {
+    : m_seed(rseed),
+      m_generator(rseed),
+      m_real_distribution(0.0, 1.0),
+      m_stepsize(stepsize),
+      m_count(0),
+      m_max_stepsize(max_stepsize) {
 #ifdef DEBUG
   std::cout << "seed TakeStep:" << _seed << "\n";
 #endif
@@ -25,7 +29,8 @@ RandomCoordsDisplacementAll::RandomCoordsDisplacementAll(
     const size_t rseed, const size_t nparticles, const size_t ndim,
     const double stepsize, const double max_stepsize)
     : RandomCoordsDisplacement(rseed, stepsize, max_stepsize),
-      m_changed_atoms(nparticles), m_changed_coords_old(nparticles * ndim) {}
+      m_changed_atoms(nparticles),
+      m_changed_coords_old(nparticles * ndim) {}
 
 void RandomCoordsDisplacementAll::displace(pele::Array<double> &coords,
                                            MC *mc) {
@@ -47,8 +52,10 @@ RandomCoordsDisplacementSingle::RandomCoordsDisplacementSingle(
     const size_t rseed, const size_t nparticles, const size_t ndim,
     const double stepsize, const double max_stepsize)
     : RandomCoordsDisplacement(rseed, stepsize, max_stepsize),
-      m_nparticles(nparticles), m_ndim(ndim),
-      m_int_distribution(0, m_nparticles - 1), m_changed_coords_old(ndim) {}
+      m_nparticles(nparticles),
+      m_ndim(ndim),
+      m_int_distribution(0, m_nparticles - 1),
+      m_changed_coords_old(ndim) {}
 
 void RandomCoordsDisplacementSingle::displace(pele::Array<double> &coords,
                                               MC *mc) {
@@ -62,4 +69,4 @@ void RandomCoordsDisplacementSingle::displace(pele::Array<double> &coords,
   ++m_count;
 }
 
-} // namespace mcpele
+}  // namespace mcpele

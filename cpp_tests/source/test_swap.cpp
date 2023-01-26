@@ -1,15 +1,11 @@
 /*
  * Tests for Monte Carlo Swap
  */
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <gtest/gtest.h>
-#include <iostream>
-#include <stdexcept>
-#include <vector>
-
-#include <algorithm>
 #include <ctime>
+#include <gtest/gtest.h>
 #include <iostream>
 #include <memory>
 #include <numeric>
@@ -19,11 +15,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "pele/array.hpp"
-#include "pele/inversepower.hpp"
-#include "pele/meta_pow.hpp"
-#include "pele/utils.hpp"
-
 #include "mcpele/adaptive_takestep.h"
 #include "mcpele/histogram.h"
 #include "mcpele/metropolis_test.h"
@@ -32,7 +23,10 @@
 #include "mcpele/take_step_pattern.h"
 #include "mcpele/uniform_rectangular_sampling.h"
 #include "mcpele/uniform_spherical_sampling.h"
-
+#include "pele/array.hpp"
+#include "pele/inversepower.hpp"
+#include "pele/meta_pow.hpp"
+#include "pele/utils.hpp"
 
 using namespace pele;
 using mcpele::MC;
@@ -40,7 +34,7 @@ using mcpele::MC;
 /// Tests on random number generator
 
 class TestDiscreteUniform : public ::testing::Test {
-public:
+ public:
   mcpele::DiscreteUniformDistribution dist;
   TestDiscreteUniform() : dist(0) {}
 };
@@ -115,10 +109,8 @@ TEST_F(TestDiscreteUniform, SelectRandom) {
   }
 }
 
-
-
 class TestParticlePairSwap : public ::testing::Test {
-public:
+ public:
   // Set up a physical system for swap tests
   std::shared_ptr<BasePotential> potential;
   Array<double> coordinates;
@@ -155,7 +147,6 @@ public:
 };
 
 TEST_F(TestParticlePairSwap, test_swap) {
-
   double temperature = 1.0;
   MC mc = MC(potential, coordinates, temperature);
   int seed = 0;
@@ -185,7 +176,6 @@ TEST_F(TestParticlePairSwap, test_swap) {
   EXPECT_EQ(nr_identical_elements, (n_particles - 2) * runtime_dim);
 }
 
-
 TEST_F(TestParticlePairSwap, CheckSwapWindowDictionary) {
   double temperature = 1.0;
   MC mc = MC(potential, coordinates, temperature);
@@ -199,8 +189,7 @@ TEST_F(TestParticlePairSwap, CheckSwapWindowDictionary) {
   double max_diff_to_swap = swap.get_max_diff_to_swap_radii();
   /// Check that max_diff_to_swap is correct
   auto [min, max] = std::minmax_element(radii.begin(), radii.end());
-  EXPECT_NEAR(max_diff_to_swap/0.3, *max - *min, 1e-10);
-
+  EXPECT_NEAR(max_diff_to_swap / 0.3, *max - *min, 1e-10);
 
   // Construct swap dictionary by doing swaps
   int n_swaps = 10000;
@@ -236,7 +225,6 @@ TEST_F(TestParticlePairSwap, CheckSwapWindowDictionary) {
     size_t n_allowed_swaps = allowed_swaps.size();
     EXPECT_EQ(n_allowed_swaps, 1);
 
-
     for (size_t j = 0; j < allowed_swaps.size(); ++j) {
       // find the closest radius to radius_i
       // TODO: this can be refactored to be readable
@@ -255,5 +243,4 @@ TEST_F(TestParticlePairSwap, CheckSwapWindowDictionary) {
       EXPECT_EQ(allowed_swaps[j], min_diff_index);
     }
   }
-
 }

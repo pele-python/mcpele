@@ -1,8 +1,9 @@
 #ifndef _MCPELE_TAKE_STEP_PATTERN_H__
 #define _MCPELE_TAKE_STEP_PATTERN_H__
 
-#include "pattern_manager.h"
 #include <cstddef>
+
+#include "pattern_manager.h"
 
 namespace mcpele {
 
@@ -26,11 +27,11 @@ namespace mcpele {
  *          mc->run(1e6);
  */
 class TakeStepPattern : public TakeStep {
-private:
+ private:
   PatternManager<size_t> m_steps;
   std::vector<std::shared_ptr<TakeStep>> m_step_storage;
 
-public:
+ public:
   virtual ~TakeStepPattern() {}
   void add_step(std::shared_ptr<TakeStep> step_input,
                 const size_t repetitions_input = 1) {
@@ -56,6 +57,6 @@ public:
   }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_TAKE_STEP_PATTERN_H__
+#endif  // #ifndef _MCPELE_TAKE_STEP_PATTERN_H__

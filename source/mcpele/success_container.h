@@ -2,29 +2,28 @@
 #define _MCPELE_SUCCESS_CONTAINER_H
 
 #include <cstddef>
+#include <iostream>
 #include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include <iostream>
 
 namespace mcpele {
 
 typedef unsigned long long ull;
 
 class SuccessContainer {
-private:
+ private:
   ull n_success;
   ull n_failures;
 
-public:
+ public:
   SuccessContainer() : n_success(0), n_failures(0) {}
 
   inline void log_success(bool success) {
     if (success) {
       ++n_success;
-    } 
-    else {
+    } else {
       ++n_failures;
     }
   }
@@ -38,12 +37,10 @@ public:
   inline double get_success_rate() {
     return static_cast<double>(n_success) / (n_success + n_failures);
   }
-
 };
 
-
 class SuccessAccumulator {
-private:
+ private:
   // Use std::map to store the step taken to the success of the step determined
   // later on.
   std::map<std::string, SuccessContainer> success_map;
@@ -52,13 +49,15 @@ private:
   bool last_success;
   bool step_being_taken;
 
-public:
+ public:
   // Add a new string and boolean to the map.
   // SuccessAccumulator() {}
 
-  SuccessAccumulator() : current_success(false), last_success(false), step_being_taken(false) {}
+  SuccessAccumulator()
+      : current_success(false), last_success(false), step_being_taken(false) {}
 
-  void add_step_taken(std::string step) { current_step = step; 
+  void add_step_taken(std::string step) {
+    current_step = step;
     step_being_taken = true;
   }
 
@@ -102,7 +101,6 @@ public:
     return steps;
   }
 
-
   // For easy access to the success rates from cython
   // otherwise we would have returned std::map
   // get steps and get success rates should
@@ -116,17 +114,15 @@ public:
     return successes;
   }
 
-  
-
   void print_success_rates() {
     std::cout << "Step Success Rate" << std::endl;
     for (auto it = success_map.begin(); it != success_map.end(); ++it) {
-      std::cout << it->first << " " << it->second.get_success_rate() << std::endl;
+      std::cout << it->first << " " << it->second.get_success_rate()
+                << std::endl;
     }
     std::cout << "----------------" << std::endl;
   }
-
 };
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_SUCCESS_CONTAINER_H
+#endif  // #ifndef _MCPELE_SUCCESS_CONTAINER_H

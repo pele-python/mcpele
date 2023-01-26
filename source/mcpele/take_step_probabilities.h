@@ -19,14 +19,14 @@ namespace mcpele {
  * http://www.cplusplus.com/reference/random/discrete_distribution/
  */
 class TakeStepProbabilities : public TakeStep {
-private:
+ private:
   std::vector<std::shared_ptr<TakeStep>> m_steps;
   std::vector<double> m_weights;
   std::discrete_distribution<size_t> m_distribution;
   std::mt19937_64 m_generator;
   size_t m_current_index;
 
-public:
+ public:
   virtual ~TakeStepProbabilities() {}
   TakeStepProbabilities(const size_t seed);
   void add_step(std::shared_ptr<TakeStep> step_input,
@@ -44,6 +44,6 @@ public:
   }
 };
 
-} // namespace mcpele
+}  // namespace mcpele
 
-#endif // #ifndef _MCPELE_TAKE_STEP_PROBABILITIES_H__
+#endif  // #ifndef _MCPELE_TAKE_STEP_PROBABILITIES_H__
