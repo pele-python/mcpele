@@ -100,8 +100,10 @@ void MC::one_iteration() {
 
   if (m_success) {
     // compute the energy
+    m_trial_energy =
+        m_energy + compute_energy_change(m_coords, m_trial_coords,
+                                         m_take_step->get_changed_atoms());
 
-    m_trial_energy = compute_energy(m_trial_coords);
     // perform the acceptance tests.  Stop as soon as one of them fails
     m_success =
         do_accept_tests(m_trial_coords, m_trial_energy, m_coords, m_energy);
