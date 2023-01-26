@@ -17,6 +17,7 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
     cdef public start_coords
     cdef public double temperature
     cdef public size_t niter
+    cdef cbool m_use_energy_change
     def __init__(self, _pele.BasePotential pot, coords, double temp, size_t pniter):
         cdef np.ndarray[double, ndim=1] cstart_coords = np.array(coords, dtype=float)
         self.potential = pot
@@ -107,6 +108,16 @@ cdef class _Cdef_MC(_Cdef_BaseMC):
             which accumulates the number of iterations for many :func:`run` calls
         """
         self.thisptr.get().set_report_steps(steps)
+    
+    def set_use_energy_change(self, cbool use_energy_change):
+        """Set whether to use the energy change in the acceptance test.
+
+        Parameters
+        ----------
+        use_energy_change : bool
+        """
+        self.m_use_energy_change = use_energy_change
+        self.thisptr.get().set_use_energy_change(self.m_use_energy_change)
     
     def get_success_rates(self):
         success_rate_dictionary = {}

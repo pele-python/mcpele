@@ -450,6 +450,7 @@ class AdaptiveTakeStepTest : public ::testing::Test {
     potential = std::make_shared<pele::Harmonic>(coords, k, box_dimension);
     temperature = 1;
     mc = std::make_shared<mcpele::MC>(potential, coords, temperature);
+    mc->set_use_energy_change(false);
     mrt2 = std::make_shared<mcpele::MetropolisTest>(42);
     mc->add_accept_test(mrt2);
   }

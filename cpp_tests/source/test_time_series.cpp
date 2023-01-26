@@ -1,3 +1,4 @@
+
 #include <cmath>
 #include <gtest/gtest.h>
 #include <iostream>
@@ -13,7 +14,6 @@
 #include "pele/harmonic.hpp"
 #include "pele/hs_wca.hpp"
 #include "pele/lj.hpp"
-
 #define EXPECT_NEAR_RELATIVE(A, B, T)            \
   EXPECT_NEAR(fabs(A) / (fabs(A) + fabs(B) + 1), \
               fabs(B) / (fabs(A) + fabs(B) + 1), T)
@@ -46,6 +46,7 @@ TEST(EnergyTimeseries, Basic) {
   EXPECT_DOUBLE_EQ(enumerical, etrue);
   std::shared_ptr<mcpele::MC> mc =
       std::make_shared<mcpele::MC>(potential, coords, 1);
+  mc->set_use_energy_change(false);
   mcpele::RecordEnergyTimeseries *ts =
       new mcpele::RecordEnergyTimeseries(niter, record_every);
   mc->add_action(std::shared_ptr<mcpele::RecordEnergyTimeseries>(ts));
@@ -97,6 +98,7 @@ TEST(EVTimeseries, Works) {
   EXPECT_DOUBLE_EQ(enumerical, etrue);
   std::shared_ptr<mcpele::MC> mc =
       std::make_shared<mcpele::MC>(potential, coords, 1);
+  mc->set_use_energy_change(false);
 
   const size_t lbfgsniter = 30;
   pele::Array<double> ranvec = origin.copy();
@@ -133,6 +135,7 @@ TEST(ParticleDisplacementTimeseries, Works) {
       std::make_shared<pele::Harmonic>(origin, k, boxdim);
   std::shared_ptr<mcpele::MC> mc =
       std::make_shared<mcpele::MC>(potential, coords, 1);
+  mc->set_use_energy_change(false);
 
   mcpele::RecordDisplacementPerParticleTimeseries *ts =
       new mcpele::RecordDisplacementPerParticleTimeseries(niter, record_every,

@@ -69,6 +69,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         bdim=3,
         single=False,
         seeds=None,
+        use_energy_change=False,
     ):
         # construct base class
         super(Metropolis_MCrunner, self).__init__(
@@ -112,6 +113,7 @@ class Metropolis_MCrunner(_BaseMCRunner):
         self.add_accept_test(self.metropolis)
         self.add_conf_test(self.conftest)
         self.add_action(self.histogram)
+        self.set_use_energy_change(use_energy_change)
 
     def set_control(self, T):
         """set temperature, canonical control parameter"""

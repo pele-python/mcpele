@@ -56,6 +56,7 @@ class TestMC : public ::testing::Test {
 
 TEST_F(TestMC, BasicFunctionalityAddingModulesStatic) {
   mcpele::MC mc(potential, x, 1);
+  mc.set_use_energy_change(false);
   EXPECT_TRUE(k == potential->get_k());
   EXPECT_TRUE(k ==
               reinterpret_cast<pele::Harmonic *>(mc.get_potential_ptr().get())
@@ -74,6 +75,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesStatic) {
 
 TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic) {
   mcpele::MC *mc = new mcpele::MC(potential, x, 1);
+  mc->set_use_energy_change(false);
   EXPECT_TRUE(k == potential->get_k());
   EXPECT_TRUE(k ==
               reinterpret_cast<pele::Harmonic *>(mc->get_potential_ptr().get())
@@ -94,6 +96,7 @@ TEST_F(TestMC, BasicFunctionalityAddingModulesDynamic) {
 TEST_F(TestMC, BasicFunctionalityPolyHarmonic) {
   // max_iter *= 10;
   mcpele::MC *mc = new mcpele::MC(potential, x, 1);
+  mc->set_use_energy_change(false);
   EXPECT_TRUE(k == potential->get_k());
   EXPECT_TRUE(
       k ==
