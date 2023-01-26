@@ -19,6 +19,7 @@ MC::MC(std::shared_ptr<pele::BasePotential> potential, Array<double> &coords,
       m_success(true),
       m_last_success(true),
       m_print_progress(false),
+      m_use_energy_change(true),
       m_niter(0),
       m_neval(0),
       m_temperature(temperature),
@@ -111,9 +112,13 @@ void MC::one_iteration() {
 
   if (m_success) {
     // compute the energy
-    m_trial_energy =
-        m_energy + compute_energy_change(m_coords, m_trial_coords,
-                                         m_take_step->get_changed_atoms());
+    if (m_use_energy_change) {
+      m_trial_energy =
+          m_energy + compute_energy_change(m_coords, m_trial_coords,
+                                           m_take_step->get_changed_atoms());
+    } else {
+      m_trial_energy = compute_energy(m_trial_coords);
+    }
 
     // perform the acceptance tests.  Stop as soon as one of them fails
     m_success =

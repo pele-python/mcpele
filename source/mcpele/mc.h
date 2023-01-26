@@ -124,6 +124,7 @@ class MC {
   size_t m_conf_reject_count;
   bool m_success, m_last_success;
   bool m_print_progress;
+  bool m_use_energy_change;
 
  public:
   /*need to keep these public to make them accessible to tests and actions, be
@@ -179,6 +180,9 @@ class MC {
   double get_norm_coords() const { return norm(m_coords); }
   size_t get_naccept() const { return m_accept_count; }
   size_t get_nreject() const { return m_nitercount - m_accept_count; }
+  void set_use_energy_change(const bool use_energy_change) {
+    m_use_energy_change = use_energy_change;
+  }
 
   // get acceptance and rejection fractions
   double get_accepted_fraction() const {
