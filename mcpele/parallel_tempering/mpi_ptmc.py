@@ -125,12 +125,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
         self._master_print_temperatures()
         self._all_print_parameters()
         self.status_stream = open("{0}/{1}".format(directory, "status"), "w")
-        self.histogram_mean_stream = open(
-            "{0}/{1}".format(directory, "hist_mean"), "w"
-        )
-        self.histogram_mean_stream.write(
-            "{:<15}\t{:<15}\n".format("iteration", "<E>")
-        )
+        self.histogram_mean_stream = open("{0}/{1}".format(directory, "hist_mean"), "w")
+        self.histogram_mean_stream.write("{:<15}\t{:<15}\n".format("iteration", "<E>"))
         if self.rank == 0:
             self.permutations_stream = open(
                 r"{0}/rem_permutations".format(base_directory), "w"
@@ -212,9 +208,7 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
             logging.info("Number of exchanges:")
             for i in range(self.nprocs - 1):
                 logging.info(
-                    "{0:>2} <-> {1:<2}:{2:>6}".format(
-                        i, i + 1, self.exchange_cnts[i]
-                    )
+                    "{0:>2} <-> {1:<2}:{2:>6}".format(i, i + 1, self.exchange_cnts[i])
                 )
 
     def _get_temps(self):
@@ -294,12 +288,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
                         exchange_pattern[i + self.exchange_choice]
                         == self.no_exchange_int
                     )  # verify that is not using the same process twice for swaps
-                    exchange_pattern[i] = self.nodelist[
-                        i + self.exchange_choice
-                    ]
-                    exchange_pattern[i + self.exchange_choice] = self.nodelist[
-                        i
-                    ]
+                    exchange_pattern[i] = self.nodelist[i + self.exchange_choice]
+                    exchange_pattern[i + self.exchange_choice] = self.nodelist[i]
                     self.anyswap = True
             ############end of for loop###############
             # record self.permutation_pattern to print permutations in print function
@@ -313,7 +303,8 @@ class MPI_PT_RLhandshake(_MPI_Parallel_Tempering):
                         self.permutation_pattern[i] = (
                             i + 1
                         )  # to conform to fortran notation
-                self._master_print_permutations()
+                if self._print_status:
+                    self._master_print_permutations()
         else:
             exchange_pattern = None
 

@@ -130,9 +130,7 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
     ):
         self.mcrunner = mcrunner
         self.comm = MPI.COMM_WORLD
-        self.nprocs = (
-            self.comm.Get_size()
-        )  # total number of processes (replicas)
+        self.nprocs = self.comm.Get_size()  # total number of processes (replicas)
         self.rank = (
             self.comm.Get_rank()
         )  # this is the unique identifier for the process
@@ -142,7 +140,9 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
         self.ex_outstream = open("exchanges", "w")
         self.ptiter = 0
         self.print_status = print_status
-        self.skip = skip  # might want to skip the first few swaps to allow for equilibration
+        self.skip = (
+            skip  # might want to skip the first few swaps to allow for equilibration
+        )
         self.pfreq = pfreq
         self.no_exchange_int = (
             -12345
@@ -455,8 +455,6 @@ class _MPI_Parallel_Tempering(with_metaclass(abc.ABCMeta, object)):
             exchange_buddy, np.array(self.config, dtype="d")
         )
         # swap energies
-        E = self._exchange_pairs(
-            exchange_buddy, np.array([self.energy], dtype="d")
-        )
+        E = self._exchange_pairs(exchange_buddy, np.array([self.energy], dtype="d"))
         assert len(E) == 1
         self.energy = E[0]
