@@ -473,5 +473,7 @@ class TestMetropolisSingle(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(filename="Metropolis_mcrunner.log", level=logging.DEBUG)
+    logging.basicConfig(
+        filename="Metropolis_mcrunner.log", level=logging.DEBUG
+    )
     unittest.main()
