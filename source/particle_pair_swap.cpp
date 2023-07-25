@@ -25,11 +25,12 @@ ParticlePairSwap::ParticlePairSwap(const size_t seed, const size_t nr_particles,
 
 void ParticlePairSwap::displace(pele::Array<double> &coords, MC *mc) {
   if (!m_radii_set) {
-    auto pairwise_ptr = static_pointer_cast<pele::PairwisePotentialInterface>(
+    auto pairwise_ptr = dynamic_pointer_cast<pele::PairwisePotentialInterface>(
         mc->get_potential_ptr());
     if (pairwise_ptr == nullptr) {
       throw std::runtime_error("ParticlePairSwap: potential must be pairwise");
     }
+
     m_radii = pairwise_ptr->get_radii();
 
     auto [min, max] = std::minmax_element(m_radii.begin(), m_radii.end());
