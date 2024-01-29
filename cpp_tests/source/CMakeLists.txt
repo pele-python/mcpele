@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.8)
 # Export compile commands for clang tools
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+project(mcpele_test)
+
 enable_language(CXX)
 
 # TODO: Add a build type option specifically for memory leak testing
@@ -26,12 +28,12 @@ endif()
 # cmake_policy(SET CMP0015 NEW)
 
 # Add and compile the gtest library
-set(gtest_src ../gtest)
+set(gtest_src ../../../pele/cpp_tests/gtest)
 set(gtest_binary_dir googletest)
 set(gtest_include ${gtest_src}/include/)
 include_directories(${gtest_include})
 message("gtest include directory ${gtest_include}")
-add_subdirectory(../gtest ${gtest_binary_dir})
+add_subdirectory(../../../pele/cpp_tests/gtest ${gtest_binary_dir})
 set(gtest_libs gtest gtest_main)
 message("gtest_libs ${gtest_libs}")
 

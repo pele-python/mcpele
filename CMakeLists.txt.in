@@ -98,6 +98,27 @@ message("mcpele include directory: ${mcpele_include}")
 FILE(GLOB pele_sources ${pele_include}/*.c*)
 FILE(GLOB mcpele_sources ${mcpele_include}/*.c*)
 add_library(mcpele_lib SHARED ${mcpele_sources} ${pele_sources})
+if(APPLE)
+  target_link_libraries(mcpele_lib PUBLIC ${SUNDIALS_LIBRARIES})
+  target_link_libraries(mcpele_lib PUBLIC ${LAPACK_LIBRARIES})
+endif(APPLE)
+
+# Apple changed the ld linker in Xcode 15 which breaks pele.
+# The classic linker can be chosen with -ld_classic flag.
+# However, on older Xcode versions, this flag throws an error.
+# Thus, we simply check here whether this flag exists.
+# See https://www.scivision.dev/xcode-ld_classic/
+# For the undefined flag, see
+# https://github.com/nasa/cFE/issues/476#issuecomment-579436106
+if(APPLE)
+  include(CheckLinkerFlag)
+  check_linker_flag(C "-ld_classic" CLASSIC_FLAG)
+  if(CLASSIC_FLAG)
+    set(APPLE_LINK_OPTIONS "LINKER:-undefined,dynamic_lookup,-ld_classic")
+  else(CLASSIC_FLAG)
+    set(APPLE_LINK_OPTIONS "LINKER:-undefined,dynamic_lookup")
+  endif(CLASSIC_FLAG)
+endif(APPLE)
 
 function(make_cython_lib cython_cxx_source)
   get_filename_component(library_name ${cython_cxx_source} NAME)
@@ -106,6 +127,9 @@ function(make_cython_lib cython_cxx_source)
   target_link_libraries(${library_name} mcpele_lib)
   target_link_libraries(${library_name} ${SUNDIALS_LIBRARIES})
   target_link_libraries(${library_name} ${LAPACK_LIBRARIES})
+  if(APPLE)
+    target_link_options(${library_name} PUBLIC ${APPLE_LINK_OPTIONS})
+  endif(APPLE)
   set_target_properties(${library_name} PROPERTIES PREFIX "")
   message("making library ${library_name} from source ${cython_cxx_source}")
 endfunction(make_cython_lib)

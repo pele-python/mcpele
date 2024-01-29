@@ -156,6 +156,9 @@ python packages:
 #. matplotlib:
      For making plots (e.g. histogram, time series, rdf etc.)
 
+#. pandas:
+     For data analysis and manipulation
+
 #. mpi4py:
      for replica exchange Monte Carlo
 

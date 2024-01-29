@@ -1,16 +1,10 @@
-get gtest
----------
-get gtest from googlecode.com
-
-  wget https://googletest.googlecode.com/files/gtest-1.7.0.zip
-
-unzip it and put it in source/gtest
-
-  unzip gtest-1.7.0.zip
-  mv gtest-1.7.0 gtest
-
-build the tests
+Build the tests with the following commands:
 
   mkdir build && cd build
-  cmake ../source
+  cmake -DCMAKE_BUILD_TYPE=Debug .
   make -j8
+
+On MacOs, install gcc-13 and g++-13 with homebrew.
+Then, use these compilers in the cmake step:
+
+  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=gcc-13 -DCMAKE_CXX_COMPILER=g++-13 .
